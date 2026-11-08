@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Spearfisher's Notebook</title>
+<title>Spearo Diary</title>
 <meta name="theme-color" content="#0C6878">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230C6878'/%3E%3Cpath d='M10 33c8-10 26-12 38-2l8-7-2 9 2 9-8-7C36 45 18 43 10 33Z' fill='%23EDF3F2'/%3E%3C/svg%3E">
 <script>
@@ -206,6 +206,15 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .farea{fill:#3D8BE0;fill-opacity:.13}
 #fcBox .fswell{fill:none;stroke:#3D8BE0;stroke-opacity:.7;stroke-width:1.5;stroke-dasharray:4 3}
 #fcBox .fa,#fcBox .fa2{fill:var(--ink)}
+#fcBox .night{fill:#0B1530;fill-opacity:.09}
+@media (prefers-color-scheme:dark){#fcBox .night{fill:#000;fill-opacity:.32}}
+#fcBox .sunl{stroke:#E5A31F;stroke-width:1.2;stroke-dasharray:3 3;opacity:.8}
+#fcBox .sunt{font:600 10.5px var(--body);fill:var(--ink)}
+#fcBox .sund{fill:#F6C343}
+#fcBox .mdk{fill:#4A5358}#fcBox .mlt{fill:#F3EBCB}#fcBox .mrim{fill:none;stroke:var(--ink);stroke-opacity:.5;stroke-width:.8}
+#fcBox .mtx{font:10.5px var(--body);fill:var(--muted)}
+.sea-l .sl-sun{box-shadow:inset 3px 0 rgba(154,165,171,.8);padding-left:6px}
+
 #fcNow{margin:8px 0 4px}
 .nowh{font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
 .nowg{display:flex;flex-wrap:nowrap;gap:5px;overflow-x:auto;scrollbar-width:thin;padding-bottom:2px}
@@ -213,14 +222,24 @@ a{color:var(--sea);text-underline-offset:2px}
 .ni .nl{font-size:10px;color:var(--muted);line-height:1.3}
 .ni b{font-size:13px;line-height:1.25}
 .ni .ns{font-size:10.5px;color:var(--muted);line-height:1.3}
-.ni-wind{border-left-color:rgba(139,111,224,.6)}.ni-wave{border-left-color:rgba(61,139,224,.75)}.ni-tide{border-left-color:#1EA88E}.ni-sst{border-left-color:#3D8BE0}.ni-air{border-left-color:#D98A3A}.ni-sky{border-left-color:#9AA5AB}
-.ni-vis.vc-t-good{border-left-color:#3FA37A}.ni-vis.vc-t-mid{border-left-color:#D9A43A}.ni-vis.vc-t-bad{border-left-color:#B8573F}
+.ni{border-left-width:4px}
+.ni-wind{border-left-color:#8B6FE0;background:color-mix(in srgb,#8B6FE0 13%,var(--surface))}
+.ni-wave{border-left-color:#2F78C8;background:color-mix(in srgb,#2F78C8 13%,var(--surface))}
+.ni-sst{border-left-color:#14A9C2;background:color-mix(in srgb,#14A9C2 13%,var(--surface))}
+.ni-air{border-left-color:#E07B39;background:color-mix(in srgb,#E07B39 13%,var(--surface))}
+.ni-sky{border-left-color:#8A949A;background:color-mix(in srgb,#8A949A 13%,var(--surface))}
+.ni-tide{border-left-color:#1EA88E;background:color-mix(in srgb,#1EA88E 13%,var(--surface))}
+.ni-sun{border-left-color:#F2B51F;background:color-mix(in srgb,#F2B51F 15%,var(--surface))}
+.ni-night{border-left-color:#3B4A7A;background:color-mix(in srgb,#3B4A7A 22%,var(--surface))}
+.ni-moon{border-left-color:#B9B3A0;background:color-mix(in srgb,#B9B3A0 15%,var(--surface))}
+.ni-vis{background:var(--surface)}
+.ni-vis.vc-t-good{border-left-color:#3FA37A;background:color-mix(in srgb,#3FA37A 13%,var(--surface))}.ni-vis.vc-t-mid{border-left-color:#D9A43A;background:color-mix(in srgb,#D9A43A 13%,var(--surface))}.ni-vis.vc-t-bad{border-left-color:#B8573F;background:color-mix(in srgb,#B8573F 13%,var(--surface))}
 .ni-vis.vc-t-good b{color:#2F9A62}.ni-vis.vc-t-mid b{color:#B7860F}.ni-vis.vc-t-bad b{color:#B8573F}
 
 #fcBox .cwb{fill:#8B6FE0}#fcBox .cvb{fill:#3D8BE0}
 .sea-l .sl-wind,.sea-l .sl-windA .stk1{color:#8B72D8}.sea-l .sl-wave,.sea-l .sl-waveA .stk1{color:#2F78C8}.sea-l .sl-tide{color:#16957D}
 .sea-l .sl-wind,.sea-l .sl-windA{box-shadow:inset 3px 0 rgba(139,111,224,.46);padding-left:6px}.sea-l .sl-wave,.sea-l .sl-waveA{box-shadow:inset 3px 0 rgba(61,139,224,.41);padding-left:6px}.sea-l .sl-tide{box-shadow:inset 3px 0 #1EA88E;padding-left:6px}
-.sea-l .sl-clar,.sea-l .sl-hour,.sea-l .sl-sky,.sea-l .sl-rain,.sea-l .sl-air,.sea-l .sl-vis{box-shadow:inset 3px 0 rgba(154,165,171,.8);padding-left:6px}
+.sea-l .sl-sun,.sea-l .sl-clar,.sea-l .sl-hour,.sea-l .sl-sky,.sea-l .sl-rain,.sea-l .sl-air,.sea-l .sl-vis{box-shadow:inset 3px 0 rgba(154,165,171,.8);padding-left:6px}
 #fcBox .fp{fill:var(--sea);opacity:.55}
 #fcBox .fw{stroke:var(--ink)}
 #tideBox .tnd{fill:var(--accent);stroke:var(--surface);stroke-width:1.5}
@@ -277,7 +296,11 @@ a{color:var(--sea);text-underline-offset:2px}
 .lib-bd{display:flex;align-items:center;gap:4px;justify-self:end}
 .lib-bdl{display:flex;flex-direction:column;gap:3px;align-items:flex-end;flex:none}
 .lib-bdl .bd{white-space:nowrap}
-.lib-dg{flex:none;width:26px;display:flex;justify-content:center}
+.lib-dg{flex:none;width:30px;display:flex;justify-content:center}
+.dg-ic{display:inline-flex;width:24px;height:24px}
+.lib-bdl{gap:5px!important}.lib-bd{gap:8px!important}
+.lib-bds{gap:8px!important;row-gap:6px!important}
+.lib-bds .bd{padding:2px 9px}
 .bd{font-size:12px;padding:1px 7px;border-radius:999px;background:var(--sea-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
 .bd-ban{background:transparent;border:1px solid var(--danger);color:var(--danger)}
 @keyframes snblink{0%,100%{opacity:1}50%{opacity:.25}}
@@ -430,7 +453,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 <body>
 <div class="wrap" id="authView" hidden>
   <div class="auth">
-    <h2>Spearfisher's Notebook</h2>
+    <h2>Spearo Diary</h2>
     <p data-i="authIntro"></p>
     <div class="tabs"><button type="button" id="tabIn" data-i="signIn"></button><button type="button" id="tabUp" data-i="signUp"></button></div>
     <form id="authForm" class="auth" style="margin:0;padding:0;border:0;max-width:none">
@@ -443,7 +466,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 </div>
 <div class="wrap" id="appView">
   <header>
-    <h1>Spearfisher's Notebook</h1>
+    <h1>Spearo Diary</h1>
     <div class="hdr-r">
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="langPt" lang="pt">PT</button>
@@ -460,6 +483,14 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
     <button type="button" id="rulesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg><span data-i="rulesNav"></span></button>
   </nav>
   <div id="defNow" class="def-now" hidden aria-live="polite"></div>
+  <details class="tidecard" id="fcCard" open>
+    <summary><span data-i="fcTitle"></span></summary>
+    <div class="fc-head"><select id="fcSpot" data-al="spot"></select><button type="button" class="link" id="fcDel" hidden data-i="fcDelSpot"></button><span class="hint" id="fcStamp"></span></div>
+    <div class="fc-find" id="fcFind" hidden><input id="fcQ" type="search" data-ph="fcFindPh" data-al="fcFindPh" autocomplete="off"><button type="button" id="fcGo" data-i="fcFindGo"></button><button type="button" class="link" id="fcCancel" data-i="cancel"></button><ul class="fc-res" id="fcRes"></ul></div>
+    <div class="tide-now" id="fcNow"></div>
+    <div id="fcBox"></div>
+    <p class="hint"><span data-i="fcNote"></span> <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a></p>
+  </details>
   <form class="capture" id="quickForm" autocomplete="off">
     <div class="capture-row">
       <input id="quick" data-ph="quickPh" data-al="quickAl">
@@ -509,14 +540,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
     <div id="tideBox"></div>
     <p class="hint" data-i="tideNote"></p>
   </details>
-  <details class="tidecard" id="fcCard" open>
-    <summary><span data-i="fcTitle"></span></summary>
-    <div class="fc-head"><select id="fcSpot" data-al="spot"></select><button type="button" class="link" id="fcDel" hidden data-i="fcDelSpot"></button><span class="hint" id="fcStamp"></span></div>
-    <div class="fc-find" id="fcFind" hidden><input id="fcQ" type="search" data-ph="fcFindPh" data-al="fcFindPh" autocomplete="off"><button type="button" id="fcGo" data-i="fcFindGo"></button><button type="button" class="link" id="fcCancel" data-i="cancel"></button><ul class="fc-res" id="fcRes"></ul></div>
-    <div class="tide-now" id="fcNow"></div>
-    <div id="fcBox"></div>
-    <p class="hint"><span data-i="fcNote"></span> <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a></p>
-  </details>
+
   <div class="notice" id="exampleNotice" hidden>
     <span data-i="exNote"></span>
     <button type="button" class="link" id="clearExamples"></button>
@@ -647,7 +671,7 @@ en:{quickPh:'@Sesimbra, sea bass 2.3kg 12m 8:30-10:15 rising tide',quickAl:'Quic
  visS:'vis',found:n=>n+(n===1?' entry':' entries'),fishN:n=>n+' fish',diveN:n=>n+(n===1?' dive':' dives'),upTo:'to',
  emptyT:'Your entries will appear here',emptyB:'Type how the dive went in the line above, or choose Add details to fill in a form.',loading:'Opening your notebook…',noneT:'Nothing found',noneB:'Try fewer filters or a different search.',
  added:'Added',saved:'Saved',hiddenByF:' Current filters hide it.',deleted:'Entry deleted',exDeleted:'Examples deleted',needSome:'Add a spot or a note first.',
- errSave:'That did not save. Check your connection and try again.',errQuota:'The notebook is full. Delete old entries and try again.',errLarge:'That photo is over 20 MB. Choose a smaller file.',errType:'Use a JPG, PNG, WebP or HEIC photo.',errHeic:'This HEIC photo could not be converted. Save it as JPG and try again.',tideTitle:'Tides · Cascais / Cabo Raso',fcTitle:'Sea and weather, hour by hour',sHour:'Hour',sAir:'Air °C',sAirS:'air',sVis:'Visibility km',sFog:'fog',sMist:'mist',fcSkyS:'Sky',sRain:'Rain mm',sWindA:'Direction|Wind|Gusts',fcDelSpot:'Remove this place',nWater:'Water',nAir:'Air',nTide:'Tide',nVis:'Visibility',nEst:'estimate',sClar:'Visibility (estimate)',sClarNow:'estimated visibility',vc_good:'good',vc_mid:'fair',vc_bad:'poor',fcFindPh:'Beach, town or coordinates',fcFindGo:'Search',fcGrpMine:'My spots',fcGrpAdded:'Added',fcGrpPlaces:'Other places',fcOther:'+ Another place…',fcFarTide:'Tides are only shown for the mainland coast near Cascais.',sWaveA:'Direction|Height m|Period',sTide:'Tide m (Cascais)',fcLoading:'Loading the forecast…',fcFail:'The forecast did not load. Check your connection; it will try again in an hour.',fcWind:'wind',fcGust:'gusts',fcFrom:'from',fcWaves:'waves',fcSwell:'swell',fcWater:'water',fcSky:'Sky and rain',fcWindT:'Wind',fcWavesT:'Waves',fcNoWaves:'No wave forecast for this point.',fcUpdated:'Updated',fcNote:'Model forecast for the chosen spot, Portuguese time; scroll sideways for the next days. Arrows point where the wind and waves are going. Lines: solid wind and dashed gusts; total waves and dashed swell. Visibility: an estimate from the swell of the last two days, the rain of the last three, wind blowing onshore and the tide; it is not a measurement. Tides: astronomical prediction for Cascais from the Instituto Hidrográfico constants, usually within 10–15 min. Forecast data:',tideNowL:'Now',nextHigh:'next high',nextLow:'next low',tideNote:'Astronomical prediction from the Instituto Hidrográfico harmonic constants for Cascais, Portuguese time, heights above chart datum. Usually within 10–15 min and 10 cm; wind and air pressure change the real sea level. Cabo Raso is about 5 km away.',tideAuto:'Filled from the Cascais tide prediction. Change it if it does not match.',errPhoto:'The photo did not upload. Try again.',fileSaved:'File saved',errFile:'The file did not save. Try again.',
+ errSave:'That did not save. Check your connection and try again.',errQuota:'The notebook is full. Delete old entries and try again.',errLarge:'That photo is over 20 MB. Choose a smaller file.',errType:'Use a JPG, PNG, WebP or HEIC photo.',errHeic:'This HEIC photo could not be converted. Save it as JPG and try again.',tideTitle:'Tides · Cascais / Cabo Raso',fcTitle:'Sea and weather, hour by hour',sHour:'Hour',sAir:'Air °C',sAirS:'air',sVis:'Visibility km',sFog:'fog',sMist:'mist',fcSkyS:'Sky',sRain:'Rain mm',sWindA:'Direction|Wind|Gusts',fcDelSpot:'Remove this place',sSun:'Sun',nSun:'Sun',nMoon:'Moon',sunRise:'rises',sunSet:'sets',nDay:'day',nNight:'night',nBan:'no spearfishing',mNew:'new moon',mWaxC:'waxing crescent',mFirst:'first quarter',mWaxG:'waxing gibbous',mFull:'full moon',mWanG:'waning gibbous',mLast:'last quarter',mWanC:'waning crescent',nWater:'Water',nAir:'Air',nTide:'Tide',nVis:'Visibility',nEst:'estimate',sClar:'Visibility (estimate)',sClarNow:'estimated visibility',vc_good:'good',vc_mid:'fair',vc_bad:'poor',fcFindPh:'Beach, town or coordinates',fcFindGo:'Search',fcGrpMine:'My spots',fcGrpAdded:'Added',fcGrpPlaces:'Other places',fcOther:'+ Another place…',fcFarTide:'Tides are only shown for the mainland coast near Cascais.',sWaveA:'Direction|Height m|Period',sTide:'Tide m (Cascais)',fcLoading:'Loading the forecast…',fcFail:'The forecast did not load. Check your connection; it will try again in an hour.',fcWind:'wind',fcGust:'gusts',fcFrom:'from',fcWaves:'waves',fcSwell:'swell',fcWater:'water',fcSky:'Sky and rain',fcWindT:'Wind',fcWavesT:'Waves',fcNoWaves:'No wave forecast for this point.',fcUpdated:'Updated',fcNote:'Model forecast for the chosen spot, Portuguese time; scroll sideways for the next days. Arrows point where the wind and waves are going. Lines: solid wind and dashed gusts; total waves and dashed swell. Shaded area: night, sunset to sunrise (no spearfishing). Visibility: an estimate from the swell of the last two days, the rain of the last three, wind blowing onshore and the tide; it is not a measurement. Tides: astronomical prediction for Cascais from the Instituto Hidrográfico constants, usually within 10–15 min. Forecast data:',tideNowL:'Now',nextHigh:'next high',nextLow:'next low',tideNote:'Astronomical prediction from the Instituto Hidrográfico harmonic constants for Cascais, Portuguese time, heights above chart datum. Usually within 10–15 min and 10 cm; wind and air pressure change the real sea level. Cabo Raso is about 5 km away.',tideAuto:'Filled from the Cascais tide prediction. Change it if it does not match.',errPhoto:'The photo did not upload. Try again.',fileSaved:'File saved',errFile:'The file did not save. Try again.',
  localMode:'Entries are being saved in this browser only. Sign in to Claude and open the notebook there to keep them on every device.',viewOnly:'You can only view this page. Ask the owner for access that lets you use it, and you will get your own private notebook.',backupL:'Download backup',restoreL:'Restore from backup',importedN:n=>n+' entries restored from the backup.',errImport:'That file is not a notebook backup.',privateMode:'This notebook is private. Only its owner can see and change entries.',loadSlow:'Your entries are not loading. Check your connection. They will appear when it returns.',loadDead:'The connection to your notebook dropped. Reload the page to reconnect.',
  catchKgS:'kg',photoAlt:'Entry photo'},
 pt:{quickPh:'@Sesimbra, robalo 2,3kg 12m 8:30-10:15 maré a encher',quickAl:'Registo rápido',add:'Adicionar',details:'Adicionar detalhes',searchPh:'Pesquisar em tudo',
@@ -664,7 +688,7 @@ pt:{quickPh:'@Sesimbra, robalo 2,3kg 12m 8:30-10:15 maré a encher',quickAl:'Reg
  visS:'vis',found:n=>n+(n===1?' entrada':' entradas'),fishN:n=>n+(n===1?' peixe':' peixes'),diveN:n=>n+(n===1?' mergulho':' mergulhos'),upTo:'até',
  emptyT:'As suas entradas vão aparecer aqui',emptyB:'Escreva como correu o mergulho na linha acima, ou escolha Adicionar detalhes para preencher um formulário.',loading:'A abrir o caderno…',noneT:'Nada encontrado',noneB:'Experimente menos filtros ou outra pesquisa.',
  added:'Adicionado',saved:'Guardado',hiddenByF:' Os filtros atuais escondem-no.',deleted:'Entrada apagada',exDeleted:'Exemplos apagados',needSome:'Adicione primeiro um local ou uma nota.',
- errSave:'Não foi guardado. Verifique a ligação e tente de novo.',errQuota:'O caderno está cheio. Apague entradas antigas e tente de novo.',errLarge:'A foto tem mais de 20 MB. Escolha um ficheiro mais pequeno.',errType:'Use uma foto JPG, PNG, WebP ou HEIC.',errHeic:'Não foi possível converter esta foto HEIC. Guarde-a como JPG e tente de novo.',tideTitle:'Marés · Cascais / Cabo Raso',fcTitle:'Mar e tempo, hora a hora',sHour:'Hora',sAir:'Ar °C',sAirS:'ar',sVis:'Visibilid. km',sFog:'nevoeiro',sMist:'neblina',fcSkyS:'Céu',sRain:'Chuva mm',sWindA:'Direção|Vento|Rajada',fcDelSpot:'Remover este local',nWater:'Água',nAir:'Ar',nTide:'Maré',nVis:'Visibilidade',nEst:'estimativa',sClar:'Visibilidade (estimativa)',sClarNow:'visibilidade estimada',vc_good:'boa',vc_mid:'média',vc_bad:'má',fcFindPh:'Praia, localidade ou coordenadas',fcFindGo:'Procurar',fcGrpMine:'Os meus locais',fcGrpAdded:'Acrescentados',fcGrpPlaces:'Outros locais',fcOther:'+ Outro local…',fcFarTide:'As marés só aparecem para a costa continental perto de Cascais.',sWaveA:'Direção|Altura m|Período',sTide:'Maré m (Cascais)',fcLoading:'A carregar a previsão…',fcFail:'A previsão não carregou. Verifique a ligação; volta a tentar daqui a uma hora.',fcWind:'vento',fcGust:'rajadas',fcFrom:'de',fcWaves:'ondas',fcSwell:'ondulação',fcWater:'água',fcSky:'Céu e chuva',fcWindT:'Vento',fcWavesT:'Ondas',fcNoWaves:'Sem previsão de ondas para este ponto.',fcUpdated:'Atualizado',fcNote:'Previsão de modelo para o local escolhido, hora de Portugal; deslize para o lado para os dias seguintes. As setas apontam para onde vão o vento e as ondas. Linhas: vento contínuo e rajadas a tracejado; ondas totais e ondulação (swell) a tracejado. Visibilidade: estimativa a partir da ondulação dos últimos dois dias, da chuva dos últimos três, do vento do mar e da maré; não é uma medição. Marés: previsão astronómica para Cascais com as constantes do Instituto Hidrográfico, normalmente dentro de 10–15 min. Dados da previsão:',tideNowL:'Agora',nextHigh:'próxima preia-mar',nextLow:'próxima baixa-mar',tideNote:'Previsão astronómica a partir das constantes harmónicas do Instituto Hidrográfico para Cascais, hora de Portugal, alturas acima do zero hidrográfico. Normalmente dentro de 10–15 min e 10 cm; o vento e a pressão alteram o nível real. O Cabo Raso fica a cerca de 5 km.',tideAuto:'Preenchido pela previsão de marés de Cascais. Altere se não corresponder.',errPhoto:'A foto não foi carregada. Tente de novo.',fileSaved:'Ficheiro guardado',errFile:'O ficheiro não foi guardado. Tente de novo.',
+ errSave:'Não foi guardado. Verifique a ligação e tente de novo.',errQuota:'O caderno está cheio. Apague entradas antigas e tente de novo.',errLarge:'A foto tem mais de 20 MB. Escolha um ficheiro mais pequeno.',errType:'Use uma foto JPG, PNG, WebP ou HEIC.',errHeic:'Não foi possível converter esta foto HEIC. Guarde-a como JPG e tente de novo.',tideTitle:'Marés · Cascais / Cabo Raso',fcTitle:'Mar e tempo, hora a hora',sHour:'Hora',sAir:'Ar °C',sAirS:'ar',sVis:'Visibilid. km',sFog:'nevoeiro',sMist:'neblina',fcSkyS:'Céu',sRain:'Chuva mm',sWindA:'Direção|Vento|Rajada',fcDelSpot:'Remover este local',sSun:'Sol',nSun:'Sol',nMoon:'Lua',sunRise:'nasce',sunSet:'põe-se',nDay:'dia',nNight:'noite',nBan:'proibido caçar',mNew:'lua nova',mWaxC:'crescente',mFirst:'quarto crescente',mWaxG:'crescente gibosa',mFull:'lua cheia',mWanG:'minguante gibosa',mLast:'quarto minguante',mWanC:'minguante',nWater:'Água',nAir:'Ar',nTide:'Maré',nVis:'Visibilidade',nEst:'estimativa',sClar:'Visibilidade (estimativa)',sClarNow:'visibilidade estimada',vc_good:'boa',vc_mid:'média',vc_bad:'má',fcFindPh:'Praia, localidade ou coordenadas',fcFindGo:'Procurar',fcGrpMine:'Os meus locais',fcGrpAdded:'Acrescentados',fcGrpPlaces:'Outros locais',fcOther:'+ Outro local…',fcFarTide:'As marés só aparecem para a costa continental perto de Cascais.',sWaveA:'Direção|Altura m|Período',sTide:'Maré m (Cascais)',fcLoading:'A carregar a previsão…',fcFail:'A previsão não carregou. Verifique a ligação; volta a tentar daqui a uma hora.',fcWind:'vento',fcGust:'rajadas',fcFrom:'de',fcWaves:'ondas',fcSwell:'ondulação',fcWater:'água',fcSky:'Céu e chuva',fcWindT:'Vento',fcWavesT:'Ondas',fcNoWaves:'Sem previsão de ondas para este ponto.',fcUpdated:'Atualizado',fcNote:'Previsão de modelo para o local escolhido, hora de Portugal; deslize para o lado para os dias seguintes. As setas apontam para onde vão o vento e as ondas. Linhas: vento contínuo e rajadas a tracejado; ondas totais e ondulação (swell) a tracejado. Zona sombreada: noite, do pôr ao nascer do sol (proibido caçar). Visibilidade: estimativa a partir da ondulação dos últimos dois dias, da chuva dos últimos três, do vento do mar e da maré; não é uma medição. Marés: previsão astronómica para Cascais com as constantes do Instituto Hidrográfico, normalmente dentro de 10–15 min. Dados da previsão:',tideNowL:'Agora',nextHigh:'próxima preia-mar',nextLow:'próxima baixa-mar',tideNote:'Previsão astronómica a partir das constantes harmónicas do Instituto Hidrográfico para Cascais, hora de Portugal, alturas acima do zero hidrográfico. Normalmente dentro de 10–15 min e 10 cm; o vento e a pressão alteram o nível real. O Cabo Raso fica a cerca de 5 km.',tideAuto:'Preenchido pela previsão de marés de Cascais. Altere se não corresponder.',errPhoto:'A foto não foi carregada. Tente de novo.',fileSaved:'Ficheiro guardado',errFile:'O ficheiro não foi guardado. Tente de novo.',
  localMode:'As entradas estão a ser guardadas só neste navegador. Inicie sessão no Claude e abra lá o caderno para as ter em todos os dispositivos.',viewOnly:'Só pode ver esta página. Peça ao proprietário acesso para a usar e terá o seu próprio caderno privado.',backupL:'Descarregar cópia de segurança',restoreL:'Repor a partir da cópia',importedN:n=>n+' entradas repostas a partir da cópia.',errImport:'Este ficheiro não é uma cópia do caderno.',privateMode:'Este caderno é privado. Só o proprietário pode ver e alterar as entradas.',loadSlow:'As entradas não estão a carregar. Verifique a ligação. Vão aparecer quando voltar.',loadDead:'A ligação ao caderno caiu. Recarregue a página para voltar a ligar.',
  catchKgS:'kg',photoAlt:'Foto da entrada'}
 };
@@ -1281,7 +1305,7 @@ function wxColor(k,inner){
   if(k==='sunny')inner=inner.replace('<circle cx="12" cy="12" r="4"/>','<circle cx="12" cy="12" r="4" fill="'+WXC.sun+'"/>').replace(/<path d="M12 3v2[^"]*"\/>/,m=>m.replace('/>',' stroke="'+WXC.ray+'"/>'));
   if(k==='partly')inner=inner.replace(/<path d="M8 3v1\.5[^"]*"\/>/,m=>m.replace('/>',' stroke="'+WXC.ray+'"/>')).replace(/<path d="M5\.5[^"]*"\/>/,m=>m.replace('"/>','" fill="'+WXC.sun+'"/>'));
   if(k==='rain'||k==='drizzle')inner=inner.replace(/(<path d="M8 1[78][^"]*")\/>/,'$1 stroke="'+WXC.drop+'" stroke-width="2.2"/>');
-  if(k==='storm')inner=inner.replace(/<path d="M12\.500 15\.500[^"]*"\/>/,'<path d="M13.2 13.6 9.4 19.2h3.1l-1.5 4.3 5.1-6.6h-3.3l1.9-3.3Z" fill="'+WXC.bolt+'" stroke-width="1.1"/>');
+  if(k==='storm')inner=inner.replace(/<path d="M12\.500 15\.500[^"]*"\/>/,'<path d="M13.2 13.6 9.4 19.2h3.1l-1.5 4.3 5.1-6.6h-3.3l1.9-3.3Z" fill="'+WXC.bolt+'" stroke="none"/>');
   if(k==='fog')inner=inner.replace(/(<path d="M4 18h16[^"]*")\/>/,'$1 stroke="#9AA5AB"/>');
   return inner;
 }
@@ -1303,11 +1327,29 @@ function clarity(t,wm,mm,near,farT){
   let tb=0;if(!farT){const st=tideState(t);if(st==='rising'||st==='high')tb=.5}
   const S=pW+pR+pO-tb;return{s:S,k:S<1.5?'good':S<3.5?'mid':'bad'};
 }
+
+/* Sun and moon (NOAA-style sunrise equation; moon age from the synodic month) */
+function sunTimes(dayMs,lat,lon){
+  const RADd=Math.PI/180,J=dayMs/864e5+2440587.5,n=Math.round(J-2451545+.0008),Js=n-lon/360,
+   M=(357.5291+.98560028*Js)%360,C=1.9148*Math.sin(M*RADd)+.02*Math.sin(2*M*RADd)+.0003*Math.sin(3*M*RADd),
+   L=(M+C+180+102.9372)%360,Jt=2451545+Js+.0053*Math.sin(M*RADd)-.0069*Math.sin(2*L*RADd),
+   d=Math.asin(Math.sin(L*RADd)*Math.sin(23.44*RADd)),cw=(Math.sin(-.833*RADd)-Math.sin(lat*RADd)*Math.sin(d))/(Math.cos(lat*RADd)*Math.cos(d));
+  if(cw<-1||cw>1)return null;const w=Math.acos(cw)/RADd,toMs=j=>(j-2440587.5)*864e5;
+  return{rise:toMs(Jt-w/360),set:toMs(Jt+w/360)};
+}
+function moonAge(ms){const p=((ms/864e5+2440587.5-2451550.1)/29.530588853)%1;return p<0?p+1:p}
+function moonSvg(x,y,r,p){
+  const k=Math.cos(2*Math.PI*p),rx=Math.abs(k)*r,wax=p<.5,cres=k>0;
+  const outer='M'+x+' '+(y-r)+'A'+r+' '+r+' 0 0 '+(wax?1:0)+' '+x+' '+(y+r);
+  const term='A'+rx.toFixed(2)+' '+r+' 0 0 '+(wax?(cres?0:1):(cres?1:0))+' '+x+' '+(y-r)+'Z';
+  return '<g class="moon"><circle cx="'+x+'" cy="'+y+'" r="'+r+'" class="mdk"/>'+(p>.02&&p<.98?'<path d="'+outer+term+'" class="mlt"/>':'')+'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" class="mrim"/></g>';
+}
+const moonName=p=>p<.03||p>.97?'mNew':p<.22?'mWaxC':p<.28?'mFirst':p<.47?'mWaxG':p<.53?'mFull':p<.72?'mWanG':p<.78?'mLast':'mWanC';
 function drawForecast(){
   const card=$('fcCard');if(!card||!card.open)return;
   const box=$('fcBox'),nowEl=$('fcNow'),nowMs=Date.now(),p=lisbonParts(nowMs),t0=nowMs-((p.hour*60+p.minute)*60+p.second)*1000-nowMs%1000;
   const NH=72,CW=40,W=NH*CW,cx=i=>i*CW+CW/2,XT=t=>(t-t0)/36e5*CW+CW/2;
-  const R=[['day',22],['hour',20],['sky',34],['rain',16],['air',20],['vis',20],['g0',14],['wind',84],['windA',48],['g1',18],['wave',80],['waveA',48],['gc',14],['clar',30],['g2',14],['sst',22],['g3',14],['tide',110]];
+  const R=[['day',22],['hour',20],['sun',18],['sky',34],['rain',16],['air',20],['vis',20],['g0',14],['wind',84],['windA',48],['g1',18],['wave',80],['waveA',48],['gc',14],['clar',30],['g2',14],['sst',22],['g3',14],['tide',110]];
   const sp0=fcSpot||FC_DEF,farT=Math.hypot((sp0.lat-38.69)*111,(sp0.lon+9.42)*87)>300;if(farT)R.splice(R.findIndex(r=>r[0]==='g3'),2);
   const Y={};let acc=0;R.forEach(([k,h])=>{Y[k]=[acc,h];acc+=h});const HT=acc;
   const hrs=[...Array(NH)].map((_,i)=>t0+i*36e5);
@@ -1321,7 +1363,10 @@ function drawForecast(){
   hrs.forEach((t,i)=>{const hh=lisbonParts(t).hour;if(i%2)g+='<rect x="'+i*CW+'" y="'+Y.hour[0]+'" width="'+CW+'" height="'+(HT-Y.hour[0])+'" class="sb"/>';if(hh===0&&i)g+='<line x1="'+i*CW+'" x2="'+i*CW+'" y1="0" y2="'+HT+'" class="sm"/>'});
   // day + hour labels
   const fmtD=new Intl.DateTimeFormat(locale(),{timeZone:TZ,weekday:'long',day:'numeric',month:'short'});
-  for(let d=0;d<3;d++){const st=t0+d*864e5,lab=esc(fmtD.format(new Date(st+432e5)));[0,8,16].forEach(h=>{g+='<text x="'+((st-t0)/36e5*CW+h*CW+8)+'" y="15" class="sday'+(h?' sday2':'')+'">'+lab+'</text>'})}
+  for(let d=0;d<3;d++){const st=t0+d*864e5,lab=esc(fmtD.format(new Date(st+432e5)));const mp=moonAge(st+432e5);[0,8,16].forEach(h=>{const x0=(st-t0)/36e5*CW+h*CW+8;g+=(h?'':moonSvg(x0+5,10,5.5,mp))+'<text x="'+(h?x0:x0+15)+'" y="15" class="sday'+(h?' sday2':'')+'">'+lab+(h?'':' · '+Math.round((1-Math.cos(2*Math.PI*mp))/2*100)+'%')+'</text>'})}
+  {const tEnd0=t0+NH*36e5;for(let d=-1;d<=3;d++){const day=t0+d*864e5+432e5,st=sunTimes(day,sp0.lat,sp0.lon),nx=sunTimes(day+864e5,sp0.lat,sp0.lon);if(!st||!nx)continue;
+    const a=Math.max(st.set,t0-18e5),b=Math.min(nx.rise,tEnd0-18e5);if(b>a)g+='<rect x="'+XT(a).toFixed(1)+'" y="'+Y.hour[0]+'" width="'+(XT(b)-XT(a)).toFixed(1)+'" height="'+(HT-Y.hour[0])+'" class="night"/>';
+    [[st.rise,'up'],[st.set,'dn']].forEach(([tt,k])=>{if(tt<t0-18e5||tt>tEnd0-18e5)return;const x=XT(tt);g+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+Y.sun[0]+'" y2="'+HT+'" class="sunl"/><circle cx="'+(x-15).toFixed(1)+'" cy="'+(Y.sun[0]+9)+'" r="3.2" class="sund"/><path d="M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?4:14))+'l-2 '+(k==='up'?-2.5:2.5)+'M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?4:14))+'l2 '+(k==='up'?-2.5:2.5)+'" stroke="#E5A31F" stroke-width="1.1" fill="none"/><text x="'+(x-10).toFixed(1)+'" y="'+(Y.sun[0]+13)+'" class="sunt">'+hhmm(tt)+'</text>'})}}
   hrs.forEach((t,i)=>{g+='<text x="'+cx(i)+'" y="'+(Y.hour[0]+14)+'" text-anchor="middle" class="shr">'+pad(lisbonParts(t).hour)+'</text>'});
   // sky + rain
   hrs.forEach((t,i)=>{const w=near(wm,t);if(!w)return;if(w.weather_code!=null)g+=wxIcon(wxKind(w.weather_code),cx(i),Y.sky[0]+6,22);if(w.precipitation>0)g+='<text x="'+cx(i)+'" y="'+(Y.rain[0]+12)+'" text-anchor="middle" class="srain">'+f1(w.precipitation)+'</text>';
@@ -1353,7 +1398,7 @@ function drawForecast(){
   // now
   const nx=XT(nowMs);g+='<line x1="'+nx+'" x2="'+nx+'" y1="'+Y.hour[0]+'" y2="'+HT+'" class="tn"/>'+(farT?'':'<circle cx="'+nx+'" cy="'+(Y.tide[0]+Y.tide[1]-22-(tideH(nowMs)/4.2)*(Y.tide[1]-52))+'" r="4" class="tnd"/>');
   // left labels
-  const L={clar:t('sClar'),hour:t('sHour'),sky:t('fcSkyS'),rain:t('sRain'),air:t('sAir'),vis:t('sVis'),wind:t('fcWindT'),windA:t('sWindA'),wave:t('fcWavesT')+' m',waveA:t('sWaveA'),sst:t('fcWater')+' °C',tide:t('sTide')};
+  const L={sun:t('sSun'),clar:t('sClar'),hour:t('sHour'),sky:t('fcSkyS'),rain:t('sRain'),air:t('sAir'),vis:t('sVis'),wind:t('fcWindT'),windA:t('sWindA'),wave:t('fcWavesT')+' m',waveA:t('sWaveA'),sst:t('fcWater')+' °C',tide:t('sTide')};
   const STK={windA:t('sWindA').split('|'),waveA:t('sWaveA').split('|')};
   const left='<div class="sea-l" style="height:'+HT+'px">'+R.map(([k,h])=>'<div style="height:'+h+'px" class="sl-'+k+'">'+(STK[k]?STK[k].map((x,j)=>'<span class="stk stk'+j+'">'+esc(x)+'</span>').join(''):L[k]?esc(L[k]):'')+(k==='wind'?'<select class="wunit" aria-label="'+esc(t('fcWindT'))+'">'+Object.entries(WU).map(([u,o])=>'<option value="'+u+'"'+(u===wUnit?' selected':'')+'>'+o.l+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div>';
   const keep=seaFirst?null:(box.querySelector('.sea-r')||{}).scrollLeft;
@@ -1375,7 +1420,9 @@ function drawForecast(){
     cw.temperature_2m!=null?ni('air',t('nAir'),f0(cw.temperature_2m)+' °C',''):'',
     cw.weather_code!=null?ni('sky',t('fcSkyS'),esc(t('w_'+wxKind(cw.weather_code))),cw.visibility!=null&&cw.visibility<5000?esc(t(cw.visibility<1000?'sFog':'sMist'))+' '+f1(cw.visibility/1000)+' km':''):'',
     farT?'':ni('tide',t('nTide'),esc(t('tideS_'+st)),nxt?esc(t(nxt.high?'nextHigh':'nextLow'))+' '+hhmm(nxt.t):''),
-    ccn?ni('vis vc-t-'+ccn.k,t('nVis'),esc(t('vc_'+ccn.k)),esc(t('nEst'))):''].filter(Boolean).join('')+'</div>'
+    ccn?ni('vis vc-t-'+ccn.k,t('nVis'),esc(t('vc_'+ccn.k)),esc(t('nEst'))):'',
+    (()=>{const a=sunTimes(nowMs,sp0.lat,sp0.lon);if(!a)return '';const day=nowMs>=a.rise&&nowMs<a.set,nxs=nowMs<a.rise?['sunRise',a.rise]:nowMs<a.set?['sunSet',a.set]:['sunRise',(sunTimes(nowMs+864e5,sp0.lat,sp0.lon)||a).rise];return ni(day?'sun':'night',t('nSun'),esc(t(day?'nDay':'nNight')),(day?'':esc(t('nBan'))+' · ')+esc(t(nxs[0]))+' '+hhmm(nxs[1]))})(),
+    (()=>{const p=moonAge(nowMs);return ni('moon',t('nMoon'),'<svg width="13" height="13" viewBox="0 0 14 14" style="vertical-align:-2px;margin-right:4px">'+moonSvg(7,7,6,p)+'</svg>'+Math.round((1-Math.cos(2*Math.PI*p))/2*100)+'%',esc(t(moonName(p))))})()].filter(Boolean).join('')+'</div>'
     +(farT?'<br><span class="hint">'+esc(t('fcFarTide'))+'</span>':'')+(fcErr?'<br><span class="hint">'+esc(t(fcErr))+'</span>':(!D?'<br><span class="hint">'+esc(t('fcLoading'))+'</span>':''));
   $('fcStamp').textContent=D?t('fcUpdated')+' '+hhmm(D.at)+(fcLoading?' · …':''):'';
 }
@@ -1804,14 +1851,14 @@ $('backupBtn').addEventListener('click',async()=>{
   const files={};
   if(assets&&assets.download){for(const e of entries)for(const id of(e.photos||[]).concat((e.shots||[]).map(x=>x.id))){if(files[id])continue;try{const b=await assets.download(id);files[id]=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b)})}catch(err){}}}
   const data=JSON.stringify({app:'spearfishers-notebook',version:2,savedAt:new Date().toISOString(),entries:entries.concat(checkDoc?[checkDoc]:[]).map(e=>({id:e.id,...bodyOf(e)})),history,files},null,1);
-  try{await downloads.save({filename:'spearfishers-notebook-'+today()+'.json',data});toast(t('fileSaved'))}
+  try{await downloads.save({filename:'spearo-diary-'+today()+'.json',data});toast(t('fileSaved'))}
   catch(e){if(!e||e.code!=='declined')toast(t('errFile'))}
 });
 $('restoreBtn').addEventListener('click',()=>$('restoreInput').click());
 $('restoreInput').addEventListener('change',async ev=>{
   const f=ev.target.files[0];ev.target.value='';if(!f||!store)return;
   let j;try{j=JSON.parse(await f.text())}catch(e){toast(t('errImport'));return}
-  if(!j||j.app!=='spearfishers-notebook'||!Array.isArray(j.entries)){toast(t('errImport'));return}
+  if(!j||!['spearfishers-notebook','spearo-diary'].includes(j.app)||!Array.isArray(j.entries)){toast(t('errImport'));return}
   const map={};
   if(j.files&&assets)for(const[old,url]of Object.entries(j.files)){try{const b=await(await fetch(url)).blob();map[old]=(await assets.upload(new File([b],'p',{type:b.type}))).id}catch(err){}}
   const remap=e=>({...e,photos:(e.photos||[]).map(p=>map[p]||p),shots:(e.shots||[]).map(x=>({...x,id:map[x.id]||x.id}))});
@@ -1828,7 +1875,7 @@ $('exportCsv').addEventListener('click',async()=>{
   const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"';
   const head=[t('date'),t('type'),t('spot'),t('coords'),t('fish'),t('qty'),t('kg'),t('depth'),t('vis'),t('temp'),t('timeIn'),t('timeOut'),t('tideIn'),t('tideOut'),t('current'),t('dirL'),t('weather'),t('sea'),t('moodQ'),t('wind'),t('gear'),t('tags'),t('notes')];
   const rows=sorted(entries.filter(matches)).map(e=>[e.date,typeLabel(kindOf(e)),e.spot||e.title,e.gps,(e.catches||[]).map(c=>catchLabel(c)+(latinOf(c.name,c.sub)?' ('+latinOf(c.name,c.sub)+')':'')).join('; '),catchCount(e)||'',catchKg(e)||'',e.depth,e.vis,e.temp,e.timeIn,e.timeOut,tidesOf(e)[0]?t('tide_'+tidesOf(e)[0]):'',tidesOf(e)[1]?t('tide_'+tidesOf(e)[1]):'',e.current?t('cur_'+e.current):'',dirLabel(e.currentDir),e.weather?t('w_'+e.weather):'',e.sea?t('sea_'+e.sea):'',e.mood?t('mood_'+e.mood):'',e.wind,e.gear,(e.tags||[]).join('; '),e.notes].map(q).join(','));
-  try{await downloads.save({filename:'spearfishers-notebook.csv',data:'﻿'+[head.map(q).join(',')].concat(rows).join('\r\n')});toast(t('fileSaved'))}
+  try{await downloads.save({filename:'spearo-diary.csv',data:'﻿'+[head.map(q).join(',')].concat(rows).join('\r\n')});toast(t('fileSaved'))}
   catch(e){if(!e||e.code!=='declined')toast(t('errFile'))}
 });
 
@@ -2168,7 +2215,7 @@ function libRender(){
   $('libF').innerHTML=['all','mine','caught','ban'].map(k=>'<button type="button" data-f="'+k+'" aria-pressed="'+(libF===k)+'">'+esc(t('libF_'+k))+'</button>').join('');
   $('libCount').textContent=list.length+' / '+all.length;
   $('libUl').innerHTML=list.map(s=>'<li><button type="button" class="lib-row" data-lat="'+esc(s.lat)+'"><span class="lib-th" data-lat="'+esc(s.lat)+'">'+libArt(s)+'</span><span class="lib-tx"><b>'+esc(libName(s))+'</b> <i>'+esc(s.lat)+'</i><span class="hint">'+esc([libOther(s),s.fam].filter(Boolean).join(' · '))+'</span></span><span class="lib-bd"><span class="lib-bdl">'
-    +(s.law.banned?'<span class="bd bd-ban">'+esc(t('libBan'))+'</span>':s.law.min?'<span class="bd bd-min">'+esc(s.law.min.replace('*',''))+'</span>':'')+s.law.def.map(d=>'<span class="bd bd-def'+(d.now?' bd-now':'')+'">'+esc(t('cwDefS'))+' '+dShort(d.from)+'–'+dShort(d.to)+'</span>').join('')+'</span><span class="lib-dg">'+(DANGER[s.lat]?'<span class="bd bd-dg" title="'+esc(t('libDanger'))+'">⚠</span>':'')+'</span></span></button></li>').join('')||'<li class="hint">'+esc(t('libNone'))+'</li>';
+    +(s.law.banned?'<span class="bd bd-ban">'+esc(t('libBan'))+'</span>':s.law.min?'<span class="bd bd-min">'+esc(s.law.min.replace('*',''))+'</span>':'')+s.law.def.map(d=>'<span class="bd bd-def'+(d.now?' bd-now':'')+'">'+esc(t('cwDefS'))+' '+dShort(d.from)+'–'+dShort(d.to)+'</span>').join('')+'</span><span class="lib-dg">'+(DANGER[s.lat]?'<span title="'+esc(t('libDanger'))+'" role="img" aria-label="'+esc(t('libDanger'))+'"><svg class="dg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 22.5 20.6H1.5Z" fill="#E0562C" stroke="#E0562C" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v5.6" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.4" fill="#fff"/></svg></span>':'')+'</span></span></button></li>').join('')||'<li class="hint">'+esc(t('libNone'))+'</li>';
   if(IS_SITE)libPhotos();
 }
 function libDetail(lat){
@@ -2177,7 +2224,7 @@ function libDetail(lat){
   const names=[['EN',s.en],['ES',s.es],['FR',s.fr]].filter(x=>x[1]).map(x=>'<span class="hint">'+x[0]+'</span> '+esc(x[1])).join('<br>');
   const desc=s.x?(lang==='pt'?s.desc:s.descEn):s.desc;
   $('libDet').innerHTML='<button type="button" class="link lib-back" id="libBack">← '+esc(t('libBack'))+'</button>'
-   +'<div class="sp-top">'+libArt(s).replace('class="fi"','class="fi sp-fi"')+'<div><div class="lib-h"><h2>'+esc(libName(s))+'</h2><span class="lib-bds">'+lawBadges(s.law)+(DANGER[s.lat]?'<span class="bd bd-dg">⚠ '+esc(t('libDanger'))+'</span>':'')+'</span></div><p class="lat">'+esc(s.lat)+'</p><p class="hint">'+esc([lang==='pt'?s.alt:s.pt,libOther(s)].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i&&v!==libName(s)).join(' · '))+'</p></div></div>'
+   +'<div class="sp-top">'+libArt(s).replace('class="fi"','class="fi sp-fi"')+'<div><div class="lib-h"><h2>'+esc(libName(s))+'</h2><span class="lib-bds">'+lawBadges(s.law)+(DANGER[s.lat]?'<span class="bd bd-dg" style="display:inline-flex;align-items:center;gap:5px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 22.5 20.6H1.5Z" fill="#E0562C" stroke="#E0562C" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v5.6" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.4" fill="#fff"/></svg>'+esc(t('libDanger'))+'</span>':'')+'</span></div><p class="lat">'+esc(s.lat)+'</p><p class="hint">'+esc([lang==='pt'?s.alt:s.pt,libOther(s)].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i&&v!==libName(s)).join(' · '))+'</p></div></div>'
    +(IS_SITE?'<div class="sp-photo" id="libPhoto"><span class="hint">'+esc(t('spLoading'))+'</span></div>':'')
    +'<div class="sp-legal">'+legalHtml({...s.law,note:''})+'<p class="hint">'+esc(t('libLawNote'))+'</p></div>'
    +dangerHtml(s.lat)+'<div class="lib-desc"><h3>'+esc(t('libId'))+'</h3><p>'+esc(desc)+'</p>'+(!s.x&&lang!=='pt'?'<p class="hint">'+esc(t('libInPt'))+'</p>':'')+'</div>'
