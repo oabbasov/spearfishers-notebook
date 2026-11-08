@@ -150,6 +150,16 @@ a{color:var(--sea);text-underline-offset:2px}
 #tideBox .tn{stroke:var(--accent);stroke-width:1.5}
 .fc-head{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:8px}
 .fc-head select{width:auto;max-width:100%;padding:5px 8px;font-size:13.5px}
+.sea-l .sl-windA,.sea-l .sl-waveA{position:relative;display:block}
+.sea-l .stk{position:absolute;left:0;right:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sea-l .stk0{top:4px}.sea-l .stk1{top:18px;color:var(--ink)}.sea-l .stk2{top:32px}
+.fc-find{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+.fc-find input{flex:1;min-width:160px;padding:6px 8px;font-size:14px}
+.fc-find button{padding:6px 12px;font-size:13.5px}
+.fc-res{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.fc-res button{all:unset;cursor:pointer;display:block;padding:6px 8px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.fc-res button:hover,.fc-res button:focus-visible{background:var(--sea-soft)}
+.fc-res .hint{font-size:12.5px}
 .sea{display:grid;grid-template-columns:78px minmax(0,1fr);margin-top:6px;border-top:1px solid var(--line)}
 .sea-l{font-size:11px;line-height:1.2;color:var(--muted);border-right:1px solid var(--line);padding-right:6px}
 .sea-l>div{display:flex;align-items:center;overflow:hidden}
@@ -452,7 +462,8 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
   </details>
   <details class="tidecard" id="fcCard" open>
     <summary><span data-i="fcTitle"></span></summary>
-    <div class="fc-head"><select id="fcSpot" data-al="spot"></select><span class="hint" id="fcStamp"></span></div>
+    <div class="fc-head"><select id="fcSpot" data-al="spot"></select><button type="button" class="link" id="fcDel" hidden data-i="fcDelSpot"></button><span class="hint" id="fcStamp"></span></div>
+    <div class="fc-find" id="fcFind" hidden><input id="fcQ" type="search" data-ph="fcFindPh" data-al="fcFindPh" autocomplete="off"><button type="button" id="fcGo" data-i="fcFindGo"></button><button type="button" class="link" id="fcCancel" data-i="cancel"></button><ul class="fc-res" id="fcRes"></ul></div>
     <div class="tide-now" id="fcNow"></div>
     <div id="fcBox"></div>
     <p class="hint"><span data-i="fcNote"></span> <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a></p>
@@ -587,7 +598,7 @@ en:{quickPh:'@Sesimbra, sea bass 2.3kg 12m 8:30-10:15 rising tide',quickAl:'Quic
  visS:'vis',found:n=>n+(n===1?' entry':' entries'),fishN:n=>n+' fish',diveN:n=>n+(n===1?' dive':' dives'),upTo:'to',
  emptyT:'Your entries will appear here',emptyB:'Type how the dive went in the line above, or choose Add details to fill in a form.',loading:'Opening your notebook…',noneT:'Nothing found',noneB:'Try fewer filters or a different search.',
  added:'Added',saved:'Saved',hiddenByF:' Current filters hide it.',deleted:'Entry deleted',exDeleted:'Examples deleted',needSome:'Add a spot or a note first.',
- errSave:'That did not save. Check your connection and try again.',errQuota:'The notebook is full. Delete old entries and try again.',errLarge:'That photo is over 20 MB. Choose a smaller file.',errType:'Use a JPG, PNG, WebP or HEIC photo.',errHeic:'This HEIC photo could not be converted. Save it as JPG and try again.',tideTitle:'Tides · Cascais / Cabo Raso',fcTitle:'Sea and weather, hour by hour',sHour:'Hour',sAir:'Air °C',sAirS:'air',sVis:'Visibility km',sFog:'fog',sMist:'mist',fcSkyS:'Sky',sRain:'Rain mm',sWindA:'Dir · speed · gusts',sWaveA:'Dir · height · period',sTide:'Tide m (Cascais)',fcLoading:'Loading the forecast…',fcFail:'The forecast did not load. Check your connection; it will try again in an hour.',fcWind:'wind',fcGust:'gusts',fcFrom:'from',fcWaves:'waves',fcSwell:'swell',fcWater:'water',fcSky:'Sky and rain',fcWindT:'Wind',fcWavesT:'Waves',fcNoWaves:'No wave forecast for this point.',fcUpdated:'Updated',fcNote:'Model forecast for the chosen spot, Portuguese time; scroll sideways for the next days. Arrows point where the wind and waves are going. Tides: astronomical prediction for Cascais from the Instituto Hidrográfico constants, usually within 10–15 min. Forecast data:',tideNowL:'Now',nextHigh:'next high',nextLow:'next low',tideNote:'Astronomical prediction from the Instituto Hidrográfico harmonic constants for Cascais, Portuguese time, heights above chart datum. Usually within 10–15 min and 10 cm; wind and air pressure change the real sea level. Cabo Raso is about 5 km away.',tideAuto:'Filled from the Cascais tide prediction. Change it if it does not match.',errPhoto:'The photo did not upload. Try again.',fileSaved:'File saved',errFile:'The file did not save. Try again.',
+ errSave:'That did not save. Check your connection and try again.',errQuota:'The notebook is full. Delete old entries and try again.',errLarge:'That photo is over 20 MB. Choose a smaller file.',errType:'Use a JPG, PNG, WebP or HEIC photo.',errHeic:'This HEIC photo could not be converted. Save it as JPG and try again.',tideTitle:'Tides · Cascais / Cabo Raso',fcTitle:'Sea and weather, hour by hour',sHour:'Hour',sAir:'Air °C',sAirS:'air',sVis:'Visibility km',sFog:'fog',sMist:'mist',fcSkyS:'Sky',sRain:'Rain mm',sWindA:'Direction|Wind|Gusts',fcDelSpot:'Remove this place',fcFindPh:'Beach, town or coordinates',fcFindGo:'Search',fcGrpMine:'My spots',fcGrpAdded:'Added',fcGrpPlaces:'Other places',fcOther:'+ Another place…',fcFarTide:'Tides are only shown for the mainland coast near Cascais.',sWaveA:'Direction|Height m|Period',sTide:'Tide m (Cascais)',fcLoading:'Loading the forecast…',fcFail:'The forecast did not load. Check your connection; it will try again in an hour.',fcWind:'wind',fcGust:'gusts',fcFrom:'from',fcWaves:'waves',fcSwell:'swell',fcWater:'water',fcSky:'Sky and rain',fcWindT:'Wind',fcWavesT:'Waves',fcNoWaves:'No wave forecast for this point.',fcUpdated:'Updated',fcNote:'Model forecast for the chosen spot, Portuguese time; scroll sideways for the next days. Arrows point where the wind and waves are going. Tides: astronomical prediction for Cascais from the Instituto Hidrográfico constants, usually within 10–15 min. Forecast data:',tideNowL:'Now',nextHigh:'next high',nextLow:'next low',tideNote:'Astronomical prediction from the Instituto Hidrográfico harmonic constants for Cascais, Portuguese time, heights above chart datum. Usually within 10–15 min and 10 cm; wind and air pressure change the real sea level. Cabo Raso is about 5 km away.',tideAuto:'Filled from the Cascais tide prediction. Change it if it does not match.',errPhoto:'The photo did not upload. Try again.',fileSaved:'File saved',errFile:'The file did not save. Try again.',
  localMode:'Entries are being saved in this browser only. Sign in to Claude and open the notebook there to keep them on every device.',viewOnly:'You can only view this page. Ask the owner for access that lets you use it, and you will get your own private notebook.',backupL:'Download backup',restoreL:'Restore from backup',importedN:n=>n+' entries restored from the backup.',errImport:'That file is not a notebook backup.',privateMode:'This notebook is private. Only its owner can see and change entries.',loadSlow:'Your entries are not loading. Check your connection. They will appear when it returns.',loadDead:'The connection to your notebook dropped. Reload the page to reconnect.',
  catchKgS:'kg',photoAlt:'Entry photo'},
 pt:{quickPh:'@Sesimbra, robalo 2,3kg 12m 8:30-10:15 maré a encher',quickAl:'Registo rápido',add:'Adicionar',details:'Adicionar detalhes',searchPh:'Pesquisar em tudo',
@@ -604,7 +615,7 @@ pt:{quickPh:'@Sesimbra, robalo 2,3kg 12m 8:30-10:15 maré a encher',quickAl:'Reg
  visS:'vis',found:n=>n+(n===1?' entrada':' entradas'),fishN:n=>n+(n===1?' peixe':' peixes'),diveN:n=>n+(n===1?' mergulho':' mergulhos'),upTo:'até',
  emptyT:'As suas entradas vão aparecer aqui',emptyB:'Escreva como correu o mergulho na linha acima, ou escolha Adicionar detalhes para preencher um formulário.',loading:'A abrir o caderno…',noneT:'Nada encontrado',noneB:'Experimente menos filtros ou outra pesquisa.',
  added:'Adicionado',saved:'Guardado',hiddenByF:' Os filtros atuais escondem-no.',deleted:'Entrada apagada',exDeleted:'Exemplos apagados',needSome:'Adicione primeiro um local ou uma nota.',
- errSave:'Não foi guardado. Verifique a ligação e tente de novo.',errQuota:'O caderno está cheio. Apague entradas antigas e tente de novo.',errLarge:'A foto tem mais de 20 MB. Escolha um ficheiro mais pequeno.',errType:'Use uma foto JPG, PNG, WebP ou HEIC.',errHeic:'Não foi possível converter esta foto HEIC. Guarde-a como JPG e tente de novo.',tideTitle:'Marés · Cascais / Cabo Raso',fcTitle:'Mar e tempo, hora a hora',sHour:'Hora',sAir:'Ar °C',sAirS:'ar',sVis:'Visibilid. km',sFog:'nevoeiro',sMist:'neblina',fcSkyS:'Céu',sRain:'Chuva mm',sWindA:'Dir · força · rajada',sWaveA:'Dir · altura · período',sTide:'Maré m (Cascais)',fcLoading:'A carregar a previsão…',fcFail:'A previsão não carregou. Verifique a ligação; volta a tentar daqui a uma hora.',fcWind:'vento',fcGust:'rajadas',fcFrom:'de',fcWaves:'ondas',fcSwell:'ondulação',fcWater:'água',fcSky:'Céu e chuva',fcWindT:'Vento',fcWavesT:'Ondas',fcNoWaves:'Sem previsão de ondas para este ponto.',fcUpdated:'Atualizado',fcNote:'Previsão de modelo para o local escolhido, hora de Portugal; deslize para o lado para os dias seguintes. As setas apontam para onde vão o vento e as ondas. Marés: previsão astronómica para Cascais com as constantes do Instituto Hidrográfico, normalmente dentro de 10–15 min. Dados da previsão:',tideNowL:'Agora',nextHigh:'próxima preia-mar',nextLow:'próxima baixa-mar',tideNote:'Previsão astronómica a partir das constantes harmónicas do Instituto Hidrográfico para Cascais, hora de Portugal, alturas acima do zero hidrográfico. Normalmente dentro de 10–15 min e 10 cm; o vento e a pressão alteram o nível real. O Cabo Raso fica a cerca de 5 km.',tideAuto:'Preenchido pela previsão de marés de Cascais. Altere se não corresponder.',errPhoto:'A foto não foi carregada. Tente de novo.',fileSaved:'Ficheiro guardado',errFile:'O ficheiro não foi guardado. Tente de novo.',
+ errSave:'Não foi guardado. Verifique a ligação e tente de novo.',errQuota:'O caderno está cheio. Apague entradas antigas e tente de novo.',errLarge:'A foto tem mais de 20 MB. Escolha um ficheiro mais pequeno.',errType:'Use uma foto JPG, PNG, WebP ou HEIC.',errHeic:'Não foi possível converter esta foto HEIC. Guarde-a como JPG e tente de novo.',tideTitle:'Marés · Cascais / Cabo Raso',fcTitle:'Mar e tempo, hora a hora',sHour:'Hora',sAir:'Ar °C',sAirS:'ar',sVis:'Visibilid. km',sFog:'nevoeiro',sMist:'neblina',fcSkyS:'Céu',sRain:'Chuva mm',sWindA:'Direção|Vento|Rajada',fcDelSpot:'Remover este local',fcFindPh:'Praia, localidade ou coordenadas',fcFindGo:'Procurar',fcGrpMine:'Os meus locais',fcGrpAdded:'Acrescentados',fcGrpPlaces:'Outros locais',fcOther:'+ Outro local…',fcFarTide:'As marés só aparecem para a costa continental perto de Cascais.',sWaveA:'Direção|Altura m|Período',sTide:'Maré m (Cascais)',fcLoading:'A carregar a previsão…',fcFail:'A previsão não carregou. Verifique a ligação; volta a tentar daqui a uma hora.',fcWind:'vento',fcGust:'rajadas',fcFrom:'de',fcWaves:'ondas',fcSwell:'ondulação',fcWater:'água',fcSky:'Céu e chuva',fcWindT:'Vento',fcWavesT:'Ondas',fcNoWaves:'Sem previsão de ondas para este ponto.',fcUpdated:'Atualizado',fcNote:'Previsão de modelo para o local escolhido, hora de Portugal; deslize para o lado para os dias seguintes. As setas apontam para onde vão o vento e as ondas. Marés: previsão astronómica para Cascais com as constantes do Instituto Hidrográfico, normalmente dentro de 10–15 min. Dados da previsão:',tideNowL:'Agora',nextHigh:'próxima preia-mar',nextLow:'próxima baixa-mar',tideNote:'Previsão astronómica a partir das constantes harmónicas do Instituto Hidrográfico para Cascais, hora de Portugal, alturas acima do zero hidrográfico. Normalmente dentro de 10–15 min e 10 cm; o vento e a pressão alteram o nível real. O Cabo Raso fica a cerca de 5 km.',tideAuto:'Preenchido pela previsão de marés de Cascais. Altere se não corresponder.',errPhoto:'A foto não foi carregada. Tente de novo.',fileSaved:'Ficheiro guardado',errFile:'O ficheiro não foi guardado. Tente de novo.',
  localMode:'As entradas estão a ser guardadas só neste navegador. Inicie sessão no Claude e abra lá o caderno para as ter em todos os dispositivos.',viewOnly:'Só pode ver esta página. Peça ao proprietário acesso para a usar e terá o seu próprio caderno privado.',backupL:'Descarregar cópia de segurança',restoreL:'Repor a partir da cópia',importedN:n=>n+' entradas repostas a partir da cópia.',errImport:'Este ficheiro não é uma cópia do caderno.',privateMode:'Este caderno é privado. Só o proprietário pode ver e alterar as entradas.',loadSlow:'As entradas não estão a carregar. Verifique a ligação. Vão aparecer quando voltar.',loadDead:'A ligação ao caderno caiu. Recarregue a página para voltar a ligar.',
  catchKgS:'kg',photoAlt:'Foto da entrada'}
 };
@@ -1147,11 +1158,15 @@ function duration(a,b){if(!a||!b)return'';let m=(+b.slice(0,2)*60+ +b.slice(3))-
 /* Forecast: wind, waves, water temperature and sky from Open-Meteo (free for non-commercial use, no key) */
 const FC_DEF={name:'Cabo Raso',lat:38.7092,lon:-9.4856};
 let fcData=null,fcErr='',fcLoading=false,fcSpot=null;
-function fcSpots(){const m=new Map([[norm(FC_DEF.name),FC_DEF]]);entries.forEach(e=>{const c=parseCoords(e.gps);if(c&&e.spot&&!m.has(norm(e.spot)))m.set(norm(e.spot),{name:e.spot.trim(),lat:c.lat,lon:c.lon})});return[...m.values()]}
+const FC_PRESETS=[['Cascais',38.69,-9.43],['Ericeira',38.97,-9.43],['Peniche',39.36,-9.41],['Nazaré',39.6,-9.08],['Figueira da Foz',40.15,-8.87],['Viana do Castelo',41.69,-8.85],['Sines',37.95,-8.88],['Zambujeira do Mar',37.52,-8.79],['Sagres',37.0,-8.94],['Lagos',37.1,-8.67],['Albufeira',37.08,-8.25],['Funchal (Madeira)',32.64,-16.92],['Porto Santo',33.06,-16.34],['Ponta Delgada (Açores)',37.73,-25.67],['Horta (Açores)',38.53,-28.62]].map(([name,lat,lon])=>({name,lat,lon,g:'p'}));
+function fcCustom(){try{return JSON.parse(localStorage.getItem('sn-fc-custom')||'[]')}catch(e){return[]}}
+function fcSpots(){const m=new Map([[norm(FC_DEF.name),{...FC_DEF,g:'d'}]]);entries.forEach(e=>{const c=parseCoords(e.gps);if(c&&e.spot&&!m.has(norm(e.spot)))m.set(norm(e.spot),{name:e.spot.trim(),lat:c.lat,lon:c.lon,g:'m'})});fcCustom().forEach(c=>{if(!m.has(norm(c.name)))m.set(norm(c.name),{...c,g:'c'})});FC_PRESETS.forEach(p=>{if(!m.has(norm(p.name)))m.set(norm(p.name),p)});return[...m.values()]}
 function fcPick(){let k='';try{k=localStorage.getItem('sn-fc-spot')||''}catch(e){}return fcSpots().find(s=>norm(s.name)===k)||FC_DEF}
 function fcFillSelect(){
   const sel=$('fcSpot'),list=fcSpots(),cur=(fcSpot||fcPick()).name;
-  sel.innerHTML=list.map(s=>'<option value="'+esc(norm(s.name))+'">'+esc(s.name)+'</option>').join('');sel.value=norm(cur);
+  const opt=s=>'<option value="'+esc(norm(s.name))+'">'+esc(s.name)+'</option>',grp=(g,l)=>{const a=list.filter(s=>s.g===g);return a.length?'<optgroup label="'+esc(t(l))+'">'+a.map(opt).join('')+'</optgroup>':''};
+  sel.innerHTML=list.filter(s=>s.g==='d').map(opt).join('')+grp('m','fcGrpMine')+grp('c','fcGrpAdded')+grp('p','fcGrpPlaces')+'<option value="__new">'+esc(t('fcOther'))+'</option>';sel.value=norm(cur);
+  $('fcDel').hidden=!list.some(s=>s.g==='c'&&norm(s.name)===norm(cur));
 }
 async function fcGet(url){const r=await fetch(url);if(!r.ok)throw new Error('http '+r.status);return r.json()}
 async function fcLoad(force){
@@ -1170,7 +1185,23 @@ async function fcLoad(force){
   }catch(e){fcErr='fcFail'}
   fcLoading=false;drawForecast();
 }
-$('fcSpot').addEventListener('change',()=>{seaFirst=true;try{localStorage.setItem('sn-fc-spot',$('fcSpot').value)}catch(e){}fcData=null;fcLoad()});
+function fcFindClose(){$('fcFind').hidden=true;$('fcRes').innerHTML='';fcFillSelect()}
+async function fcSearch(){
+  const q=$('fcQ').value.trim(),res=$('fcRes');if(!q)return;
+  const c=parseCoords(q);if(c){res.innerHTML='<li><button type="button" data-lat="'+c.lat+'" data-lon="'+c.lon+'" data-name="'+esc(c.lat.toFixed(3)+', '+c.lon.toFixed(3))+'">'+esc(c.lat.toFixed(4)+', '+c.lon.toFixed(4))+'</button></li>';return}
+  res.innerHTML='<li class="hint">'+esc(t('fcLoading'))+'</li>';
+  try{const j=await fcGet('https://geocoding-api.open-meteo.com/v1/search?count=8&format=json&language='+(lang==='pt'?'pt':'en')+'&name='+encodeURIComponent(q));
+    const r=(j.results||[]);res.innerHTML=r.length?r.map(x=>'<li><button type="button" data-lat="'+x.latitude+'" data-lon="'+x.longitude+'" data-name="'+esc(x.name)+'">'+esc(x.name)+' <span class="hint">'+esc([x.admin1,x.country].filter(Boolean).join(', '))+'</span></button></li>').join(''):'<li class="hint">'+esc(t('libNone'))+'</li>'}
+  catch(e){res.innerHTML='<li class="hint">'+esc(t('fcFail'))+'</li>'}
+}
+$('fcGo').addEventListener('click',fcSearch);
+$('fcQ').addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();fcSearch()}else if(ev.key==='Escape'){fcFindClose()}});
+$('fcCancel').addEventListener('click',fcFindClose);
+$('fcRes').addEventListener('click',ev=>{const b=ev.target.closest('button[data-lat]');if(!b)return;const sp={name:b.dataset.name,lat:+b.dataset.lat,lon:+b.dataset.lon};
+  const cs=fcCustom().filter(c=>norm(c.name)!==norm(sp.name));cs.unshift(sp);try{localStorage.setItem('sn-fc-custom',JSON.stringify(cs.slice(0,12)));localStorage.setItem('sn-fc-spot',norm(sp.name))}catch(e){}
+  $('fcFind').hidden=true;$('fcRes').innerHTML='';$('fcQ').value='';seaFirst=true;fcData=null;fcSpot=null;fcFillSelect();fcLoad()});
+$('fcDel').addEventListener('click',()=>{const cur=$('fcSpot').value;try{localStorage.setItem('sn-fc-custom',JSON.stringify(fcCustom().filter(c=>norm(c.name)!==cur)));localStorage.setItem('sn-fc-spot',norm(FC_DEF.name))}catch(e){}seaFirst=true;fcData=null;fcSpot=null;fcFillSelect();fcLoad()});
+$('fcSpot').addEventListener('change',()=>{if($('fcSpot').value==='__new'){$('fcFind').hidden=false;$('fcQ').focus();return}$('fcFind').hidden=true;seaFirst=true;try{localStorage.setItem('sn-fc-spot',$('fcSpot').value)}catch(e){}fcData=null;fcSpot=null;fcFillSelect();fcLoad()});
 $('fcCard').addEventListener('toggle',()=>{try{localStorage.setItem('sn-fc',$('fcCard').open?'1':'0')}catch(e){}if($('fcCard').open&&!fcData)fcLoad();else drawForecast()});
 try{if(localStorage.getItem('sn-fc')==='0')$('fcCard').open=false}catch(e){}
 setInterval(()=>{if($('fcCard').open)fcLoad()},36e5);
@@ -1186,6 +1217,7 @@ function drawForecast(){
   const box=$('fcBox'),nowEl=$('fcNow'),nowMs=Date.now(),p=lisbonParts(nowMs),t0=nowMs-((p.hour*60+p.minute)*60+p.second)*1000-nowMs%1000;
   const NH=72,CW=40,W=NH*CW,cx=i=>i*CW+CW/2,XT=t=>(t-t0)/36e5*CW+CW/2;
   const R=[['day',22],['hour',20],['sky',34],['rain',16],['air',20],['vis',20],['g0',14],['wind',84],['windA',48],['g1',18],['wave',80],['waveA',48],['g2',14],['sst',22],['g3',14],['tide',110]];
+  const sp0=fcSpot||FC_DEF,farT=Math.hypot((sp0.lat-38.69)*111,(sp0.lon+9.42)*87)>300;if(farT)R.splice(R.findIndex(r=>r[0]==='g3'),2);
   const Y={};let acc=0;R.forEach(([k,h])=>{Y[k]=[acc,h];acc+=h});const HT=acc;
   const hrs=[...Array(NH)].map((_,i)=>t0+i*36e5);
   const D=fcData,byT=(h,keys)=>{const m=new Map();if(h&&h.time)h.time.forEach((s,i)=>{const o={};keys.forEach(k=>o[k]=h[k]?h[k][i]:null);m.set(s*1000,o)});return m};
@@ -1217,17 +1249,20 @@ function drawForecast(){
   mv.forEach((m,i)=>{const y=Y.waveA[0];if(m.wave_direction!=null)g+=arrow(cx(i),y+10,m.wave_direction,'fa2',1);if(m.wave_height!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f1(m.wave_height)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(m.wave_period)+'s</text>'});
   mv.forEach((m,i)=>{if(m.sea_surface_temperature!=null&&lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(Y.sst[0]+14)+'" text-anchor="middle" class="ssst">'+f1(m.sea_surface_temperature)+'°</text>'});
   // tide
+  if(!farT){
   const tTop=Y.tide[0]+30,tBot=Y.tide[0]+Y.tide[1]-22,TY=h=>tBot-(h/4.2)*(tBot-tTop),tEnd=t0+NH*36e5;
   let tp='';for(let t=t0-18e5;t<=tEnd-18e5;t+=9e5)tp+=(tp?'L':'M')+XT(t).toFixed(1)+' '+TY(tideH(t)).toFixed(1);
   g+=[1,2,3].map(v=>'<line x1="0" x2="'+W+'" y1="'+TY(v)+'" y2="'+TY(v)+'" class="tg"/>'+[0,1,2].map(d=>'<text x="'+(d*24*CW+3)+'" y="'+(TY(v)-2)+'" class="sax">'+v+'</text>').join('')).join('');
   g+='<path d="'+tp+'L'+XT(tEnd-18e5)+' '+tBot+'L'+XT(t0-18e5)+' '+tBot+'Z" class="ta"/><path d="'+tp+'" class="tc"/>';
   tideExtremes(t0,tEnd).forEach(e=>{const x=XT(e.t),y=TY(e.h);g+='<circle cx="'+x+'" cy="'+y+'" r="3" class="te"/><text x="'+x+'" y="'+(e.high?y-16:y+15)+'" text-anchor="middle" class="tx">'+hhmm(e.t)+'</text><text x="'+x+'" y="'+(e.high?y-5:y+26)+'" text-anchor="middle" class="th">'+fmt(Math.round(e.h*10)/10)+' m</text>'});
   ['g0','g1','g2','g3'].forEach(k=>{const y=Y[k][0]+Y[k][1]/2;g+='<line x1="0" x2="'+W+'" y1="'+y+'" y2="'+y+'" class="ssep"/>'});
+  }
   // now
-  const nx=XT(nowMs);g+='<line x1="'+nx+'" x2="'+nx+'" y1="'+Y.hour[0]+'" y2="'+HT+'" class="tn"/><circle cx="'+nx+'" cy="'+TY(tideH(nowMs))+'" r="4" class="tnd"/>';
+  const nx=XT(nowMs);g+='<line x1="'+nx+'" x2="'+nx+'" y1="'+Y.hour[0]+'" y2="'+HT+'" class="tn"/>'+(farT?'':'<circle cx="'+nx+'" cy="'+(Y.tide[0]+Y.tide[1]-22-(tideH(nowMs)/4.2)*(Y.tide[1]-52))+'" r="4" class="tnd"/>');
   // left labels
   const L={hour:t('sHour'),sky:t('fcSkyS'),rain:t('sRain'),air:t('sAir'),vis:t('sVis'),wind:t('fcWindT'),windA:t('sWindA'),wave:t('fcWavesT')+' m',waveA:t('sWaveA'),sst:t('fcWater')+' °C',tide:t('sTide')};
-  const left='<div class="sea-l" style="height:'+HT+'px">'+R.map(([k,h])=>'<div style="height:'+h+'px" class="sl-'+k+'">'+(L[k]?esc(L[k]):'')+(k==='wind'?'<select class="wunit" aria-label="'+esc(t('fcWindT'))+'">'+Object.entries(WU).map(([u,o])=>'<option value="'+u+'"'+(u===wUnit?' selected':'')+'>'+o.l+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div>';
+  const STK={windA:t('sWindA').split('|'),waveA:t('sWaveA').split('|')};
+  const left='<div class="sea-l" style="height:'+HT+'px">'+R.map(([k,h])=>'<div style="height:'+h+'px" class="sl-'+k+'">'+(STK[k]?STK[k].map((x,j)=>'<span class="stk stk'+j+'">'+esc(x)+'</span>').join(''):L[k]?esc(L[k]):'')+(k==='wind'?'<select class="wunit" aria-label="'+esc(t('fcWindT'))+'">'+Object.entries(WU).map(([u,o])=>'<option value="'+u+'"'+(u===wUnit?' selected':'')+'>'+o.l+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div>';
   const keep=seaFirst?null:(box.querySelector('.sea-r')||{}).scrollLeft;
   box.innerHTML='<div class="sea">'+left+'<div class="sea-r"><svg width="'+W+'" height="'+HT+'" viewBox="0 0 '+W+' '+HT+'">'+g+'</svg></div></div>';
   const r=box.querySelector('.sea-r');r.scrollLeft=keep!=null?keep:Math.max(0,nx-CW*2);seaFirst=false;
@@ -1244,9 +1279,9 @@ function drawForecast(){
     cm.sea_surface_temperature!=null?esc(t('fcWater'))+' '+f1(cm.sea_surface_temperature)+' °C':'',
     cw.temperature_2m!=null?esc(t('sAirS'))+' '+f0(cw.temperature_2m)+' °C':'',
     cw.visibility!=null&&cw.visibility<5000?esc(t(cw.visibility<1000?'sFog':'sMist'))+' ('+f1(cw.visibility/1000)+' km)':'',
-    esc(t('tide_'+st))+(nxt?' · '+esc(t(nxt.high?'nextHigh':'nextLow'))+' '+hhmm(nxt.t):''),
+    farT?'':esc(t('tide_'+st))+(nxt?' · '+esc(t(nxt.high?'nextHigh':'nextLow'))+' '+hhmm(nxt.t):''),
     cw.weather_code!=null?esc(t('w_'+wxKind(cw.weather_code))):''].filter(Boolean).join(' · ')
-    +(fcErr?'<br><span class="hint">'+esc(t(fcErr))+'</span>':(!D?'<br><span class="hint">'+esc(t('fcLoading'))+'</span>':''));
+    +(farT?'<br><span class="hint">'+esc(t('fcFarTide'))+'</span>':'')+(fcErr?'<br><span class="hint">'+esc(t(fcErr))+'</span>':(!D?'<br><span class="hint">'+esc(t('fcLoading'))+'</span>':''));
   $('fcStamp').textContent=D?t('fcUpdated')+' '+hhmm(D.at)+(fcLoading?' · …':''):'';
 }
 
