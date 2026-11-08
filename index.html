@@ -200,15 +200,15 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .fl{fill:var(--ink);font:600 12px var(--body)}
 #fcBox .fk{font:11px var(--body)}#fcBox .kw,#fcBox .kv{fill:var(--sea)}#fcBox .kg,#fcBox .ks{fill:var(--muted)}
 #fcBox .fs{fill:var(--ink);font:600 11px var(--body);font-variant-numeric:tabular-nums}
-#fcBox .fwind{fill:none;stroke:#8B6FE0;stroke-opacity:.75;stroke-width:2.2}
-#fcBox .fgust{fill:none;stroke:#8B6FE0;stroke-opacity:.7;stroke-width:1.5;stroke-dasharray:4 3}
-#fcBox .fwave{fill:none;stroke:#3D8BE0;stroke-opacity:.75;stroke-width:2.2}
-#fcBox .farea{fill:#3D8BE0;fill-opacity:.14}
-#fcBox .fswell{fill:none;stroke:#3D8BE0;stroke-opacity:.75;stroke-width:1.5;stroke-dasharray:4 3}
+#fcBox .fwind{fill:none;stroke:#8B6FE0;stroke-opacity:.45;stroke-width:2.2}
+#fcBox .fgust{fill:none;stroke:#8B6FE0;stroke-opacity:.42;stroke-width:1.5;stroke-dasharray:4 3}
+#fcBox .fwave{fill:none;stroke:#3D8BE0;stroke-opacity:.64;stroke-width:2.2}
+#fcBox .farea{fill:#3D8BE0;fill-opacity:.12}
+#fcBox .fswell{fill:none;stroke:#3D8BE0;stroke-opacity:.64;stroke-width:1.5;stroke-dasharray:4 3}
 #fcBox .fa,#fcBox .fa2{fill:var(--ink)}
 #fcBox .cwb{fill:#8B6FE0}#fcBox .cvb{fill:#3D8BE0}
-.sea-l .sl-wind,.sea-l .sl-windA .stk1{color:#7A5DD8}.sea-l .sl-wave,.sea-l .sl-waveA .stk1{color:#2F78C8}.sea-l .sl-tide{color:#16957D}
-.sea-l .sl-wind,.sea-l .sl-windA{box-shadow:inset 3px 0 #8B6FE0;padding-left:6px}.sea-l .sl-wave,.sea-l .sl-waveA{box-shadow:inset 3px 0 #3D8BE0;padding-left:6px}.sea-l .sl-tide{box-shadow:inset 3px 0 #1EA88E;padding-left:6px}
+.sea-l .sl-wind,.sea-l .sl-windA .stk1{color:#8B72D8}.sea-l .sl-wave,.sea-l .sl-waveA .stk1{color:#2F78C8}.sea-l .sl-tide{color:#16957D}
+.sea-l .sl-wind,.sea-l .sl-windA{box-shadow:inset 3px 0 rgba(139,111,224,.6);padding-left:6px}.sea-l .sl-wave,.sea-l .sl-waveA{box-shadow:inset 3px 0 #3D8BE0;padding-left:6px}.sea-l .sl-tide{box-shadow:inset 3px 0 #1EA88E;padding-left:6px}
 .sea-l .sl-clar{box-shadow:inset 3px 0 #9AA5AB;padding-left:6px}
 #fcBox .fp{fill:var(--sea);opacity:.55}
 #fcBox .fw{stroke:var(--ink)}
@@ -303,8 +303,10 @@ a{color:var(--sea);text-underline-offset:2px}
 .rules .tbl{overflow-x:auto;margin-top:6px}
 .rules table{border-collapse:collapse;width:100%;font-size:13.5px}
 .rules td{border-top:1px solid var(--line);padding:6px 8px 6px 0;vertical-align:top}
-.rules td:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
-.rules .tbl:last-of-type td:last-child{white-space:normal}
+.rules td{overflow-wrap:break-word;hyphens:auto}
+.rules td:last-child{white-space:normal;font-variant-numeric:tabular-nums}
+.rules details:first-of-type .tbl td:last-child{white-space:nowrap;text-align:right;padding-right:0}
+.rules details:not(:first-of-type) td:first-child{width:38%}
 .ck{list-style:none;margin:0;padding:0;display:grid;gap:2px;grid-template-columns:minmax(0,1fr);min-width:0}
 .ck li{min-width:0}
 .ck li{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:6px 0}
@@ -1255,14 +1257,14 @@ $('fcCard').addEventListener('toggle',()=>{try{localStorage.setItem('sn-fc',$('f
 try{if(localStorage.getItem('sn-fc')==='0')$('fcCard').open=false}catch(e){}
 setInterval(()=>{if($('fcCard').open)fcLoad()},36e5);
 function wxKind(c){return c==null?'':c===0?'sunny':c<=2?'partly':c===3?'cloudy':c===45||c===48?'fog':c>=51&&c<=57?'drizzle':c>=95?'storm':'rain'}
-const WXC={sun:'#F6C343',ray:'#E3A321',cloud:'#DDE5EA',cloudD:'#B7C3CB',drop:'#3D8BE0',bolt:'#F6C343'};
+const WXC={sun:'#F6C343',ray:'#F2B51F',cloud:'#DDE5EA',cloudD:'#B7C3CB',drop:'#3D8BE0',bolt:'#F6C343'};
 function wxColor(k,inner){
   const cl=k==='storm'?WXC.cloudD:(k==='rain'||k==='drizzle')?'#C9D3DA':WXC.cloud;
-  inner=inner.replace(/<path d="(M7 1[49]a4[^"]*|M9 20a3\.5[^"]*)"\/>/,(m,d)=>'<path d="'+d+'" fill="'+cl+'"/>');
+  inner=inner.replace(/<path d="(M7 1[49]a4[^"]*|M9 20a3\.5[^"]*)"\/>/,(m,d)=>'<path d="'+d+'" fill="'+cl+'" fill-opacity=".5"/>');
   if(k==='sunny')inner=inner.replace('<circle cx="12" cy="12" r="4"/>','<circle cx="12" cy="12" r="4" fill="'+WXC.sun+'"/>').replace(/<path d="M12 3v2[^"]*"\/>/,m=>m.replace('/>',' stroke="'+WXC.ray+'"/>'));
   if(k==='partly')inner=inner.replace(/<path d="M8 3v1\.5[^"]*"\/>/,m=>m.replace('/>',' stroke="'+WXC.ray+'"/>')).replace(/<path d="M5\.5[^"]*"\/>/,m=>m.replace('"/>','" fill="'+WXC.sun+'"/>'));
   if(k==='rain'||k==='drizzle')inner=inner.replace(/(<path d="M8 1[78][^"]*")\/>/,'$1 stroke="'+WXC.drop+'" stroke-width="2.2"/>');
-  if(k==='storm')inner=inner.replace(/(<path d="M12\.500 15\.500[^"]*")\/>/,'$1 fill="'+WXC.bolt+'" stroke="#B9800F"/>');
+  if(k==='storm')inner=inner.replace(/(<path d="M12\.500 15\.500[^"]*")\/>/,'$1 fill="'+WXC.bolt+'"/>');
   if(k==='fog')inner=inner.replace(/(<path d="M4 18h16[^"]*")\/>/,'$1 stroke="#9AA5AB"/>');
   return inner;
 }
@@ -1313,12 +1315,12 @@ function drawForecast(){
   const ln=(vals,Yf)=>{let d='';vals.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+cx(i).toFixed(1)+' '+Yf(v).toFixed(1)});return d};
   for(let v=U.step;v<wmax;v+=U.step)g+='<line x1="0" x2="'+W+'" y1="'+WY(v)+'" y2="'+WY(v)+'" class="tg"/>'+[0,1,2].map(d=>'<text x="'+(d*24*CW+3)+'" y="'+(WY(v)-2)+'" class="sax">'+v+'</text>').join('');
   if(D)g+='<path d="'+ln(wv.map(w=>w.wg),WY)+'" class="fgust"/><path d="'+ln(wv.map(w=>w.ws),WY)+'" class="fwind"/>';
-  wv.forEach((w,i)=>{const y=Y.windA[0];if(w.wind_speed_10m!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.windA[1]-4)+'" rx="5" class="cwb" fill-opacity="'+Math.min(.43,.05+w.wind_speed_10m/43).toFixed(2)+'"/>';if(w.wind_direction_10m!=null)g+=arrow(cx(i),y+10,w.wind_direction_10m,'fa',1);if(w.ws!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f0(w.ws)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(w.wg)+'</text>'});
+  wv.forEach((w,i)=>{const y=Y.windA[0];if(w.wind_speed_10m!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.windA[1]-4)+'" rx="5" class="cwb" fill-opacity="'+Math.min(.26,.03+w.wind_speed_10m/72).toFixed(2)+'"/>';if(w.wind_direction_10m!=null)g+=arrow(cx(i),y+10,w.wind_direction_10m,'fa',1);if(w.ws!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f0(w.ws)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(w.wg)+'</text>'});
   // waves chart
   const mv=hrs.map(t=>near(mm,t)||{}),hasW=mv.some(m=>m.wave_height!=null),hmax=Math.max(1.5,1.2*Math.max(...mv.map(m=>Math.max(m.wave_height||0,m.swell_wave_height||0)))),vTop=Y.wave[0]+14,vBot=Y.wave[0]+Y.wave[1]-4,VY=v=>vBot-(v/hmax)*(vBot-vTop);
   for(let v=1;v<hmax;v+=1)g+='<line x1="0" x2="'+W+'" y1="'+VY(v)+'" y2="'+VY(v)+'" class="tg"/>'+[0,1,2].map(d=>'<text x="'+(d*24*CW+3)+'" y="'+(VY(v)-2)+'" class="sax">'+v+'</text>').join('');
   if(hasW){const a=ln(mv.map(m=>m.wave_height),VY);g+='<path d="'+a+'L'+cx(NH-1)+' '+vBot+'L'+cx(0)+' '+vBot+'Z" class="farea"/><path d="'+ln(mv.map(m=>m.swell_wave_height),VY)+'" class="fswell"/><path d="'+a+'" class="fwave"/>'}
-  mv.forEach((m,i)=>{const y=Y.waveA[0];if(m.wave_height!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.waveA[1]-4)+'" rx="5" class="cvb" fill-opacity="'+Math.min(.43,.05+m.wave_height/6.4).toFixed(2)+'"/>';if(m.wave_direction!=null)g+=arrow(cx(i),y+10,m.wave_direction,'fa2',1);if(m.wave_height!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f1(m.wave_height)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(m.wave_period)+'s</text>'});
+  mv.forEach((m,i)=>{const y=Y.waveA[0];if(m.wave_height!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.waveA[1]-4)+'" rx="5" class="cvb" fill-opacity="'+Math.min(.37,.04+m.wave_height/7.5).toFixed(2)+'"/>';if(m.wave_direction!=null)g+=arrow(cx(i),y+10,m.wave_direction,'fa2',1);if(m.wave_height!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f1(m.wave_height)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(m.wave_period)+'s</text>'});
   const cl=hrs.map(t=>clarity(t,wm,mm,near,farT));
   cl.forEach((c,i)=>{if(!c)return;const y=Y.clar[0];g+='<rect x="'+(i*CW+1)+'" y="'+(y+5)+'" width="'+(CW-2)+'" height="'+(Y.clar[1]-10)+'" rx="3" class="vc vc-'+c.k+'"/>';const prev=cl[i-1];if(!prev||prev.k!==c.k||lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(y+Y.clar[1]/2+4)+'" text-anchor="middle" class="vct">'+esc(t('vc_'+c.k))+'</text>'});
   mv.forEach((m,i)=>{if(m.sea_surface_temperature!=null&&lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(Y.sst[0]+14)+'" text-anchor="middle" class="ssst">'+f1(m.sea_surface_temperature)+'°</text>'});
