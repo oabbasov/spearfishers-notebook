@@ -154,7 +154,7 @@ a{color:var(--sea);text-underline-offset:2px}
 .sea-l .sl-clar{color:var(--ink)}
 #fcBox .vc{opacity:.55}#fcBox .vc-good{fill:#3FA37A}#fcBox .vc-mid{fill:#D9A43A}#fcBox .vc-bad{fill:#B8573F}
 #fcBox .vct{font-size:10.5px;font-weight:600;fill:var(--ink)}
-.sea-l .stk{position:absolute;left:0;right:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sea-l .stk{position:absolute;left:6px;right:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sea-l .stk0{top:4px}.sea-l .stk1{top:18px;color:var(--ink)}.sea-l .stk2{top:32px}
 .fc-find{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
 .fc-find input{flex:1;min-width:160px;padding:6px 8px;font-size:14px}
@@ -189,7 +189,7 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .ss{fill:var(--muted);font:10.5px var(--body);font-variant-numeric:tabular-nums}
 #fcBox .srain{fill:var(--sea);font:600 10px var(--body)}
 #fcBox .ssst{fill:var(--ink);font:11px var(--body);font-variant-numeric:tabular-nums}
-#fcBox .ta{fill:var(--sea-soft)}#fcBox .tc{fill:none;stroke:var(--sea);stroke-width:2}#fcBox .te{fill:var(--sea)}
+#fcBox .ta{fill:#1EA88E;fill-opacity:.2}#fcBox .tc{fill:none;stroke:#1EA88E;stroke-width:2.2}#fcBox .te{fill:#1EA88E}
 #fcBox .tx{fill:var(--ink);font:600 12px var(--body);paint-order:stroke;stroke:var(--surface);stroke-width:3.5px;stroke-linejoin:round}
 #fcBox .th{fill:var(--muted);font:10.5px var(--body);paint-order:stroke;stroke:var(--surface);stroke-width:3.5px;stroke-linejoin:round}
 #fcBox .tnd{fill:var(--accent);stroke:var(--surface);stroke-width:1.5}
@@ -200,12 +200,16 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .fl{fill:var(--ink);font:600 12px var(--body)}
 #fcBox .fk{font:11px var(--body)}#fcBox .kw,#fcBox .kv{fill:var(--sea)}#fcBox .kg,#fcBox .ks{fill:var(--muted)}
 #fcBox .fs{fill:var(--ink);font:600 11px var(--body);font-variant-numeric:tabular-nums}
-#fcBox .fwind{fill:none;stroke:var(--sea);stroke-width:2}
-#fcBox .fgust{fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 3}
-#fcBox .fwave{fill:none;stroke:var(--sea);stroke-width:2}
-#fcBox .farea{fill:var(--sea-soft)}
-#fcBox .fswell{fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 3}
-#fcBox .fa{fill:var(--ink)}#fcBox .fa2{fill:var(--sea)}
+#fcBox .fwind{fill:none;stroke:#8B6FE0;stroke-width:2.2}
+#fcBox .fgust{fill:none;stroke:#8B6FE0;stroke-opacity:.7;stroke-width:1.5;stroke-dasharray:4 3}
+#fcBox .fwave{fill:none;stroke:#3D8BE0;stroke-width:2.2}
+#fcBox .farea{fill:#3D8BE0;fill-opacity:.2}
+#fcBox .fswell{fill:none;stroke:#3D8BE0;stroke-opacity:.75;stroke-width:1.5;stroke-dasharray:4 3}
+#fcBox .fa{fill:#6F52CC}#fcBox .fa2{fill:#2F78C8}
+#fcBox .cwb{fill:#8B6FE0}#fcBox .cvb{fill:#3D8BE0}
+.sea-l .sl-wind,.sea-l .sl-windA .stk1{color:#7A5DD8}.sea-l .sl-wave,.sea-l .sl-waveA .stk1{color:#2F78C8}.sea-l .sl-tide{color:#16957D}
+.sea-l .sl-wind,.sea-l .sl-windA{box-shadow:inset 3px 0 #8B6FE0;padding-left:6px}.sea-l .sl-wave,.sea-l .sl-waveA{box-shadow:inset 3px 0 #3D8BE0;padding-left:6px}.sea-l .sl-tide{box-shadow:inset 3px 0 #1EA88E;padding-left:6px}
+.sea-l .sl-clar{box-shadow:inset 3px 0 #D9A43A;padding-left:6px}
 #fcBox .fp{fill:var(--sea);opacity:.55}
 #fcBox .fw{stroke:var(--ink)}
 #tideBox .tnd{fill:var(--accent);stroke:var(--surface);stroke-width:1.5}
@@ -1298,12 +1302,12 @@ function drawForecast(){
   const ln=(vals,Yf)=>{let d='';vals.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+cx(i).toFixed(1)+' '+Yf(v).toFixed(1)});return d};
   for(let v=U.step;v<wmax;v+=U.step)g+='<line x1="0" x2="'+W+'" y1="'+WY(v)+'" y2="'+WY(v)+'" class="tg"/>'+[0,1,2].map(d=>'<text x="'+(d*24*CW+3)+'" y="'+(WY(v)-2)+'" class="sax">'+v+'</text>').join('');
   if(D)g+='<path d="'+ln(wv.map(w=>w.wg),WY)+'" class="fgust"/><path d="'+ln(wv.map(w=>w.ws),WY)+'" class="fwind"/>';
-  wv.forEach((w,i)=>{const y=Y.windA[0];if(w.wind_direction_10m!=null)g+=arrow(cx(i),y+10,w.wind_direction_10m,'fa',1);if(w.ws!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f0(w.ws)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(w.wg)+'</text>'});
+  wv.forEach((w,i)=>{const y=Y.windA[0];if(w.wind_speed_10m!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.windA[1]-4)+'" rx="5" class="cwb" fill-opacity="'+Math.min(.62,.08+w.wind_speed_10m/30).toFixed(2)+'"/>';if(w.wind_direction_10m!=null)g+=arrow(cx(i),y+10,w.wind_direction_10m,'fa',1);if(w.ws!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f0(w.ws)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(w.wg)+'</text>'});
   // waves chart
   const mv=hrs.map(t=>near(mm,t)||{}),hasW=mv.some(m=>m.wave_height!=null),hmax=Math.max(1.5,1.2*Math.max(...mv.map(m=>Math.max(m.wave_height||0,m.swell_wave_height||0)))),vTop=Y.wave[0]+14,vBot=Y.wave[0]+Y.wave[1]-4,VY=v=>vBot-(v/hmax)*(vBot-vTop);
   for(let v=1;v<hmax;v+=1)g+='<line x1="0" x2="'+W+'" y1="'+VY(v)+'" y2="'+VY(v)+'" class="tg"/>'+[0,1,2].map(d=>'<text x="'+(d*24*CW+3)+'" y="'+(VY(v)-2)+'" class="sax">'+v+'</text>').join('');
   if(hasW){const a=ln(mv.map(m=>m.wave_height),VY);g+='<path d="'+a+'L'+cx(NH-1)+' '+vBot+'L'+cx(0)+' '+vBot+'Z" class="farea"/><path d="'+ln(mv.map(m=>m.swell_wave_height),VY)+'" class="fswell"/><path d="'+a+'" class="fwave"/>'}
-  mv.forEach((m,i)=>{const y=Y.waveA[0];if(m.wave_direction!=null)g+=arrow(cx(i),y+10,m.wave_direction,'fa2',1);if(m.wave_height!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f1(m.wave_height)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(m.wave_period)+'s</text>'});
+  mv.forEach((m,i)=>{const y=Y.waveA[0];if(m.wave_height!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.waveA[1]-4)+'" rx="5" class="cvb" fill-opacity="'+Math.min(.62,.08+m.wave_height/4.5).toFixed(2)+'"/>';if(m.wave_direction!=null)g+=arrow(cx(i),y+10,m.wave_direction,'fa2',1);if(m.wave_height!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f1(m.wave_height)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(m.wave_period)+'s</text>'});
   const cl=hrs.map(t=>clarity(t,wm,mm,near,farT));
   cl.forEach((c,i)=>{if(!c)return;const y=Y.clar[0];g+='<rect x="'+(i*CW+1)+'" y="'+(y+5)+'" width="'+(CW-2)+'" height="'+(Y.clar[1]-10)+'" rx="3" class="vc vc-'+c.k+'"/>';const prev=cl[i-1];if(!prev||prev.k!==c.k||lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(y+Y.clar[1]/2+4)+'" text-anchor="middle" class="vct">'+esc(t('vc_'+c.k))+'</text>'});
   mv.forEach((m,i)=>{if(m.sea_surface_temperature!=null&&lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(Y.sst[0]+14)+'" text-anchor="middle" class="ssst">'+f1(m.sea_surface_temperature)+'°</text>'});
