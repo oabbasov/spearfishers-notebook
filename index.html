@@ -252,7 +252,7 @@ a{color:var(--sea);text-underline-offset:2px}
 #libF{display:flex;flex-wrap:wrap;gap:6px}
 #libF button{font-size:13px;padding:5px 11px;border-radius:999px;border:1px solid var(--line)}
 #libF button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:var(--bg)}
-.rules h4.reg{margin:10px 0 2px;font:600 13px var(--display,inherit);text-transform:uppercase;letter-spacing:.06em;color:var(--sea)}
+.rules h4.reg{margin:12px 0 2px;font-size:14px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--sea);border-left:3px solid var(--sea);padding-left:7px;line-height:1.2}
 .rules details>h4.reg:first-of-type{margin-top:4px}
 .rules{display:grid;gap:10px;font-size:14px;line-height:1.55}
 .rules p{margin:0}
@@ -1779,7 +1779,7 @@ const CK_BASE={pt:['Licença de pesca','Documento de identificação','Bóia com
 const ckId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 function ckLists(){
   const d=checkDoc||{};
-  if(Array.isArray(d.lists)&&d.lists.length)return d.lists;
+  if(Array.isArray(d.lists)&&d.lists.length)return d.lists.map(l=>l.id==='l1'&&/^(Caça submarina|Spearfishing)$/.test(l.name||'')?{...l,name:t('ckDefName')}:l);
   return[{id:'l1',name:t('ckDefName'),items:d.items||[]}];
 }
 function ckCur(){const ls=ckLists();return ls.find(l=>l.id===(checkDoc&&checkDoc.cur))||ls[0]}
