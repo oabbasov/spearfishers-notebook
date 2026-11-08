@@ -259,6 +259,20 @@ a{color:var(--sea);text-underline-offset:2px}
 .lib-bd{display:flex;flex-direction:column;gap:3px;align-items:flex-end}
 .bd{font-size:12px;padding:1px 7px;border-radius:999px;background:var(--sea-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
 .bd-ban{background:transparent;border:1px solid var(--danger);color:var(--danger)}
+.bd-min{background:transparent;border:1px solid #2F9A62;color:#2F9A62}
+.bd-def{background:transparent;border:1px solid #C8961B;color:#B7860F}
+.bd-def.bd-now{background:#C8961B;color:#fff}
+.bd-dg{background:transparent;border:1px solid #D2672C;color:#D2672C}
+.lib-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.lib-h h2{margin:0}
+.lib-bds{display:flex;flex-wrap:wrap;gap:4px}
+.lib-danger{border:1px solid var(--danger);border-left-width:4px;border-radius:8px;padding:8px 10px;color:var(--ink)}
+.lib-danger b{color:var(--danger)}.lib-danger p{margin:4px 0 0;line-height:1.5}
+.lib-reg h3{margin:0 0 4px;font:600 15px var(--display)}
+.lib-reg p{margin:0 0 4px;display:flex;flex-wrap:wrap;gap:6px}
+.rg{font-size:13px;padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
+.rg-y{border-color:#2F9A62;color:#2F9A62}.rg-n{color:var(--muted);text-decoration:line-through}.rg-r{border-style:dashed}
+
 .lib-back{justify-self:start}
 .lib-desc h3{margin:0 0 4px;font:600 15px var(--display)}
 .lib-desc p{margin:0 0 4px;line-height:1.55}
@@ -835,6 +849,25 @@ Object.assign(LATIN,{'Axillary seabream':'Pagellus acarne','Sand steenbras':'Lit
  RAW.Brown_crab=crab('#C47E4C','#141414','#B8703F',false);
  RAW.Velvet_crab=crab('#5B5A4E','#2C4C8A','#3D5A8A',true);
 })();
+/* Redrawn: John Dory (galo-negro), silvery John Dory (galo-branco), male parrotfish, moray */
+(()=>{
+ const fil=(x)=>'M'+x+' 9.8L'+(x+1)+' 1.8L'+(x+2.4)+' 9.6Z';
+ const fl=(x,len)=>'<path d="M'+(x+1)+' 1.8C'+(x+4)+' .4 '+(x+len*.7)+' .6 '+(x+len)+' 3" fill="none" stroke="#5E5840" stroke-width=".9" stroke-linecap="round"/>';
+ const JD={b:'M7 19C9 12.5 16 9.2 25.5 9C35 8.8 43.5 12.5 49.5 17.5V21C43.5 26.5 35 30 25.5 29.8C16 29.6 9 25.5 7 19Z',
+  fins:['M49 19.2L57 14.2C58.5 17.2 58.5 21.2 57 24.2Z',fil(15),fil(18.5),fil(22),fil(25.5),fil(29),
+   'M32 9C39 8.4 45 11 49 15.5L45 15C41 11.8 37 10.5 32 10.4Z','M32 29.8C39 30.4 45 28 49 23.5L45 24C41 27.2 37 28.5 32 28.6Z',
+   'M16 28L10.5 35.2 13.8 35.2 19.5 28.8Z','M20.5 29L17.8 35.6 20.8 35.2 23.4 29.6Z'],
+  gill:'M16 11.5C19.5 16 19.5 23 16 27.5',mouth:'M7.2 18.6L3.4 16.6 3.8 20 7.5 20.6',eye:[12.5,15.6,1.8]};
+ const FL=fl(15,13)+fl(18.5,13)+fl(22,12)+fl(25.5,11)+fl(29,9);
+ ARTDEF.John_Dory={...JD,top:'#857E5C',low:'#C8BB8C',belly:'#E3D9B8',finc:'#6F684A',
+  pat:wig('M20 12C24 14 22 18 26 20M34 11C37 14 35 18 39 20M22 24C26 25 30 24 34 26M40 22C42 24 41 26 44 26','#E9D58E',.8,.6)+'<circle cx="28.5" cy="19.5" r="3.2" fill="#1B2226"/><circle cx="28.5" cy="19.5" r="4.2" fill="none" stroke="#F1E3A6" stroke-width="1"/>',over:FL};
+ ARTDEF.Zenopsis={...JD,over:fl(15,6)+fl(18.5,6)+fl(22,6)+fl(25.5,5)+fl(29,4),top:'#8F9CA2',low:'#D3DADD',belly:'#EEF2F3',finc:'#7E8B91',
+  pat:spots([[23,15,1.3],[30,14,1.1],[34,20,1.4],[27,24,1.2],[38,16,1],[40,23,1.1]],'#7C8A90')};
+ ARTDEF.Parrotfish={...ARTDEF.Parrotfish,top:'#56615F',low:'#8F9A92',belly:'#C9CEC2',finc:'#4D5755',
+  pat:[0,1,2,3,4].map(i=>[0,1,2,3,4,5].map(j=>'<ellipse cx="'+(17+j*5.4+(i%2)*2.7)+'" cy="'+(10+i*4.6)+'" rx="1.3" ry="1.1" fill="#2E3736" opacity=".55"/>').join('')).join('')+'<ellipse cx="16.5" cy="19.5" rx="2.6" ry="2.2" fill="#141A1B"/>'+wig('M19 26C24 27.5 30 27.5 36 26','#C9A85A',.9,.6),
+  over:'<path d="M2.6 19.4C2.8 17.6 5 17 6.8 18.2L6.8 20.8C5 21.6 3 21.2 2.6 19.4Z" fill="#E6E1D2" stroke="'+OL+'" stroke-width=".4"/><path d="M2.8 19.5L6.8 19.5" stroke="'+OL+'" stroke-width=".35"/>'};
+})();
+RAW.Moray='<defs><linearGradient id="mrG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A2C16"/><stop offset="1" stop-color="#6B532D"/></linearGradient><clipPath id="mrC"><path d="M2.2 16.0 L2.8 16.1 L3.4 16.2 L4.0 16.3 L4.6 16.4 L5.2 16.5 L5.8 16.6 L6.4 16.7 L7.0 16.8 L7.6 16.9 L8.2 17.0 L8.8 17.0 L9.4 17.1 L10.0 17.1 L10.6 17.1 L11.2 17.2 L11.8 17.2 L12.4 17.2 L13.0 17.2 L13.6 17.1 L14.2 17.1 L14.8 17.0 L15.4 17.0 L16.0 16.9 L16.6 16.8 L17.2 16.6 L17.8 16.5 L18.4 16.5 L19.0 16.5 L19.6 16.5 L20.2 16.5 L20.8 16.5 L21.4 16.4 L22.0 16.3 L22.6 16.3 L23.2 16.2 L23.8 16.1 L24.4 15.9 L25.0 15.8 L25.6 15.6 L26.2 15.5 L26.8 15.3 L27.4 15.1 L28.0 14.9 L28.6 14.7 L29.2 14.4 L29.8 14.2 L30.4 14.0 L31.0 13.7 L31.6 13.4 L32.2 13.2 L32.8 12.9 L33.4 12.6 L34.0 12.4 L34.6 12.1 L35.2 11.8 L35.8 11.5 L36.4 11.2 L37.0 10.9 L37.6 10.6 L38.2 10.4 L38.8 10.1 L39.4 9.8 L40.0 9.5 L40.6 9.3 L41.2 9.0 L41.8 8.8 L42.4 8.6 L43.0 8.3 L43.6 8.1 L44.2 7.9 L44.8 7.7 L45.4 7.5 L46.0 7.4 L46.6 7.4 L47.2 7.5 L47.8 7.7 L48.4 7.8 L49.0 7.9 L49.6 8.1 L50.2 8.3 L50.8 8.4 L51.4 8.6 L52.0 8.9 L52.6 9.1 L53.2 9.4 L53.8 9.6 L54.4 9.9 L55.0 10.2 L55.6 10.5 L56.2 10.9 L56.8 11.2 L57.4 11.6 L58.0 12.0 L58.6 12.3 L59.2 12.8 L59.8 13.2 L60.4 13.6 L61.0 14.0 L61.6 14.4 L62.2 14.6 L62.2 15.6 L61.6 15.3 L61.0 15.2 L60.4 15.2 L59.8 15.2 L59.2 15.3 L58.6 15.3 L58.0 15.4 L57.4 15.5 L56.8 15.6 L56.2 15.7 L55.6 15.8 L55.0 16.0 L54.4 16.1 L53.8 16.3 L53.2 16.5 L52.6 16.7 L52.0 16.9 L51.4 17.2 L50.8 17.4 L50.2 17.7 L49.6 18.0 L49.0 18.3 L48.4 18.6 L47.8 18.9 L47.2 19.3 L46.6 19.7 L46.0 20.0 L45.4 20.2 L44.8 20.4 L44.2 20.6 L43.6 20.8 L43.0 21.0 L42.4 21.2 L41.8 21.5 L41.2 21.7 L40.6 22.0 L40.0 22.2 L39.4 22.5 L38.8 22.8 L38.2 23.0 L37.6 23.3 L37.0 23.6 L36.4 23.9 L35.8 24.2 L35.2 24.5 L34.6 24.7 L34.0 25.0 L33.4 25.3 L32.8 25.6 L32.2 25.9 L31.6 26.1 L31.0 26.4 L30.4 26.6 L29.8 26.9 L29.2 27.1 L28.6 27.3 L28.0 27.6 L27.4 27.8 L26.8 28.0 L26.2 28.1 L25.6 28.3 L25.0 28.5 L24.4 28.6 L23.8 28.7 L23.2 28.8 L22.6 28.9 L22.0 29.0 L21.4 29.1 L20.8 29.1 L20.2 29.2 L19.6 29.2 L19.0 29.2 L18.4 29.2 L17.8 29.1 L17.2 28.8 L16.6 28.6 L16.0 28.3 L15.4 28.1 L14.8 27.8 L14.2 27.5 L13.6 27.2 L13.0 26.8 L12.4 26.5 L11.8 26.1 L11.2 25.8 L10.6 25.4 L10.0 25.0 L9.4 24.6 L8.8 24.2 L8.2 23.8 L7.6 23.3 L7.0 22.9 L6.4 22.4 L5.8 22.0 L5.2 21.5 L4.6 21.1 L4.0 20.6 L3.4 20.2 L2.8 19.8 L2.2 19.3Z"/></clipPath></defs>'+'<path d="M13.0 16.3 L13.6 16.2 L14.2 16.2 L14.8 16.1 L15.4 16.1 L16.0 16.0 L16.6 15.9 L17.2 15.7 L17.8 15.6 L18.4 15.6 L19.0 15.6 L19.6 15.6 L20.2 15.6 L20.8 15.6 L21.4 15.5 L22.0 15.4 L22.6 15.4 L23.2 15.3 L23.8 15.2 L24.4 15.0 L25.0 14.9 L25.6 14.7 L26.2 14.6 L26.8 14.4 L27.4 14.2 L28.0 14.0 L28.6 13.8 L29.2 13.5 L29.8 13.3 L30.4 13.1 L31.0 12.8 L31.6 12.5 L32.2 12.3 L32.8 12.0 L33.4 11.7 L34.0 11.5 L34.6 11.2 L35.2 10.9 L35.8 10.6 L36.4 10.3 L37.0 10.0 L37.6 9.7 L38.2 9.5 L38.8 9.2 L39.4 8.9 L40.0 8.6 L40.6 8.4 L41.2 8.1 L41.8 7.9 L42.4 7.7 L43.0 7.4 L43.6 7.2 L44.2 7.0 L44.8 6.8 L45.4 6.6 L46.0 6.5 L46.6 6.5 L47.2 6.6 L47.8 6.8 L48.4 6.9 L49.0 7.0 L49.6 7.2 L50.2 7.4 L50.8 7.5 L51.4 7.7 L52.0 8.0 L52.6 8.2 L53.2 8.5 L53.8 8.7 L54.4 9.0 L55.0 9.3 L55.6 9.6 L56.2 10.0 L56.8 10.3 L57.4 10.7 L58.0 11.1 L58.6 11.4 L59.2 11.9 L59.8 12.3 L60.4 12.7 L61.0 13.1 L61.6 13.5 L62.2 13.7 L62.2 14.8 L61.6 14.6 L61.0 14.2 L60.4 13.8 L59.8 13.4 L59.2 13.0 L58.6 12.5 L58.0 12.2 L57.4 11.8 L56.8 11.4 L56.2 11.1 L55.6 10.7 L55.0 10.4 L54.4 10.1 L53.8 9.8 L53.2 9.6 L52.6 9.3 L52.0 9.1 L51.4 8.8 L50.8 8.6 L50.2 8.5 L49.6 8.3 L49.0 8.1 L48.4 8.0 L47.8 7.9 L47.2 7.7 L46.6 7.6 L46.0 7.6 L45.4 7.7 L44.8 7.9 L44.2 8.1 L43.6 8.3 L43.0 8.5 L42.4 8.8 L41.8 9.0 L41.2 9.2 L40.6 9.5 L40.0 9.7 L39.4 10.0 L38.8 10.3 L38.2 10.6 L37.6 10.8 L37.0 11.1 L36.4 11.4 L35.8 11.7 L35.2 12.0 L34.6 12.3 L34.0 12.6 L33.4 12.8 L32.8 13.1 L32.2 13.4 L31.6 13.6 L31.0 13.9 L30.4 14.2 L29.8 14.4 L29.2 14.6 L28.6 14.9 L28.0 15.1 L27.4 15.3 L26.8 15.5 L26.2 15.7 L25.6 15.8 L25.0 16.0 L24.4 16.1 L23.8 16.3 L23.2 16.4 L22.6 16.5 L22.0 16.5 L21.4 16.6 L20.8 16.7 L20.2 16.7 L19.6 16.7 L19.0 16.7 L18.4 16.7 L17.8 16.7 L17.2 16.8 L16.6 17.0 L16.0 17.1 L15.4 17.2 L14.8 17.2 L14.2 17.3 L13.6 17.3 L13.0 17.4Z" fill="#33280F" stroke="'+OL+'" stroke-width=".4"/>'+'<path d="M2.2 16.0 L2.8 16.1 L3.4 16.2 L4.0 16.3 L4.6 16.4 L5.2 16.5 L5.8 16.6 L6.4 16.7 L7.0 16.8 L7.6 16.9 L8.2 17.0 L8.8 17.0 L9.4 17.1 L10.0 17.1 L10.6 17.1 L11.2 17.2 L11.8 17.2 L12.4 17.2 L13.0 17.2 L13.6 17.1 L14.2 17.1 L14.8 17.0 L15.4 17.0 L16.0 16.9 L16.6 16.8 L17.2 16.6 L17.8 16.5 L18.4 16.5 L19.0 16.5 L19.6 16.5 L20.2 16.5 L20.8 16.5 L21.4 16.4 L22.0 16.3 L22.6 16.3 L23.2 16.2 L23.8 16.1 L24.4 15.9 L25.0 15.8 L25.6 15.6 L26.2 15.5 L26.8 15.3 L27.4 15.1 L28.0 14.9 L28.6 14.7 L29.2 14.4 L29.8 14.2 L30.4 14.0 L31.0 13.7 L31.6 13.4 L32.2 13.2 L32.8 12.9 L33.4 12.6 L34.0 12.4 L34.6 12.1 L35.2 11.8 L35.8 11.5 L36.4 11.2 L37.0 10.9 L37.6 10.6 L38.2 10.4 L38.8 10.1 L39.4 9.8 L40.0 9.5 L40.6 9.3 L41.2 9.0 L41.8 8.8 L42.4 8.6 L43.0 8.3 L43.6 8.1 L44.2 7.9 L44.8 7.7 L45.4 7.5 L46.0 7.4 L46.6 7.4 L47.2 7.5 L47.8 7.7 L48.4 7.8 L49.0 7.9 L49.6 8.1 L50.2 8.3 L50.8 8.4 L51.4 8.6 L52.0 8.9 L52.6 9.1 L53.2 9.4 L53.8 9.6 L54.4 9.9 L55.0 10.2 L55.6 10.5 L56.2 10.9 L56.8 11.2 L57.4 11.6 L58.0 12.0 L58.6 12.3 L59.2 12.8 L59.8 13.2 L60.4 13.6 L61.0 14.0 L61.6 14.4 L62.2 14.6 L62.2 15.6 L61.6 15.3 L61.0 15.2 L60.4 15.2 L59.8 15.2 L59.2 15.3 L58.6 15.3 L58.0 15.4 L57.4 15.5 L56.8 15.6 L56.2 15.7 L55.6 15.8 L55.0 16.0 L54.4 16.1 L53.8 16.3 L53.2 16.5 L52.6 16.7 L52.0 16.9 L51.4 17.2 L50.8 17.4 L50.2 17.7 L49.6 18.0 L49.0 18.3 L48.4 18.6 L47.8 18.9 L47.2 19.3 L46.6 19.7 L46.0 20.0 L45.4 20.2 L44.8 20.4 L44.2 20.6 L43.6 20.8 L43.0 21.0 L42.4 21.2 L41.8 21.5 L41.2 21.7 L40.6 22.0 L40.0 22.2 L39.4 22.5 L38.8 22.8 L38.2 23.0 L37.6 23.3 L37.0 23.6 L36.4 23.9 L35.8 24.2 L35.2 24.5 L34.6 24.7 L34.0 25.0 L33.4 25.3 L32.8 25.6 L32.2 25.9 L31.6 26.1 L31.0 26.4 L30.4 26.6 L29.8 26.9 L29.2 27.1 L28.6 27.3 L28.0 27.6 L27.4 27.8 L26.8 28.0 L26.2 28.1 L25.6 28.3 L25.0 28.5 L24.4 28.6 L23.8 28.7 L23.2 28.8 L22.6 28.9 L22.0 29.0 L21.4 29.1 L20.8 29.1 L20.2 29.2 L19.6 29.2 L19.0 29.2 L18.4 29.2 L17.8 29.1 L17.2 28.8 L16.6 28.6 L16.0 28.3 L15.4 28.1 L14.8 27.8 L14.2 27.5 L13.6 27.2 L13.0 26.8 L12.4 26.5 L11.8 26.1 L11.2 25.8 L10.6 25.4 L10.0 25.0 L9.4 24.6 L8.8 24.2 L8.2 23.8 L7.6 23.3 L7.0 22.9 L6.4 22.4 L5.8 22.0 L5.2 21.5 L4.6 21.1 L4.0 20.6 L3.4 20.2 L2.8 19.8 L2.2 19.3Z" fill="url(#mrG)" stroke="'+OL+'" stroke-width=".7" stroke-linejoin="round"/>'+'<g clip-path="url(#mrC)"><ellipse cx="9.9" cy="20.9" rx="1.13" ry="0.87" fill="#D8C27C"/><circle cx="10.0" cy="21.6" r="0.39" fill="#D8C27C" opacity=".8"/><ellipse cx="12.9" cy="19.0" rx="1.29" ry="0.99" fill="#D8C27C"/><ellipse cx="12.8" cy="24.6" rx="1.11" ry="0.86" fill="#D8C27C"/><ellipse cx="16.8" cy="22.0" rx="1.75" ry="1.35" fill="#D8C27C"/><ellipse cx="20.1" cy="19.0" rx="1.50" ry="1.16" fill="#D8C27C"/><circle cx="20.2" cy="19.0" r="0.52" fill="#D8C27C" opacity=".8"/><ellipse cx="19.5" cy="26.4" rx="1.45" ry="1.11" fill="#D8C27C"/><circle cx="19.3" cy="26.1" r="0.50" fill="#D8C27C" opacity=".8"/><ellipse cx="23.2" cy="22.3" rx="1.65" ry="1.27" fill="#D8C27C"/><ellipse cx="26.4" cy="17.6" rx="1.86" ry="1.43" fill="#D8C27C"/><ellipse cx="26.9" cy="25.6" rx="1.57" ry="1.21" fill="#D8C27C"/><circle cx="26.1" cy="17.8" r="0.54" fill="#D8C27C" opacity=".8"/><ellipse cx="30.1" cy="20.0" rx="1.79" ry="1.38" fill="#D8C27C"/><circle cx="32.0" cy="23.7" r="0.62" fill="#D8C27C" opacity=".8"/><ellipse cx="32.5" cy="15.2" rx="1.82" ry="1.40" fill="#D8C27C"/><circle cx="34.4" cy="18.6" r="0.63" fill="#D8C27C" opacity=".8"/><ellipse cx="32.6" cy="23.3" rx="1.77" ry="1.36" fill="#D8C27C"/><circle cx="30.9" cy="18.0" r="0.61" fill="#D8C27C" opacity=".8"/><ellipse cx="37.0" cy="17.3" rx="1.49" ry="1.14" fill="#D8C27C"/><circle cx="35.4" cy="13.4" r="0.51" fill="#D8C27C" opacity=".8"/><ellipse cx="40.1" cy="11.6" rx="1.67" ry="1.29" fill="#D8C27C"/><circle cx="38.8" cy="18.1" r="0.58" fill="#D8C27C" opacity=".8"/><ellipse cx="39.3" cy="20.2" rx="1.49" ry="1.14" fill="#D8C27C"/><circle cx="38.1" cy="14.3" r="0.51" fill="#D8C27C" opacity=".8"/><ellipse cx="43.6" cy="14.5" rx="1.57" ry="1.20" fill="#D8C27C"/><ellipse cx="46.0" cy="9.7" rx="1.80" ry="1.38" fill="#D8C27C"/><ellipse cx="45.8" cy="18.0" rx="1.53" ry="1.17" fill="#D8C27C"/><circle cx="46.9" cy="12.4" r="0.53" fill="#D8C27C" opacity=".8"/><ellipse cx="49.4" cy="12.4" rx="1.17" ry="0.90" fill="#D8C27C"/><circle cx="48.3" cy="13.9" r="0.41" fill="#D8C27C" opacity=".8"/><ellipse cx="52.7" cy="10.5" rx="1.09" ry="0.84" fill="#D8C27C"/><circle cx="53.0" cy="15.0" r="0.38" fill="#D8C27C" opacity=".8"/><ellipse cx="52.5" cy="14.9" rx="1.10" ry="0.85" fill="#D8C27C"/><ellipse cx="55.9" cy="12.8" rx="0.70" ry="0.54" fill="#D8C27C"/><ellipse cx="59.1" cy="13.7" rx="0.56" ry="0.43" fill="#D8C27C"/><ellipse cx="59.4" cy="14.4" rx="0.45" ry="0.34" fill="#D8C27C"/></g>'+'<path d="M2.3 19.1L7 19.8" stroke="'+OL+'" stroke-width=".6" stroke-linecap="round"/><path d="M3.4 19.3l.3.7M4.5 19.5l.3.7M5.6 19.6l.3.7" stroke="#F4EFE1" stroke-width=".35"/>'+'<circle cx="5.6" cy="18.4" r=".95" fill="#F2D35E" stroke="'+OL+'" stroke-width=".3"/><circle cx="5.6" cy="18.4" r=".45" fill="#10181C"/><circle cx="11" cy="21.5" r=".8" fill="#111"/>';
 const GENERIC_ART={b:SLIM,fins:[FORK,'M17 11L21 6 30 11Z','M34 26L38 30 44 23Z'],gill:'M14 13C16 17 16 22 14 25.5',mouth:'M2.3 20L7 20.3',eye:[9.5,16.5,1.8]};
 document.body.insertAdjacentHTML('afterbegin','<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">'
   +Object.keys(ARTDEF).filter(k=>ARTDEF[k]).map(k=>fishSym(k,ARTDEF[k])).join('')+Object.keys(RAW).map(k=>rawSym(k,RAW[k])).join('')+fishSym('Generic',GENERIC_ART)+'</svg>');
@@ -2062,6 +2095,7 @@ function libBuild(){
 }
 const FAMART={Sparidae:'Pandora',Serranidae:'Comber',Polyprionidae:'Wreckfish',Labridae:'Wrasse',Mugilidae:'Mullet',Carangidae:'Horse_mackerel',Scombridae:'Tuna',Triglidae:'Gurnard',Peristediidae:'Gurnard',Scorpaenidae:'Scorpionfish',Sebastidae:'Scorpionfish',Soleidae:'Sole',Scophthalmidae:'Turbot',Bothidae:'Sole',Pleuronectidae:'Brill',Citharidae:'Sole',Gadidae:'Pollack',Lotidae:'Forkbeard',Phycidae:'Forkbeard',Merlucciidae:'Pollack',Clupeidae:'Bogue',Engraulidae:'Bogue',Argentinidae:'Bogue',Atherinidae:'Bogue',Salmonidae:'Sea_bass',Muraenidae:'Moray',Congridae:'Conger',Anguillidae:'Conger',Petromyzontidae:'Conger',Trichiuridae:'Conger',Zeidae:'John_Dory',Moronidae:'Sea_bass',Sciaenidae:'Meagre',Mullidae:'Red_mullet',Sphyraenidae:'Barracuda',Belonidae:'Garfish',Scomberesocidae:'Garfish',Xiphiidae:'Garfish',Balistidae:'Triggerfish',Pomatomidae:'Bluefish',Lophiidae:'Anglerfish',Batrachoididae:'Toadfish',Bramidae:'Saddled_seabream',Stromatidae:'Saddled_seabream',Trachichthyidae:'Scorpionfish',Berycidae:'Red_porgy',Epigonidae:'Bogue'};
 function libArt(s){
+  if(s.lat==='Zenopsis conchifer')return '<svg class="fi" viewBox="0 0 64 36" aria-hidden="true"><use href="#f-Zenopsis"/></svg>';
   if(s.fish)return fishSvg(s.fish[0],s.fish[1]);
   return '<svg class="fi" viewBox="0 0 64 36" aria-hidden="true"><use href="#f-'+(FAMART[s.fam]||'Generic')+'"/></svg>';
 }
@@ -2078,7 +2112,7 @@ function libRender(){
   $('libF').innerHTML=['all','mine','caught','ban'].map(k=>'<button type="button" data-f="'+k+'" aria-pressed="'+(libF===k)+'">'+esc(t('libF_'+k))+'</button>').join('');
   $('libCount').textContent=list.length+' / '+all.length;
   $('libUl').innerHTML=list.map(s=>'<li><button type="button" class="lib-row" data-lat="'+esc(s.lat)+'"><span class="lib-th" data-lat="'+esc(s.lat)+'">'+libArt(s)+'</span><span class="lib-tx"><b>'+esc(libName(s))+'</b> <i>'+esc(s.lat)+'</i><span class="hint">'+esc([libOther(s),s.fam].filter(Boolean).join(' · '))+'</span></span><span class="lib-bd">'
-    +(s.law.banned?'<span class="bd bd-ban">'+esc(t('libBan'))+'</span>':s.law.min?'<span class="bd">'+esc(s.law.min.replace('*',''))+'</span>':'')+(s.law.def.some(d=>d.now)?'<span class="bd bd-ban">'+esc(t('libDef'))+'</span>':'')+'</span></button></li>').join('')||'<li class="hint">'+esc(t('libNone'))+'</li>';
+    +(s.law.banned?'<span class="bd bd-ban">'+esc(t('libBan'))+'</span>':s.law.min?'<span class="bd bd-min">'+esc(s.law.min.replace('*',''))+'</span>':'')+(s.law.def.length?'<span class="bd bd-def'+(s.law.def.some(d=>d.now)?' bd-now':'')+'">'+esc(t('libDef'))+'</span>':'')+(DANGER[s.lat]?'<span class="bd bd-dg" title="'+esc(t('libDanger'))+'">⚠</span>':'')+'</span></button></li>').join('')||'<li class="hint">'+esc(t('libNone'))+'</li>';
   if(IS_SITE)libPhotos();
 }
 function libDetail(lat){
@@ -2087,11 +2121,11 @@ function libDetail(lat){
   const names=[['EN',s.en],['ES',s.es],['FR',s.fr]].filter(x=>x[1]).map(x=>'<span class="hint">'+x[0]+'</span> '+esc(x[1])).join('<br>');
   const desc=s.x?(lang==='pt'?s.desc:s.descEn):s.desc;
   $('libDet').innerHTML='<button type="button" class="link lib-back" id="libBack">← '+esc(t('libBack'))+'</button>'
-   +'<div class="sp-top">'+libArt(s).replace('class="fi"','class="fi sp-fi"')+'<div><h2>'+esc(libName(s))+'</h2><p class="lat">'+esc(s.lat)+'</p><p class="hint">'+esc([lang==='pt'?s.alt:s.pt,libOther(s)].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i&&v!==libName(s)).join(' · '))+'</p></div></div>'
+   +'<div class="sp-top">'+libArt(s).replace('class="fi"','class="fi sp-fi"')+'<div><div class="lib-h"><h2>'+esc(libName(s))+'</h2><span class="lib-bds">'+lawBadges(s.law)+(DANGER[s.lat]?'<span class="bd bd-dg">⚠ '+esc(t('libDanger'))+'</span>':'')+'</span></div><p class="lat">'+esc(s.lat)+'</p><p class="hint">'+esc([lang==='pt'?s.alt:s.pt,libOther(s)].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i&&v!==libName(s)).join(' · '))+'</p></div></div>'
    +(IS_SITE?'<div class="sp-photo" id="libPhoto"><span class="hint">'+esc(t('spLoading'))+'</span></div>':'')
    +'<div class="sp-legal">'+legalHtml({...s.law,note:''})+'<p class="hint">'+esc(t('libLawNote'))+'</p></div>'
-   +'<div class="lib-desc"><h3>'+esc(t('libId'))+'</h3><p>'+esc(desc)+'</p>'+(!s.x&&lang!=='pt'?'<p class="hint">'+esc(t('libInPt'))+'</p>':'')+'</div>'
-   +'<dl class="lib-dl"><dt>'+esc(t('libFam'))+'</dt><dd>'+esc(s.fam)+(s.ord?' · '+esc(s.ord):'')+'</dd>'+(names?'<dt>'+esc(t('libNames'))+'</dt><dd>'+names+'</dd>':'')+(s.fao?'<dt>'+esc(t('libFao'))+'</dt><dd>'+esc(s.fao)+'</dd>':'')+(s.iucn?'<dt>'+esc(t('libIucn'))+'</dt><dd>'+esc(iucnText(s))+'</dd>':'')+'</dl>'
+   +dangerHtml(s.lat)+'<div class="lib-desc"><h3>'+esc(t('libId'))+'</h3><p>'+esc(desc)+'</p>'+(!s.x&&lang!=='pt'?'<p class="hint">'+esc(t('libInPt'))+'</p>':'')+'</div>'
+   +regHtml(s.lat)+'<dl class="lib-dl"><dt>'+esc(t('libFam'))+'</dt><dd>'+esc(s.fam)+(s.ord?' · '+esc(s.ord):'')+'</dd>'+(names?'<dt>'+esc(t('libNames'))+'</dt><dd>'+names+'</dd>':'')+(s.fao?'<dt>'+esc(t('libFao'))+'</dt><dd>'+esc(s.fao)+'</dd>':'')+(s.iucn?'<dt>'+esc(t('libIucn'))+'</dt><dd>'+esc(iucnText(s))+'</dd>':'')+'</dl>'
    +'<p class="hint">'+(s.x?esc(t('libSrcX')):esc(t('libSrc')).replace('{p}',s.page))+'</p>'
    +'<p class="sp-links">'+(s.page?'<a href="'+MANUAL_URL+'#page='+(s.page+1)+'" target="_blank" rel="noopener">'+esc(t('libManual'))+' p. '+s.page+'</a>':'')+'<a href="https://'+(lang==='pt'?'pt':'en')+'.wikipedia.org/wiki/'+q.replace(/%20/g,'_')+'" target="_blank" rel="noopener">Wikipedia</a><a href="https://www.google.com/search?tbm=isch&q='+q+'" target="_blank" rel="noopener">'+esc(t('spImages'))+'</a>'+fbLink(decodeURIComponent(q))+'</p>';
   if(!$('libList').hidden)libScroll=$('libList').closest('.sheet-in').scrollTop;
@@ -2199,43 +2233,109 @@ const LSK='sn-inat2-';
 const lsGet=k=>{try{const v=JSON.parse(localStorage.getItem(LSK+k)||'null');return v&&Date.now()-v.t<2592e6?v.d:undefined}catch(e){return undefined}};
 const lsSet=(k,d)=>{try{localStorage.setItem(LSK+k,JSON.stringify({t:Date.now(),d}))}catch(e){}};
 const taxMem=new Map();
+
+/* ===== Where each species lives (indicative: y = present, r = rare or uncertain, n = not found) and dangers for spearfishers ===== */
+const REG_MA={'Acantholabrus palloni':'yy','Alosa alosa':'nn','Alosa fallax':'nn','Anguilla anguilla':'yy','Aphanopus carbo':'yy','Argentina sphyraena':'rr','Argyrosomus regius':'nn','Arnoglossus imperialis':'rr','Arnoglossus laterna':'rr','Arnoglossus rueppelli':'yr','Arnoglossus thori':'rr','Atherina boyeri':'nn','Auxis rochei':'yy','Auxis thazard':'yy','Balistes capriscus':'yy','Belone belone':'yy','Benthodesmus simonyi':'yy','Beryx decadactylus':'yy','Beryx splendens':'yy','Bodianus scrofa':'yy','Boops boops':'yy','Brama brama':'yy','Caranx rhonchus':'rn','Chelidonichthys cuculus':'rr','Chelidonichthys lastoviza':'yy','Chelidonichthys lucerna':'yr','Chelidonichthys obscurus':'yy','Chelon auratus':'yy','Chelon labrosus':'yy','Chelon ramada':'nn','Ciliata mustela':'nn','Citharus linguatula':'nn','Conger conger':'yy','Cynoscion regalis':'nn','Dagetichthys lusitanica':'nn','Dentex canariensis':'rn','Dentex dentex':'yr','Dentex gibbosus':'yy','Dentex macrophthalmus':'yy','Dicentrarchus labrax':'nn','Dicentrarchus punctatus':'nn','Dicologlossa cuneata':'nn','Diplodus annularis':'rn','Diplodus bellottii':'nn','Diplodus cadenati':'yy','Diplodus cervinus':'yy','Diplodus puntazzo':'yy','Diplodus sargus':'rr','Diplodus vulgaris':'yy','Engraulis encrasicolus':'yy','Epigonus telescopus':'yy','Epinephelus aeneus':'nn','Epinephelus marginatus':'yy','Euthynnus alletteratus':'yy','Eutrigla gurnardus':'nn','Gadiculus argenteus':'rr','Gaidropsarus vulgaris':'nn','Halobatrachus didactylus':'nn','Helicolenus dactylopterus':'yy','Hoplostethus atlanticus':'yy','Hoplostethus cadenati':'yr','Hoplostethus mediterraneus':'yy','Katsuwonus pelamis':'yy','Labrus bergylta':'ry','Labrus mixtus':'yy','Lampetra fluviatilis':'nn','Lepidopus caudatus':'yy','Lepidorhombus boscii':'nn','Lepidorhombus whiffiagonis':'nr','Lepidotrigla cavillone':'yr','Lepidotrigla dieuzeidei':'yn','Lithognathus mormyrus':'yr','Lophius budegassa':'rn','Lophius piscatorius':'yy','Merlangius merlangus':'nn','Merluccius bilinearis':'nn','Merluccius merluccius':'rr','Merluccius senegalensis':'nn','Microchirus azevia':'nn','Microchirus boscanion':'yn','Microchirus hexophthalmus':'nn','Microchirus ocellatus':'rr','Microchirus variegatus':'nn','Micromesistius poutassou':'yy','Molva dypterygia':'nr','Molva macrophthalma':'rr','Molva molva':'nr','Mugil cephalus':'yr','Mullus barbatus':'nn','Mullus surmuletus':'yy','Muraena helena':'yy','Oblada melanura':'yy','Pagellus acarne':'yy','Pagellus bogaraveo':'yy','Pagellus erythrinus':'yy','Pagrus auriga':'yr','Pagrus caeruleostictus':'rn','Pagrus pagrus':'yy','Pegusa lascaris':'rr','Peristedion cataphractum':'yy','Petromyzon marinus':'nn','Phycis blennoides':'yy','Phycis phycis':'yy','Platichthys flesus':'nn','Pleuronectes platessa':'nn','Pollachius pollachius':'nn','Pollachius virens':'nn','Polyprion americanus':'yy','Pomatomus saltatrix':'yy','Salmo salar':'nn','Salmo trutta':'nn','Sarda sarda':'yy','Sardina pilchardus':'yy','Sardinella aurita':'yr','Sarpa salpa':'yy','Scomber colias':'yy','Scomber scombrus':'nr','Scomberesox saurus':'yy','Scophthalmus maximus':'nn','Scophthalmus rhombus':'nn','Scorpaena elongata':'yr','Scorpaena loppei':'rn','Scorpaena notata':'yy','Scorpaena porcus':'yr','Scorpaena scrofa':'yy','Serranus cabrilla':'yy','Serranus hepatus':'rn','Serranus scriba':'yn','Solea senegalensis':'rn','Solea solea':'nn','Sparus aurata':'rn','Sphyraena sphyraena':'yr','Sphyraena viridensis':'yy','Spicara maena':'nn','Spicara smaris':'rr','Spondyliosoma cantharus':'yy','Sprattus sprattus':'nn','Stromateus fiatola':'rn','Synapturichthys kleinii':'nn','Thalassoma pavo':'yy','Thunnus alalunga':'yy','Thunnus albacares':'yy','Thunnus obesus':'yy','Thunnus thynnus':'yy','Trachurus mediterraneus':'nn','Trachurus picturatus':'yy','Trachurus trachurus':'rr','Trichiurus lepturus':'yr','Trigla lyra':'yr','Trisopterus luscus':'nn','Trisopterus minutus':'nn','Xiphias gladius':'yy','Zenopsis conchifer':'yy','Zeus faber':'yy',
+ 'Seriola dumerili':'yyy','Seriola rivoliana':'yyy','Lichia amia':'yyr','Pseudocaranx dentex':'yyy','Sparisoma cretense':'yyy','Umbrina cirrosa':'ynn','Mycteroperca fusca':'nyy','Serranus atricauda':'ryy','Octopus vulgaris':'yyy','Sepia officinalis':'yyy','Loligo vulgaris':'yyy','Maja squinado':'yrr','Necora puber':'ynn','Cancer pagurus':'ynr','Homarus gammarus':'ynr','Palinurus elephas':'yyy','Scyllarides latus':'yyy','Paracentrotus lividus':'yyy'};
+function regOf(lat){const v=REG_MA[lat];if(!v)return null;return v.length===3?{c:v[0],m:v[1],a:v[2]}:{c:'y',m:v[0],a:v[1]}}
+const SPINE={pt:'Espinhos venenosos: a picada é muito dolorosa e pode inchar durante horas. Use luvas, segure pela boca e, se picar, mergulhe a zona em água bem quente (cerca de 45 °C) e procure ajuda médica.',en:'Venomous spines: the sting is very painful and can swell for hours. Wear gloves, hold it by the mouth and, if stung, soak the area in very hot water (about 45 °C) and get medical help.'};
+const DANGER={
+ 'Muraena helena':{pt:'Mordedura forte com dentes afiados que rasgam; as feridas infetam com facilidade. Nunca meta a mão em tocas. Ferida, vira-se e morde ao longo do arpão: mantenha-a longe do corpo e mate-a de imediato.',en:'Strong bite with sharp, tearing teeth; the wounds infect easily. Never put your hand into holes. When speared it turns and bites along the shaft: keep it away from your body and dispatch it at once.'},
+ 'Conger conger':{pt:'Mordedura muito forte. Ferido, enrola-se no arpão e torce-se, pode prender o fio ou a mão. Não o puxe de tocas com a mão.',en:'Very strong bite. When speared it wraps around the shaft and spins, and can trap the line or your hand. Do not pull it out of holes by hand.'},
+ 'Scorpaena elongata':SPINE,'Scorpaena loppei':SPINE,'Scorpaena notata':SPINE,'Scorpaena porcus':SPINE,'Scorpaena scrofa':SPINE,
+ 'Helicolenus dactylopterus':{pt:'Espinhos ligeiramente venenosos na barbatana dorsal: picada dolorosa. Manuseie com luvas.',en:'Mildly venomous dorsal spines: a painful sting. Handle with gloves.'},
+ 'Halobatrachus didactylus':{pt:'Espinhos venenosos na dorsal e no opérculo, e mordedura forte. Picada muito dolorosa: água bem quente e ajuda médica.',en:'Venomous spines on the back and gill cover, and a strong bite. Very painful sting: very hot water and medical help.'},
+ 'Lophius piscatorius':{pt:'Boca enorme com dentes virados para dentro: ao manusear, a mão pode ficar presa. Segure por trás da cabeça.',en:'Huge mouth with inward-pointing teeth: a hand can get caught while handling it. Hold it behind the head.'},
+ 'Lophius budegassa':{pt:'Boca enorme com dentes virados para dentro: ao manusear, a mão pode ficar presa. Segure por trás da cabeça.',en:'Huge mouth with inward-pointing teeth: a hand can get caught while handling it. Hold it behind the head.'},
+ 'Sphyraena sphyraena':{pt:'Dentes muito afiados: não meta os dedos na boca ao tirar o arpão.',en:'Very sharp teeth: keep your fingers out of its mouth when removing the shaft.'},
+ 'Sphyraena viridensis':{pt:'Dentes muito afiados: não meta os dedos na boca ao tirar o arpão. Exemplares grandes nas ilhas: raros casos de ciguatera.',en:'Very sharp teeth: keep your fingers out of its mouth when removing the shaft. Large fish around the islands: rare ciguatera cases.'},
+ 'Pomatomus saltatrix':{pt:'Dentes muito afiados e mordedura rápida mesmo fora de água. Em cardume a caçar pode morder mergulhadores (raro).',en:'Very sharp teeth and a quick bite, even out of the water. Feeding schools have bitten divers (rare).'},
+ 'Balistes capriscus':{pt:'Mordedura forte. No verão guarda o ninho e pode atacar o mergulhador: afaste-se para os lados, não para cima.',en:'Strong bite. In summer it guards its nest and can charge divers: swim away sideways, not upwards.'},
+ 'Xiphias gladius':{pt:'Espada perigosa e força enorme. Não é presa para caça submarina.',en:'Dangerous sword and huge strength. Not a spearfishing target.'},
+ 'Thunnus thynnus':{pt:'Força enorme: pode arrastar o caçador para o fundo. Proibido na caça submarina.',en:'Huge strength: it can drag a diver down. Banned for spearfishing.'},
+ 'Thunnus albacares':{pt:'Peixe muito forte: use bóia e fio de ligação ou sistema que se solte; nunca prenda o fio ao corpo.',en:'Very powerful fish: use a float line or breakaway rig; never tie the line to yourself.'},
+ 'Thunnus obesus':{pt:'Peixe muito forte: use bóia e fio de ligação ou sistema que se solte; nunca prenda o fio ao corpo.',en:'Very powerful fish: use a float line or breakaway rig; never tie the line to yourself.'},
+ 'Thunnus alalunga':{pt:'Peixe forte: use bóia e fio de ligação; nunca prenda o fio ao corpo.',en:'Strong fish: use a float line; never tie the line to yourself.'},
+ 'Seriola dumerili':{pt:'Muito forte: risco de enrolar o fio e ser arrastado; use bóia e fio de ligação. Nos exemplares grandes da Madeira e Canárias há casos de ciguatera (intoxicação ao comer).',en:'Very strong: risk of tangling in the line and being dragged; use a float line. Large fish from Madeira and the Canaries have caused ciguatera (poisoning when eaten).'},
+ 'Seriola rivoliana':{pt:'Muito forte: use bóia e fio de ligação. Exemplares grandes: possível ciguatera.',en:'Very strong: use a float line. Large fish: possible ciguatera.'},
+ 'Argyrosomus regius':{pt:'Exemplares grandes são muito fortes; opérculo com espinho afiado.',en:'Large fish are very strong; sharp spine on the gill cover.'},
+ 'Dicentrarchus labrax':{pt:'Opérculo com espinhos e bordos cortantes: corta as mãos ao manusear.',en:'Spiny, sharp-edged gill cover: it cuts hands when handled.'},
+ 'Aphanopus carbo':{pt:'Dentes muito afiados.',en:'Very sharp teeth.'},'Lepidopus caudatus':{pt:'Dentes muito afiados.',en:'Very sharp teeth.'},'Trichiurus lepturus':{pt:'Dentes muito afiados.',en:'Very sharp teeth.'},
+ 'Paracentrotus lividus':{pt:'Os espinhos partem-se dentro da pele: cuidado ao apoiar mãos e joelhos nas rochas.',en:'Spines break off in the skin: take care where you put hands and knees on the rocks.'},
+ 'Octopus vulgaris':{pt:'Pode morder com o bico; a mordedura é dolorosa mas raramente grave.',en:'It can bite with its beak; painful but rarely serious.'},
+ 'Anguilla anguilla':{pt:'O sangue cru é tóxico (não beber nem deixar em feridas). Espécie proibida.',en:'Raw blood is toxic (keep it out of cuts). Protected species.'}
+};
+const REGN={y:['sim','yes'],r:['rara ou incerta','rare or uncertain'],n:['não','no']};
+function regHtml(lat){const r=regOf(lat);if(!r)return '';const L=lang==='pt'?0:1;
+  const it=(k,n)=>'<span class="rg rg-'+r[k]+'">'+esc(n)+': '+esc(REGN[r[k]][L])+'</span>';
+  return '<div class="lib-reg"><h3>'+esc(t('libWhere'))+'</h3><p>'+it('c',t('regC'))+it('m','Madeira')+it('a',t('regA'))+'</p><p class="hint">'+esc(t('libWhereNote'))+'</p></div>'}
+function dangerHtml(lat){const d=DANGER[lat];return d?'<div class="lib-danger"><b>⚠ '+esc(t('libDanger'))+'</b><p>'+esc(d[lang])+'</p></div>':''}
+function lawBadges(law){const b=[];
+  if(law.banned)b.push('<span class="bd bd-ban">'+esc(t('libBan'))+'</span>');
+  else if(law.min)b.push('<span class="bd bd-min">'+esc(t('libMinS'))+' '+esc(law.min.replace('*',''))+'</span>');
+  law.def.forEach(d=>b.push('<span class="bd bd-def'+(d.now?' bd-now':'')+'">'+esc(t('cwDefS'))+' '+esc(dm(d.from))+'–'+esc(dm(d.to))+(/Sudoeste|Southwest/.test(d.area.pt||'')?' · PNSACV':'')+'</span>'));
+  return b.join('')}
+Object.assign(T.pt,{libWhere:'Onde se encontra',regC:'Continente',regA:'Açores',libWhereNote:'Indicativo, segundo a distribuição conhecida da espécie (FishBase e literatura). Pode haver registos locais diferentes.',libDanger:'Perigo para o caçador',libMinS:'mín.'});
+Object.assign(T.en,{libWhere:'Where it lives',regC:'Mainland',regA:'Azores',libWhereNote:'Indicative, from the species\' known range (FishBase and literature). Local records may differ.',libDanger:'Danger for the spearfisher',libMinS:'min.'});
+
+/* ===== Photos v5: only the right animal group, curated photos first, plus Wikimedia Commons ===== */
+const LSK2='sn-inat3-';
+const ls2Get=k=>{try{const v=JSON.parse(localStorage.getItem(LSK2+k)||'null');return v&&Date.now()-v.t<2592e6?v.d:undefined}catch(e){return undefined}};
+const ls2Set=(k,d)=>{try{localStorage.setItem(LSK2+k,JSON.stringify({t:Date.now(),d}))}catch(e){}};
+const INV_G=['Octopus','Sepia','Loligo','Maja','Homarus','Palinurus','Scyllarides','Necora','Cancer','Paracentrotus'];
+const taxMem2=new Map();
 function inatTaxon(q,rank,hi){
-  const k=q+'|'+rank;
-  const c=lsGet('t|'+k);if(c!==undefined)return Promise.resolve(c);
-  if(taxMem.has(k)){const p=taxMem.get(k);if(hi&&p.lo){/* move to the front */INQ.lo=INQ.lo.filter(j=>{if(j.url===p.url){INQ.hi.push(j);return false}return true})}return p}
-  const url='https://api.inaturalist.org/v1/taxa?per_page=5&rank='+rank+'&q='+encodeURIComponent(q);
-  const p=inatGet(url,hi).then(j=>{
-    if(!j){taxMem.delete(k);return null}
-    const rs=j.results||[],x=rs.find(y=>y.name&&y.name.toLowerCase()===q.toLowerCase())||rs.find(y=>(y.matched_term||'').toLowerCase()===q.toLowerCase())||rs[0]||null;
+  const k=q+'|'+rank;const c=ls2Get('t|'+k);if(c!==undefined)return Promise.resolve(c);
+  if(taxMem2.has(k))return taxMem2.get(k);
+  const inv=INV_G.includes(genusOf(q)),ok=inv?['Mollusca','Animalia']:['Actinopterygii','Animalia'];
+  const p=inatGet('https://api.inaturalist.org/v1/taxa?per_page=10&all_names=true&rank='+rank+'&q='+encodeURIComponent(q),hi).then(j=>{
+    if(!j){taxMem2.delete(k);return null}
+    const lc=q.toLowerCase(),rs=(j.results||[]).filter(y=>ok.includes(y.iconic_taxon_name));
+    const x=rs.find(y=>(y.name||'').toLowerCase()===lc)||rs.find(y=>(y.matched_term||'').toLowerCase()===lc)||null;
     const d=x?{id:x.id,name:x.name,photo:x.default_photo?(x.default_photo.medium_url||x.default_photo.square_url||''):'',att:x.default_photo&&x.default_photo.attribution||''}:null;
-    lsSet('t|'+k,d);return d});
-  p.lo=!hi;p.url=url;taxMem.set(k,p);return p;
+    ls2Set('t|'+k,d);return d});
+  taxMem2.set(k,p);return p;
+}
+async function taxonPhotos(id){
+  const c=ls2Get('p|'+id);if(c!==undefined)return c;
+  const j=await inatGet('https://api.inaturalist.org/v1/taxa/'+id,true);if(!j)return[];
+  const y=(j.results||[])[0];const out=((y&&y.taxon_photos)||[]).map(tp=>tp.photo).filter(Boolean).map(ph=>{const m=ph.medium_url||ph.url;return m?{src:m,big:ph.large_url||m.replace('/medium.','/large.'),page:'https://www.inaturalist.org/taxa/'+id,by:'iNaturalist',att:ph.attribution||''}:null}).filter(Boolean);
+  ls2Set('p|'+id,out);return out;
+}
+async function obsPhotos(id){
+  const c=ls2Get('o|'+id);if(c!==undefined)return c;
+  const j=await inatGet('https://api.inaturalist.org/v1/observations?taxon_id='+id+'&photos=true&quality_grade=research&order_by=votes&per_page=12',true);
+  if(!j)return[];
+  const out=[];(j.results||[]).forEach(o=>{if(o.taxon&&o.taxon.id!==id&&!(o.taxon.ancestor_ids||[]).includes(id))return;(o.photos||[]).slice(0,1).forEach(ph=>{const m=(ph.url||'').replace('/square.','/medium.');if(m)out.push({src:m,big:m.replace('/medium.','/large.'),page:'https://www.inaturalist.org/observations/'+o.id,by:'iNaturalist',att:ph.attribution||''})})});
+  ls2Set('o|'+id,out);return out;
+}
+async function commonsPhotos(q){
+  const c=ls2Get('c|'+q);if(c!==undefined)return c;
+  try{
+    const r=await fetch('https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch='+encodeURIComponent('"'+q+'" filetype:bitmap')+'&prop=imageinfo&iiprop=url|mime&iiurlwidth=640');
+    if(!r.ok)return[];const j=await r.json();
+    const out=Object.values((j.query&&j.query.pages)||{}).sort((a,b)=>(a.index||0)-(b.index||0)).filter(p=>{const ii=(p.imageinfo||[])[0];return ii&&/jpeg|png/.test(ii.mime)&&!mapLike(p.title)&&!/stamp|coin|selo|moeda|skeleton|esqueleto|otolith|drawing|illustration/i.test(p.title)})
+      .map(p=>{const ii=p.imageinfo[0];return{src:ii.thumburl||ii.url,big:ii.url,page:ii.descriptionurl||('https://commons.wikimedia.org/wiki/'+encodeURIComponent(p.title)),by:'Wikimedia Commons',att:p.title.replace(/^File:/,'')}});
+    ls2Set('c|'+q,out);return out;
+  }catch(e){return[]}
 }
 async function thumbPhoto(lat){
   const q=lat.replace(/ spp\.?$/,'').trim();
   const x=await inatTaxon(q,isSp(q)?'species':'genus,family',false);
   if(x&&x.photo)return{src:x.photo};
   const w=await wikiPhoto(lat);if(w&&w.by==='Wikipedia'&&!mapLike(w.src))return{src:w.src};
-  if(isSp(q)){const g=await inatTaxon(genusOf(q),'genus',false);if(g&&g.photo)return{src:g.photo,genus:true}}
   return null;
-}
-async function obsPhotos(id){
-  const c=lsGet('o|'+id);if(c!==undefined)return c;
-  const j=await inatGet('https://api.inaturalist.org/v1/observations?taxon_id='+id+'&photos=true&quality_grade=research&order_by=votes&per_page=12',true);
-  if(!j)return[];
-  const out=[];(j.results||[]).forEach(o=>(o.photos||[]).slice(0,1).forEach(ph=>{const m=(ph.url||'').replace('/square.','/medium.');if(m)out.push({src:m,big:m.replace('/medium.','/large.'),page:'https://www.inaturalist.org/observations/'+o.id,by:'iNaturalist',att:ph.attribution||''})}));
-  lsSet('o|'+id,out);return out;
 }
 async function speciesPhotos(lat){
   const q=lat.replace(/ spp\.?$/,'').trim();if(galCache.has(q))return galCache.get(q);
   const out=[];out.genus='';
-  const add=p=>{if(p&&p.src&&out.length<6&&!mapLike(p.src)&&!out.some(x=>x.src===p.src))out.push(p)};
-  const fill=async x=>{if(!x)return;
-    if(x.photo)add({src:x.photo,big:x.photo.replace('/medium.','/large.'),page:'https://www.inaturalist.org/taxa/'+x.id,by:'iNaturalist',att:x.att});
-    (await obsPhotos(x.id)).forEach(add)};
-  await fill(await inatTaxon(q,isSp(q)?'species':'genus,family',true));
+  const add=p=>{if(p&&p.src&&out.length<6&&!mapLike(p.src)&&!out.some(x=>x.src===p.src||x.big===p.big))out.push(p)};
+  const x=await inatTaxon(q,isSp(q)?'species':'genus,family',true);
+  if(x){if(x.photo)add({src:x.photo,big:x.photo.replace('/medium.','/large.'),page:'https://www.inaturalist.org/taxa/'+x.id,by:'iNaturalist',att:x.att});(await taxonPhotos(x.id)).forEach(add)}
   if(out.length<6){const w=await wikiPhoto(lat);if(w&&w.by==='Wikipedia')add({src:w.src,big:w.src,page:w.page,by:'Wikipedia'})}
-  if(!out.length&&isSp(q)){await fill(await inatTaxon(genusOf(q),'genus',true));if(out.length)out.genus=genusOf(q)}
+  if(out.length<6)(await commonsPhotos(q)).forEach(add);
+  if(out.length<6&&x)(await obsPhotos(x.id)).forEach(add);
+  if(!out.length&&isSp(q)){const g=await inatTaxon(genusOf(q),'genus',true);if(g){if(g.photo)add({src:g.photo,big:g.photo,page:'https://www.inaturalist.org/taxa/'+g.id,by:'iNaturalist'});(await taxonPhotos(g.id)).forEach(add);if(out.length)out.genus=genusOf(q)}}
   if(out.length)galCache.set(q,out);return out;
 }
 
