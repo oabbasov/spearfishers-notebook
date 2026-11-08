@@ -256,9 +256,17 @@ a{color:var(--sea);text-underline-offset:2px}
 .lib-tx{min-width:0;display:block;line-height:1.35}
 .lib-tx i{color:var(--muted,inherit);opacity:.8;font-size:13px}
 .lib-tx .hint{display:block;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lib-bd{display:flex;flex-direction:column;gap:3px;align-items:flex-end}
+.lib-bd{display:flex;flex-direction:column;gap:3px;align-items:flex-end;max-width:42%}
 .bd{font-size:12px;padding:1px 7px;border-radius:999px;background:var(--sea-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
 .bd-ban{background:transparent;border:1px solid var(--danger);color:var(--danger)}
+@keyframes snblink{0%,100%{opacity:1}50%{opacity:.25}}
+.bd-now,.blink{animation:snblink 1.1s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.bd-now,.blink{animation:none}}
+.def-now{display:grid;gap:6px;margin:0 0 10px}
+.dn{all:unset;cursor:pointer;box-sizing:border-box;width:100%;padding:8px 12px;border-radius:10px;font-size:14px;font-weight:600;line-height:1.35}
+.dn-now{background:#C8961B;color:#fff}
+.dn-soon{border:1px solid #C8961B;color:#B7860F}
+.dn:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
 .bd-min{background:transparent;border:1px solid #2F9A62;color:#2F9A62}
 .bd-def{background:transparent;border:1px solid #C8961B;color:#B7860F}
 .bd-def.bd-now{background:#C8961B;color:#fff}
@@ -423,11 +431,12 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
   </header>
 
   <nav class="tools">
-    <button type="button" id="libBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-4 7-6 11-6 3 0 5 2 7 6-2 4-4 6-7 6-4 0-8-2-11-6z"/><path d="M3 12l-1.5-3M3 12l-1.5 3"/><circle cx="16.5" cy="10.5" r=".8" fill="currentColor"/></svg><span data-i="libNav"></span></button>
     <button type="button" id="ckBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><span data-i="ckNav"></span></button>
-    <button type="button" id="rulesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg><span data-i="rulesNav"></span></button>
     <button type="button" id="sizesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h20v8H2z"/><path d="M6 8v3M10 8v4M14 8v3M18 8v4"/></svg><span data-i="sizesNav"></span></button>
+    <button type="button" id="libBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-4 7-6 11-6 3 0 5 2 7 6-2 4-4 6-7 6-4 0-8-2-11-6z"/><path d="M3 12l-1.5-3M3 12l-1.5 3"/><circle cx="16.5" cy="10.5" r=".8" fill="currentColor"/></svg><span data-i="libNav"></span></button>
+    <button type="button" id="rulesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg><span data-i="rulesNav"></span></button>
   </nav>
+  <div id="defNow" class="def-now" hidden aria-live="polite"></div>
   <form class="capture" id="quickForm" autocomplete="off">
     <div class="capture-row">
       <input id="quick" data-ph="quickPh" data-al="quickAl">
@@ -1855,27 +1864,53 @@ pt:`<p class="hint">Tabelas para Portugal continental: tamanhos mínimos da DGRM
 <details open><summary>Tamanhos mínimos</summary><div class="tbl"><table>
 <tr><td>Robalo</td><td>36 cm</td></tr><tr><td>Dourada</td><td>19 cm</td></tr><tr><td>Sargo-legítimo, safia</td><td>17 cm</td></tr><tr><td>Sargo-veado</td><td>27 cm</td></tr><tr><td>Sargo-bicudo</td><td>22 cm</td></tr><tr><td>Mucharra-alcorraz / mucharra-branca</td><td>14 / 12 cm</td></tr><tr><td>Pargo-legítimo</td><td>20 cm</td></tr><tr><td>Corvina</td><td>42 cm</td></tr><tr><td>Choupa</td><td>23 cm</td></tr><tr><td>Goraz</td><td>33 cm</td></tr><tr><td>Besugo</td><td>18 cm</td></tr><tr><td>Bica, boga, carapau, ferreira</td><td>15 cm</td></tr><tr><td>Faneca</td><td>17 cm</td></tr><tr><td>Salema, salmonete</td><td>18 cm</td></tr><tr><td>Tainhas, cavala, sarda</td><td>20 cm</td></tr><tr><td>Linguado</td><td>24 cm</td></tr><tr><td>Pregado, rodovalho</td><td>30 cm</td></tr><tr><td>Juliana</td><td>42 cm</td></tr><tr><td>Badejo (<i>Merlangius</i>), pescada</td><td>27 cm</td></tr><tr><td>Maruca</td><td>63 cm</td></tr><tr><td>Safio / congro</td><td>58 cm</td></tr><tr><td>Polvo</td><td>750 g</td></tr><tr><td>Choco, lula (comprimento do manto)</td><td>10 cm</td></tr><tr><td>Santola / sapateira</td><td>12 / 13 cm</td></tr><tr><td>Navalheira, ouriço-do-mar</td><td>5 cm</td></tr></table></div>
 <p class="hint">Atum-rabilho (115 cm ou 30 kg), lagosta (9,5 cm) e lavagante (8,7 cm) têm tamanho mínimo na tabela, mas são proibidos na caça submarina. Sem tamanho mínimo: dentão/capatão, bodião, liche, charuteiro, anchova, moreia, abrótea, rascasso, peixe-galo, peixe-porco, serrano, cherne e outros.</p></details>
-<details open><summary>Defeso (períodos de proibição)</summary><div class="tbl"><table>
+<details open><summary>Defeso (períodos de proibição)</summary>
+<h4 class="reg">Para a caça submarina</h4><div class="tbl"><table>
 <tr><td>Corvina</td><td>1–30 de junho, todo o continente</td></tr>
-<tr><td>Sargo-legítimo e safia</td><td>Fevereiro, Parque Natural do Sudoeste Alentejano e Costa Vicentina</td></tr>
-<tr><td>Bodião (<i>Labrus bergylta</i>)</td><td>1 de março – 31 de maio, Parque Natural do Sudoeste Alentejano e Costa Vicentina</td></tr>
-<tr><td>Santola e navalheira</td><td>15 de fevereiro – 15 de junho (apanha)</td></tr>
-<tr><td>Lagosta e lavagante com ovos</td><td>Todo o ano: devolver de imediato ao mar</td></tr>
-<tr><td>Polvo</td><td>Para embarcações, por zona: Caminha–Figueira da Foz 17 jul – 15 ago; Nazaré–Setúbal 16 ago – 14 set; Sines–Vila Real de Santo António 15 set – 14 out. Confirme na DGRM.</td></tr>
-<tr><td>Percebe, ouriço</td><td>Períodos por zona (Berlengas, PNSACV, resto do continente). Confirme na DGRM.</td></tr></table></div></details>
+<tr><td>Sargo-legítimo e sargo-safia</td><td>Fevereiro, Parque Natural do Sudoeste Alentejano e Costa Vicentina (PNSACV). A tabela de 2025 ia de 1 de fevereiro a 14 de março; a de 2026 indica fevereiro.</td></tr>
+<tr><td>Bodião (<i>Labrus bergylta</i>)</td><td>1 de março – 31 de maio, PNSACV</td></tr>
+<tr><td>Raia curva</td><td>Maio – julho (e proibida na caça submarina todo o ano)</td></tr>
+<tr><td>Lagosta e lavagante com ovos</td><td>Todo o ano: devolver de imediato ao mar (e proibidos na caça submarina)</td></tr></table></div>
+<h4 class="reg">Apanha (à mão)</h4><div class="tbl"><table>
+<tr><td>Santola e navalheira</td><td>15 de fevereiro – 15 de junho</td></tr>
+<tr><td>Búzio</td><td>Maio – junho</td></tr>
+<tr><td>Percebe</td><td>Continente: 15 set – 15 out. PNSACV e Sines: 15 set – 15 dez. Berlengas: janeiro – março e agosto – setembro.</td></tr>
+<tr><td>Plantas marinhas (agarófitas)</td><td>1 jan – 15 jul e 15 nov – 31 dez</td></tr></table></div>
+<h4 class="reg">Só para pesca profissional</h4><div class="tbl"><table>
+<tr><td>Polvo (embarcações)</td><td>Caminha–Figueira da Foz 17 jul – 15 ago; Nazaré–Setúbal 16 ago – 14 set; Sines–Vila Real de Santo António 15 set – 14 out</td></tr>
+<tr><td>Tamboril (acima de 3% da captura a bordo)</td><td>Janeiro – fevereiro</td></tr>
+<tr><td>Raias (acima de 5% da captura a bordo)</td><td>Maio – junho</td></tr>
+<tr><td>Lagosta e lavagante (acima de 5% da captura a bordo)</td><td>Outubro – dezembro</td></tr>
+<tr><td>Gamba, camarões, lagostim, carabineiro</td><td>Janeiro</td></tr>
+<tr><td>Bivalves com ganchorra, conquilha</td><td>1 maio – 15 junho</td></tr>
+<tr><td>Sardinha com cerco</td><td>Fechada até reabertura decidida pela DGRM</td></tr></table></div>
+<p class="hint">Tudo o que está na tabela de defesos da DGRM. A maior parte das linhas profissionais limita a captura de barcos e artes de pesca, não a caça submarina.</p></details>
 <p class="sp-links"><a href="https://dgrm.pt/documents/20143/121104/FAQ-Pesca+Ludica+2026.pdf/586f6137-df78-25e7-e7ad-8a3dcc1f9ffc" target="_blank" rel="noopener">FAQ DGRM 2026</a><a href="https://www.dgrm.pt/licenca-de-pesca-ludica" target="_blank" rel="noopener">Licença (DGRM)</a><a href="https://www.dgrm.pt/documents/20143/121101/TABELA_DEFESOS_DGRM_2026-03-25.pdf/cbe6baee-ae7a-6040-497c-42d73068f262" target="_blank" rel="noopener">Defesos 2026 (DGRM)</a></p><p class="hint">Documentos guardados no caderno:</p><p class="sp-links"><a href="${DOC_URL.min}" target="_blank" rel="noopener">Tamanhos mínimos (DGRM, 26-02-2026)</a><a href="${DOC_URL.def}" target="_blank" rel="noopener">Defesos (DGRM, 27-02-2025)</a><a href="https://www.ipma.pt/export/sites/ipma/bin/docs/publicacoes/pescas.mar/Manual_Peixes_Osseos_V4.pdf" target="_blank" rel="noopener">Manual de identificação de peixes ósseos (IPMA)</a></p>`,
 en:`<p class="hint">Tables for mainland Portugal: DGRM minimum sizes of 26 Feb 2026 and DGRM closed seasons for 2026. Madeira and the Azores have their own tables: check with the regional directorate.</p>
 <details open><summary>Minimum sizes</summary><div class="tbl"><table>
 <tr><td>Sea bass</td><td>36 cm</td></tr><tr><td>Gilthead bream</td><td>19 cm</td></tr><tr><td>White and two-banded seabream</td><td>17 cm</td></tr><tr><td>Zebra seabream</td><td>27 cm</td></tr><tr><td>Sharpsnout seabream</td><td>22 cm</td></tr><tr><td>Annular / Senegal seabream</td><td>14 / 12 cm</td></tr><tr><td>Red porgy</td><td>20 cm</td></tr><tr><td>Meagre</td><td>42 cm</td></tr><tr><td>Black seabream</td><td>23 cm</td></tr><tr><td>Blackspot seabream</td><td>33 cm</td></tr><tr><td>Axillary seabream</td><td>18 cm</td></tr><tr><td>Pandora, bogue, horse mackerel, sand steenbras</td><td>15 cm</td></tr><tr><td>Pouting</td><td>17 cm</td></tr><tr><td>Salema, red mullet</td><td>18 cm</td></tr><tr><td>Grey mullets, mackerels</td><td>20 cm</td></tr><tr><td>Sole</td><td>24 cm</td></tr><tr><td>Turbot, brill</td><td>30 cm</td></tr><tr><td>Pollack</td><td>42 cm</td></tr><tr><td>Whiting, hake</td><td>27 cm</td></tr><tr><td>Ling</td><td>63 cm</td></tr><tr><td>Conger</td><td>58 cm</td></tr><tr><td>Octopus</td><td>750 g</td></tr><tr><td>Cuttlefish, squid (mantle length)</td><td>10 cm</td></tr><tr><td>Spider crab / brown crab</td><td>12 / 13 cm</td></tr><tr><td>Velvet crab, sea urchin</td><td>5 cm</td></tr></table></div>
 <p class="hint">Bluefin tuna (115 cm or 30 kg), spiny lobster (9.5 cm) and European lobster (8.7 cm) have minimum sizes in the table but are banned for spearfishing. No minimum size: dentex, wrasse, leerfish, amberjack, bluefish, moray, forkbeard, scorpionfish, John Dory, triggerfish, comber, wreckfish and others.</p></details>
-<details open><summary>Closed seasons</summary><div class="tbl"><table>
+<details open><summary>Closed seasons</summary>
+<h4 class="reg">For spearfishing</h4><div class="tbl"><table>
 <tr><td>Meagre</td><td>1–30 June, all of mainland Portugal</td></tr>
-<tr><td>White and two-banded seabream</td><td>February, Southwest Alentejo and Vicentine Coast Natural Park</td></tr>
-<tr><td>Ballan wrasse (<i>Labrus bergylta</i>)</td><td>1 March – 31 May, Southwest Alentejo and Vicentine Coast Natural Park</td></tr>
-<tr><td>Spider crab and velvet crab</td><td>15 February – 15 June (hand gathering)</td></tr>
-<tr><td>Egg-bearing lobsters</td><td>All year: release at once</td></tr>
-<tr><td>Octopus</td><td>For fishing boats, by area: Caminha–Figueira da Foz 17 Jul – 15 Aug; Nazaré–Setúbal 16 Aug – 14 Sep; Sines–Vila Real de Santo António 15 Sep – 14 Oct. Check with DGRM.</td></tr>
-<tr><td>Goose barnacles, sea urchins</td><td>Periods vary by area (Berlengas, the natural park, rest of the coast). Check with DGRM.</td></tr></table></div></details>
+<tr><td>White and two-banded seabream</td><td>February, Southwest Alentejo and Vicentine Coast Natural Park (PNSACV). The 2025 table ran from 1 February to 14 March; the 2026 one says February.</td></tr>
+<tr><td>Ballan wrasse (<i>Labrus bergylta</i>)</td><td>1 March – 31 May, PNSACV</td></tr>
+<tr><td>Undulate ray</td><td>May – July (and banned for spearfishing all year)</td></tr>
+<tr><td>Egg-bearing lobsters</td><td>All year: release at once (and banned for spearfishing)</td></tr></table></div>
+<h4 class="reg">Hand gathering</h4><div class="tbl"><table>
+<tr><td>Spider crab and velvet crab</td><td>15 February – 15 June</td></tr>
+<tr><td>Murex whelks</td><td>May – June</td></tr>
+<tr><td>Goose barnacles</td><td>Mainland: 15 Sep – 15 Oct. PNSACV and Sines: 15 Sep – 15 Dec. Berlengas: January – March and August – September.</td></tr>
+<tr><td>Seaweed (agarophytes)</td><td>1 Jan – 15 Jul and 15 Nov – 31 Dec</td></tr></table></div>
+<h4 class="reg">Commercial fishing only</h4><div class="tbl"><table>
+<tr><td>Octopus (boats)</td><td>Caminha–Figueira da Foz 17 Jul – 15 Aug; Nazaré–Setúbal 16 Aug – 14 Sep; Sines–Vila Real de Santo António 15 Sep – 14 Oct</td></tr>
+<tr><td>Anglerfish (over 3% of the catch on board)</td><td>January – February</td></tr>
+<tr><td>Rays (over 5% of the catch on board)</td><td>May – June</td></tr>
+<tr><td>Lobsters (over 5% of the catch on board)</td><td>October – December</td></tr>
+<tr><td>Deep-water shrimps, Norway lobster</td><td>January</td></tr>
+<tr><td>Dredged bivalves, wedge clams</td><td>1 May – 15 June</td></tr>
+<tr><td>Sardine purse seine</td><td>Closed until DGRM reopens it</td></tr></table></div>
+<p class="hint">Everything in the DGRM closed-season table. Most commercial lines limit boats and gear, not spearfishing.</p></details>
 <p class="sp-links"><a href="https://dgrm.pt/documents/20143/121104/FAQ-Pesca+Ludica+2026.pdf/586f6137-df78-25e7-e7ad-8a3dcc1f9ffc" target="_blank" rel="noopener">DGRM FAQ 2026</a><a href="https://www.dgrm.pt/licenca-de-pesca-ludica" target="_blank" rel="noopener">Licence (DGRM)</a><a href="https://www.dgrm.pt/documents/20143/121101/TABELA_DEFESOS_DGRM_2026-03-25.pdf/cbe6baee-ae7a-6040-497c-42d73068f262" target="_blank" rel="noopener">Closed seasons 2026 (DGRM)</a></p><p class="hint">Documents kept in the notebook:</p><p class="sp-links"><a href="${DOC_URL.min}" target="_blank" rel="noopener">Minimum sizes (DGRM, 26 Feb 2026)</a><a href="${DOC_URL.def}" target="_blank" rel="noopener">Closed seasons (DGRM, 27 Feb 2025)</a><a href="https://www.ipma.pt/export/sites/ipma/bin/docs/publicacoes/pescas.mar/Manual_Peixes_Osseos_V4.pdf" target="_blank" rel="noopener">Bony fish identification manual (IPMA)</a></p>`};
 $('rulesBtn').addEventListener('click',()=>{$('rulesBody').innerHTML=RULES[lang];$('rules').showModal()});
 $('rulesBody').addEventListener('click',ev=>{const b=ev.target.closest('.rf-btn');if(!b)return;const l=b.nextElementSibling;l.hidden=!l.hidden;b.setAttribute('aria-expanded',String(!l.hidden))});
@@ -2112,7 +2147,7 @@ function libRender(){
   $('libF').innerHTML=['all','mine','caught','ban'].map(k=>'<button type="button" data-f="'+k+'" aria-pressed="'+(libF===k)+'">'+esc(t('libF_'+k))+'</button>').join('');
   $('libCount').textContent=list.length+' / '+all.length;
   $('libUl').innerHTML=list.map(s=>'<li><button type="button" class="lib-row" data-lat="'+esc(s.lat)+'"><span class="lib-th" data-lat="'+esc(s.lat)+'">'+libArt(s)+'</span><span class="lib-tx"><b>'+esc(libName(s))+'</b> <i>'+esc(s.lat)+'</i><span class="hint">'+esc([libOther(s),s.fam].filter(Boolean).join(' · '))+'</span></span><span class="lib-bd">'
-    +(s.law.banned?'<span class="bd bd-ban">'+esc(t('libBan'))+'</span>':s.law.min?'<span class="bd bd-min">'+esc(s.law.min.replace('*',''))+'</span>':'')+(s.law.def.length?'<span class="bd bd-def'+(s.law.def.some(d=>d.now)?' bd-now':'')+'">'+esc(t('libDef'))+'</span>':'')+(DANGER[s.lat]?'<span class="bd bd-dg" title="'+esc(t('libDanger'))+'">⚠</span>':'')+'</span></button></li>').join('')||'<li class="hint">'+esc(t('libNone'))+'</li>';
+    +(s.law.banned?'<span class="bd bd-ban">'+esc(t('libBan'))+'</span>':s.law.min?'<span class="bd bd-min">'+esc(s.law.min.replace('*',''))+'</span>':'')+s.law.def.map(d=>'<span class="bd bd-def'+(d.now?' bd-now':'')+'">'+esc(t('cwDefS'))+' '+dShort(d.from)+'–'+dShort(d.to)+'</span>').join('')+(DANGER[s.lat]?'<span class="bd bd-dg" title="'+esc(t('libDanger'))+'">⚠</span>':'')+'</span></button></li>').join('')||'<li class="hint">'+esc(t('libNone'))+'</li>';
   if(IS_SITE)libPhotos();
 }
 function libDetail(lat){
@@ -2338,6 +2373,24 @@ async function speciesPhotos(lat){
   if(!out.length&&isSp(q)){const g=await inatTaxon(genusOf(q),'genus',true);if(g){if(g.photo)add({src:g.photo,big:g.photo,page:'https://www.inaturalist.org/taxa/'+g.id,by:'iNaturalist'});(await taxonPhotos(g.id)).forEach(add);if(out.length)out.genus=genusOf(q)}}
   if(out.length)galCache.set(q,out);return out;
 }
+
+/* ===== Closed season now or soon: banner on the main page ===== */
+function defBanner(){
+  const el=$('defNow');if(!el)return;const md=new Date().toISOString().slice(5,10);
+  const soonMd=new Date(Date.now()+14*864e5).toISOString().slice(5,10);
+  const names=lats=>[...new Set(lats.map(l=>{const r=LIB_M.find(x=>x[0]===l)||LIB_X.find(x=>x[0]===l);return r?(lang==='pt'?r[1]:(r[5]||'').split(' / ')[0]||r[1]):l}))].join(', ');
+  const now=LAW.def.filter(d=>md>=d.from&&md<=d.to),soon=LAW.def.filter(d=>!(md>=d.from&&md<=d.to)&&soonMd>=d.from&&md<d.from);
+  const area=d=>/Sudoeste|Southwest/.test(d.area.pt||'')?'PNSACV':d.area[lang];
+  el.innerHTML=now.map(d=>'<button type="button" class="dn dn-now"><span class="blink">●</span> '+esc(t('dnNow'))+': '+esc(names(d.lat))+' · '+esc(dm(d.from))+' – '+esc(dm(d.to))+' · '+esc(area(d))+'</button>').join('')
+    +soon.map(d=>'<button type="button" class="dn dn-soon">'+esc(t('dnSoon'))+' '+esc(dm(d.from))+': '+esc(names(d.lat))+' · '+esc(area(d))+'</button>').join('');
+  el.hidden=!(now.length||soon.length);
+}
+$('defNow').addEventListener('click',ev=>{if(ev.target.closest('.dn'))$('sizesBtn').click()});
+['langEn','langPt'].forEach(id=>$(id).addEventListener('click',()=>setTimeout(defBanner,0)));
+setTimeout(defBanner,0);setInterval(defBanner,36e5);
+const dShort=s=>{const[m,d]=s.split('-').map(Number);return d+'/'+m};
+Object.assign(T.pt,{dnNow:'Defeso agora',dnSoon:'Defeso a partir de'});
+Object.assign(T.en,{dnNow:'Closed season now',dnSoon:'Closed season from'});
 
 boot();
 })();
