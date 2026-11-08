@@ -234,14 +234,17 @@ a{color:var(--sea);text-underline-offset:2px}
 .head h3{margin:0;font-size:16px;font-weight:600;overflow-wrap:anywhere}
 .date{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .ex{font-size:11px;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:0 5px}
-.acts{margin-left:auto;display:flex;gap:12px;font-size:13.5px}
+.acts{margin-left:auto;display:flex;gap:10px;font-size:13.5px;align-items:center}
 .catch{display:flex;flex-wrap:wrap;gap:6px 16px}
 .catch-item{white-space:nowrap;margin:0!important;cursor:pointer;border-radius:6px}
 .catch-item:hover b{text-decoration:underline;text-underline-offset:2px}
 .catch-item:focus-visible{outline:2px solid var(--sea)}
 .catch b{font-weight:600}
 .cond{font-size:13px;line-height:1.7;color:var(--muted);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
-.note{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border-left:3px solid var(--sea);border-radius:4px;padding:8px 10px;line-height:1.55}
+.acts .ico{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;border-radius:8px;text-decoration:none;color:var(--sea)}
+.acts .ico:hover{background:var(--sea-soft)}
+.acts .ico:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
+.note{white-space:pre-wrap;overflow-wrap:anywhere;background:color-mix(in srgb,var(--bg) 80%,transparent);border-left:3px solid color-mix(in srgb,var(--sea) 80%,transparent);border-radius:4px;padding:8px 10px;line-height:1.55}
 .hdr-r{display:flex;gap:10px;align-items:center;flex:none}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 .tools button{display:flex;align-items:center;gap:6px;font-weight:500;padding:7px 12px;border-radius:999px}
@@ -1474,8 +1477,8 @@ function entryHtml(e,cm){
     +(e.mood&&MOUTH[e.mood]?'<span class="mood" role="img" aria-label="'+esc(t('mood_'+e.mood))+'" title="'+esc(t('mood_'+e.mood))+'">'+face(e.mood)+'</span>':'')
     +'<span class="date">'+esc(fmtDate(e.date))+(k!=='dive'?' · '+esc(typeLabel(k)):'')+'</span>'
     +(e.example?'<span class="ex">'+esc(t('example'))+'</span>':'')
-    +'<span class="acts">'+(mh?'<a href="'+esc(mh)+'" target="_blank" rel="noopener">'+esc(t('maps'))+'</a>':'')+(c?'<a href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener">'+esc(t('windy'))+'</a>':'')
-    +(store&&!readOnly?'<button type="button" class="link" data-edit="'+esc(e.id)+'">'+esc(t('edit'))+'</button>':'')+'</span></div>'
+    +'<span class="acts">'+(mh?'<a class="ico" href="'+esc(mh)+'" target="_blank" rel="noopener" title="'+esc(t('maps'))+'" aria-label="'+esc(t('maps'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></a>':'')+(c?'<a href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener">'+esc(t('windy'))+'</a>':'')
+    +(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
     +(catches?'<div class="catch">'+catches+'</div>':(k==='dive'?'<div class="cond">'+esc(t('noCatch'))+'</div>':''))
     +(cond?'<div class="cond">'+cond+'</div>':'')
     +(e.notes?'<div class="note">'+hl(e.notes)+'</div>':'')
