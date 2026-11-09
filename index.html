@@ -374,7 +374,7 @@ header{display:grid;grid-template-columns:1fr;justify-items:center;margin-bottom
 header .hdr-r{position:absolute;right:0;top:50%;transform:translateY(-50%)}
 header h1{font-size:clamp(30px,8vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.05;text-align:center;padding-bottom:6px}
 header h1 span{color:var(--sea)}
-header h1{position:relative;padding-top:.62em}
+header h1{position:relative;padding-top:.72em}
 .diver .dv{fill:var(--ink)}
 .diver .dv-s{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
 .diver .dv-mask{fill:var(--sea)}
@@ -2902,21 +2902,21 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     return d+(closed?'Z':'')}
   function draw(){
     const old=h1.querySelector('svg.diver');if(old)old.remove();
-    const txt=h1.textContent;if(!/^Spearo Diary$/.test(txt.trim()))return;
+    const txt=h1.textContent.trim();if(!/^S/.test(txt))return;
     const cs=getComputedStyle(h1),f=parseFloat(cs.fontSize),hr=h1.getBoundingClientRect();
     // character boxes
     const tn=[];(function walk(n){n.childNodes.forEach(c=>c.nodeType===3?tn.push(c):walk(c))})(h1);
     const chars=[];tn.forEach(n=>{for(let i=0;i<n.length;i++){const r=document.createRange();r.setStart(n,i);r.setEnd(n,i+1);const b=r.getBoundingClientRect();chars.push({ch:n.data[i],x0:b.left-hr.left,x1:b.right-hr.left,top:b.top-hr.top,bot:b.bottom-hr.top})}});
-    const C=k=>chars.filter(c=>c.ch===k)[0];const S=C('S'),Dc=C('D'),p=C('p'),i=C('i');if(!S||!Dc||!p)return;
+    const C=k=>chars.filter(c=>c.ch===k)[0];const S=C('S'),Dc=C('D'),i=Dc?C('i'):null,last=chars.filter(c=>c.ch.trim()).slice(-1)[0];if(!S)return;
     // baseline and glyph heights
     const m=document.createElement('canvas').getContext('2d');m.font=cs.fontWeight+' '+f+'px '+cs.fontFamily;
     const fm=m.measureText('S'),asc=fm.fontBoundingBoxAscent,des=fm.fontBoundingBoxDescent;
-    const lh=Dc.bot-Dc.top,base=Dc.top+(lh-(asc+des))/2+asc;
+    const lh=S.bot-S.top,base=S.top+(lh-(asc+des))/2+asc;
     const xh=m.measureText('e').actualBoundingBoxAscent,cap=m.measureText('D').actualBoundingBoxAscent,sTop=m.measureText('S').actualBoundingBoxAscent,iTop=m.measureText('i').actualBoundingBoxAscent;
-    const g=Math.max(1.5,f*.035),yX=base-xh-g,yD=base-cap-g,yS=base-sTop-g,yI=base-iTop-g;
+    const g=Math.max(1.5,f*.035)+f*.07,yX=base-xh-g,yD=base-cap-g,yS=base-sTop-g,yI=base-iTop-g;
     const u=f/100,U=u*1.45;
     // head behind the D, eyes just over its top
-    const hr0=12*U,hc=[Dc.x0-g-hr0*.95,yD+hr0*.1];
+    const hr0=12*U,hc=Dc?[Dc.x0-g-hr0*.95,yD+hr0*.1]:[last.x1-hr0*1.2,yX-hr0*.95];
     const sh=[hc[0]-18*U,yX-22*U];
     const hip=[sh[0]-88*u,yX-12*U];
     // ankles rest on the S; knees on the lowercase line
@@ -2931,9 +2931,9 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     const fl=82*u,tip=[ank[0]-fl,ank[1]-14*u];
     const fin=(dy,op)=>'<path d="'+cr([[ank[0]+5*U,ank[1]-4*U+dy],[ank[0]-12*u,ank[1]-4.5*U+dy],[tip[0],tip[1]-1.2*U+dy],[tip[0]-2*u,tip[1]+.8*U+dy],[ank[0]-16*u,ank[1]+2.4*U+dy],[ank[0]+4*U,ank[1]+3.6*U+dy]],true)+'"'+(op?' opacity="'+op+'"':'')+'/>';
     // arms over the D, gun over "iary"
-    const gy=Math.min(yD,i?yI:yD)-5*U,hand=[Dc.x0+(Dc.x1-Dc.x0)*.62,gy+1*u];
-    const arm=cr([[sh[0]+2*U,yX-19*U],[hc[0]+4*U,gy+8*U],[Dc.x0+6*u,gy+2*U],hand],false);
-    const gL=Math.max(140*u,(i?i.x1:Dc.x1)+60*u-hand[0]),g0=hand[0]-24*u,g1=hand[0]+gL;
+    const gy=Dc?Math.min(yD,i?yI:yD)-5*U:hc[1]+hr0*.15,hand=Dc?[Dc.x0+(Dc.x1-Dc.x0)*.62,gy+1*u]:[last.x1+28*u,gy+1*u];
+    const arm=cr(Dc?[[sh[0]+2*U,yX-19*U],[hc[0]+4*U,gy+8*U],[Dc.x0+6*u,gy+2*U],hand]:[[sh[0]+2*U,yX-19*U],[hc[0]+6*U,gy+5*U],hand],false);
+    const gL=Dc?Math.max(140*u,(i?i.x1:Dc.x1)+60*u-hand[0]):150*u,g0=hand[0]-24*u,g1=hand[0]+gL;
     const W=hr.width,H=hr.height,pad=Math.ceil(f*1.2);
     const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','diver');svg.setAttribute('aria-hidden','true');
     svg.setAttribute('viewBox',(-pad)+' '+(-pad)+' '+(W+pad*2)+' '+(H+pad*2));svg.style.cssText='position:absolute;left:'+(-pad)+'px;top:'+(-pad)+'px;width:'+(W+pad*2)+'px;height:'+(H+pad*2)+'px;overflow:visible;pointer-events:none';
@@ -2952,6 +2952,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
       +'<circle cx="'+(hc[0]+hr0*.3)+'" cy="'+(hc[1]-hr0*3.7)+'" r="'+(1.8*u)+'" class="dv-bub"/><circle cx="'+(hc[0]+hr0*.9)+'" cy="'+(hc[1]-hr0*4.4)+'" r="'+(1.2*u)+'" class="dv-bub"/>';
     h1.appendChild(svg);
   }
+  try{const q=new URLSearchParams(location.search).get('title');if(q&&/^[A-Za-zÀ-ÿ ]{2,20}$/.test(q)&&/^S/.test(q)){h1.textContent=q;document.title=q}}catch(e){}
   let rt;const go=()=>{clearTimeout(rt);rt=setTimeout(()=>requestAnimationFrame(draw),60)};
   addEventListener('resize',go);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);go();
   ['langEn','langPt'].forEach(id=>{const b=document.getElementById(id);b&&b.addEventListener('click',go)});
