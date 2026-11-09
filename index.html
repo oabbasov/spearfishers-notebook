@@ -258,13 +258,15 @@ a{color:var(--sea);text-underline-offset:2px}
 .fc-res button{all:unset;cursor:pointer;display:block;padding:6px 8px;border:1px solid var(--line);border-radius:8px;font-size:14px}
 .fc-res button:hover,.fc-res button:focus-visible{background:var(--sea-soft)}
 .fc-res .hint{font-size:12.5px}
-.sea{display:grid;grid-template-columns:75px minmax(0,1fr);margin-top:6px;border-top:1px solid var(--line)}
+.sea{display:grid;grid-template-columns:84px minmax(0,1fr);margin-top:6px;border-top:1px solid var(--line)}
 .sea-tg{all:unset;cursor:pointer;box-sizing:border-box;display:none;align-items:center;justify-content:center;width:28px;height:22px;border-radius:6px;color:var(--muted);font-size:19px;line-height:1}
 .sea-tg:hover,.sea-tg:focus-visible{background:var(--sea-soft);color:var(--ink)}
 @media (max-width:700px){
  .sea-tg{display:inline-flex}
  .sea-l{cursor:pointer}
- .sea.nol{grid-template-columns:30px minmax(0,1fr)}
+ .sea.nol{grid-template-columns:12px minmax(0,1fr)}
+ .sea.nol .sea-tg{width:14px;font-size:16px;margin-left:-2px}
+ .sea.nol .sea-l .uw,.sea.nol .sea-l .uw0{margin-right:0;padding-right:0}
  .sea.nol .sea-l{padding-right:0}
  .sea.nol .sea-l>div:not(.sl-day){font-size:0;color:transparent}
  .sea.nol .sea-l .stk,.sea.nol .sea-l select{display:none}
@@ -287,9 +289,9 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .svm{fill:var(--ink);font:600 10.5px var(--body)}
 #fcBox .svf{fill:var(--ink);font:700 10.5px var(--body)}
 #fcBox .sfog{fill:var(--muted);opacity:.3}
-.sea-l .sl-wind{flex-direction:row;align-items:center;gap:2px;padding-top:0;overflow:visible}
+.sea-l .sl-wind{flex-direction:row;align-items:center;gap:3px;padding-top:0;overflow:visible}
 .sea-l .sl-wave{padding-top:0;align-items:center}
-.sea-l select.wunit{flex:none;width:auto;min-width:0;padding:0 10px 0 0;border:0!important;background-color:transparent!important;color:var(--sea)!important;text-decoration:underline dotted;text-underline-offset:2px;background-position:right 1px center!important;font-size:11px;font-weight:400;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%237d8b92' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;background-size:8px}
+.sea-l select.wunit{flex:none;width:auto;min-width:0;padding:1px 12px 1px 3px;font-size:11px;font-weight:400;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%237d8b92' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;background-size:8px}
 #fcBox .sm{stroke:var(--muted);stroke-width:1.2}
 #fcBox .sday{fill:var(--ink);font:600 12px var(--body)}
 #fcBox .sday2{fill:var(--muted);font-weight:400}
@@ -3045,7 +3047,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794252558';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794252663';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
