@@ -321,7 +321,7 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .sunl{stroke:#E5A31F;stroke-width:1.2;stroke-dasharray:3 3;opacity:.8}
 #fcBox .sunt{font:600 10.5px var(--body);fill:var(--ink)}
 #fcBox .sund{fill:#F6C343}
-#fcBox .dayl{fill:#F2C14E;fill-opacity:.06}
+#fcBox .dayl{fill:#F2B632;fill-opacity:.85}
 #fcBox .haze{fill:#9AA5AB;fill-opacity:.18}#fcBox .haze2{fill-opacity:.38}
 #fcBox .mdk{fill:#4A5358}#fcBox .mlt{fill:#F3EBCB}#fcBox .mrim{fill:none;stroke:var(--ink);stroke-opacity:.5;stroke-width:.8}
 #fcBox .mtx{font:10.5px var(--body);fill:var(--muted)}
@@ -1753,7 +1753,7 @@ function drawForecast(){
   for(let d=0;d<3;d++){const st=t0+d*864e5,lab=esc(fmtD.format(new Date(st+432e5)));(ST===1?[0,8,16]:[0,12]).forEach(h=>{g+='<text x="'+(XT(st+h*36e5)-CW/2+8)+'" y="15" class="sday'+(h?' sday2':'')+'">'+lab+'</text>'})}
   {const tEnd0=t0+72*36e5;for(let d=-1;d<=3;d++){const day=t0+d*864e5+432e5,st=sunTimes(day,sp0.lat,sp0.lon),nx=sunTimes(day+864e5,sp0.lat,sp0.lon);if(!st||!nx)continue;
     const a=Math.max(st.set,t0-HALF),b=Math.min(nx.rise,tEnd0-HALF);if(b>a)g+='<rect x="'+XT(a).toFixed(1)+'" y="'+Y.hour[0]+'" width="'+(XT(b)-XT(a)).toFixed(1)+'" height="'+(HT-Y.hour[0])+'" class="night"/>';
-    {const da=Math.max(st.rise,t0-HALF),db=Math.min(st.set,tEnd0-HALF);if(db>da)g+='<rect x="'+XT(da).toFixed(1)+'" y="'+Y.hour[0]+'" width="'+(XT(db)-XT(da)).toFixed(1)+'" height="'+(HT-Y.hour[0])+'" class="dayl"/>'}
+    {const da=Math.max(st.rise,t0-HALF),db=Math.min(st.set,tEnd0-HALF);if(db>da)g+='<rect x="'+XT(da).toFixed(1)+'" y="'+Y.hour[0]+'" width="'+(XT(db)-XT(da)).toFixed(1)+'" height="3" rx="1.5" class="dayl"/>'}
     {const nt=(st.set+nx.rise)/2,mx=XT(nt);if(nt>=t0-HALF&&nt<=tEnd0-HALF){const mp=moonAge(nt),il=Math.round((1-Math.cos(2*Math.PI*mp))/2*100);g+=moonSvg(mx-12,Y.sun[0]+11,6.5,mp)+'<text x="'+(mx-2)+'" y="'+(Y.sun[0]+15)+'" class="mtx"><title>'+esc(t(moonName(mp)))+'</title>'+il+'% · '+esc(t(moonName(mp)))+'</text>'}}
     [[st.rise,'up'],[st.set,'dn']].forEach(([tt,k])=>{if(tt<t0-HALF||tt>tEnd0-HALF)return;const x=XT(tt);g+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+Y.sun[0]+'" y2="'+HT+'" class="sunl"/><circle cx="'+(x-15).toFixed(1)+'" cy="'+(Y.sun[0]+11)+'" r="3.2" class="sund"/><path d="M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?6:16))+'l-2 '+(k==='up'?-2.5:2.5)+'M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?6:16))+'l2 '+(k==='up'?-2.5:2.5)+'" stroke="#E5A31F" stroke-width="1.1" fill="none"/><text x="'+(x-10).toFixed(1)+'" y="'+(Y.sun[0]+15)+'" class="sunt">'+hhmm(tt)+'</text>'})}}
   // under water: wavy surface between air and sea rows, everything below tinted blue
@@ -3044,7 +3044,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794243050';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794244808';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
