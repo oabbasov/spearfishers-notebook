@@ -2974,7 +2974,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     const W=hr.width,H=hr.height,pad=Math.ceil(f*1.2);
     const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','diver');svg.setAttribute('aria-hidden','true');
     svg.setAttribute('viewBox',(-pad)+' '+(-pad)+' '+(W+pad*2)+' '+(H+pad*2));svg.style.cssText='position:absolute;left:'+(-pad)+'px;top:'+(-pad)+'px;width:'+(W+pad*2)+'px;height:'+(H+pad*2)+'px;overflow:visible;pointer-events:none';
-    svg.innerHTML='<g class="dv">'+fin(4*u,.55)+fin(0,0,14)+grip+'<path d="'+thigh+'"/><path d="'+calf+'"/>'
+    svg.innerHTML='<g class="dv">'+fin(4*u,.55)+fin(0,0,14)+'<path d="'+thigh+'"/><path d="'+calf+'"/>'
       +'<path d="'+cr([[hip[0]+6*u,yX-6*U],[knee[0]+2*u,yX-3.5*U],[knee[0]-12*u,yX-3*U]],false)+'" class="dv-s" stroke-width="'+(8*U)+'" opacity=".5"/>'
       +'<circle cx="'+knee[0]+'" cy="'+knee[1]+'" r="'+(7*U)+'"/><path d="'+torso+'"/><circle cx="'+hc[0]+'" cy="'+hc[1]+'" r="'+hr0+'"/>'
       +'<path d="'+arm+'" class="dv-s" stroke-width="'+(7.5*U)+'"/>'
