@@ -374,14 +374,15 @@ header{display:grid;grid-template-columns:1fr;justify-items:center;margin-bottom
 header .hdr-r{position:absolute;right:0;top:50%;transform:translateY(-50%)}
 header h1{font-size:clamp(30px,8vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.05;text-align:center;padding-bottom:6px}
 header h1 span{color:var(--sea)}
-header .hero{display:block;width:min(300px,78vw);height:auto;margin:2px auto -2px}
-.hero .hb{fill:var(--ink)}
-.hero .hs{stroke:var(--ink);stroke-width:1.3;fill:none}
-.hero .hm{fill:var(--sea)}
-.hero .hn{fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linecap:round}
-.hero .hbelt{stroke:var(--accent);stroke-width:3.4}
-.hero .hbub{fill:none;stroke:var(--sea);stroke-width:1;opacity:.7}
-.hero .hsea{fill:none;stroke:var(--sea);stroke-width:1.6;opacity:.5}
+header h1{position:relative;padding-top:.62em}
+.diver .dv{fill:var(--ink)}
+.diver .dv-s{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
+.diver .dv-mask{fill:var(--sea)}
+.diver .dv-strap{stroke:var(--sea);opacity:.6;stroke-linecap:round}
+.diver .dv-snk{fill:none;stroke:var(--accent);stroke-linecap:round}
+.diver .dv-belt{stroke:var(--accent)}
+.diver .dv-band{fill:none;stroke:var(--muted);stroke-linecap:round}
+.diver .dv-bub{fill:none;stroke:var(--sea);stroke-width:1;opacity:.7}
 
 
 .note{white-space:pre-wrap;overflow-wrap:anywhere;background:color-mix(in srgb,var(--bg) 80%,transparent);border-left:3px solid color-mix(in srgb,var(--sea) 80%,transparent);border-radius:4px;padding:8px 10px;line-height:1.55}
@@ -664,18 +665,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 </div>
 <div class="wrap" id="appView">
   <header>
-    <svg class="hero" viewBox="0 0 300 72" role="img" aria-label="Caçador submarino deitado à espera, com a arma apontada"><g class="hb">
-<path d="M4 45.5 L58 39.6 L60.5 45 L6 49Z" opacity=".7"/><path d="M8 50.5 L60 43.8 L61.5 48.6 L10 53.6Z"/>
-<path d="M58 44 C70 44.6 82 45.4 94 45.6 C106 45 118 44.2 128 43.6 L131 48 C118 49.4 104 50.2 92 49.6 C80 49 70 49 60 49.8Z" opacity=".7"/>
-<path d="M57 39.4 C68 38.4 80 37 92 36.2 C104 34.6 116 32.4 127 31.8 L131 46.6 C118 47.4 104 47.4 92 46.4 C80 45.8 69 46.2 59 47.4Z"/>
-<path d="M124 32.2 C129 28.6 136 28.8 141 30.4 C156 29 172 29.2 186 30.6 C191 31.2 194 34 193.6 37.4 C193 41.6 189 44.2 183 44.8 C166 47.2 148 48.4 130 47.8Z"/>
-<path d="M189 33.2 C192 31.6 196 31.4 199 32.4 L198 40.6 C195 41.4 191.6 41.2 189 40Z"/><circle cx="201.5" cy="34.6" r="8.6"/>
-<path d="M188 35.2 C201 33.8 216 33.4 230 33.8 L230 37.6 C216 37.6 202 38.6 189 40.6Z"/>
-<rect x="222" y="31.2" width="62" height="4.2" rx="1.6"/><path d="M227 35h6.4l-1.8 8.2h-4Z"/><path d="M298 33.3l-4.6-2.6v5.2Z"/></g>
-<path d="M284 33.3h11" class="hs"/><rect x="204.5" y="29.6" width="8" height="6.4" rx="2" class="hm"/>
-<path d="M198 26.6 C196.5 19 197.5 12.5 201.5 10" class="hn"/><path d="M140 30.6 L139 47.8" class="hbelt"/>
-<circle cx="203" cy="5.5" r="1.6" class="hbub"/><circle cx="207" cy="2" r="1.1" class="hbub"/>
-<path d="M0 62 C18 57 32 63 52 60 S90 55 112 60 S152 64 176 58 S222 56 246 61 S282 60 300 62" class="hsea"/></svg><h1>Spearo <span>Diary</span></h1>
+    <h1>Spearo <span>Diary</span></h1>
   </header>
 
   <nav class="tools">
@@ -2900,6 +2890,73 @@ function ckIbTitles(){['ckNewList','ckDupList'].forEach(id=>{const b=$(id);if(b)
 })();
 
 Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos:'Choose photos'});
+/* ===== Title drawing: a spearfisher lying on the letters, waiting behind the D like behind a rock ===== */
+(function(){
+  const h1=document.querySelector('header h1');if(!h1)return;
+  const NS='http://www.w3.org/2000/svg';
+  function cr(pts,closed){ // Catmull-Rom through points -> cubic path
+    const P=closed?[pts[pts.length-1],...pts,pts[0],pts[1]]:[pts[0],...pts,pts[pts.length-1]];let d='M'+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1);
+    for(let i=1;i<P.length-2;i++){const p0=P[i-1],p1=P[i],p2=P[i+1],p3=P[i+2];
+      const c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+      d+='C'+c1[0].toFixed(1)+' '+c1[1].toFixed(1)+' '+c2[0].toFixed(1)+' '+c2[1].toFixed(1)+' '+p2[0].toFixed(1)+' '+p2[1].toFixed(1)}
+    return d+(closed?'Z':'')}
+  function draw(){
+    const old=h1.querySelector('svg.diver');if(old)old.remove();
+    const txt=h1.textContent;if(!/^Spearo Diary$/.test(txt.trim()))return;
+    const cs=getComputedStyle(h1),f=parseFloat(cs.fontSize),hr=h1.getBoundingClientRect();
+    // character boxes
+    const tn=[];(function walk(n){n.childNodes.forEach(c=>c.nodeType===3?tn.push(c):walk(c))})(h1);
+    const chars=[];tn.forEach(n=>{for(let i=0;i<n.length;i++){const r=document.createRange();r.setStart(n,i);r.setEnd(n,i+1);const b=r.getBoundingClientRect();chars.push({ch:n.data[i],x0:b.left-hr.left,x1:b.right-hr.left,top:b.top-hr.top,bot:b.bottom-hr.top})}});
+    const C=k=>chars.filter(c=>c.ch===k)[0];const S=C('S'),Dc=C('D'),p=C('p'),i=C('i');if(!S||!Dc||!p)return;
+    // baseline and glyph heights
+    const m=document.createElement('canvas').getContext('2d');m.font=cs.fontWeight+' '+f+'px '+cs.fontFamily;
+    const fm=m.measureText('S'),asc=fm.fontBoundingBoxAscent,des=fm.fontBoundingBoxDescent;
+    const lh=Dc.bot-Dc.top,base=Dc.top+(lh-(asc+des))/2+asc;
+    const xh=m.measureText('e').actualBoundingBoxAscent,cap=m.measureText('D').actualBoundingBoxAscent,sTop=m.measureText('S').actualBoundingBoxAscent,iTop=m.measureText('i').actualBoundingBoxAscent;
+    const g=Math.max(1.5,f*.035),yX=base-xh-g,yD=base-cap-g,yS=base-sTop-g,yI=base-iTop-g;
+    const u=f/100,U=u*1.45;
+    // head behind the D, eyes just over its top
+    const hr0=12*U,hc=[Dc.x0-g-hr0*.95,yD+hr0*.1];
+    const sh=[hc[0]-18*U,yX-22*U];
+    const hip=[sh[0]-88*u,yX-12*U];
+    // ankles rest on the S; knees on the lowercase line
+    const ank=[S.x1-6*u,yS-5*U];
+    const knee=[Math.max(hip[0]-58*u,ank[0]+38*u),yX-7*U];
+    const torso=cr([[hc[0]-4*U,yX-6*U],[sh[0]+6*U,yX-.5*U],[sh[0]-24*u,yX],[hip[0]+14*u,yX],[hip[0]-3*u,yX-6*U],
+      [hip[0]-2*u,yX-16*U],[hip[0]+10*u,yX-21*U],[hip[0]+32*u,yX-19.5*U],[sh[0]-36*u,yX-23*U],[sh[0]-8*u,yX-28*U],[sh[0]+9*U,yX-27*U],[hc[0]-7*U,hc[1]+hr0*.6]],true);
+    const leg=(a,b,w1,w2)=>{const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;
+      return cr([[a[0]+nx*w1,a[1]+ny*w1],[(a[0]+b[0])/2+nx*(w1+w2)/1.8,(a[1]+b[1])/2+ny*(w1+w2)/1.8],[b[0]+nx*w2,b[1]+ny*w2],[b[0]-dx/L*w2*.9,b[1]-dy/L*w2*.9],[b[0]-nx*w2,b[1]-ny*w2],[(a[0]+b[0])/2-nx*(w1+w2)/2.2,(a[1]+b[1])/2-ny*(w1+w2)/2.2],[a[0]-nx*w1,a[1]-ny*w1]],true)};
+    const thigh=leg(hip,knee,11*U,7.5*U),calf=leg(knee,ank,7*U,4*U);
+    // fins resting on the S, tips a little raised
+    const fl=82*u,tip=[ank[0]-fl,ank[1]-14*u];
+    const fin=(dy,op)=>'<path d="'+cr([[ank[0]+5*U,ank[1]-4*U+dy],[ank[0]-12*u,ank[1]-4.5*U+dy],[tip[0],tip[1]-1.2*U+dy],[tip[0]-2*u,tip[1]+.8*U+dy],[ank[0]-16*u,ank[1]+2.4*U+dy],[ank[0]+4*U,ank[1]+3.6*U+dy]],true)+'"'+(op?' opacity="'+op+'"':'')+'/>';
+    // arms over the D, gun over "iary"
+    const gy=Math.min(yD,i?yI:yD)-5*U,hand=[Dc.x0+(Dc.x1-Dc.x0)*.62,gy+1*u];
+    const arm=cr([[sh[0]+2*U,yX-19*U],[hc[0]+4*U,gy+8*U],[Dc.x0+6*u,gy+2*U],hand],false);
+    const gL=Math.max(140*u,(i?i.x1:Dc.x1)+60*u-hand[0]),g0=hand[0]-24*u,g1=hand[0]+gL;
+    const W=hr.width,H=hr.height,pad=Math.ceil(f*1.2);
+    const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','diver');svg.setAttribute('aria-hidden','true');
+    svg.setAttribute('viewBox',(-pad)+' '+(-pad)+' '+(W+pad*2)+' '+(H+pad*2));svg.style.cssText='position:absolute;left:'+(-pad)+'px;top:'+(-pad)+'px;width:'+(W+pad*2)+'px;height:'+(H+pad*2)+'px;overflow:visible;pointer-events:none';
+    svg.innerHTML='<g class="dv">'+fin(4*u,.55)+fin(0)+'<path d="'+thigh+'"/><path d="'+calf+'"/>'
+      +'<path d="'+cr([[hip[0]+6*u,yX-6*U],[knee[0]+2*u,yX-3.5*U],[knee[0]-12*u,yX-3*U]],false)+'" class="dv-s" stroke-width="'+(8*U)+'" opacity=".5"/>'
+      +'<circle cx="'+knee[0]+'" cy="'+knee[1]+'" r="'+(7*U)+'"/><path d="'+torso+'"/><circle cx="'+hc[0]+'" cy="'+hc[1]+'" r="'+hr0+'"/>'
+      +'<path d="'+arm+'" class="dv-s" stroke-width="'+(7.5*U)+'"/>'
+      +'<rect x="'+g0+'" y="'+(gy-2.4*U)+'" width="'+(g1-g0)+'" height="'+(4.2*U)+'" rx="'+(1.6*U)+'"/>'
+      +'<path d="M'+(g1+1*u)+' '+(gy-.4*u)+'H'+(g1+34*u)+'" class="dv-s" stroke-width="'+(1.4*u)+'"/><path d="M'+(g1+40*u)+' '+(gy-.4*u)+'l-8*u 0" />'
+      +'<path d="M'+(g1+41*u)+' '+(gy-.4*u)+'l'+(-9*u)+' '+(-3.4*u)+'v'+(6.8*u)+'Z"/>'
+      +'</g>'
+      +'<path d="M'+(g0+40*u)+' '+(gy-2.4*u)+'Q'+(g0+70*u)+' '+(gy-7*u)+' '+(g1-8*u)+' '+(gy-2.6*u)+'" class="dv-band" stroke-width="'+(1.6*u)+'"/>'
+      +'<rect x="'+(hc[0]+hr0*.05)+'" y="'+(hc[1]-hr0*.62)+'" width="'+(hr0*1.05)+'" height="'+(hr0*.7)+'" rx="'+(hr0*.22)+'" class="dv-mask"/><path d="M'+(hc[0]-hr0*.7)+' '+(hc[1]-hr0*.3)+'L'+(hc[0]+hr0*.1)+' '+(hc[1]-hr0*.28)+'" class="dv-strap" stroke-width="'+(1.6*U)+'"/>'
+      +'<path d="M'+(hc[0]-hr0*.55)+' '+(hc[1]-hr0*.7)+'C'+(hc[0]-hr0*.9)+' '+(hc[1]-hr0*2)+' '+(hc[0]-hr0*.5)+' '+(hc[1]-hr0*2.9)+' '+(hc[0]+hr0*.1)+' '+(hc[1]-hr0*3.1)+'" class="dv-snk" stroke-width="'+(3.2*u)+'"/>'
+      +'<path d="M'+(hip[0]+22*u)+' '+(yX-23*U)+'L'+(hip[0]+21*u)+' '+(yX-.5*U)+'" class="dv-belt" stroke-width="'+(4*U)+'"/>'
+      +'<circle cx="'+(hc[0]+hr0*.3)+'" cy="'+(hc[1]-hr0*3.7)+'" r="'+(1.8*u)+'" class="dv-bub"/><circle cx="'+(hc[0]+hr0*.9)+'" cy="'+(hc[1]-hr0*4.4)+'" r="'+(1.2*u)+'" class="dv-bub"/>';
+    h1.appendChild(svg);
+  }
+  let rt;const go=()=>{clearTimeout(rt);rt=setTimeout(()=>requestAnimationFrame(draw),60)};
+  addEventListener('resize',go);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);go();
+  ['langEn','langPt'].forEach(id=>{const b=document.getElementById(id);b&&b.addEventListener('click',go)});
+})();
+
 boot();
 })();
 </script>
