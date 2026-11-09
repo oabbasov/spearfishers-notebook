@@ -320,6 +320,13 @@ header h1 span{color:var(--sea)}
 .hdr-r{display:flex;gap:10px;align-items:center;flex:none}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 .tools button{display:flex;align-items:center;gap:6px;font-weight:500;padding:7px 12px;border-radius:999px}
+.tools .gear{margin-left:auto;padding:6px;border-color:transparent;background:none;border-radius:50%}
+.tools .gear:hover{background:var(--sea-soft)}
+#preview{min-width:0;max-width:100%;flex:1 1 100%}
+#preview>.qh{flex:1 1 100%;min-width:0}
+.qh{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12.5px}
+.qh-s{display:none}
+@media (max-width:560px){.qh-l{display:none}.qh-s{display:block}}
 .sheet-wide{width:min(680px,calc(100vw - 24px))}
 .sp{display:grid;gap:12px}
 .sp-top{display:flex;gap:12px;align-items:center}
@@ -535,9 +542,6 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 <div class="wrap" id="appView">
   <header>
     <h1>Spearo <span>Diary</span></h1>
-    <div class="hdr-r">
-      <button type="button" class="gear" id="gearBtn" data-al="settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
-    </div>
   </header>
 
   <nav class="tools">
@@ -545,6 +549,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
     <button type="button" id="sizesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h20v8H2z"/><path d="M6 8v3M10 8v4M14 8v3M18 8v4"/></svg><span data-i="sizesNav"></span></button>
     <button type="button" id="libBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-4 7-6 11-6 3 0 5 2 7 6-2 4-4 6-7 6-4 0-8-2-11-6z"/><path d="M3 12l-1.5-3M3 12l-1.5 3"/><circle cx="16.5" cy="10.5" r=".8" fill="currentColor"/></svg><span data-i="libNav"></span></button>
     <button type="button" id="rulesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg><span data-i="rulesNav"></span></button>
+    <button type="button" class="gear" id="gearBtn" data-al="settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
   </nav>
   <div id="defNow" class="def-now" hidden aria-live="polite"></div>
   <details class="tidecard" id="fcCard" open>
@@ -729,7 +734,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 const $=id=>document.getElementById(id);
 const T={
 en:{quickPh:'@Sesimbra, sea bass 2.3kg 12m 8:30-10:15 rising tide',quickAl:'Quick entry',add:'Add',details:'Add details',searchPh:'Search',
- hint:'Write @spot, then the fish, weight, depth, time and tide. Anything else goes into notes.',spot:'Spot',fish:'Fish',month:'Month',allSpots:'All spots',anyFish:'Any fish',anyMonth:'Any month',more:'More filters',less:'Fewer filters',
+ hint:'Write @spot, fish, weight, depth, time and tide. The rest goes into notes.',hintS:'@spot, fish, weight, depth, time and tide.',spot:'Spot',fish:'Fish',month:'Month',allSpots:'All spots',anyFish:'Any fish',anyMonth:'Any month',more:'More filters',less:'Fewer filters',
  type:'Type',sort:'Sort by',from:'From',to:'To',depthMin:'Depth from, m',visMin:'Visibility from, m',tide:'Tide',sea:'Sea',current:'Current',any:'Any',withCatch:'Only with a catch',clear:'Clear filters',csv:'Download CSV',
  newest:'Newest',oldest:'Oldest',heaviest:'Biggest catch',deepest:'Deepest',
  exNote:'Entries marked Example are made up to show how the notebook works.',clearEx:'Delete examples',sureEx:'Delete all examples?',example:'Example',
@@ -746,7 +751,7 @@ en:{quickPh:'@Sesimbra, sea bass 2.3kg 12m 8:30-10:15 rising tide',quickAl:'Quic
  localMode:'Entries are being saved in this browser only. Sign in to Claude and open the notebook there to keep them on every device.',viewOnly:'You can only view this page. Ask the owner for access that lets you use it, and you will get your own private notebook.',backupL:'Download backup',restoreL:'Restore from backup',importedN:n=>n+' entries restored from the backup.',errImport:'That file is not a notebook backup.',privateMode:'This notebook is private. Only its owner can see and change entries.',loadSlow:'Your entries are not loading. Check your connection. They will appear when it returns.',loadDead:'The connection to your notebook dropped. Reload the page to reconnect.',
  catchKgS:'kg',photoAlt:'Entry photo'},
 pt:{quickPh:'@Sesimbra, robalo 2,3kg 12m 8:30-10:15 maré a encher',quickAl:'Registo rápido',add:'Adicionar',details:'Adicionar detalhes',searchPh:'Pesquisa',
- hint:'Escreva @local, depois o peixe, o peso, a profundidade, a hora e a maré. O resto fica nas notas.',spot:'Local',fish:'Peixe',month:'Mês',allSpots:'Todos os locais',anyFish:'Qualquer peixe',anyMonth:'Qualquer mês',more:'Mais filtros',less:'Menos filtros',
+ hint:'Escreva @local, peixe, peso, profundidade, hora e maré. O resto fica nas notas.',hintS:'@local, peixe, peso, profundidade, hora e maré.',spot:'Local',fish:'Peixe',month:'Mês',allSpots:'Todos os locais',anyFish:'Qualquer peixe',anyMonth:'Qualquer mês',more:'Mais filtros',less:'Menos filtros',
  type:'Tipo',sort:'Ordenar por',from:'De',to:'Até',depthMin:'Profundidade desde, m',visMin:'Visibilidade desde, m',tide:'Maré',sea:'Mar',current:'Corrente',any:'Qualquer',withCatch:'Só com captura',clear:'Limpar filtros',csv:'Descarregar CSV',
  newest:'Mais recentes',oldest:'Mais antigos',heaviest:'Maior captura',deepest:'Mais fundos',
  exNote:'As entradas marcadas como Exemplo são fictícias e mostram como o caderno funciona.',clearEx:'Apagar exemplos',sureEx:'Apagar todos os exemplos?',example:'Exemplo',
@@ -1680,7 +1685,7 @@ function render(dataChanged){
 }
 function renderPreview(){
   const v=$('quick').value.trim(),el=$('preview');
-  if(!v&&!quickMood){el.innerHTML='<span>'+esc(t('hint'))+'</span>';return}
+  if(!v&&!quickMood){el.innerHTML='<span class="qh qh-l">'+esc(t('hint'))+'</span><span class="qh qh-s">'+esc(t('hintS'))+'</span>';return}
   const p=parseQuick(v,uniq(entries.map(e=>e.spot)),uniq(entries.flatMap(speciesOf))),c=[typeLabel(p.type)];
   const pm=quickMood||p.mood;if(pm)c.push(t('mood_'+pm));
   if(p.date!==today())c.push(fmtDate(p.date));
