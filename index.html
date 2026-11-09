@@ -186,6 +186,7 @@ a{color:var(--sea);text-underline-offset:2px}
 .windy a{padding:2px 9px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink);overflow-wrap:anywhere}
 .windy a:hover{border-color:var(--sea)}
 
+.site-foot{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 8px;margin:28px 0 8px;font-size:12.5px;color:var(--muted);text-align:center}
 .linksbox{display:grid;gap:8px;background:var(--sea-soft);border-radius:8px;padding:10px 12px;margin-top:8px}
 .linksbox .big{display:flex;flex-wrap:wrap;gap:14px}
 .linksbox .big a{flex:none;background:var(--sea);color:var(--bg);font-weight:600;font-size:13.5px;padding:6px 14px;border-radius:6px;text-decoration:none}
@@ -749,6 +750,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
   <div class="count" id="summary" aria-live="polite"></div>
   <div class="list" id="list"></div>
   <footer class="linksbox" id="windyBar" hidden></footer>
+  <footer class="site-foot"><span>© <span id="ftYear">2026</span> Spearo Diary</span><span aria-hidden="true">·</span><span data-i="ftRights"></span></footer>
 </div>
 
 <dialog id="dlg">
@@ -1789,8 +1791,8 @@ function fillFacets(){
   if(!loaded||readOnly){bar.hidden=true;return}
   bar.hidden=false;
   const lk=(u,l)=>'<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(l)+'</a>';
-  bar.innerHTML='<div class="big">'+lk('https://www.windy.com/?waves,38.7000,-9.4000,9','Windy')+lk('https://beachcam.meo.pt/livecams/','BeachCam')+lk('https://spearo.app','Spearo')+'</div>'
-    +(cm.size?'<div class="windy"><span>'+esc(t('windyLabel'))+'</span>'+[...cm.values()].slice(0,12).map(o=>lk(windyUrl(o.c),o.name)).join('')+'</div>':'');
+  if(!cm.size){bar.hidden=true;return}
+  bar.innerHTML=(cm.size?'<div class="windy"><span>'+esc(t('windyLabel'))+'</span>'+[...cm.values()].slice(0,12).map(o=>lk(windyUrl(o.c),o.name)).join('')+'</div>':'');
 }
 function haystack(e){
   const both=(p,v)=>v?T.en[p+v]+' '+T.pt[p+v]:'';
@@ -2957,6 +2959,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
   ['langEn','langPt'].forEach(id=>{const b=document.getElementById(id);b&&b.addEventListener('click',go)});
 })();
 
+Object.assign(T.pt,{ftRights:'Todos os direitos reservados.'});Object.assign(T.en,{ftRights:'All rights reserved.'});try{$('ftYear').textContent=String(new Date().getFullYear())}catch(e){}
 boot();
 })();
 </script>
