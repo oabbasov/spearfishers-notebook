@@ -315,7 +315,9 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .sunl{stroke:#E5A31F;stroke-width:1.2;stroke-dasharray:3 3;opacity:.8}
 #fcBox .sunt{font:600 10.5px var(--body);fill:var(--ink)}
 #fcBox .sund{fill:#F6C343}
-#fcBox .dayl{fill:#F2C14E;fill-opacity:.06}
+#fcBox .dayl{fill:url(#dayp)}
+#fcBox .dayd{fill:#E2A21B;fill-opacity:.42}
+@media (prefers-color-scheme:dark){#fcBox .dayd{fill:#F4C04E;fill-opacity:.3}}
 #fcBox .haze{fill:#9AA5AB;fill-opacity:.18}#fcBox .haze2{fill-opacity:.38}
 #fcBox .mdk{fill:#4A5358}#fcBox .mlt{fill:#F3EBCB}#fcBox .mrim{fill:none;stroke:var(--ink);stroke-opacity:.5;stroke-width:.8}
 #fcBox .mtx{font:10.5px var(--body);fill:var(--muted)}
@@ -1724,7 +1726,7 @@ function fcStep(){try{return localStorage.getItem('sn-fc-step')==='3'?3:1}catch(
 function drawForecast(){
   const card=$('fcCard');if(!card||!card.open)return;
   const box=$('fcBox'),nowEl=$('fcNow'),nowMs=Date.now(),p=lisbonParts(nowMs),t0=nowMs-((p.hour*60+p.minute)*60+p.second)*1000-nowMs%1000;
-  const ST=fcStep(),HALF=ST*18e5,NH=72/ST,CW=40,W=NH*CW,cx=i=>i*CW+CW/2,XT=t=>(t-t0)/(36e5*ST)*CW+CW/2;
+  const ST=fcStep(),HALF=ST*18e5,NH=72/ST,CW=32,W=NH*CW,cx=i=>i*CW+CW/2,XT=t=>(t-t0)/(36e5*ST)*CW+CW/2;
   const R=[['day',22],['hour',20],['sun',22],['sky',34],['air',20],['g0',10],['wind',22],['windA',48],['g1',10],['wave',16],['waveA',48],['gc',10],['clar',30],['g2',10],['sst',16],['g3',8],['tide',60]];
   const sp0=fcSpot||FC_DEF,tst=tideStation(sp0.lat,sp0.lon);let farT=false;
   if(tst.d<=150)LT=tideLocal(tst);
@@ -1739,7 +1741,7 @@ function drawForecast(){
   const mm=byT(D&&D.m,['wave_height','wave_period','wave_direction','swell_wave_height','sea_surface_temperature']);
   const near=(m,t)=>m.get(t)||m.get(Math.round(t/36e5)*36e5)||null;
   const f1=v=>v==null?'—':fmt(Math.round(v*10)/10),f0=v=>v==null?'—':fmt(Math.round(v));
-  let g='';
+  let g='<defs><pattern id="dayp" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="0.9" class="dayd"/><circle cx="4.5" cy="4.5" r="0.9" class="dayd"/></pattern></defs>';
   // hour bands, midnight lines
   hrs.forEach((t,i)=>{const hh=lisbonParts(t).hour;if(i%2)g+='<rect x="'+i*CW+'" y="'+Y.hour[0]+'" width="'+CW+'" height="'+(HT-Y.hour[0])+'" class="sb"/>';if(hh===0&&i)g+='<line x1="'+i*CW+'" x2="'+i*CW+'" y1="0" y2="'+HT+'" class="sm"/>'});
   // day + hour labels
@@ -1766,7 +1768,7 @@ function drawForecast(){
   const mv=hrs.map(t=>near(mm,t)||{}),hasW=mv.some(m=>m.wave_height!=null),hmax=Math.max(1.5,1.2*Math.max(...mv.map(m=>Math.max(m.wave_height||0,m.swell_wave_height||0)))),vTop=Y.wave[0]+14,vBot=Y.wave[0]+Y.wave[1]-4,VY=v=>vBot-(v/hmax)*(vBot-vTop);
   mv.forEach((m,i)=>{const y=Y.waveA[0];if(m.wave_height!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.waveA[1]-4)+'" rx="5" class="cvb" fill-opacity="'+Math.min(.41,.045+m.wave_height/6.8).toFixed(2)+'"/>';if(m.wave_direction!=null)g+=arrow(cx(i),y+10,m.wave_direction,'fa2',1);if(m.wave_height!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f1(m.wave_height)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(m.wave_period)+'s</text>'});
   const cl=hrs.map(t=>clarity(t,wm,mm,near,farT));
-  cl.forEach((c,i)=>{if(!c)return;const y=Y.clar[0];g+='<rect x="'+(i*CW+1)+'" y="'+(y+5)+'" width="'+(CW-2)+'" height="'+(Y.clar[1]-10)+'" rx="3" class="vc vc-'+c.k+'"/>';const prev=cl[i-1];if(!prev||prev.k!==c.k||lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(y+Y.clar[1]/2+4)+'" text-anchor="middle" class="vct">'+esc(t('vc_'+c.k))+'</text>'});
+  cl.forEach((c,i)=>{if(!c)return;const y=Y.clar[0];g+='<rect x="'+(i*CW+1)+'" y="'+(y+5)+'" width="'+(CW-2)+'" height="'+(Y.clar[1]-10)+'" rx="3" class="vc vc-'+c.k+'"/>';const prev=cl[i-1];if((!prev||prev.k!==c.k||lisbonParts(hrs[i]).hour%3===0)&&cl._l!==i-1){cl._l=i;g+='<text x="'+cx(i)+'" y="'+(y+Y.clar[1]/2+4)+'" text-anchor="middle" class="vct">'+esc(t('vc_'+c.k))+'</text>'}});
   mv.forEach((m,i)=>{if(m.sea_surface_temperature!=null&&lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(Y.sst[0]+12)+'" text-anchor="middle" class="ssst">'+f1(m.sea_surface_temperature)+'°</text>'});
   // tide
   const tTop=Y.tide?Y.tide[0]+17:0,tBot=Y.tide?Y.tide[0]+Y.tide[1]-15:0,TY=h=>tBot-((h-LT.lo)/(LT.hi-LT.lo))*(tBot-tTop);
@@ -1774,7 +1776,7 @@ function drawForecast(){
   const tEnd=t0+72*36e5;
   let tp='';for(let t=t0-HALF;t<=tEnd-HALF;t+=9e5)tp+=(tp?'L':'M')+XT(t).toFixed(1)+' '+TY(ltH(t)).toFixed(1);
   g+='<path d="'+tp+'L'+XT(tEnd-HALF)+' '+tBot+'L'+XT(t0-HALF)+' '+tBot+'Z" class="ta"/><path d="'+tp+'" class="tc"/>';
-  ltEx(t0,tEnd).forEach(e=>{const x=XT(e.t),y=TY(e.h);g+='<circle cx="'+x+'" cy="'+y+'" r="3" class="te"/><text x="'+x+'" y="'+(e.high?y-6:y+14)+'" text-anchor="middle" class="tx">'+hhmm(e.t)+' <tspan class="th">'+fmt(Math.round(e.h*10)/10)+' m</tspan></text>'});
+  ltEx(t0,tEnd).forEach(e=>{const x=XT(e.t),y=TY(e.h);if(x<0||x>W)return;g+='<circle cx="'+x+'" cy="'+y+'" r="3" class="te"/><text x="'+Math.min(W-44,Math.max(44,x))+'" y="'+(e.high?y-6:y+14)+'" text-anchor="middle" class="tx">'+hhmm(e.t)+' <tspan class="th">'+fmt(Math.round(e.h*10)/10)+' m</tspan></text>'});
   ['g0','gc','g2','g3'].filter(k=>Y[k]).forEach(k=>{const y=Y[k][0]+Y[k][1]/2;g+='<line x1="0" x2="'+W+'" y1="'+y+'" y2="'+y+'" class="ssep"/>'});g+=uwLine;
   }
   // now
@@ -3037,6 +3039,14 @@ Object.assign(T.pt,{ftRights:'Todos os direitos reservados.'});Object.assign(T.e
 Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre todas as suas entradas, fotos, versões anteriores e a própria conta. Não dá para desfazer. Se quiser guardar uma cópia, use antes «Descarregar cópia de segurança» em Os seus dados.',delAccType:'Para confirmar, escreva APAGAR',delAccWord:'APAGAR',delAccGo:'Apagar tudo para sempre',delAccWorking:'A apagar…',delAccNoFn:'A função de apagar contas ainda não está instalada na base de dados.',delAccDone:'A conta foi apagada.'});
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
+/* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
+(function(){const B='1794242044';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+  const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
+  async function check(){if(Date.now()-last<60000)return;last=Date.now();
+    try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
+      if(m&&m[1]!==B){if(!busy())location.reload();else{last=0;setTimeout(check,30000)}}}catch(e){}}
+  setTimeout(check,4000);addEventListener('focus',check);document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});
+})();
 boot();
 })();
 
