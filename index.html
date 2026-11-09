@@ -2949,7 +2949,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     const g=Math.max(1.5,f*.035)+f*.41,yX=base-xh-g,yD=base-cap-g,yS=base-sTop-g,yI=base-iTop-g;
     const u=f/100;
     // a slim one-colour silhouette lying along the letters: fins over the S, head just behind the D, arm stretched over "iary"
-    const fx=S.x0-f*.04,hx=Dc?Dc.x0-f*.12:last.x1-f*.2,s=(hx-fx)/160,yb=yX;
+    const Oc=C('o'),hx=Dc?Dc.x0+f*.14:last.x1-f*.2,oc=Oc?(Oc.x0+Oc.x1)/2:hx-f*.5,s=Math.min(f*.02,Math.max(f*.012,(hx-oc)/26)),fx=hx-160*s,yb=yX;
     const P=(x,y)=>[fx+x*s,yb+y*s];
     const diverSVG=function(P,s,cr,gp){
   const path=(pts,attr)=>'<path'+(attr||'')+' d="'+cr(pts.map(p=>P(p[0],p[1])),true)+'"/>';
@@ -2964,7 +2964,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
   // far leg and fin, a touch higher with the fin lifted
   const fl=rot(leg,hip,-2.2,-3).map(([x,y])=>[x,x>88?Math.max(y,-13.4):y]);o+=path(fl)+path(rot(fin,hip,-2.2,-3));
   // far hand holding the letter
-  if(gp){const sh=P(142,-8),el=[(sh[0]+gp[0])/2+2*s,(sh[1]+gp[1])/2+1.5*s];
+  if(gp){const sh=P(140,-8),el=[(sh[0]+gp[0])/2+3*s,(sh[1]+gp[1])/2];
     const tap=(a,b,w1,w2)=>{const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;w1*=s;w2*=s;
       return '<path d="'+cr([[a[0]+nx*w1,a[1]+ny*w1],[(a[0]+b[0])/2+nx*(w1+w2)/2,(a[1]+b[1])/2+ny*(w1+w2)/2],[b[0]+nx*w2,b[1]+ny*w2],[b[0]+dx/L*w2*.9,b[1]+dy/L*w2*.9],[b[0]-nx*w2,b[1]-ny*w2],[(a[0]+b[0])/2-nx*(w1+w2)/2,(a[1]+b[1])/2-ny*(w1+w2)/2],[a[0]-nx*w1,a[1]-ny*w1]],true)+'"/>'};
     o+=tap(sh,el,4.6,3.2)+tap(el,[gp[0]+.6*s,gp[1]-1.6*s],3,2.3)+'<path d="'+cr([[gp[0]-2.4*s,gp[1]-2.2*s],[gp[0]+1*s,gp[1]-3.4*s],[gp[0]+3.4*s,gp[1]-1.6*s],[gp[0]+3.6*s,gp[1]+1.6*s],[gp[0]+2.2*s,gp[1]+1.8*s],[gp[0]+1.2*s,gp[1]],[gp[0]-1.6*s,gp[1]+.4*s]],true)+'"/>'}
@@ -2974,7 +2974,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
   o+='<path class="dv-s" style="stroke-width:'+(1.7*s).toFixed(2)+'px" d="M'+a+' C'+P(151.6,-21.6)+' '+P(150.8,-25.8)+' '+c+'"/>';
   return {o,hand:P(191,-4.4),gunY:P(0,-5.4)[1]};
 };
-    const gp=Dc?[Dc.x0+f*.07,base-cap-1*u]:null;
+    const gp=Oc?[oc+(Oc.x1-Oc.x0)*.08,base-xh-1*u]:null;
     const D2=diverSVG(P,s,cr,gp),hand=D2.hand,gy=D2.gunY;
     const g0=P(185,0)[0],g1=Math.max(hand[0]+140*u,(i?i.x1:(Dc?Dc.x1:last.x1))+60*u),sp=g1+38*u;
     const W=hr.width,H=hr.height,pad=Math.ceil(f*1.2);
