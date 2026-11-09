@@ -71,6 +71,11 @@ a{color:var(--sea);text-underline-offset:2px}
 
 /* notebook-style date picker (entry form) */
 .dp-wrap{position:relative}
+.vh-file{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.file-btn{display:inline-flex;align-items:center;gap:8px;justify-self:start;cursor:pointer;padding:8px 14px;border:1px solid var(--sea);border-radius:8px;color:var(--sea);font-size:14.5px;font-weight:600;background:transparent}
+.file-btn:hover{background:var(--sea-soft)}
+.vh-file:focus-visible+.file-btn{outline:2px solid var(--sea);outline-offset:2px}
+
 .dpick{all:unset;box-sizing:border-box;cursor:pointer;width:100%;min-height:42px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:16px;font-weight:400}
 .dpick svg{color:var(--muted);flex:none}
 .dpick:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
@@ -752,7 +757,8 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
     <div class="lbl" id="photoBlock" hidden>
       <span data-i="addPhotos"></span>
       <div class="edit-photos" id="ePhotos"></div>
-      <input id="ePhotoInput" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple>
+      <input id="ePhotoInput" class="vh-file" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple>
+      <label for="ePhotoInput" class="file-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2.5h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.5"/></svg><span data-i="pickPhotos"></span></label>
     </div>
     <details id="eMore">
       <summary data-i="conditions"></summary>
@@ -2859,6 +2865,7 @@ function ckIbTitles(){['ckNewList','ckDupList'].forEach(id=>{const b=$(id);if(b)
   $('ckBtn').addEventListener('click',()=>{if(matchMedia('(hover:hover) and (pointer:fine)').matches)setTimeout(()=>add.focus({preventScroll:true}),30)});
 })();
 
+Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos:'Choose photos'});
 boot();
 })();
 </script>
