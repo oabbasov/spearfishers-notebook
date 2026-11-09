@@ -1351,7 +1351,7 @@ $('aForgot').addEventListener('click',async()=>{
   if(!email||!$('aEmail').checkValidity()){err.textContent=t('forgotNeedEmail');err.hidden=false;$('aEmail').focus();return}
   $('aForgot').disabled=true;
   try{const r=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
-    err.textContent=t(r.error?(/rate|seconds/i.test(String(r.error.message))?'forgotWait':'authFail'):'forgotSent')}catch(e){err.textContent=t('authFail')}
+    err.textContent=r.error?(/rate|seconds/i.test(String(r.error.message))?t('forgotWait'):t('authFail')+' ('+String(r.error.message||r.error.code||'')+')'):t('forgotSent')}catch(e){err.textContent=t('authFail')+' ('+String(e&&e.message||e)+')'}
   err.hidden=false;$('aForgot').disabled=false;
 });
 $('newPassForm').addEventListener('submit',async ev=>{
