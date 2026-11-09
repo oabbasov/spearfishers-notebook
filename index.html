@@ -384,6 +384,7 @@ header h1{position:relative;padding-top:1.07em}
 .diver .dv-belt{stroke:var(--accent)}
 .diver .dv-band{fill:none;stroke:var(--muted);stroke-linecap:round}
 .diver .dv-bub{fill:none;stroke:var(--sea);stroke-width:1;opacity:.7}
+.diver .dv .dv-gap{fill:none;stroke:var(--bg);stroke-linejoin:round}
 
 
 .note{white-space:pre-wrap;overflow-wrap:anywhere;background:color-mix(in srgb,var(--bg) 80%,transparent);border-left:3px solid color-mix(in srgb,var(--sea) 80%,transparent);border-radius:4px;padding:8px 10px;line-height:1.55}
@@ -2947,40 +2948,44 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     const xh=m.measureText('e').actualBoundingBoxAscent,cap=m.measureText('D').actualBoundingBoxAscent,sTop=m.measureText('S').actualBoundingBoxAscent,iTop=m.measureText('i').actualBoundingBoxAscent;
     const g=Math.max(1.5,f*.035)+f*.41,yX=base-xh-g,yD=base-cap-g,yS=base-sTop-g,yI=base-iTop-g;
     const u=f/100;
-    // one slim silhouette lying along the letters: fins over the S, head just behind the D, gun arm stretched over "iary"
-    const fx=S.x0-f*.06,hx=Dc?Dc.x0-f*.12:last.x1-f*.2,s=(hx-fx)/150,yb=yX;
-    const P=(x,y)=>[fx+x*s,yb+y*s],Q=pts=>pts.map(p=>P(p[0],p[1]));
+    // a slim one-colour silhouette lying along the letters: fins over the S, head just behind the D, arm stretched over "iary"
+    const fx=S.x0-f*.04,hx=Dc?Dc.x0-f*.12:last.x1-f*.2,s=(hx-fx)/160,yb=yX;
+    const P=(x,y)=>[fx+x*s,yb+y*s];
+    const diverSVG=function(P,s,cr,gp){
+  const path=(pts,attr)=>'<path'+(attr||'')+' d="'+cr(pts.map(p=>P(p[0],p[1])),true)+'"/>';
+  const rot=(pts,c,deg,dy)=>{const a=deg*Math.PI/180,co=Math.cos(a),si=Math.sin(a);return pts.map(([x,y])=>{const X=x-c[0],Y=y-c[1];return [c[0]+X*co+Y*si,c[1]-X*si+Y*co+dy]})};
+  const leg=[[108,-14.6],[97,-12.8],[87,-10.4],[81,-8.6],[74,-9.8],[66,-10.2],[60,-8.2],[55,-6.4],[53.6,-4.2],[54.4,-2.2],[62,-1.8],[72,-2.6],[81,-2.2],[94,-1.6],[106,-2]];
+  const fin=[[58,-6.8],[46,-6.9],[30,-6.7],[13,-6.3],[3,-5.7],[-.4,-4.4],[1.6,-2.8],[12,-2.4],[30,-1.9],[46,-1.5],[57,-1.9]];
+  const torso=[[152,-14.6],[146,-17.6],[136,-17.4],[125,-15],[116,-13.2],[109,-15.2],[101,-14.6],[97.6,-10],[99.6,-3.4],[110,-1.4],[124,-.6],[138,-.8],[147,-3.6],[153.4,-8]];
+  const head=[[151,-14.4],[153.6,-19.2],[159.4,-20.8],[165.4,-19],[168.4,-17.4],[170.8,-16.6],[171.4,-12.4],[169.6,-11],[166.6,-8],[160.6,-6.2],[154.6,-8.2]];
+  const arm=[[144,-16.4],[156,-12.4],[168,-9.2],[180,-7.2],[187.6,-6.6],[190.6,-7.4],[193.6,-5.6],[193,-2.6],[189.4,-1.8],[182,-2.8],[168,-4.2],[156,-5.2],[145,-5.4]];
+  const hip=[104,-8];
+  let o='<g class="dv">';
+  // far leg and fin, a touch higher with the fin lifted
+  const fl=rot(leg,hip,-2.2,-3).map(([x,y])=>[x,x>88?Math.max(y,-13.4):y]);o+=path(fl)+path(rot(fin,hip,-2.2,-3));
+  // far hand holding the letter
+  if(gp){const sh=P(142,-8),el=[(sh[0]+gp[0])/2+2*s,(sh[1]+gp[1])/2+1.5*s];
     const tap=(a,b,w1,w2)=>{const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;w1*=s;w2*=s;
-      return cr([[a[0]+nx*w1,a[1]+ny*w1],[(a[0]+b[0])/2+nx*(w1+w2)/2,(a[1]+b[1])/2+ny*(w1+w2)/2],[b[0]+nx*w2,b[1]+ny*w2],[b[0]+dx/L*w2*.8,b[1]+dy/L*w2*.8],[b[0]-nx*w2,b[1]-ny*w2],[(a[0]+b[0])/2-nx*(w1+w2)/2,(a[1]+b[1])/2-ny*(w1+w2)/2],[a[0]-nx*w1,a[1]-ny*w1]],true)};
-    const torso=cr(Q([[144,-14.5],[136,-17.6],[124,-17.4],[112,-14.2],[101,-13.4],[90,-15.6],[80,-13.8],[77,-8],[81,-3.4],[91,-2.2],[106,-1.6],[121,-.8],[134,-2.2],[145,-6.5]]),true);
-    const legP=cr(Q([[87,-15.6],[73,-13],[62,-10.4],[52,-11.8],[43,-9],[35,-7.6],[34,-4],[45,-3.4],[61,-4.2],[73,-3.2],[86,-3]]),true);
-    const finP=cr(Q([[38,-7.8],[30,-8.4],[17,-8.9],[6,-8.6],[.4,-7.4],[-.6,-5.8],[1.2,-4.4],[7,-3.2],[17,-2.6],[29,-2.9],[37,-3.6]]),true);
-    const leg=(op,rot)=>{const c=P(86,-9);return '<g'+(op?' opacity="'+op+'"':'')+(rot?' transform="rotate('+rot+' '+c[0].toFixed(1)+' '+c[1].toFixed(1)+')"':'')+'><path d="'+legP+'"/><path d="'+finP+'"/></g>'};
-    const hc=P(151,-11),hr0=7.8*s;
-    // gun arm stretched forward, a little low, as in an ambush
-    const sh=P(137,-12.5),el=P(164,-9.2),wr=P(190,-7.8),hand=P(192.5,-7.8),gy=hand[1]+.4*s;
-    const g0=P(183,0)[0],g1=Math.max(hand[0]+140*u,(i?i.x1:(Dc?Dc.x1:last.x1))+60*u);
-    // free hand reaches down and holds the top of the "o" like the edge of a rock
-    const gp=Dc?[Dc.x0+f*.07,base-cap-1.2*u]:null;
-    let grip='';if(gp){const s0=P(133,-8),e0=[(s0[0]+gp[0])/2-2*s,(s0[1]+gp[1])/2+3*s];
-      grip='<g opacity=".55"><path d="'+tap(s0,e0,4.6,3.4)+'"/><path d="'+tap(e0,[gp[0],gp[1]-2.2*s],3.3,2.2)+'"/>'
-      +'<path d="'+cr([[gp[0]-3*s,gp[1]-2.6*s],[gp[0]+.5*s,gp[1]-4*s],[gp[0]+3.8*s,gp[1]-2.2*s],[gp[0]+4.4*s,gp[1]+1.6*s],[gp[0]+2.6*s,gp[1]+2*s],[gp[0]+1.4*s,gp[1]-.2*s],[gp[0]-1.8*s,gp[1]+.5*s]],true)+'"/></g>'}
+      return '<path d="'+cr([[a[0]+nx*w1,a[1]+ny*w1],[(a[0]+b[0])/2+nx*(w1+w2)/2,(a[1]+b[1])/2+ny*(w1+w2)/2],[b[0]+nx*w2,b[1]+ny*w2],[b[0]+dx/L*w2*.9,b[1]+dy/L*w2*.9],[b[0]-nx*w2,b[1]-ny*w2],[(a[0]+b[0])/2-nx*(w1+w2)/2,(a[1]+b[1])/2-ny*(w1+w2)/2],[a[0]-nx*w1,a[1]-ny*w1]],true)+'"/>'};
+    o+=tap(sh,el,4.6,3.2)+tap(el,[gp[0]+.6*s,gp[1]-1.6*s],3,2.3)+'<path d="'+cr([[gp[0]-2.4*s,gp[1]-2.2*s],[gp[0]+1*s,gp[1]-3.4*s],[gp[0]+3.4*s,gp[1]-1.6*s],[gp[0]+3.6*s,gp[1]+1.6*s],[gp[0]+2.2*s,gp[1]+1.8*s],[gp[0]+1.2*s,gp[1]],[gp[0]-1.6*s,gp[1]+.4*s]],true)+'"/>'}
+  const gap=' class="dv-gap" style="stroke-width:'+(2.6*s).toFixed(2)+'px"';o+=path(leg,gap)+path(fin,gap)+path(leg)+path(fin);
+  o+=path(torso)+path(head)+path(arm);
+  const a=P(154.6,-17.6),c=P(152.4,-29.6);
+  o+='<path class="dv-s" style="stroke-width:'+(1.7*s).toFixed(2)+'px" d="M'+a+' C'+P(151.6,-21.6)+' '+P(150.8,-25.8)+' '+c+'"/>';
+  return {o,hand:P(191,-4.4),gunY:P(0,-5.4)[1]};
+};
+    const gp=Dc?[Dc.x0+f*.07,base-cap-1*u]:null;
+    const D2=diverSVG(P,s,cr,gp),hand=D2.hand,gy=D2.gunY;
+    const g0=P(185,0)[0],g1=Math.max(hand[0]+140*u,(i?i.x1:(Dc?Dc.x1:last.x1))+60*u),sp=g1+38*u;
     const W=hr.width,H=hr.height,pad=Math.ceil(f*1.2);
     const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','diver');svg.setAttribute('aria-hidden','true');
     svg.setAttribute('viewBox',(-pad)+' '+(-pad)+' '+(W+pad*2)+' '+(H+pad*2));svg.style.cssText='position:absolute;left:'+(-pad)+'px;top:'+(-pad)+'px;width:'+(W+pad*2)+'px;height:'+(H+pad*2)+'px;overflow:visible;pointer-events:none';
-    const sp=g1+38*u,ar=P(0,0);
-    svg.innerHTML='<g class="dv">'+leg(.55,7)+grip+leg(0,0)+'<path d="'+torso+'"/><circle cx="'+hc[0]+'" cy="'+hc[1]+'" r="'+hr0+'"/>'
-      +'<path d="'+tap(sh,el,5.4,4)+'"/><path d="'+tap(el,wr,3.9,2.7)+'"/><circle cx="'+hand[0]+'" cy="'+hand[1]+'" r="'+(3*s)+'"/>'
-      +'<rect x="'+g0+'" y="'+(gy-1.4*s)+'" width="'+(g1-g0)+'" height="'+(2.8*s)+'" rx="'+(1.2*s)+'"/>'
-      +'<path d="'+cr([[hand[0]-1.6*s,gy+.8*s],[hand[0]+1.8*s,gy+.8*s],[hand[0]+.6*s,gy+5.4*s],[hand[0]-2.6*s,gy+5*s]],true)+'"/>'
-      +'<path d="M'+g1+' '+gy+'H'+sp+'" class="dv-s" stroke-width="'+(1.3*u)+'"/>'
-      +'<path d="M'+(sp+7*u)+' '+gy+'l'+(-9*u)+' '+(-3*u)+'v'+(6*u)+'Z"/>'
-      +'</g>'
-      +'<path d="M'+(g0+10*s)+' '+(gy-1.4*s)+'Q'+((g0+g1)/2-20*u)+' '+(gy-5*s)+' '+(g1-8*u)+' '+(gy-1.5*s)+'" class="dv-band" stroke-width="'+(1.4*u)+'"/>'
-      +'<rect x="'+(hc[0]+hr0*.1)+'" y="'+(hc[1]-hr0*.55)+'" width="'+(hr0*1.0)+'" height="'+(hr0*.65)+'" rx="'+(hr0*.22)+'" class="dv-mask"/><path d="M'+(hc[0]-hr0*.75)+' '+(hc[1]-hr0*.25)+'L'+(hc[0]+hr0*.15)+' '+(hc[1]-hr0*.24)+'" class="dv-strap" stroke-width="'+(1.3*s)+'"/>'
-      +'<path d="M'+(hc[0]-hr0*.5)+' '+(hc[1]-hr0*.75)+'C'+(hc[0]-hr0*.85)+' '+(hc[1]-hr0*1.9)+' '+(hc[0]-hr0*.5)+' '+(hc[1]-hr0*2.7)+' '+(hc[0]+hr0*.1)+' '+(hc[1]-hr0*2.9)+'" class="dv-snk" stroke-width="'+(2.6*s)+'"/>'
-      +'<path d="M'+P(103,-15.4).join(' ')+'L'+P(102.5,-1.2).join(' ')+'" class="dv-belt" stroke-width="'+(3.2*s)+'"/>'
-      +'<circle cx="'+(hc[0]+hr0*.3)+'" cy="'+(hc[1]-hr0*3.5)+'" r="'+(1.6*u)+'" class="dv-bub"/><circle cx="'+(hc[0]+hr0*.9)+'" cy="'+(hc[1]-hr0*4.2)+'" r="'+(1.1*u)+'" class="dv-bub"/>';
+    svg.innerHTML=D2.o
+      +'<rect x="'+g0+'" y="'+(gy-1.2*s)+'" width="'+(g1-g0)+'" height="'+(2.4*s)+'" rx="'+(1.1*s)+'"/>'
+      +'<path d="M'+(hand[0]-.6*s)+' '+(gy+3*s)+'q'+(1.6*s)+' '+(3*s)+' '+(4.4*s)+' '+(1.2*s)+'" class="dv-s" stroke-width="'+(.9*s)+'"/>'
+      +'<path d="M'+g1+' '+gy+'H'+sp+'" class="dv-s" stroke-width="'+(1.1*u)+'"/>'
+      +'<path d="M'+(sp+7*u)+' '+gy+'l'+(-9*u)+' '+(-2.8*u)+'v'+(5.6*u)+'Z"/>'
+      +'</g>';
     h1.appendChild(svg);
   }
   let rt;const go=()=>{clearTimeout(rt);rt=setTimeout(()=>requestAnimationFrame(draw),60)};
