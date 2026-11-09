@@ -149,6 +149,9 @@ a{color:var(--sea);text-underline-offset:2px}
 .hist span{min-width:0;overflow-wrap:anywhere}
 .tidecard{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface)}
 .tidecard>summary{font-weight:600;font-size:14px}
+#fcCard{padding:3px 12px}
+#fcCard[open]{padding-bottom:10px}
+#fcCard>summary{min-height:30px}
 .tidecard p{margin:4px 0 0}
 .tide-now{font-size:13.5px;margin:8px 0 4px;font-variant-numeric:tabular-nums}
 #tideBox{min-height:196px}
@@ -298,6 +301,20 @@ a{color:var(--sea);text-underline-offset:2px}
 .acts .ico{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;border-radius:8px;text-decoration:none;color:var(--sea)}
 .acts .ico:hover{background:var(--sea-soft)}
 .acts .ico:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
+/* entry header: icons pinned to the top-right corner so the title line keeps its width */
+.entry{position:relative}
+.entry .head{padding-right:66px}
+.entry .head:has(.acts>:nth-child(3)){padding-right:96px}
+.entry .head:has(.acts>:only-child){padding-right:36px}
+.entry .head:not(:has(.acts>*)){padding-right:0}
+.entry .acts{position:absolute;top:8px;right:8px;gap:0;margin:0}
+.catch-item .kg{white-space:nowrap}
+/* title */
+header{display:grid;grid-template-columns:1fr;justify-items:center;gap:2px;margin-bottom:10px}
+header .hdr-r{order:-1;justify-self:end}
+header h1{font-size:clamp(30px,8vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.05;text-align:center;padding-bottom:6px}
+header h1 span{color:var(--sea)}
+
 .note{white-space:pre-wrap;overflow-wrap:anywhere;background:color-mix(in srgb,var(--bg) 80%,transparent);border-left:3px solid color-mix(in srgb,var(--sea) 80%,transparent);border-radius:4px;padding:8px 10px;line-height:1.55}
 .hdr-r{display:flex;gap:10px;align-items:center;flex:none}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
@@ -516,7 +533,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 </div>
 <div class="wrap" id="appView">
   <header>
-    <h1>Spearo Diary</h1>
+    <h1>Spearo <span>Diary</span></h1>
     <div class="hdr-r">
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="langPt" lang="pt">PT</button>
@@ -707,7 +724,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 (function(){
 const $=id=>document.getElementById(id);
 const T={
-en:{quickPh:'@Sesimbra, sea bass 2.3kg 12m 8:30-10:15 rising tide',quickAl:'Quick entry',add:'Add',details:'Add details',searchPh:'Search everything',
+en:{quickPh:'@Sesimbra, sea bass 2.3kg 12m 8:30-10:15 rising tide',quickAl:'Quick entry',add:'Add',details:'Add details',searchPh:'Search',
  hint:'Write @spot, then the fish, weight, depth, time and tide. Anything else goes into notes.',spot:'Spot',fish:'Fish',month:'Month',allSpots:'All spots',anyFish:'Any fish',anyMonth:'Any month',more:'More filters',less:'Fewer filters',
  type:'Type',sort:'Sort by',from:'From',to:'To',depthMin:'Depth from, m',visMin:'Visibility from, m',tide:'Tide',sea:'Sea',current:'Current',any:'Any',withCatch:'Only with a catch',clear:'Clear filters',csv:'Download CSV',
  newest:'Newest',oldest:'Oldest',heaviest:'Biggest catch',deepest:'Deepest',
@@ -724,7 +741,7 @@ en:{quickPh:'@Sesimbra, sea bass 2.3kg 12m 8:30-10:15 rising tide',quickAl:'Quic
  errSave:'That did not save. Check your connection and try again.',errQuota:'The notebook is full. Delete old entries and try again.',errLarge:'That photo is over 20 MB. Choose a smaller file.',errType:'Use a JPG, PNG, WebP or HEIC photo.',errHeic:'This HEIC photo could not be converted. Save it as JPG and try again.',tideTitle:'Tides · Cascais / Cabo Raso',fcTitle:'Sea and weather, hour by hour',sHour:'Hour',sAir:'Air °C',sAirS:'air',sVis:'Visibility km',sFog:'fog',sMist:'mist',fcSkyS:'Sky',sRain:'Rain mm',sWindA:'Direction|Wind|Gusts',fcDelSpot:'Remove this place',sClarS:'Visibility|estimate',nHigh:'high tide',nLow:'low tide',sSun:'Sun',nSun:'Sun',nMoon:'Moon',sunRise:'rises',sunSet:'sets',nDay:'day',nNight:'night',nBan:'no spearfishing',mNew:'new moon',mWaxC:'waxing crescent',mFirst:'first quarter',mWaxG:'waxing gibbous',mFull:'full moon',mWanG:'waning gibbous',mLast:'last quarter',mWanC:'waning crescent',nWater:'Water',nAir:'Air',nTide:'Tide',nVis:'Visibility',nEst:'estimate',sClar:'Underwater visib. (estimate)',sClarNow:'estimated underwater visibility',vc_good:'good',vc_mid:'fair',vc_bad:'poor',fcFindPh:'Beach, town or coordinates',fcFindGo:'Search',fcGrpMine:'My spots',fcGrpAdded:'Added',fcGrpPlaces:'Other places',fcOther:'+ Another place…',fcFarTide:'No tide prediction for this place.',sWaveA:'Direction|Height m|Period',sTide:'Tide m (Cascais)',fcLoading:'Loading the forecast…',fcFail:'The forecast did not load. Check your connection; it will try again in an hour.',fcWind:'wind',fcGust:'gusts',fcFrom:'from',fcWaves:'waves',fcSwell:'swell',fcWater:'water',fcSky:'Sky and rain',fcWindT:'Wind',fcWavesT:'Waves',fcNoWaves:'No wave forecast for this point.',fcUpdated:'Updated',fcNote:'Visibility is only an estimate, not a measurement. It counts the swell of the last two days, the rain of the last three, onshore wind and the tide.',fcTideC:'Tides: Instituto Hidrográfico astronomical prediction for Cascais.',fcTideL:'Tides: far from any Instituto Hidrográfico port; the Cascais prediction fitted to this spot with the Open-Meteo sea-level model, approximate.',fcTideS:'Tides: Instituto Hidrográfico 2026 tide tables, port of {p}{d}.',fcTideD:' ({n} km away)',fcTideModel:'model',fcTideX:'Tides: no sea-level data for this spot, so Cascais is shown; times here may differ.',fcData:'Forecast data:',sTideL:'Tide m (local)',fcColHide:'Hide labels',fcColShow:'Show labels',tideNowL:'Now',nextHigh:'next high',nextLow:'next low',tideNote:'Instituto Hidrográfico astronomical prediction for Cascais (2026 tide tables), Portuguese time, heights above chart datum. Matches the official table within about 3 min and 5 cm; wind and air pressure change the real sea level. Cabo Raso is about 5 km away.',tideAuto:'Filled from the Cascais tide prediction. Change it if it does not match.',errPhoto:'The photo did not upload. Try again.',fileSaved:'File saved',errFile:'The file did not save. Try again.',
  localMode:'Entries are being saved in this browser only. Sign in to Claude and open the notebook there to keep them on every device.',viewOnly:'You can only view this page. Ask the owner for access that lets you use it, and you will get your own private notebook.',backupL:'Download backup',restoreL:'Restore from backup',importedN:n=>n+' entries restored from the backup.',errImport:'That file is not a notebook backup.',privateMode:'This notebook is private. Only its owner can see and change entries.',loadSlow:'Your entries are not loading. Check your connection. They will appear when it returns.',loadDead:'The connection to your notebook dropped. Reload the page to reconnect.',
  catchKgS:'kg',photoAlt:'Entry photo'},
-pt:{quickPh:'@Sesimbra, robalo 2,3kg 12m 8:30-10:15 maré a encher',quickAl:'Registo rápido',add:'Adicionar',details:'Adicionar detalhes',searchPh:'Pesquisar em tudo',
+pt:{quickPh:'@Sesimbra, robalo 2,3kg 12m 8:30-10:15 maré a encher',quickAl:'Registo rápido',add:'Adicionar',details:'Adicionar detalhes',searchPh:'Pesquisa',
  hint:'Escreva @local, depois o peixe, o peso, a profundidade, a hora e a maré. O resto fica nas notas.',spot:'Local',fish:'Peixe',month:'Mês',allSpots:'Todos os locais',anyFish:'Qualquer peixe',anyMonth:'Qualquer mês',more:'Mais filtros',less:'Menos filtros',
  type:'Tipo',sort:'Ordenar por',from:'De',to:'Até',depthMin:'Profundidade desde, m',visMin:'Visibilidade desde, m',tide:'Maré',sea:'Mar',current:'Corrente',any:'Qualquer',withCatch:'Só com captura',clear:'Limpar filtros',csv:'Descarregar CSV',
  newest:'Mais recentes',oldest:'Mais antigos',heaviest:'Maior captura',deepest:'Mais fundos',
@@ -1629,7 +1646,7 @@ function tideHtml(e){
 }
 function entryHtml(e,cm){
   const k=kindOf(e),title=e.spot||e.title||'';
-  const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+(latinOf(c.name,c.sub)?' <i class="lat">('+hl(latinOf(c.name,c.sub))+')</i>':'')+(c.count>1?' ×'+c.count:'')+(c.weight!=null?' '+fmt(c.weight)+' '+t('catchKgS'):'')+cwHtml(w)+'</span>'}).join(''):'';
+  const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+(latinOf(c.name,c.sub)?' <i class="lat">('+hl(latinOf(c.name,c.sub))+')</i>':'')+(c.count>1?' ×'+c.count:'')+(c.weight!=null?' <span class="kg">'+fmt(c.weight)+' '+t('catchKgS')+'</span>':'')+cwHtml(w)+'</span>'}).join(''):'';
   const cond=[e.timeIn?'<span style="white-space:nowrap">'+ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):'')+(duration(e.timeIn,e.timeOut)?' ('+duration(e.timeIn,e.timeOut)+')':'')+'</span>':'',e.depth!=null?iconVal('depth',e.depth):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null?fmt(e.temp)+' °C':'',tideHtml(e),currentHtml(e),e.weather?'<span style="white-space:nowrap">'+WICON[e.weather]+hl(t('w_'+e.weather))+'</span>':'',e.sea?hl(t('sea_'+e.sea)):'',e.wind?hl(e.wind):'',e.gear?hl(e.gear):'',e.gps&&!parseCoords(e.gps)&&!isUrl(e.gps)?hl(e.gps):'',(e.tags||[]).map(x=>'#'+hl(x)).join(' ')].filter(Boolean).join(' · ');
   const c=coordsOf(e,cm),mh=mapsHref(e,c);
   return '<article class="entry'+(e.id===freshId?' fresh':'')+'"><div class="head">'
@@ -1637,7 +1654,7 @@ function entryHtml(e,cm){
     +(e.mood&&MOUTH[e.mood]?'<span class="mood" role="img" aria-label="'+esc(t('mood_'+e.mood))+'" title="'+esc(t('mood_'+e.mood))+'">'+face(e.mood)+'</span>':'')
     +'<span class="date">'+esc(fmtDate(e.date))+(k!=='dive'?' · '+esc(typeLabel(k)):'')+'</span>'
     +(e.example?'<span class="ex">'+esc(t('example'))+'</span>':'')
-    +'<span class="acts">'+(mh?'<a class="ico" href="'+esc(mh)+'" target="_blank" rel="noopener" title="'+esc(t('maps'))+'" aria-label="'+esc(t('maps'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></a>':'')+(c?'<a href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener">'+esc(t('windy'))+'</a>':'')
+    +'<span class="acts">'+(mh?'<a class="ico" href="'+esc(mh)+'" target="_blank" rel="noopener" title="'+esc(t('maps'))+'" aria-label="'+esc(t('maps'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></a>':'')+(c?'<a class="ico" href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener" title="Windy" aria-label="Windy"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12h15.5a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 16h7"/></svg></a>':'')
     +(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
     +(catches?'<div class="catch">'+catches+'</div>':(k==='dive'?'<div class="cond">'+esc(t('noCatch'))+'</div>':''))
     +(cond?'<div class="cond">'+cond+'</div>':'')
