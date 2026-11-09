@@ -292,7 +292,7 @@ a{color:var(--sea);text-underline-offset:2px}
 .sea-l .sl-wind{flex-direction:row;align-items:center;gap:3px;padding-top:0;overflow:visible}
 .sea-l .sl-wave{padding-top:0;align-items:center}
 .sea-l select.wunit{flex:none;width:auto;min-width:0;padding:1px 12px 1px 3px;font-size:11px;font-weight:400;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%237d8b92' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;background-size:8px}
-#fcBox .sm{stroke:var(--muted);stroke-width:1.2}
+#fcBox .sm{stroke:var(--muted);stroke-width:1.2;stroke-opacity:.5}
 #fcBox .sday{fill:var(--ink);font:600 12px var(--body)}
 #fcBox .sday2{fill:var(--muted);font-weight:400}
 #fcBox .shr{fill:var(--muted);font:11px var(--body);font-variant-numeric:tabular-nums}
@@ -307,7 +307,7 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .tnd{fill:var(--accent);stroke:var(--surface);stroke-width:1.5}
 #fcBox .tg{stroke:var(--line);stroke-width:1}
 #fcBox .td{stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
-#fcBox .tn{stroke:var(--accent);stroke-width:1.6;opacity:.64}
+#fcBox .tn{stroke:var(--accent);stroke-width:1.6;opacity:.32}
 #fcBox .tl,#fcBox .tday{fill:var(--muted);font:11px var(--body)}
 #fcBox .fl{fill:var(--ink);font:600 12px var(--body)}
 #fcBox .fk{font:11px var(--body)}#fcBox .kw,#fcBox .kv{fill:var(--sea)}#fcBox .kg,#fcBox .ks{fill:var(--muted)}
@@ -1780,7 +1780,7 @@ function drawForecast(){
   mv.forEach((m,i)=>{const y=Y.waveA[0];if(m.wave_height!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.waveA[1]-4)+'" rx="5" class="cvb" fill-opacity="'+Math.min(.41,.045+m.wave_height/6.8).toFixed(2)+'"/>';if(m.wave_direction!=null)g+=arrow(cx(i),y+10,m.wave_direction,'fa2',1);if(m.wave_height!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f1(m.wave_height)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(m.wave_period)+'s</text>'});
   const cl=hrs.map(t=>clarity(t,wm,mm,near,farT));
   cl.forEach((c,i)=>{if(!c)return;const y=Y.clar[0];g+='<rect x="'+(i*CW+1)+'" y="'+(y+5)+'" width="'+(CW-2)+'" height="'+(Y.clar[1]-10)+'" rx="3" class="vc vc-'+c.k+'"/>';const prev=cl[i-1];if((!prev||prev.k!==c.k||lisbonParts(hrs[i]).hour%3===0)&&cl._l!==i-1){cl._l=i;g+='<text x="'+cx(i)+'" y="'+(y+Y.clar[1]/2+4)+'" text-anchor="middle" class="vct">'+esc(t('vc_'+c.k))+'</text>'}});
-  mv.forEach((m,i)=>{if(m.sea_surface_temperature!=null&&lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(Y.sst[0]+12)+'" text-anchor="middle" class="ssst">'+f1(m.sea_surface_temperature)+'°</text>'});
+  mv.forEach((m,i)=>{if(m.sea_surface_temperature!=null&&lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(Y.sst[0]+12)+'" text-anchor="middle" class="ssst">'+f0(m.sea_surface_temperature)+'°</text>'});
   // tide
   const tTop=Y.tide?Y.tide[0]+17:0,tBot=Y.tide?Y.tide[0]+Y.tide[1]-15:0,TY=h=>tBot-((h-LT.lo)/(LT.hi-LT.lo))*(tBot-tTop);
   if(!farT){
@@ -1815,7 +1815,7 @@ function drawForecast(){
   nowEl.innerHTML='<div class="nowh">'+esc(t('tideNowL'))+'</div><div class="nowg">'+[
     cw.wind_speed_10m!=null?ni('wind',t('fcWindT'),f0(wc(cw.wind_speed_10m))+' '+WU[wUnit].l,esc(t('fcGust'))+' '+f0(wc(cw.wind_gusts_10m))+' · '+dir16(cw.wind_direction_10m)+narr(cw.wind_direction_10m)):'',
     cm.wave_height!=null?ni('wave',t('fcWavesT'),f1(cm.wave_height)+' m',f0(cm.wave_period)+' s · '+dir16(cm.wave_direction)+narr(cm.wave_direction)):'',
-    cm.sea_surface_temperature!=null?ni('sst',t('nWater'),f1(cm.sea_surface_temperature)+' °C',''):'',
+    cm.sea_surface_temperature!=null?ni('sst',t('nWater'),f0(cm.sea_surface_temperature)+' °C',''):'',
     cw.temperature_2m!=null?ni('air',t('nAir'),f0(cw.temperature_2m)+' °C',''):'',
     cw.weather_code!=null?ni('sky',t('fcSkyS'),esc(t('w_'+wxKind(cw.weather_code))),cw.visibility!=null&&cw.visibility<5000?esc(t(cw.visibility<1000?'sFog':'sMist'))+' '+f1(cw.visibility/1000)+' km':''):'',
     farT?'':ni('tide',t('nTide'),esc(t('tideS_'+st)),nxt?esc(t(nxt.high?'nHigh':'nLow'))+' '+hhmm(nxt.t):''),
@@ -3049,7 +3049,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794265700';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794266960';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
