@@ -20,16 +20,16 @@ window.NOTEBOOK_CONFIG={
 /* Layout: one narrow column. Add line, search, then the log. Everything else stays folded until asked for. */
 :root{
   --bg:#EDF3F2;--surface:#F9FCFB;--ink:#0F2A33;--muted:#4F6B74;--line:#C8D8D8;
-  --accent:#C8420C;--on-accent:#FFFFFF;--sea:#0C6878;--sea-soft:#D6E8E9;--mark:#FFD9BF;--danger:#A9231C;--good:#1B7F4B;--amber:#B47A00;
+  --accent:#C8420C;--on-accent:#FFFFFF;--sea:#0C6878;--sea-soft:#D6E8E9;--uw:#1E8BD6;--mark:#FFD9BF;--danger:#A9231C;--good:#1B7F4B;--amber:#B47A00;
   --display:"Unbounded","Arial Black",system-ui,sans-serif;
   --body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#08222B;--surface:#0E2E38;--ink:#E3F0EF;--muted:#94B2B7;--line:#21505B;
-  --accent:#FF7A33;--on-accent:#08222B;--sea:#57C4D1;--sea-soft:#14414D;--mark:#7A3A12;--danger:#FF8A80;--good:#5FD39A;--amber:#F4C04E;color-scheme:dark}}
+  --accent:#FF7A33;--on-accent:#08222B;--sea:#57C4D1;--sea-soft:#14414D;--uw:#4FB6F0;--mark:#7A3A12;--danger:#FF8A80;--good:#5FD39A;--amber:#F4C04E;color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#08222B;--surface:#0E2E38;--ink:#E3F0EF;--muted:#94B2B7;--line:#21505B;
-  --accent:#FF7A33;--on-accent:#08222B;--sea:#57C4D1;--sea-soft:#14414D;--mark:#7A3A12;--danger:#FF8A80;--good:#5FD39A;--amber:#F4C04E;color-scheme:dark}
+  --accent:#FF7A33;--on-accent:#08222B;--sea:#57C4D1;--sea-soft:#14414D;--uw:#4FB6F0;--mark:#7A3A12;--danger:#FF8A80;--good:#5FD39A;--amber:#F4C04E;color-scheme:dark}
 *{box-sizing:border-box}
 html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}
 [hidden]{display:none!important}
@@ -260,6 +260,10 @@ a{color:var(--sea);text-underline-offset:2px}
 .sea-l .sl-wind,.sea-l .sl-wave,.sea-l .sl-tide{align-items:flex-start;padding-top:6px;color:var(--ink);font-weight:600}
 .sea-l .sl-g0,.sea-l .sl-g1,.sea-l .sl-gc,.sea-l .sl-g2,.sea-l .sl-g3{background:linear-gradient(var(--line),var(--line)) 0 50%/calc(100% + 6px) 1.5px no-repeat}
 #fcBox .ssep{stroke:var(--line);stroke-width:1.5}
+#fcBox .uwl{fill:none;stroke:var(--uw);stroke-width:1.6;stroke-opacity:.75;stroke-linecap:round}
+#fcBox .sea-l .uw,#fcBox .sea-l .uw0{margin-right:-6px;padding-right:6px}
+#fcBox .sea-l .uw{background:color-mix(in srgb,var(--uw) 11%,transparent)}
+#fcBox .sea-l .uw0{background:linear-gradient(to bottom,transparent 50%,color-mix(in srgb,var(--uw) 15%,transparent) 50%)}
 .sea-r{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding-bottom:14px}
 .sea-r svg{display:block}
 #fcBox .sb{fill:var(--sea-soft);opacity:.45}
@@ -1735,6 +1739,9 @@ function drawForecast(){
     {const da=Math.max(st.rise,t0-HALF),db=Math.min(st.set,tEnd0-HALF);if(db>da)g+='<rect x="'+XT(da).toFixed(1)+'" y="'+Y.hour[0]+'" width="'+(XT(db)-XT(da)).toFixed(1)+'" height="'+(HT-Y.hour[0])+'" class="dayl"/>'}
     {const nt=(st.set+nx.rise)/2,mx=XT(nt);if(nt>=t0-HALF&&nt<=tEnd0-HALF){const mp=moonAge(nt),il=Math.round((1-Math.cos(2*Math.PI*mp))/2*100);g+=moonSvg(mx-12,Y.sun[0]+11,6.5,mp)+'<text x="'+(mx-2)+'" y="'+(Y.sun[0]+15)+'" class="mtx"><title>'+esc(t(moonName(mp)))+'</title>'+il+'% · '+esc(t(moonName(mp)))+'</text>'}}
     [[st.rise,'up'],[st.set,'dn']].forEach(([tt,k])=>{if(tt<t0-HALF||tt>tEnd0-HALF)return;const x=XT(tt);g+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+Y.sun[0]+'" y2="'+HT+'" class="sunl"/><circle cx="'+(x-15).toFixed(1)+'" cy="'+(Y.sun[0]+11)+'" r="3.2" class="sund"/><path d="M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?6:16))+'l-2 '+(k==='up'?-2.5:2.5)+'M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?6:16))+'l2 '+(k==='up'?-2.5:2.5)+'" stroke="#E5A31F" stroke-width="1.1" fill="none"/><text x="'+(x-10).toFixed(1)+'" y="'+(Y.sun[0]+15)+'" class="sunt">'+hhmm(tt)+'</text>'})}}
+  // under water: wavy surface between air and sea rows, everything below tinted blue
+  let uwLine='';if(Y.g1){const y0=Y.g1[0]+Y.g1[1]/2,A=2.4,L=CW/2;let d='M0 '+y0;for(let x=0;x<W;x+=L)d+=' Q'+(x+L/2)+' '+(y0+((x/L)%2?A:-A)*1.6)+' '+(x+L)+' '+y0;
+    g+='<defs><linearGradient id="uwg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--uw);stop-opacity:.17"/><stop offset="1" style="stop-color:var(--uw);stop-opacity:.07"/></linearGradient></defs><path d="'+d+' L'+W+' '+HT+' L0 '+HT+'Z" fill="url(#uwg)"/>';uwLine='<path d="'+d+'" class="uwl"/>'}
   hrs.forEach((t,i)=>{g+='<text x="'+cx(i)+'" y="'+(Y.hour[0]+14)+'" text-anchor="middle" class="shr">'+pad(lisbonParts(t).hour)+'</text>'});
   // sky + rain
   hrs.forEach((t,i)=>{const w=near(wm,t);if(!w)return;if(w.visibility!=null&&w.visibility<5000)g+='<rect x="'+(i*CW+2)+'" y="'+(Y.sky[0]+1)+'" width="'+(CW-4)+'" height="'+(Y.sky[1]-2)+'" rx="5" class="haze'+(w.visibility<1000?' haze2':'')+'"><title>'+esc(T[lang][w.visibility<1000?'sFog':'sMist'])+' '+f1(w.visibility/1000)+' km</title></rect>';if(w.weather_code!=null)g+=wxIcon(wxKind(w.weather_code),cx(i),Y.sky[0]+6,22);if(Y.rain&&w.precipitation>0)g+='<text x="'+cx(i)+'" y="'+(Y.rain[0]+12)+'" text-anchor="middle" class="srain">'+f1(w.precipitation)+'</text>';
@@ -1757,7 +1764,7 @@ function drawForecast(){
   let tp='';for(let t=t0-HALF;t<=tEnd-HALF;t+=9e5)tp+=(tp?'L':'M')+XT(t).toFixed(1)+' '+TY(ltH(t)).toFixed(1);
   g+='<path d="'+tp+'L'+XT(tEnd-HALF)+' '+tBot+'L'+XT(t0-HALF)+' '+tBot+'Z" class="ta"/><path d="'+tp+'" class="tc"/>';
   ltEx(t0,tEnd).forEach(e=>{const x=XT(e.t),y=TY(e.h);g+='<circle cx="'+x+'" cy="'+y+'" r="3" class="te"/><text x="'+x+'" y="'+(e.high?y-6:y+14)+'" text-anchor="middle" class="tx">'+hhmm(e.t)+' <tspan class="th">'+fmt(Math.round(e.h*10)/10)+' m</tspan></text>'});
-  ['g0','g1','gc','g2','g3'].filter(k=>Y[k]).forEach(k=>{const y=Y[k][0]+Y[k][1]/2;g+='<line x1="0" x2="'+W+'" y1="'+y+'" y2="'+y+'" class="ssep"/>'});
+  ['g0','gc','g2','g3'].filter(k=>Y[k]).forEach(k=>{const y=Y[k][0]+Y[k][1]/2;g+='<line x1="0" x2="'+W+'" y1="'+y+'" y2="'+y+'" class="ssep"/>'});g+=uwLine;
   }
   // now
   const nx=XT(nowMs);g+='<defs><linearGradient id="ngl" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="var(--accent)" stop-opacity="0"/><stop offset=".5" stop-color="var(--accent)" stop-opacity=".3"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs><rect x="'+(nx-3.5)+'" y="'+Y.hour[0]+'" width="7" height="'+(HT-Y.hour[0])+'" fill="url(#ngl)"/><line x1="'+nx+'" x2="'+nx+'" y1="'+Y.hour[0]+'" y2="'+HT+'" class="tn"/>'+(farT?'':'<circle cx="'+nx+'" cy="'+TY(ltH(nowMs)).toFixed(1)+'" r="4" class="tnd"/>');
@@ -1765,7 +1772,8 @@ function drawForecast(){
   const L={sun:t('sSun')+' · '+t('nMoon'),clar:t('sClar'),hour:t('sHour'),sky:t('fcSkyS'),rain:t('sRain'),air:t('sAir'),vis:t('sVis'),wind:t('fcWindT'),windA:t('sWindA'),wave:t('fcWavesT'),waveA:t('sWaveA'),sst:t('fcWater')+' °C',tide:''};
   const STK={windA:t('sWindA').split('|'),waveA:t('sWaveA').split('|'),clar:t('sClarS').split('|'),tide:[t('nTide')+' m',LT.name||'']};
   const nol=(()=>{try{return localStorage.getItem('sn-fc-nol')==='1'}catch(e){return false}})();
-  const left='<div class="sea-l" style="height:'+HT+'px">'+R.map(([k,h])=>'<div style="height:'+h+'px" class="sl-'+k+'"'+(k==='tide'?' title="'+esc(LT.name||'')+'"':'')+'>'+(k==='day'?'<button type="button" class="sea-tg" aria-expanded="'+!nol+'" title="'+esc(t(nol?'fcColShow':'fcColHide'))+'" aria-label="'+esc(t(nol?'fcColShow':'fcColHide'))+'">'+(nol?'›':'‹')+'</button>':'')+(STK[k]?STK[k].map((x,j)=>'<span class="stk stk'+j+'">'+esc(x)+'</span>').join(''):L[k]?esc(L[k]):'')+(k==='wind'?'<select class="wunit" aria-label="'+esc(t('fcWindT'))+'">'+Object.entries(WU).map(([u,o])=>'<option value="'+u+'"'+(u===wUnit?' selected':'')+'>'+o.l+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div>';
+  const gi1=R.findIndex(r=>r[0]==='g1');
+  const left='<div class="sea-l" style="height:'+HT+'px">'+R.map(([k,h],ri)=>'<div style="height:'+h+'px" class="sl-'+k+(k==='g1'?' uw0':ri>gi1&&gi1>=0?' uw':'')+'"'+(k==='tide'?' title="'+esc(LT.name||'')+'"':'')+'>'+(k==='day'?'<button type="button" class="sea-tg" aria-expanded="'+!nol+'" title="'+esc(t(nol?'fcColShow':'fcColHide'))+'" aria-label="'+esc(t(nol?'fcColShow':'fcColHide'))+'">'+(nol?'›':'‹')+'</button>':'')+(STK[k]?STK[k].map((x,j)=>'<span class="stk stk'+j+'">'+esc(x)+'</span>').join(''):L[k]?esc(L[k]):'')+(k==='wind'?'<select class="wunit" aria-label="'+esc(t('fcWindT'))+'">'+Object.entries(WU).map(([u,o])=>'<option value="'+u+'"'+(u===wUnit?' selected':'')+'>'+o.l+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div>';
   const keep=seaFirst?null:(box.querySelector('.sea-r')||{}).scrollLeft;
   box.innerHTML='<div class="sea'+(nol?' nol':'')+'">'+left+'<div class="sea-r"><svg width="'+W+'" height="'+HT+'" viewBox="0 0 '+W+' '+HT+'">'+g+'</svg></div></div>';
   const r=box.querySelector('.sea-r');r.scrollLeft=keep!=null?keep:Math.max(0,nx-CW*2);seaFirst=false;
