@@ -375,7 +375,7 @@ header{display:grid;grid-template-columns:1fr;justify-items:center;margin-bottom
 header .hdr-r{position:absolute;right:0;top:50%;transform:translateY(-50%)}
 header h1{font-size:clamp(30px,8vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.05;text-align:center;padding-bottom:6px}
 header h1 span{color:var(--sea)}
-header h1{position:relative;padding-top:.8em}
+header h1{position:relative;padding-top:1.07em}
 .diver .dv{fill:var(--ink)}
 .diver .dv-s{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
 .diver .dv-mask{fill:var(--sea)}
@@ -2945,7 +2945,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     const fm=m.measureText('S'),asc=fm.fontBoundingBoxAscent,des=fm.fontBoundingBoxDescent;
     const lh=S.bot-S.top,base=S.top+(lh-(asc+des))/2+asc;
     const xh=m.measureText('e').actualBoundingBoxAscent,cap=m.measureText('D').actualBoundingBoxAscent,sTop=m.measureText('S').actualBoundingBoxAscent,iTop=m.measureText('i').actualBoundingBoxAscent;
-    const g=Math.max(1.5,f*.035)+f*.14,yX=base-xh-g,yD=base-cap-g,yS=base-sTop-g,yI=base-iTop-g;
+    const g=Math.max(1.5,f*.035)+f*.41,yX=base-xh-g,yD=base-cap-g,yS=base-sTop-g,yI=base-iTop-g;
     const u=f/100,U=u*1.45;
     // head behind the D, eyes just over its top
     const hr0=12*U,hc=Dc?[Dc.x0-g-hr0*.95,yD+hr0*.1]:[last.x1-hr0*1.2,yX-hr0*.95];
