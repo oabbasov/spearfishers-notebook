@@ -1396,6 +1396,24 @@ function localStore(){
     async backup(id,d,del){let h=[];try{h=JSON.parse(localStorage.getItem(K+'-h')||'[]');h.push({entryId:id,savedAt:Date.now(),deleted:!!del,data:d});localStorage.setItem(K+'-h',JSON.stringify(h.slice(-300)))}catch(e){}},
     async history(){try{return JSON.parse(localStorage.getItem(K+'-h')||'[]')}catch(e){return[]}}};
 }
+/* Demo mode (?demo): sample entries kept in memory only, no account, nothing saved. */
+function demoStore(){
+  let listener=null,mem={};const day=n=>{const d=new Date(Date.now()-n*864e5);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+  const E=[
+['e1',{type:'dive',date:'2026-11-05',spot:'Cabo Raso',gps:'38.7092, -9.4856',catches:[{name:'Sargo',sub:'legitimo',count:2,weight:1.4}],depth:7,vis:3,temp:17.5,timeIn:'11:00',timeOut:'12:30',tideIn:'high',tideOut:'falling',current:'strong',currentDir:'nw',sea:'swell',weather:'partly',mood:'ok',notes:'Ondulação grande, entrada pela piscina do lado esquerdo.',createdAt:5}],
+['e2',{type:'dive',date:'2026-11-01',spot:'Arrábida',gps:'38.4700, -8.9800',catches:[{name:'Sargo',sub:'veado',count:1,weight:1.1},{name:'Polvo',count:1,weight:1.8}],depth:9,vis:8,temp:18,timeIn:'08:15',timeOut:'10:00',tideIn:'low',tideOut:'rising',current:'weak',currentDir:'e',sea:'calm',weather:'sunny',mood:'good',notes:'Água limpa, muito peixe nas fendas.',createdAt:4}],
+['e3',{type:'dive',date:'2026-10-26',spot:'Peniche',gps:'39.3600, -9.4100',catches:[{name:'Robalo',sub:'legitimo',count:1,weight:3.2}],depth:5,vis:4,temp:17,timeIn:'07:00',timeOut:'08:45',tideIn:'rising',tideOut:'high',current:'medium',currentDir:'s',sea:'ripple',weather:'cloudy',mood:'good',notes:'Robalo na espuma junto às pedras ao nascer do sol.',createdAt:3}],
+['e4',{type:'dive',date:'2026-10-19',spot:'Sesimbra',gps:'38.4300, -9.1000',catches:[{name:'Dourada',count:2,weight:2.1},{name:'Choco',count:1,weight:.9}],depth:11,vis:10,temp:18.5,timeIn:'09:30',timeOut:'11:30',tideIn:'falling',tideOut:'low',current:'none',sea:'calm',weather:'sunny',mood:'good',createdAt:2}],
+['e5',{type:'dive',date:'2026-10-12',spot:'Ericeira',gps:'38.9600, -9.4200',catches:[],depth:6,vis:1.5,temp:16.5,timeIn:'10:00',timeOut:'11:00',tideIn:'high',current:'strong',currentDir:'sw',sea:'waves',weather:'rain',mood:'bad',notes:'Visibilidade péssima depois da chuva.',createdAt:1}]
+];
+  E.forEach(([id,d],k)=>{mem[id]={...d,date:day([4,8,14,21,28][k]||30+k)}});
+  const emit=()=>listener&&listener(Object.keys(mem).map(id=>({...mem[id],id})));
+  return{sub(fn){listener=fn;emit()},newId(){return 'd'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)},
+    async save(id,d){mem[id]=d;emit()},async remove(id){delete mem[id];emit()},async backup(){},async history(){return[]}};
+}
+const DEMO=/[?&]demo(=|&|$)/.test(location.search);
+Object.assign(T.pt,{demoMode:'Demonstração com dados de exemplo: pode experimentar tudo, mas nada fica guardado.'});
+Object.assign(T.en,{demoMode:'Demo with sample data: try everything, nothing is saved.'});
 function dbStore(db,uid){
   const nb=db.doc('data/users/'+uid+'/nb'),col=nb.collection('entries'),hist=nb.collection('history');
   return{sub(fn,fail){col.onSnapshot(s=>fn(s.docs.map(d=>({...d.data(),id:d.id})),s.metadata),fail)},
@@ -1517,6 +1535,7 @@ function startApp(user){
 async function boot(){
   document.querySelectorAll('[data-ic]').forEach(el=>{el.outerHTML=ICON[el.dataset.ic]});
   applyLang();sampler=null;$('fixBar').hidden=true;
+  if(DEMO){store=demoStore();loaded=true;showMode('demoMode');store.sub(onData);setTimeout(()=>{fcFillSelect();if($('fcCard').open)fcLoad()},300);downloads=fileDownloads;$('exportCsv').hidden=false;return}
   if(CFG.supabaseUrl&&CFG.supabaseAnonKey&&!window.supabase){
     for(const u of['https://unpkg.com/@supabase/supabase-js@2.110.1/dist/umd/supabase.js','https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js']){
       await new Promise(ok=>{const sc=document.createElement('script');sc.src=u;sc.onload=ok;sc.onerror=ok;document.head.append(sc)});if(window.supabase)break;
