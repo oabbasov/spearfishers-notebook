@@ -2961,7 +2961,11 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     const thigh=leg(hip,knee,11*U,7.5*U),calf=leg(knee,ank,7*U,4*U);
     // fins resting on the S, tips a little raised
     const fl=82*u,tip=[ank[0]-fl,ank[1]-14*u];
-    const fin=(dy,op)=>'<path d="'+cr([[ank[0]+5*U,ank[1]-4*U+dy],[ank[0]-12*u,ank[1]-4.5*U+dy],[tip[0],tip[1]-1.2*U+dy],[tip[0]-2*u,tip[1]+.8*U+dy],[ank[0]-16*u,ank[1]+2.4*U+dy],[ank[0]+4*U,ank[1]+3.6*U+dy]],true)+'"'+(op?' opacity="'+op+'"':'')+'/>';
+    const fin=(dy,op,rot)=>'<path d="'+cr([[ank[0]+5*U,ank[1]-4*U+dy],[ank[0]-12*u,ank[1]-4.5*U+dy],[tip[0],tip[1]-1.2*U+dy],[tip[0]-2*u,tip[1]+.8*U+dy],[ank[0]-16*u,ank[1]+2.4*U+dy],[ank[0]+4*U,ank[1]+3.6*U+dy]],true)+'"'+(op?' opacity="'+op+'"':'')+(rot?' transform="rotate('+rot+' '+ank[0].toFixed(1)+' '+ank[1].toFixed(1)+')"':'')+'/>';
+    // free hand grips the top of the "o" like the edge of a rock
+    const O=C('o'),gp=O?[O.x0+(O.x1-O.x0)*.62,base-xh-1.2*u]:null;
+    const grip=gp?'<path d="'+cr([[sh[0]-2*U,yX-17*U],[sh[0]+7*U,yX-4*U],[gp[0]-5*U,gp[1]-6*U],[gp[0],gp[1]-2.2*U]],false)+'" class="dv-s" stroke-width="'+(7.2*U)+'"/>'
+      +'<path d="'+cr([[gp[0]-3.6*U,gp[1]-2.6*U],[gp[0]+.5*U,gp[1]-4.6*U],[gp[0]+4.4*U,gp[1]-2.4*U],[gp[0]+5.2*U,gp[1]+1.8*U],[gp[0]+3*U,gp[1]+2.4*U],[gp[0]+1.6*U,gp[1]-.2*U],[gp[0]-2*U,gp[1]+.6*U]],true)+'"/>':'';
     // arms over the D, gun over "iary"
     const gy=Dc?Math.min(yD,i?yI:yD)-5*U:hc[1]+hr0*.15,hand=Dc?[Dc.x0+(Dc.x1-Dc.x0)*.62,gy+1*u]:[last.x1+28*u,gy+1*u];
     const arm=cr(Dc?[[sh[0]+2*U,yX-19*U],[hc[0]+4*U,gy+8*U],[Dc.x0+6*u,gy+2*U],hand]:[[sh[0]+2*U,yX-19*U],[hc[0]+6*U,gy+5*U],hand],false);
@@ -2969,7 +2973,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     const W=hr.width,H=hr.height,pad=Math.ceil(f*1.2);
     const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','diver');svg.setAttribute('aria-hidden','true');
     svg.setAttribute('viewBox',(-pad)+' '+(-pad)+' '+(W+pad*2)+' '+(H+pad*2));svg.style.cssText='position:absolute;left:'+(-pad)+'px;top:'+(-pad)+'px;width:'+(W+pad*2)+'px;height:'+(H+pad*2)+'px;overflow:visible;pointer-events:none';
-    svg.innerHTML='<g class="dv">'+fin(4*u,.55)+fin(0)+'<path d="'+thigh+'"/><path d="'+calf+'"/>'
+    svg.innerHTML='<g class="dv">'+fin(4*u,.55)+fin(0,0,14)+grip+'<path d="'+thigh+'"/><path d="'+calf+'"/>'
       +'<path d="'+cr([[hip[0]+6*u,yX-6*U],[knee[0]+2*u,yX-3.5*U],[knee[0]-12*u,yX-3*U]],false)+'" class="dv-s" stroke-width="'+(8*U)+'" opacity=".5"/>'
       +'<circle cx="'+knee[0]+'" cy="'+knee[1]+'" r="'+(7*U)+'"/><path d="'+torso+'"/><circle cx="'+hc[0]+'" cy="'+hc[1]+'" r="'+hr0+'"/>'
       +'<path d="'+arm+'" class="dv-s" stroke-width="'+(7.5*U)+'"/>'
