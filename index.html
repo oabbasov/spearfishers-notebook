@@ -321,9 +321,7 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .sunl{stroke:#E5A31F;stroke-width:1.2;stroke-dasharray:3 3;opacity:.8}
 #fcBox .sunt{font:600 10.5px var(--body);fill:var(--ink)}
 #fcBox .sund{fill:#F6C343}
-#fcBox .dayl{fill:url(#dayp)}
-#fcBox .dayd{fill:#E2A21B;fill-opacity:.42}
-@media (prefers-color-scheme:dark){#fcBox .dayd{fill:#F4C04E;fill-opacity:.3}}
+#fcBox .dayl{fill:#F2C14E;fill-opacity:.06}
 #fcBox .haze{fill:#9AA5AB;fill-opacity:.18}#fcBox .haze2{fill-opacity:.38}
 #fcBox .mdk{fill:#4A5358}#fcBox .mlt{fill:#F3EBCB}#fcBox .mrim{fill:none;stroke:var(--ink);stroke-opacity:.5;stroke-width:.8}
 #fcBox .mtx{font:10.5px var(--body);fill:var(--muted)}
@@ -1747,7 +1745,7 @@ function drawForecast(){
   const mm=byT(D&&D.m,['wave_height','wave_period','wave_direction','swell_wave_height','sea_surface_temperature']);
   const near=(m,t)=>m.get(t)||m.get(Math.round(t/36e5)*36e5)||null;
   const f1=v=>v==null?'—':fmt(Math.round(v*10)/10),f0=v=>v==null?'—':fmt(Math.round(v));
-  let g='<defs><pattern id="dayp" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="0.9" class="dayd"/><circle cx="4.5" cy="4.5" r="0.9" class="dayd"/></pattern></defs>';
+  let g='';
   // hour bands, midnight lines
   hrs.forEach((t,i)=>{const hh=lisbonParts(t).hour;if(i%2)g+='<rect x="'+i*CW+'" y="'+Y.hour[0]+'" width="'+CW+'" height="'+(HT-Y.hour[0])+'" class="sb"/>';if(hh===0&&i)g+='<line x1="'+i*CW+'" x2="'+i*CW+'" y1="0" y2="'+HT+'" class="sm"/>'});
   // day + hour labels
@@ -3046,7 +3044,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794242137';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794243050';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
