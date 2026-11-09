@@ -2953,7 +2953,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     const sh=[hc[0]-18*U,yX-22*U];
     const hip=[sh[0]-88*u,yX-12*U];
     // ankles rest on the S; knees on the lowercase line
-    const ank=[S.x1-6*u,yS-5*U];
+    const ank=[Math.max(S.x1-6*u,hip[0]-78*u),yX-6*U];
     const knee=[Math.max(hip[0]-58*u,ank[0]+38*u),yX-7*U];
     const torso=cr([[hc[0]-4*U,yX-6*U],[sh[0]+6*U,yX-.5*U],[sh[0]-24*u,yX],[hip[0]+14*u,yX],[hip[0]-3*u,yX-6*U],
       [hip[0]-2*u,yX-16*U],[hip[0]+10*u,yX-21*U],[hip[0]+32*u,yX-19.5*U],[sh[0]-36*u,yX-23*U],[sh[0]-8*u,yX-28*U],[sh[0]+9*U,yX-27*U],[hc[0]-7*U,hc[1]+hr0*.6]],true);
@@ -2961,7 +2961,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
       return cr([[a[0]+nx*w1,a[1]+ny*w1],[(a[0]+b[0])/2+nx*(w1+w2)/1.8,(a[1]+b[1])/2+ny*(w1+w2)/1.8],[b[0]+nx*w2,b[1]+ny*w2],[b[0]-dx/L*w2*.9,b[1]-dy/L*w2*.9],[b[0]-nx*w2,b[1]-ny*w2],[(a[0]+b[0])/2-nx*(w1+w2)/2.2,(a[1]+b[1])/2-ny*(w1+w2)/2.2],[a[0]-nx*w1,a[1]-ny*w1]],true)};
     const thigh=leg(hip,knee,11*U,7.5*U),calf=leg(knee,ank,7*U,4*U);
     // fins resting on the S, tips a little raised
-    const fl=82*u,tip=[ank[0]-fl,ank[1]-14*u];
+    const fl=58*u,tip=[ank[0]-fl,ank[1]-14*u];
     const fin=(dy,op,rot)=>'<path d="'+cr([[ank[0]+5*U,ank[1]-4*U+dy],[ank[0]-12*u,ank[1]-4.5*U+dy],[tip[0],tip[1]-1.2*U+dy],[tip[0]-2*u,tip[1]+.8*U+dy],[ank[0]-16*u,ank[1]+2.4*U+dy],[ank[0]+4*U,ank[1]+3.6*U+dy]],true)+'"'+(op?' opacity="'+op+'"':'')+(rot?' transform="rotate('+rot+' '+ank[0].toFixed(1)+' '+ank[1].toFixed(1)+')"':'')+'/>';
     // free hand grips the top of the "o" like the edge of a rock
     const O=C('o'),gp=O?[O.x0+(O.x1-O.x0)*.62,base-xh-1.2*u]:null;
@@ -2970,7 +2970,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
     // arms over the D, gun over "iary"
     const gy=Dc?Math.min(yD,i?yI:yD)-5*U:hc[1]+hr0*.15,hand=Dc?[Dc.x0+(Dc.x1-Dc.x0)*.62,gy+1*u]:[last.x1+28*u,gy+1*u];
     const arm=cr(Dc?[[sh[0]+2*U,yX-19*U],[hc[0]+4*U,gy+8*U],[Dc.x0+6*u,gy+2*U],hand]:[[sh[0]+2*U,yX-19*U],[hc[0]+6*U,gy+5*U],hand],false);
-    const gL=Dc?Math.max(140*u,(i?i.x1:Dc.x1)+60*u-hand[0]):150*u,g0=hand[0]-24*u,g1=hand[0]+gL;
+    const gL=105*u,g0=hand[0]-24*u,g1=hand[0]+gL;
     const W=hr.width,H=hr.height,pad=Math.ceil(f*1.2);
     const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','diver');svg.setAttribute('aria-hidden','true');
     svg.setAttribute('viewBox',(-pad)+' '+(-pad)+' '+(W+pad*2)+' '+(H+pad*2));svg.style.cssText='position:absolute;left:'+(-pad)+'px;top:'+(-pad)+'px;width:'+(W+pad*2)+'px;height:'+(H+pad*2)+'px;overflow:visible;pointer-events:none';
@@ -2979,8 +2979,8 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
       +'<circle cx="'+knee[0]+'" cy="'+knee[1]+'" r="'+(7*U)+'"/><path d="'+torso+'"/><circle cx="'+hc[0]+'" cy="'+hc[1]+'" r="'+hr0+'"/>'
       +'<path d="'+arm+'" class="dv-s" stroke-width="'+(7.5*U)+'"/>'
       +'<rect x="'+g0+'" y="'+(gy-2.4*U)+'" width="'+(g1-g0)+'" height="'+(4.2*U)+'" rx="'+(1.6*U)+'"/>'
-      +'<path d="M'+(g1+1*u)+' '+(gy-.4*u)+'H'+(g1+34*u)+'" class="dv-s" stroke-width="'+(1.4*u)+'"/><path d="M'+(g1+40*u)+' '+(gy-.4*u)+'l-8*u 0" />'
-      +'<path d="M'+(g1+41*u)+' '+(gy-.4*u)+'l'+(-9*u)+' '+(-3.4*u)+'v'+(6.8*u)+'Z"/>'
+      +'<path d="M'+(g1+1*u)+' '+(gy-.4*u)+'H'+(g1+22*u)+'" class="dv-s" stroke-width="'+(1.4*u)+'"/><path d="M'+(g1+28*u)+' '+(gy-.4*u)+'l-8*u 0" />'
+      +'<path d="M'+(g1+29*u)+' '+(gy-.4*u)+'l'+(-9*u)+' '+(-3.4*u)+'v'+(6.8*u)+'Z"/>'
       +'</g>'
       +'<path d="M'+(g0+40*u)+' '+(gy-2.4*u)+'Q'+(g0+70*u)+' '+(gy-7*u)+' '+(g1-8*u)+' '+(gy-2.6*u)+'" class="dv-band" stroke-width="'+(1.6*u)+'"/>'
       +'<rect x="'+(hc[0]+hr0*.05)+'" y="'+(hc[1]-hr0*.62)+'" width="'+(hr0*1.05)+'" height="'+(hr0*.7)+'" rx="'+(hr0*.22)+'" class="dv-mask"/><path d="M'+(hc[0]-hr0*.7)+' '+(hc[1]-hr0*.3)+'L'+(hc[0]+hr0*.1)+' '+(hc[1]-hr0*.28)+'" class="dv-strap" stroke-width="'+(1.6*U)+'"/>'
