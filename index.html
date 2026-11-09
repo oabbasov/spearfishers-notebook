@@ -69,10 +69,33 @@ a{color:var(--sea);text-underline-offset:2px}
 .primary:hover{border-color:var(--ink)}
 .link{border:0;padding:0;background:none;color:var(--sea);text-decoration:underline;text-underline-offset:2px;font-weight:400}
 
+/* notebook-style date picker (entry form) */
+.dp-wrap{position:relative}
+.dpick{all:unset;box-sizing:border-box;cursor:pointer;width:100%;min-height:42px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:16px;font-weight:400}
+.dpick svg{color:var(--muted);flex:none}
+.dpick:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
+.dp{position:absolute;top:100%;left:0;z-index:40;margin-top:6px;width:272px;max-width:calc(100vw - 56px);background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.28);padding:10px 10px 8px;color:var(--ink);font-weight:400}
+.dp-h{display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:14.5px;margin-bottom:4px}
+.dp-h button,.dp-f button{all:unset;cursor:pointer;border-radius:8px;color:var(--sea)}
+.dp-h button{width:32px;height:32px;display:grid;place-items:center;font-size:20px;line-height:1}
+.dp-h button:hover,.dp-f button:hover{background:var(--sea-soft)}
+.dp-g{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.dp-g .wd{font-size:11px;color:var(--muted);padding:3px 0;text-transform:uppercase;letter-spacing:.04em}
+.dp-g button{all:unset;box-sizing:border-box;cursor:pointer;height:32px;border-radius:50%;font-size:14px;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.dp-g button:hover{background:var(--sea-soft)}
+.dp-g button:focus-visible{outline:2px solid var(--sea)}
+.dp-g .td{color:var(--sea);font-weight:700;box-shadow:inset 0 0 0 1.5px var(--sea)}
+.dp-g .sel{background:var(--accent);color:var(--on-accent);font-weight:700;box-shadow:none}
+.dp-f{display:flex;justify-content:flex-end;margin-top:6px}
+.dp-f button{padding:5px 10px;font-size:13.5px;font-weight:600}
 .capture{display:grid;gap:6px;background:var(--surface);border:2px solid var(--accent);border-radius:8px;padding:10px 12px}
 .capture-row{display:flex;gap:8px;flex-wrap:wrap}
 .capture-row input{flex:1 1 170px;border:0;background:transparent;font-size:16px;padding:7px 2px}
 .capture-row input:focus-visible{outline:none}
+/* quick entry: the text field reads as a field */
+.capture-row #quick{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:10px 12px;font-size:16px}
+.capture-row #quick:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+
 .capture{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"in mood btn" "pv pv btn";column-gap:12px;row-gap:6px}
 .capture-row{display:contents}
 .capture-row #quick{grid-area:in;min-width:0}
@@ -151,7 +174,12 @@ a{color:var(--sea);text-underline-offset:2px}
 .tidecard>summary{font-weight:600;font-size:14px}
 #fcCard{padding:3px 12px}
 #fcCard[open]{padding-bottom:10px}
-#fcCard>summary{min-height:30px}
+#fcCard>summary{min-height:30px}/* forecast toggle: a section header, not a box */
+#fcCard:not([open]){background:transparent;border-color:transparent;padding:0 2px}
+#fcCard>summary{color:var(--sea);font-weight:600}
+#fcCard>summary .fc-ic{flex:none}
+#fcCard:not([open])>summary{min-height:28px}
+
 .tidecard p{margin:4px 0 0}
 .tide-now{font-size:13.5px;margin:8px 0 4px;font-variant-numeric:tabular-nums}
 #tideBox{min-height:196px}
@@ -560,7 +588,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
   </nav>
   <div id="defNow" class="def-now" hidden aria-live="polite"></div>
   <details class="tidecard" id="fcCard" open>
-    <summary><span data-i="fcTitle"></span></summary>
+    <summary><svg class="fc-ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><path d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/></svg><span data-i="fcTitle"></span></summary>
     <div class="fc-head"><select id="fcSpot" data-al="spot"></select><button type="button" class="link" id="fcDel" hidden data-i="fcDelSpot"></button><span class="hint" id="fcStamp"></span></div>
     <div class="fc-find" id="fcFind" hidden><input id="fcQ" type="search" data-ph="fcFindPh" data-al="fcFindPh" autocomplete="off"><button type="button" id="fcGo" data-i="fcFindGo"></button><button type="button" class="link" id="fcCancel" data-i="cancel"></button><ul class="fc-res" id="fcRes"></ul></div>
     <div class="tide-now" id="fcNow"></div>
@@ -631,7 +659,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
     <h2 id="dlgTitle"></h2>
     <div class="seg" id="eType" role="group" hidden></div>
     <div class="grid2">
-      <label for="eDate"><span data-i="date"></span><input id="eDate" type="date"></label>
+      <div class="lbl dp-wrap"><label for="eDateBtn" data-i="date" style="display:block"></label><button type="button" class="dpick" id="eDateBtn" aria-haspopup="dialog" aria-expanded="false"><span id="eDateTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.8v3.4M16 2.8v3.4"/></svg></button><input id="eDate" type="hidden"><div class="dp" id="eDatePop" role="dialog" hidden></div></div>
       <label for="eSpot"><span data-i="spot"></span><input id="eSpot" list="spotList"><span class="hint" id="spotHint"></span></label>
     </div>
     <label data-for="dive spot" for="eGps"><span data-i="coords"></span>
@@ -1718,7 +1746,7 @@ function compareHtml(e){
 function tideHtml(e){
   const[a,b]=tidesOf(e);if(!a&&!b)return'';
   const lab=lang==='pt'?'Maré ':'Tide ';
-  return '<span style="white-space:nowrap">'+ICON.tide+hl(lab+(a?t('tideS_'+a):'—')+(b?' → '+t('tideS_'+b):''))+'</span>';
+  return '<span style="white-space:nowrap">'+hl(lab+(a?t('tideS_'+a):'—')+(b?' → '+t('tideS_'+b):''))+'</span>';
 }
 function entryHtml(e,cm){
   const k=kindOf(e),title=e.spot||e.title||'';
@@ -2665,6 +2693,36 @@ setTimeout(defBanner,0);setInterval(defBanner,36e5);
 const dShort=s=>{const[m,d]=s.split('-').map(Number);return d+'/'+m};
 Object.assign(T.pt,{dnNow:'Defeso agora',dnSoon:'Defeso a partir de'});
 Object.assign(T.en,{dnNow:'Closed season now',dnSoon:'Closed season from'});
+
+/* ===== Notebook-style date picker for the entry form (instead of the phone's full-screen calendar) ===== */
+(function(){
+  const inp=$('eDate'),btn=$('eDateBtn'),pop=$('eDatePop'),txt=$('eDateTxt');if(!inp||!btn)return;
+  const D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value');
+  const loc=()=>lang==='pt'?'pt-PT':'en-GB';
+  const show=v=>{if(!/^\d{4}-\d\d-\d\d$/.test(v||'')){txt.textContent='—';return}const[y,m,d]=v.split('-').map(Number);txt.textContent=d+' '+MON[lang][m-1]+' '+y};
+  const MON={pt:['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'],en:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},MONL={pt:['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'],en:['January','February','March','April','May','June','July','August','September','October','November','December']},WD={pt:['S','T','Q','Q','S','S','D'],en:['M','T','W','T','F','S','S']};
+  Object.defineProperty(inp,'value',{configurable:true,get(){return D.get.call(inp)},set(v){D.set.call(inp,v);show(v)}});
+  let vy,vm;const iso=(y,m,d)=>y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+  function draw(){
+    const first=new Date(vy,vm,1),n=new Date(vy,vm+1,0).getDate(),off=(first.getDay()+6)%7,cur=inp.value,td=today();
+    const wd=WD[lang];
+    let g=wd.map(w=>'<span class="wd">'+esc(w)+'</span>').join('')+'<span></span>'.repeat(off);
+    for(let d=1;d<=n;d++){const v=iso(vy,vm,d);g+='<button type="button" data-d="'+v+'" class="'+(v===cur?'sel':v===td?'td':'')+'"'+(v===cur?' aria-current="date"':'')+'>'+d+'</button>'}
+    const mt=MONL[lang][vm]+' '+vy;
+    pop.innerHTML='<div class="dp-h"><button type="button" data-n="-1" aria-label="‹">‹</button><span>'+esc(mt.charAt(0).toUpperCase()+mt.slice(1))+'</span><button type="button" data-n="1" aria-label="›">›</button></div><div class="dp-g">'+g+'</div><div class="dp-f"><button type="button" data-d="'+td+'">'+esc(t('dpToday'))+'</button></div>';
+  }
+  function open(){const v=inp.value||today();vy=+v.slice(0,4);vm=+v.slice(5,7)-1;draw();pop.hidden=false;btn.setAttribute('aria-expanded','true');const f=pop.querySelector('.sel,.td');f&&f.focus()}
+  function close(back){pop.hidden=true;btn.setAttribute('aria-expanded','false');if(back)btn.focus()}
+  btn.addEventListener('click',()=>pop.hidden?open():close());
+  pop.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;ev.stopPropagation();
+    if(b.dataset.n){vm+= +b.dataset.n;if(vm<0){vm=11;vy--}if(vm>11){vm=0;vy++}draw();return}
+    if(b.dataset.d){inp.value=b.dataset.d;inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}));close(true)}});
+  pop.addEventListener('keydown',ev=>{if(ev.key==='Escape'){ev.preventDefault();ev.stopPropagation();close(true)}});
+  document.addEventListener('pointerdown',ev=>{if(!pop.hidden&&!ev.target.closest('.dp-wrap'))close()},true);
+  ['langEn','langPt'].forEach(id=>{const b=$(id);b&&b.addEventListener('click',()=>setTimeout(()=>{show(inp.value);if(!pop.hidden)draw()},0))});
+  show(inp.value);
+})();
+Object.assign(T.pt,{dpToday:'Hoje'});Object.assign(T.en,{dpToday:'Today'});
 
 boot();
 })();
