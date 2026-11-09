@@ -258,13 +258,13 @@ a{color:var(--sea);text-underline-offset:2px}
 .fc-res button{all:unset;cursor:pointer;display:block;padding:6px 8px;border:1px solid var(--line);border-radius:8px;font-size:14px}
 .fc-res button:hover,.fc-res button:focus-visible{background:var(--sea-soft)}
 .fc-res .hint{font-size:12.5px}
-.sea{display:grid;grid-template-columns:84px minmax(0,1fr);margin-top:6px;border-top:1px solid var(--line)}
+.sea{display:grid;grid-template-columns:101px minmax(0,1fr);margin-top:6px;border-top:1px solid var(--line)}
 .sea-tg{all:unset;cursor:pointer;box-sizing:border-box;display:none;align-items:center;justify-content:center;width:28px;height:22px;border-radius:6px;color:var(--muted);font-size:19px;line-height:1}
 .sea-tg:hover,.sea-tg:focus-visible{background:var(--sea-soft);color:var(--ink)}
 @media (max-width:700px){
  .sea-tg{display:inline-flex}
  .sea-l{cursor:pointer}
- .sea.nol{grid-template-columns:12px minmax(0,1fr)}
+ .sea.nol{grid-template-columns:15px minmax(0,1fr)}
  .sea.nol .sea-tg{width:14px;font-size:16px;margin-left:-2px}
  .sea.nol .sea-l .uw,.sea.nol .sea-l .uw0{margin-right:0;padding-right:0}
  .sea.nol .sea-l{padding-right:0}
@@ -1795,15 +1795,15 @@ function drawForecast(){
   // left labels
   const L={sun:t('sSun')+' · '+t('nMoon'),clar:t('sClar'),hour:t('sHour'),sky:t('fcSkyS'),rain:t('sRain'),air:t('sAir'),vis:t('sVis'),wind:t('fcWindT'),windA:t('sWindA'),wave:t('fcWavesT'),waveA:t('sWaveA'),sst:t('fcWater')+' °C',tide:''};
   const STK={windA:t('sWindA').split('|'),waveA:t('sWaveA').split('|'),clar:t('sClarS').split('|'),tide:[t('nTide')+' m',LT.name||'']};
-  const nol=(()=>{try{return localStorage.getItem('sn-fc-nol')==='1'}catch(e){return false}})();
+  const nol=(()=>{try{return localStorage.getItem('sn-fc-nol')==='1'}catch(e){return false}})(),FK=1.2;
   const gi1=R.findIndex(r=>r[0]==='g1');
-  const left='<div class="sea-l" style="height:'+HT+'px">'+R.map(([k,h],ri)=>'<div style="height:'+h+'px" class="sl-'+k+(k==='g1'?' uw0':ri>gi1&&gi1>=0?' uw':'')+'"'+(k==='tide'?' title="'+esc(LT.name||'')+'"':'')+'>'+(k==='day'?'<button type="button" class="sea-tg" aria-expanded="'+!nol+'" title="'+esc(t(nol?'fcColShow':'fcColHide'))+'" aria-label="'+esc(t(nol?'fcColShow':'fcColHide'))+'">'+(nol?'›':'‹')+'</button>':'')+(STK[k]?STK[k].map((x,j)=>'<span class="stk stk'+j+'">'+esc(x)+'</span>').join(''):L[k]?esc(L[k]):'')+(k==='wind'?'<select class="wunit" aria-label="'+esc(t('fcWindT'))+'">'+Object.entries(WU).map(([u,o])=>'<option value="'+u+'"'+(u===wUnit?' selected':'')+'>'+o.l+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div>';
+  const left='<div class="sea-l" style="height:'+HT+'px;zoom:'+FK+'">'+R.map(([k,h],ri)=>'<div style="height:'+h+'px" class="sl-'+k+(k==='g1'?' uw0':ri>gi1&&gi1>=0?' uw':'')+'"'+(k==='tide'?' title="'+esc(LT.name||'')+'"':'')+'>'+(k==='day'?'<button type="button" class="sea-tg" aria-expanded="'+!nol+'" title="'+esc(t(nol?'fcColShow':'fcColHide'))+'" aria-label="'+esc(t(nol?'fcColShow':'fcColHide'))+'">'+(nol?'›':'‹')+'</button>':'')+(STK[k]?STK[k].map((x,j)=>'<span class="stk stk'+j+'">'+esc(x)+'</span>').join(''):L[k]?esc(L[k]):'')+(k==='wind'?'<select class="wunit" aria-label="'+esc(t('fcWindT'))+'">'+Object.entries(WU).map(([u,o])=>'<option value="'+u+'"'+(u===wUnit?' selected':'')+'>'+o.l+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div>';
   const keep=seaFirst?null:(box.querySelector('.sea-r')||{}).scrollLeft;
-  box.innerHTML='<div class="sea'+(nol?' nol':'')+'">'+left+'<div class="sea-r"><svg width="'+W+'" height="'+HT+'" viewBox="0 0 '+W+' '+HT+'">'+g+'</svg></div></div>';
-  const r=box.querySelector('.sea-r');r.scrollLeft=keep!=null?keep:Math.max(0,nx-CW*2);seaFirst=false;
+  box.innerHTML='<div class="sea'+(nol?' nol':'')+'">'+left+'<div class="sea-r"><svg width="'+(W*FK)+'" height="'+(HT*FK)+'" viewBox="0 0 '+W+' '+HT+'">'+g+'</svg></div></div>';
+  const r=box.querySelector('.sea-r');r.scrollLeft=keep!=null?keep:Math.max(0,(nx-CW*2)*FK);seaFirst=false;
   const sv=r.querySelector('svg');sv.insertAdjacentHTML('beforeend','<rect class="scol" x="0" y="'+Y.hour[0]+'" width="'+CW+'" height="'+(HT-Y.hour[0])+'" visibility="hidden"/><line class="scur" x1="0" x2="0" y1="'+Y.hour[0]+'" y2="'+HT+'" visibility="hidden"/>');
   const col=sv.querySelector('.scol'),cur=sv.querySelector('.scur');
-  sv.addEventListener('pointermove',ev=>{if(ev.pointerType!=='mouse'||!matchMedia('(hover:hover)').matches){cur.setAttribute('visibility','hidden');col.setAttribute('visibility','hidden');return}const b=sv.getBoundingClientRect(),x=ev.clientX-b.left,i=Math.max(0,Math.min(NH-1,Math.floor(x/CW)));cur.setAttribute('x1',x);cur.setAttribute('x2',x);col.setAttribute('x',i*CW);cur.setAttribute('visibility','visible');col.setAttribute('visibility','visible')});
+  sv.addEventListener('pointermove',ev=>{if(ev.pointerType!=='mouse'||!matchMedia('(hover:hover)').matches){cur.setAttribute('visibility','hidden');col.setAttribute('visibility','hidden');return}const b=sv.getBoundingClientRect(),x=(ev.clientX-b.left)/FK,i=Math.max(0,Math.min(NH-1,Math.floor(x/CW)));cur.setAttribute('x1',x);cur.setAttribute('x2',x);col.setAttribute('x',i*CW);cur.setAttribute('visibility','visible');col.setAttribute('visibility','visible')});
   sv.addEventListener('pointerleave',()=>{cur.setAttribute('visibility','hidden');col.setAttribute('visibility','hidden')});
   box.querySelector('.sea-l').addEventListener('click',ev=>{if(ev.target.closest('select'))return;if(!ev.target.closest('.sea-tg')&&!matchMedia('(max-width:700px)').matches)return;try{localStorage.setItem('sn-fc-nol',nol?'0':'1')}catch(e){}drawForecast()});
   box.querySelector('.wunit').addEventListener('change',ev=>{wUnit=ev.target.value;try{localStorage.setItem('sn-wunit',wUnit)}catch(e){}drawForecast()});
@@ -3049,7 +3049,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794255140';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794265700';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
