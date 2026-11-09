@@ -1766,7 +1766,7 @@ function drawForecast(){
     g+='<defs><linearGradient id="uwg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--uw);stop-opacity:.17"/><stop offset="1" style="stop-color:var(--uw);stop-opacity:.07"/></linearGradient></defs><path d="'+d+' L'+W+' '+HT+' L0 '+HT+'Z" fill="url(#uwg)"/>';uwLine='<path d="'+d+'" class="uwl"/>'}
   hrs.forEach((t,i)=>{g+='<text x="'+cx(i)+'" y="'+(Y.hour[0]+14)+'" text-anchor="middle" class="shr">'+pad(lisbonParts(t).hour)+'</text>'});
   // sky + rain
-  hrs.forEach((t,i)=>{const w=near(wm,t);if(!w)return;if(w.visibility!=null&&w.visibility<5000)g+='<rect x="'+(i*CW+2)+'" y="'+(Y.sky[0]+1)+'" width="'+(CW-4)+'" height="'+(Y.sky[1]-2)+'" rx="5" class="haze'+(w.visibility<1000?' haze2':'')+'"><title>'+esc(T[lang][w.visibility<1000?'sFog':'sMist'])+' '+f1(w.visibility/1000)+' km</title></rect>';if(w.weather_code!=null)g+=wxIcon(wxKind(w.weather_code),cx(i),Y.sky[0]+6,22);if(Y.rain&&w.precipitation>0)g+='<text x="'+cx(i)+'" y="'+(Y.rain[0]+12)+'" text-anchor="middle" class="srain">'+f1(w.precipitation)+'</text>';
+  hrs.forEach((t,i)=>{const w=near(wm,t);if(!w)return;if(w.weather_code!=null)g+=wxIcon(wxKind(w.weather_code),cx(i),Y.sky[0]+6,22);if(Y.rain&&w.precipitation>0)g+='<text x="'+cx(i)+'" y="'+(Y.rain[0]+12)+'" text-anchor="middle" class="srain">'+f1(w.precipitation)+'</text>';
     if(w.temperature_2m!=null)g+='<text x="'+cx(i)+'" y="'+(Y.air[0]+14)+'" text-anchor="middle" class="ssst">'+f0(w.temperature_2m)+'°</text>';
     if(Y.vis&&w.visibility!=null){const km=w.visibility/1000,fog=km<1,mist=km<5;if(fog)g+='<rect x="'+(i*CW+2)+'" y="'+(Y.vis[0]+2)+'" width="'+(CW-4)+'" height="'+(Y.vis[1]-4)+'" rx="3" class="sfog"/>';g+='<text x="'+cx(i)+'" y="'+(Y.vis[0]+14)+'" text-anchor="middle" class="'+(fog?'svf':mist?'svm':'svis')+'">'+(km>=10?'10+':f1(km))+'</text>'}});
   // wind chart
@@ -3047,7 +3047,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794252663';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794253000';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
