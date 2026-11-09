@@ -346,10 +346,30 @@ header h1 span{color:var(--sea)}
 
 .note{white-space:pre-wrap;overflow-wrap:anywhere;background:color-mix(in srgb,var(--bg) 80%,transparent);border-left:3px solid color-mix(in srgb,var(--sea) 80%,transparent);border-radius:4px;padding:8px 10px;line-height:1.55}
 .hdr-r{display:flex;gap:10px;align-items:center;flex:none}
-.tools{display:flex;gap:8px;flex-wrap:wrap}
-.tools button{display:flex;align-items:center;gap:6px;font-weight:500;padding:7px 12px;border-radius:999px}
-.tools .gear{margin-left:auto;padding:6px;border-color:transparent;background:none;border-radius:50%}
 .tools .gear:hover{background:var(--sea-soft)}
+.tools{display:flex;gap:8px;align-items:center;min-width:0;max-width:100%}
+.tools-sc{display:flex;gap:6px;flex-wrap:nowrap;min-width:0;flex:1;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent);padding-right:18px}
+.tools-sc::-webkit-scrollbar{display:none}
+@media (min-width:701px){.tools-sc{flex-wrap:wrap;overflow:visible;-webkit-mask-image:none;mask-image:none;padding-right:0}}
+.tools-sc>button,.tools-sc>a{display:flex;align-items:center;gap:5px;font-weight:500;font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);text-decoration:none;white-space:nowrap;flex:none}
+.tools-sc>button svg{width:16px;height:16px}
+.tools-sc>a .ext-i{color:var(--muted)}
+.tools-sc>button:hover,.tools-sc>a:hover{border-color:var(--sea)}
+.tools-sc>a:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
+.tools .gear{margin-left:auto;padding:6px;border-color:transparent;background:none;border-radius:50%;flex:none}
+@media (max-width:700px){
+ input,select,textarea{font-size:16px}
+}
+/* entry details on one line on wider screens */
+@media (min-width:701px){.entry .cond{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;overflow-wrap:normal}}
+/* quick entry on phones: field, hint, space, moods + button, details link */
+@media (max-width:560px){
+ .capture{grid-template-areas:"in in" "pv pv" "mood btn" "more more"!important;row-gap:6px}
+ .capture .preview{display:contents}
+ .capture #preview{grid-area:pv;margin-bottom:10px}
+ .capture #quickMore{grid-area:more;justify-self:start}
+}
+
 #preview{min-width:0;max-width:100%;flex:1 1 100%}
 #preview>.qh{flex:1 1 100%;min-width:0}
 .qh{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12.5px}
@@ -580,10 +600,15 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
   </header>
 
   <nav class="tools">
-    <button type="button" id="ckBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><span data-i="ckNav"></span></button>
-    <button type="button" id="sizesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h20v8H2z"/><path d="M6 8v3M10 8v4M14 8v3M18 8v4"/></svg><span data-i="sizesNav"></span></button>
-    <button type="button" id="libBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-4 7-6 11-6 3 0 5 2 7 6-2 4-4 6-7 6-4 0-8-2-11-6z"/><path d="M3 12l-1.5-3M3 12l-1.5 3"/><circle cx="16.5" cy="10.5" r=".8" fill="currentColor"/></svg><span data-i="libNav"></span></button>
-    <button type="button" id="rulesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg><span data-i="rulesNav"></span></button>
+    <div class="tools-sc">
+      <button type="button" id="ckBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><span data-i="ckNav"></span></button>
+      <button type="button" id="sizesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h20v8H2z"/><path d="M6 8v3M10 8v4M14 8v3M18 8v4"/></svg><span data-i="sizesNav"></span></button>
+      <button type="button" id="libBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-4 7-6 11-6 3 0 5 2 7 6-2 4-4 6-7 6-4 0-8-2-11-6z"/><path d="M3 12l-1.5-3M3 12l-1.5 3"/><circle cx="16.5" cy="10.5" r=".8" fill="currentColor"/></svg><span data-i="libNav"></span></button>
+      <button type="button" id="rulesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg><span data-i="rulesNav"></span></button>
+      <a class="tl" id="tlWindy" href="https://www.windy.com/?waves,38.709,-9.486,10" target="_blank" rel="noopener">Windy<svg class="ext-i" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      <a class="tl" href="https://beachcam.meo.pt/livecams/" target="_blank" rel="noopener">BeachCam<svg class="ext-i" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      <a class="tl" href="https://spearo.app" target="_blank" rel="noopener">Spearo<svg class="ext-i" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
     <button type="button" class="gear" id="gearBtn" data-al="settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
   </nav>
   <div id="defNow" class="def-now" hidden aria-live="polite"></div>
@@ -2494,8 +2519,8 @@ openSpecies=function(name,sub){
     else{b.textContent=t('libOpenAll');b.addEventListener('click',()=>{$('species').close();openLib();if(lat){$('libQ').value=isSpecies(lat)?lat:genusOf(lat);libRender()}})}
     links.prepend(b)}
 };
-Object.assign(T.pt,{libNav:'Peixes',libTitle:'Biblioteca de peixes',libPh:'Procurar: nome, latim, família…',libF_all:'Todas',libF_mine:'No caderno',libF_caught:'Já apanhei',libF_min:'Tamanho mínimo',libF_ban:'Proibidas',libBan:'Proibida',libDef:'Defeso',libNone:'Nada encontrado.',libBack:'Voltar',libId:'Como reconhecer',libInPt:'',libFam:'Família',libNames:'Outros nomes',libFao:'Código FAO',libIucn:'Estado de conservação',libSrc:'Fonte: R. Martins e M. Carneiro (2018), Manual de identificação de peixes ósseos da costa continental portuguesa, IPMA, p. {p}. Licença CC BY-NC-SA 4.0.',libSrcX:'Espécie fora do manual do IPMA: descrição curta do caderno.',libManual:'Manual IPMA',libLawNote:'Tamanhos mínimos: tabela DGRM de 26-02-2026. Defesos: tabela DGRM 2026. Confirme sempre na DGRM.',libOpen:'Ficha completa na biblioteca',libOpenAll:'Procurar na biblioteca',libFoot:'154 espécies do Manual de identificação de peixes ósseos (IPMA, 2018) e outras espécies do caderno.'});
-Object.assign(T.en,{libNav:'Fish',libTitle:'Fish library',libPh:'Search: name, Latin, family…',libF_all:'All',libF_mine:'In my list',libF_caught:'Caught',libF_min:'Minimum size',libF_ban:'Protected',libBan:'Protected',libDef:'Closed season',libNone:'Nothing found.',libBack:'Back',libId:'How to recognise it',libInPt:'In Portuguese, as written in the IPMA manual.',libFam:'Family',libNames:'Other names',libFao:'FAO code',libIucn:'Conservation status',libSrc:'Source: R. Martins and M. Carneiro (2018), Manual de identificação de peixes ósseos da costa continental portuguesa, IPMA, p. {p}. Licence CC BY-NC-SA 4.0.',libSrcX:'Not in the IPMA manual: short description from the notebook.',libManual:'IPMA manual',libLawNote:'Minimum sizes: DGRM table of 26 Feb 2026. Closed seasons: DGRM 2026 table. Always check with DGRM.',libOpen:'Full entry in the library',libOpenAll:'Search the library',libFoot:'154 species from the IPMA bony-fish identification manual (2018) plus the other species in this notebook.'});
+Object.assign(T.pt,{libNav:'Biblioteca',libTitle:'Biblioteca de peixes',libPh:'Procurar: nome, latim, família…',libF_all:'Todas',libF_mine:'No caderno',libF_caught:'Já apanhei',libF_min:'Tamanho mínimo',libF_ban:'Proibidas',libBan:'Proibida',libDef:'Defeso',libNone:'Nada encontrado.',libBack:'Voltar',libId:'Como reconhecer',libInPt:'',libFam:'Família',libNames:'Outros nomes',libFao:'Código FAO',libIucn:'Estado de conservação',libSrc:'Fonte: R. Martins e M. Carneiro (2018), Manual de identificação de peixes ósseos da costa continental portuguesa, IPMA, p. {p}. Licença CC BY-NC-SA 4.0.',libSrcX:'Espécie fora do manual do IPMA: descrição curta do caderno.',libManual:'Manual IPMA',libLawNote:'Tamanhos mínimos: tabela DGRM de 26-02-2026. Defesos: tabela DGRM 2026. Confirme sempre na DGRM.',libOpen:'Ficha completa na biblioteca',libOpenAll:'Procurar na biblioteca',libFoot:'154 espécies do Manual de identificação de peixes ósseos (IPMA, 2018) e outras espécies do caderno.'});
+Object.assign(T.en,{libNav:'Library',libTitle:'Fish library',libPh:'Search: name, Latin, family…',libF_all:'All',libF_mine:'In my list',libF_caught:'Caught',libF_min:'Minimum size',libF_ban:'Protected',libBan:'Protected',libDef:'Closed season',libNone:'Nothing found.',libBack:'Back',libId:'How to recognise it',libInPt:'In Portuguese, as written in the IPMA manual.',libFam:'Family',libNames:'Other names',libFao:'FAO code',libIucn:'Conservation status',libSrc:'Source: R. Martins and M. Carneiro (2018), Manual de identificação de peixes ósseos da costa continental portuguesa, IPMA, p. {p}. Licence CC BY-NC-SA 4.0.',libSrcX:'Not in the IPMA manual: short description from the notebook.',libManual:'IPMA manual',libLawNote:'Minimum sizes: DGRM table of 26 Feb 2026. Closed seasons: DGRM 2026 table. Always check with DGRM.',libOpen:'Full entry in the library',libOpenAll:'Search the library',libFoot:'154 species from the IPMA bony-fish identification manual (2018) plus the other species in this notebook.'});
 
 /* ===== FishBase / SeaLifeBase link straight to the species ===== */
 const INVERT=['Octopus','Sepia','Loligo','Maja','Homarus','Palinurus','Scyllarides','Necora','Cancer','Paracentrotus'];
@@ -2724,6 +2749,7 @@ Object.assign(T.en,{dnNow:'Closed season now',dnSoon:'Closed season from'});
 })();
 Object.assign(T.pt,{dpToday:'Hoje'});Object.assign(T.en,{dpToday:'Today'});
 
+$('tlWindy').addEventListener('click',()=>{try{const sp=(typeof fcSpot!=='undefined'&&fcSpot)||(typeof FC_DEF!=='undefined'&&FC_DEF);if(sp)$('tlWindy').href=windyUrl(sp)}catch(e){}});
 boot();
 })();
 </script>
