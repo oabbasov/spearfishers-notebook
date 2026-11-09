@@ -41,7 +41,11 @@ header{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .sheet{width:min(460px,calc(100vw - 24px));max-height:calc(100dvh - 24px);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:0}
 .sheet::backdrop{background:rgba(4,20,26,.5)}
 .sheet-in{display:grid;gap:18px;padding:18px}
-.sheet-head{display:flex;justify-content:space-between;align-items:center}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.x-close{all:unset;box-sizing:border-box;cursor:pointer;flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;margin:-6px -8px -6px 12px;border-radius:50%;color:var(--muted)}
+.x-close:hover{color:var(--ink);background:var(--sea-soft)}
+.x-close:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
+
 .sheet-head h2{margin:0;font:500 17px var(--display)}
 .set-sec{display:grid;gap:8px}
 .set-sec h3{margin:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -649,7 +653,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 </dialog>
 <dialog id="settings" class="sheet">
   <div class="sheet-in">
-    <div class="sheet-head"><h2 data-i="settings"></h2><button type="button" id="setClose" class="link" data-i="close"></button></div>
+    <div class="sheet-head"><h2 data-i="settings"></h2><button type="button" id="setClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
     <section class="set-sec" id="setAccount" hidden>
       <h3 data-i="setAccount"></h3>
       <div class="set-row"><span id="who"></span><button type="button" id="signOut" data-i="signOut"></button></div>
@@ -667,16 +671,16 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
     </section>
   </div>
 </dialog>
-<dialog id="species" class="sheet"><div class="sheet-in"><div class="sheet-head"><span></span><button type="button" id="spClose" class="link" data-i="close"></button></div><div id="spBody" class="sp"></div></div></dialog>
+<dialog id="species" class="sheet"><div class="sheet-in"><div class="sheet-head"><span></span><button type="button" id="spClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div id="spBody" class="sp"></div></div></dialog>
 <dialog id="lib" class="sheet sheet-wide lib-d"><div class="sheet-in">
-  <div class="sheet-head"><h2><span data-i="libTitle"></span> <span class="hint" id="libCount"></span></h2><button type="button" id="libClose" class="link" data-i="close"></button></div>
+  <div class="sheet-head"><h2><span data-i="libTitle"></span> <span class="hint" id="libCount"></span></h2><button type="button" id="libClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
   <div id="libList" class="lib-view"><input type="search" id="libQ" data-ph="libPh" data-al="libPh" autocomplete="off"><div id="libF" role="group"></div><ul id="libUl" class="lib-ul"></ul><p class="hint" data-i="libFoot"></p></div>
   <div id="libDet" class="lib-view" hidden></div>
 </div></dialog>
-<dialog id="sizes" class="sheet sheet-wide"><div class="sheet-in"><div class="sheet-head"><h2 data-i="sizesTitle"></h2><button type="button" id="sizesClose" class="link" data-i="close"></button></div><div id="sizesBody" class="rules"></div></div></dialog>
-<dialog id="rules" class="sheet sheet-wide"><div class="sheet-in"><div class="sheet-head"><h2 data-i="rulesTitle"></h2><button type="button" id="rulesClose" class="link" data-i="close"></button></div><div id="rulesBody" class="rules"></div></div></dialog>
+<dialog id="sizes" class="sheet sheet-wide"><div class="sheet-in"><div class="sheet-head"><h2 data-i="sizesTitle"></h2><button type="button" id="sizesClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div id="sizesBody" class="rules"></div></div></dialog>
+<dialog id="rules" class="sheet sheet-wide"><div class="sheet-in"><div class="sheet-head"><h2 data-i="rulesTitle"></h2><button type="button" id="rulesClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div id="rulesBody" class="rules"></div></div></dialog>
 <dialog id="checklist" class="sheet"><div class="sheet-in">
-  <div class="sheet-head"><h2><span data-i="ckTitle"></span> <span class="hint" id="ckCount"></span></h2><button type="button" id="ckClose" class="link" data-i="close"></button></div>
+  <div class="sheet-head"><h2><span data-i="ckTitle"></span> <span class="hint" id="ckCount"></span></h2><button type="button" id="ckClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
   <div class="grid2 ck-top"><label for="ckSel"><span data-i="ckListL"></span><select id="ckSel"></select></label><label for="ckName"><span data-i="ckNameL"></span><input id="ckName" autocomplete="off"></label></div>
   <div class="ck-lbtn"><button type="button" id="ckReset" class="primary" data-i="ckResetL"></button><button type="button" id="ckNewList" data-i="ckNewL"></button><button type="button" id="ckDupList" data-i="ckDupL"></button><button type="button" id="ckDelList" class="danger"></button></div>
   <p class="hint" data-i="ckHint"></p>
