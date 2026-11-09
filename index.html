@@ -374,6 +374,15 @@ header{display:grid;grid-template-columns:1fr;justify-items:center;margin-bottom
 header .hdr-r{position:absolute;right:0;top:50%;transform:translateY(-50%)}
 header h1{font-size:clamp(30px,8vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.05;text-align:center;padding-bottom:6px}
 header h1 span{color:var(--sea)}
+header .hero{display:block;width:min(300px,78vw);height:auto;margin:2px auto -2px}
+.hero .hb{fill:var(--ink)}
+.hero .hs{stroke:var(--ink);stroke-width:1.3;fill:none}
+.hero .hm{fill:var(--sea)}
+.hero .hn{fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linecap:round}
+.hero .hbelt{stroke:var(--accent);stroke-width:3.4}
+.hero .hbub{fill:none;stroke:var(--sea);stroke-width:1;opacity:.7}
+.hero .hsea{fill:none;stroke:var(--sea);stroke-width:1.6;opacity:.5}
+
 
 .note{white-space:pre-wrap;overflow-wrap:anywhere;background:color-mix(in srgb,var(--bg) 80%,transparent);border-left:3px solid color-mix(in srgb,var(--sea) 80%,transparent);border-radius:4px;padding:8px 10px;line-height:1.55}
 .hdr-r{display:flex;gap:10px;align-items:center;flex:none}
@@ -524,8 +533,9 @@ header h1 span{color:var(--sea)}
 .ck-lbtn .ck-ib{width:42px;padding:0}
 .ck-lbtn #ckReset{padding:8px 16px}
 /* list picker: own menu instead of the system one */
-.ns-wrap{position:relative}
-.ns-btn{all:unset;box-sizing:border-box;cursor:pointer;width:100%;min-height:44px;padding:9px 30px 9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative;font-weight:400}
+.ns-wrap{position:relative;min-width:0}
+.ck-top>*{min-width:0}
+.ns-btn{all:unset;box-sizing:border-box;display:block;cursor:pointer;width:100%;min-height:44px;padding:9px 30px 9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative;font-weight:400}
 .ns-btn::after{content:"";position:absolute;right:12px;top:50%;width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg)}
 .ns-btn:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
 .ns-pop{position:absolute;left:0;right:0;top:100%;margin-top:4px;z-index:40;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.28);padding:4px;max-height:260px;overflow:auto}
@@ -654,7 +664,18 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 </div>
 <div class="wrap" id="appView">
   <header>
-    <h1>Spearo <span>Diary</span></h1>
+    <svg class="hero" viewBox="0 0 300 72" role="img" aria-label="Caçador submarino deitado à espera, com a arma apontada"><g class="hb">
+<path d="M4 45.5 L58 39.6 L60.5 45 L6 49Z" opacity=".7"/><path d="M8 50.5 L60 43.8 L61.5 48.6 L10 53.6Z"/>
+<path d="M58 44 C70 44.6 82 45.4 94 45.6 C106 45 118 44.2 128 43.6 L131 48 C118 49.4 104 50.2 92 49.6 C80 49 70 49 60 49.8Z" opacity=".7"/>
+<path d="M57 39.4 C68 38.4 80 37 92 36.2 C104 34.6 116 32.4 127 31.8 L131 46.6 C118 47.4 104 47.4 92 46.4 C80 45.8 69 46.2 59 47.4Z"/>
+<path d="M124 32.2 C129 28.6 136 28.8 141 30.4 C156 29 172 29.2 186 30.6 C191 31.2 194 34 193.6 37.4 C193 41.6 189 44.2 183 44.8 C166 47.2 148 48.4 130 47.8Z"/>
+<path d="M189 33.2 C192 31.6 196 31.4 199 32.4 L198 40.6 C195 41.4 191.6 41.2 189 40Z"/><circle cx="201.5" cy="34.6" r="8.6"/>
+<path d="M188 35.2 C201 33.8 216 33.4 230 33.8 L230 37.6 C216 37.6 202 38.6 189 40.6Z"/>
+<rect x="222" y="31.2" width="62" height="4.2" rx="1.6"/><path d="M227 35h6.4l-1.8 8.2h-4Z"/><path d="M298 33.3l-4.6-2.6v5.2Z"/></g>
+<path d="M284 33.3h11" class="hs"/><rect x="204.5" y="29.6" width="8" height="6.4" rx="2" class="hm"/>
+<path d="M198 26.6 C196.5 19 197.5 12.5 201.5 10" class="hn"/><path d="M140 30.6 L139 47.8" class="hbelt"/>
+<circle cx="203" cy="5.5" r="1.6" class="hbub"/><circle cx="207" cy="2" r="1.1" class="hbub"/>
+<path d="M0 62 C18 57 32 63 52 60 S90 55 112 60 S152 64 176 58 S222 56 246 61 S282 60 300 62" class="hsea"/></svg><h1>Spearo <span>Diary</span></h1>
   </header>
 
   <nav class="tools">
