@@ -77,12 +77,12 @@ a{color:var(--sea);text-underline-offset:2px}
 .capture-row{display:contents}
 .capture-row #quick{grid-area:in;min-width:0}
 .capture-row #quickMood{grid-area:mood;align-self:center}
-.capture-row>.primary{grid-area:btn;align-self:stretch;margin-left:6px;padding-inline:22px}
+.capture-row>.primary{grid-area:btn;align-self:center;margin-left:6px;padding:0 22px;min-height:54px}
 .capture .preview{grid-area:pv;padding-right:4px}
 @media (max-width:560px){
  .capture{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"in in" "mood btn" "pv pv";row-gap:8px}
  .capture-row #quickMood{justify-self:start}
- .capture-row>.primary{align-self:center;margin-left:0}
+ .capture-row>.primary{align-self:center;margin-left:0;min-height:0;padding:5px 18px}
 }
 
 .preview{display:flex;flex-wrap:wrap;gap:5px;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted)}
@@ -173,7 +173,7 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .vct{font-size:10.5px;font-weight:600;fill:var(--ink)}
 .sea-l .stk{position:absolute;left:6px;right:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sea-l .stk0{top:4px}.sea-l .stk1{top:18px;color:var(--ink)}.sea-l .stk2{top:32px}
-.sea-l .sl-tide{position:relative;display:block}.sea-l .sl-tide .stk0{top:6px}.sea-l .sl-tide .stk1{top:21px;color:var(--muted);font-weight:400}
+.sea-l .sl-tide{position:relative;display:block}.sea-l .sl-tide .stk0{top:5px}.sea-l .sl-tide .stk1{top:19px;color:var(--muted);font-weight:400}
 .fc-find{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
 .fc-find input{flex:1;min-width:160px;padding:6px 8px;font-size:14px}
 .fc-find button{padding:6px 12px;font-size:13.5px}
@@ -290,6 +290,7 @@ a{color:var(--sea);text-underline-offset:2px}
 .acts{margin-left:auto;display:flex;gap:10px;font-size:13.5px;align-items:center}
 .catch{display:flex;flex-wrap:wrap;gap:6px 16px}
 .catch-item{white-space:nowrap;margin:0!important;cursor:pointer;border-radius:6px}
+@media (max-width:560px){.catch-item{white-space:normal;overflow-wrap:anywhere}}
 .catch-item:hover b{text-decoration:underline;text-underline-offset:2px}
 .catch-item:focus-visible{outline:2px solid var(--sea)}
 .catch b{font-weight:600}
@@ -434,6 +435,17 @@ a{color:var(--sea);text-underline-offset:2px}
 .ck-add{display:flex;gap:8px}
 @media (max-width:420px){h1{font-size:18px}.hdr-r{gap:6px}}
 .photos{display:flex;flex-wrap:wrap;gap:6px}
+/* mobile form fields: iOS date/time inputs keep a fixed intrinsic size; make them fill their column at the same height */
+input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;display:block;width:100%;min-width:0;max-width:100%;min-height:42px;line-height:1.25;text-align:left}
+input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and-time-value{text-align:left;margin:0;min-height:1.25em}
+dialog label,.grid2>*{min-width:0}
+dialog select,dialog input:not([type=checkbox]):not([type=radio]):not([type=file]){min-height:42px}
+/* photos in an entry card: one row, swipe sideways */
+.entry>*{min-width:0}
+.entry .photos{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:4px}
+.entry .photos a{flex:none;scroll-snap-align:start}
+@media (hover:none){.x-close:focus,.x-close:focus-visible{outline:none;background:none}}
+
 .photos img{width:84px;height:84px;object-fit:cover;border-radius:4px;background:var(--sea-soft);display:block}
 mark{background:var(--mark);color:inherit;border-radius:2px}
 .empty{padding:26px 0;display:grid;gap:6px;max-width:58ch}
@@ -450,7 +462,8 @@ dialog h2{margin:0;font:500 16px var(--display)}
 .catch-row,.catch-head{display:grid;grid-template-columns:minmax(0,1fr) 124px 48px 62px 30px;gap:6px;align-items:center}
 @media (max-width:560px){.catch-row,.catch-head{grid-template-columns:minmax(0,1fr) 48px 62px 30px}.catch-head .hsub{display:none}.cSub{grid-column:1/-1;grid-row:2}.cSub:empty{display:none}}
 .catch-head{font-size:12px}
-.catch-row button{padding:6px;line-height:1}
+.catch-row button{padding:6px;line-height:1;border-color:transparent;background:none;color:var(--muted);font-size:20px;box-shadow:none}
+.catch-row button:hover{color:var(--ink)}
 .hint{font-size:12.5px;font-weight:400;color:var(--muted)}
 details>summary{cursor:pointer;font-weight:500;font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;min-height:32px}
 details>summary::-webkit-details-marker{display:none}
@@ -1445,7 +1458,7 @@ function drawForecast(){
   const card=$('fcCard');if(!card||!card.open)return;
   const box=$('fcBox'),nowEl=$('fcNow'),nowMs=Date.now(),p=lisbonParts(nowMs),t0=nowMs-((p.hour*60+p.minute)*60+p.second)*1000-nowMs%1000;
   const NH=72,CW=40,W=NH*CW,cx=i=>i*CW+CW/2,XT=t=>(t-t0)/36e5*CW+CW/2;
-  const R=[['day',22],['hour',20],['sun',18],['moon',22],['sky',34],['air',20],['g0',14],['wind',28],['windA',48],['g1',16],['wave',22],['waveA',48],['gc',16],['clar',30],['g2',16],['sst',20],['g3',10],['tide',72]];
+  const R=[['day',22],['hour',20],['sun',22],['sky',34],['air',20],['g0',10],['wind',22],['windA',48],['g1',10],['wave',16],['waveA',48],['gc',10],['clar',30],['g2',10],['sst',16],['g3',8],['tide',60]];
   const sp0=fcSpot||FC_DEF,tst=tideStation(sp0.lat,sp0.lon);let farT=false;
   if(tst.d<=150)LT=tideLocal(tst);
   else{const fit=fcData?(fcData._lt!==undefined?fcData._lt:(fcData._lt=ltFit(fcData.m))):null;
@@ -1468,8 +1481,8 @@ function drawForecast(){
   {const tEnd0=t0+NH*36e5;for(let d=-1;d<=3;d++){const day=t0+d*864e5+432e5,st=sunTimes(day,sp0.lat,sp0.lon),nx=sunTimes(day+864e5,sp0.lat,sp0.lon);if(!st||!nx)continue;
     const a=Math.max(st.set,t0-18e5),b=Math.min(nx.rise,tEnd0-18e5);if(b>a)g+='<rect x="'+XT(a).toFixed(1)+'" y="'+Y.hour[0]+'" width="'+(XT(b)-XT(a)).toFixed(1)+'" height="'+(HT-Y.hour[0])+'" class="night"/>';
     {const da=Math.max(st.rise,t0-18e5),db=Math.min(st.set,tEnd0-18e5);if(db>da)g+='<rect x="'+XT(da).toFixed(1)+'" y="'+Y.hour[0]+'" width="'+(XT(db)-XT(da)).toFixed(1)+'" height="'+(HT-Y.hour[0])+'" class="dayl"/>'}
-    {const nt=(st.set+nx.rise)/2,mx=XT(nt);if(nt>=t0-18e5&&nt<=tEnd0-18e5){const mp=moonAge(nt),il=Math.round((1-Math.cos(2*Math.PI*mp))/2*100);g+=moonSvg(mx-12,Y.moon[0]+11,6.5,mp)+'<text x="'+(mx-2)+'" y="'+(Y.moon[0]+15)+'" class="mtx"><title>'+esc(t(moonName(mp)))+'</title>'+il+'% · '+esc(t(moonName(mp)))+'</text>'}}
-    [[st.rise,'up'],[st.set,'dn']].forEach(([tt,k])=>{if(tt<t0-18e5||tt>tEnd0-18e5)return;const x=XT(tt);g+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+Y.sun[0]+'" y2="'+HT+'" class="sunl"/><circle cx="'+(x-15).toFixed(1)+'" cy="'+(Y.sun[0]+9)+'" r="3.2" class="sund"/><path d="M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?4:14))+'l-2 '+(k==='up'?-2.5:2.5)+'M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?4:14))+'l2 '+(k==='up'?-2.5:2.5)+'" stroke="#E5A31F" stroke-width="1.1" fill="none"/><text x="'+(x-10).toFixed(1)+'" y="'+(Y.sun[0]+13)+'" class="sunt">'+hhmm(tt)+'</text>'})}}
+    {const nt=(st.set+nx.rise)/2,mx=XT(nt);if(nt>=t0-18e5&&nt<=tEnd0-18e5){const mp=moonAge(nt),il=Math.round((1-Math.cos(2*Math.PI*mp))/2*100);g+=moonSvg(mx-12,Y.sun[0]+11,6.5,mp)+'<text x="'+(mx-2)+'" y="'+(Y.sun[0]+15)+'" class="mtx"><title>'+esc(t(moonName(mp)))+'</title>'+il+'% · '+esc(t(moonName(mp)))+'</text>'}}
+    [[st.rise,'up'],[st.set,'dn']].forEach(([tt,k])=>{if(tt<t0-18e5||tt>tEnd0-18e5)return;const x=XT(tt);g+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+Y.sun[0]+'" y2="'+HT+'" class="sunl"/><circle cx="'+(x-15).toFixed(1)+'" cy="'+(Y.sun[0]+11)+'" r="3.2" class="sund"/><path d="M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?6:16))+'l-2 '+(k==='up'?-2.5:2.5)+'M'+(x-15).toFixed(1)+' '+(Y.sun[0]+(k==='up'?6:16))+'l2 '+(k==='up'?-2.5:2.5)+'" stroke="#E5A31F" stroke-width="1.1" fill="none"/><text x="'+(x-10).toFixed(1)+'" y="'+(Y.sun[0]+15)+'" class="sunt">'+hhmm(tt)+'</text>'})}}
   hrs.forEach((t,i)=>{g+='<text x="'+cx(i)+'" y="'+(Y.hour[0]+14)+'" text-anchor="middle" class="shr">'+pad(lisbonParts(t).hour)+'</text>'});
   // sky + rain
   hrs.forEach((t,i)=>{const w=near(wm,t);if(!w)return;if(w.visibility!=null&&w.visibility<5000)g+='<rect x="'+(i*CW+2)+'" y="'+(Y.sky[0]+1)+'" width="'+(CW-4)+'" height="'+(Y.sky[1]-2)+'" rx="5" class="haze'+(w.visibility<1000?' haze2':'')+'"><title>'+esc(T[lang][w.visibility<1000?'sFog':'sMist'])+' '+f1(w.visibility/1000)+' km</title></rect>';if(w.weather_code!=null)g+=wxIcon(wxKind(w.weather_code),cx(i),Y.sky[0]+6,22);if(Y.rain&&w.precipitation>0)g+='<text x="'+cx(i)+'" y="'+(Y.rain[0]+12)+'" text-anchor="middle" class="srain">'+f1(w.precipitation)+'</text>';
@@ -1484,9 +1497,9 @@ function drawForecast(){
   mv.forEach((m,i)=>{const y=Y.waveA[0];if(m.wave_height!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.waveA[1]-4)+'" rx="5" class="cvb" fill-opacity="'+Math.min(.41,.045+m.wave_height/6.8).toFixed(2)+'"/>';if(m.wave_direction!=null)g+=arrow(cx(i),y+10,m.wave_direction,'fa2',1);if(m.wave_height!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f1(m.wave_height)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(m.wave_period)+'s</text>'});
   const cl=hrs.map(t=>clarity(t,wm,mm,near,farT));
   cl.forEach((c,i)=>{if(!c)return;const y=Y.clar[0];g+='<rect x="'+(i*CW+1)+'" y="'+(y+5)+'" width="'+(CW-2)+'" height="'+(Y.clar[1]-10)+'" rx="3" class="vc vc-'+c.k+'"/>';const prev=cl[i-1];if(!prev||prev.k!==c.k||lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(y+Y.clar[1]/2+4)+'" text-anchor="middle" class="vct">'+esc(t('vc_'+c.k))+'</text>'});
-  mv.forEach((m,i)=>{if(m.sea_surface_temperature!=null&&lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(Y.sst[0]+14)+'" text-anchor="middle" class="ssst">'+f1(m.sea_surface_temperature)+'°</text>'});
+  mv.forEach((m,i)=>{if(m.sea_surface_temperature!=null&&lisbonParts(hrs[i]).hour%3===0)g+='<text x="'+cx(i)+'" y="'+(Y.sst[0]+12)+'" text-anchor="middle" class="ssst">'+f1(m.sea_surface_temperature)+'°</text>'});
   // tide
-  const tTop=Y.tide?Y.tide[0]+20:0,tBot=Y.tide?Y.tide[0]+Y.tide[1]-18:0,TY=h=>tBot-((h-LT.lo)/(LT.hi-LT.lo))*(tBot-tTop);
+  const tTop=Y.tide?Y.tide[0]+17:0,tBot=Y.tide?Y.tide[0]+Y.tide[1]-15:0,TY=h=>tBot-((h-LT.lo)/(LT.hi-LT.lo))*(tBot-tTop);
   if(!farT){
   const tEnd=t0+NH*36e5;
   let tp='';for(let t=t0-18e5;t<=tEnd-18e5;t+=9e5)tp+=(tp?'L':'M')+XT(t).toFixed(1)+' '+TY(ltH(t)).toFixed(1);
@@ -1497,7 +1510,7 @@ function drawForecast(){
   // now
   const nx=XT(nowMs);g+='<defs><linearGradient id="ngl" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="var(--accent)" stop-opacity="0"/><stop offset=".5" stop-color="var(--accent)" stop-opacity=".3"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs><rect x="'+(nx-3.5)+'" y="'+Y.hour[0]+'" width="7" height="'+(HT-Y.hour[0])+'" fill="url(#ngl)"/><line x1="'+nx+'" x2="'+nx+'" y1="'+Y.hour[0]+'" y2="'+HT+'" class="tn"/>'+(farT?'':'<circle cx="'+nx+'" cy="'+TY(ltH(nowMs)).toFixed(1)+'" r="4" class="tnd"/>');
   // left labels
-  const L={moon:t('nMoon'),sun:t('sSun'),clar:t('sClar'),hour:t('sHour'),sky:t('fcSkyS'),rain:t('sRain'),air:t('sAir'),vis:t('sVis'),wind:t('fcWindT'),windA:t('sWindA'),wave:t('fcWavesT'),waveA:t('sWaveA'),sst:t('fcWater')+' °C',tide:''};
+  const L={sun:t('sSun')+' · '+t('nMoon'),clar:t('sClar'),hour:t('sHour'),sky:t('fcSkyS'),rain:t('sRain'),air:t('sAir'),vis:t('sVis'),wind:t('fcWindT'),windA:t('sWindA'),wave:t('fcWavesT'),waveA:t('sWaveA'),sst:t('fcWater')+' °C',tide:''};
   const STK={windA:t('sWindA').split('|'),waveA:t('sWaveA').split('|'),clar:t('sClarS').split('|'),tide:[t('nTide')+' m',LT.name||'']};
   const nol=(()=>{try{return localStorage.getItem('sn-fc-nol')==='1'}catch(e){return false}})();
   const left='<div class="sea-l" style="height:'+HT+'px">'+R.map(([k,h])=>'<div style="height:'+h+'px" class="sl-'+k+'"'+(k==='tide'?' title="'+esc(LT.name||'')+'"':'')+'>'+(k==='day'?'<button type="button" class="sea-tg" aria-expanded="'+!nol+'" title="'+esc(t(nol?'fcColShow':'fcColHide'))+'" aria-label="'+esc(t(nol?'fcColShow':'fcColHide'))+'">'+(nol?'›':'‹')+'</button>':'')+(STK[k]?STK[k].map((x,j)=>'<span class="stk stk'+j+'">'+esc(x)+'</span>').join(''):L[k]?esc(L[k]):'')+(k==='wind'?'<select class="wunit" aria-label="'+esc(t('fcWindT'))+'">'+Object.entries(WU).map(([u,o])=>'<option value="'+u+'"'+(u===wUnit?' selected':'')+'>'+o.l+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div>';
