@@ -376,7 +376,7 @@ header h1 span{color:var(--sea)}
 .tools{display:flex;gap:8px;align-items:center;min-width:0;max-width:100%}
 .tools-sc{display:flex;gap:6px;flex-wrap:nowrap;min-width:0;flex:1;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent);padding-right:18px}
 .tools-sc::-webkit-scrollbar{display:none}
-@media (min-width:701px){.tools-sc{flex-wrap:wrap;overflow:visible;-webkit-mask-image:none;mask-image:none;padding-right:0}}
+@media (min-width:701px){.tools-sc{gap:5px;padding-right:0;-webkit-mask-image:none;mask-image:none}.tools-sc>button,.tools-sc>a{padding:4px 9px}.tools-sc>button svg{display:none}}
 .tools-sc>button,.tools-sc>a{display:flex;align-items:center;gap:5px;font-weight:500;font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);text-decoration:none;white-space:nowrap;flex:none}
 .tools-sc>button svg{width:16px;height:16px}
 .tools-sc>a .ext-i{color:var(--muted)}
@@ -502,6 +502,9 @@ header h1 span{color:var(--sea)}
 .ck-x{flex:none;font-size:20px;padding:0 6px;text-decoration:none}
 .ck-lbtn{display:flex;flex-wrap:wrap;gap:8px}
 .ck-lbtn button{font-size:13.5px;padding:6px 12px}
+.ck-lbtn{align-items:center}
+.ck-lbtn .ck-ib{padding:7px;line-height:0;display:inline-grid;place-items:center}
+.ck-lbtn #ckReset{margin-left:auto}
 .ck-top{gap:10px}
 .rf-btn{font:inherit;font-weight:700;padding:0}
 .cw{display:inline-block;margin-left:6px;font-size:12px;font-weight:600;padding:0 7px;border-radius:999px;border:1px solid var(--danger);color:var(--danger);white-space:nowrap;vertical-align:1px}
@@ -635,7 +638,6 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
       <a class="tl" href="https://beachcam.meo.pt/livecams/" target="_blank" rel="noopener">BeachCam<svg class="ext-i" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
       <a class="tl" href="https://spearo.app" target="_blank" rel="noopener">Spearo<svg class="ext-i" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
     </div>
-    <button type="button" class="tools-more" id="toolsMore" aria-label="›" tabindex="-1">›</button>
     <button type="button" class="gear" id="gearBtn" data-al="settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
   </nav>
   <div id="defNow" class="def-now" hidden aria-live="polite"></div>
@@ -814,8 +816,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 <dialog id="checklist" class="sheet"><div class="sheet-in">
   <div class="sheet-head"><h2><span data-i="ckTitle"></span> <span class="hint" id="ckCount"></span></h2><button type="button" id="ckClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
   <div class="grid2 ck-top"><label for="ckSel"><span data-i="ckListL"></span><select id="ckSel"></select></label><label for="ckName"><span data-i="ckNameL"></span><input id="ckName" autocomplete="off"></label></div>
-  <div class="ck-lbtn"><button type="button" id="ckReset" class="primary" data-i="ckResetL"></button><button type="button" id="ckNewList" data-i="ckNewL"></button><button type="button" id="ckDupList" data-i="ckDupL"></button><button type="button" id="ckDelList" class="danger"></button></div>
-  <p class="hint" data-i="ckHint"></p>
+  <div class="ck-lbtn"><button type="button" id="ckNewList" class="ck-ib" data-al="ckNewL"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 11v6M9 14h6"/></svg></button><button type="button" id="ckDupList" class="ck-ib" data-al="ckDupL"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button><button type="button" id="ckDelList" class="danger"></button><button type="button" id="ckReset" class="primary" data-i="ckResetL"></button></div>
   <ul class="ck" id="ckList"></ul>
   <form id="ckForm" class="ck-add"><input id="ckNew" data-ph="ckPh" data-al="ckPh" autocomplete="off"><button type="submit" data-i="add"></button></form>
   <div class="row"><button type="button" id="ckBase" data-i="ckBaseL"></button></div>
@@ -2807,11 +2808,8 @@ $('tlWindy').addEventListener('click',()=>{try{const sp=(typeof fcSpot!=='undefi
 Object.assign(T.pt,{tpHour:'Hora',tpMin:'Minutos',tpNow:'Agora',tpClear:'Limpar'});Object.assign(T.en,{tpHour:'Hour',tpMin:'Minutes',tpNow:'Now',tpClear:'Clear'});
 /* ===== Tool row: arrow and a short peek show that it scrolls ===== */
 (function(){
-  const sc=document.querySelector('.tools-sc'),mb=$('toolsMore');if(!sc||!mb)return;
-  const upd=()=>{mb.classList.toggle('on',sc.scrollWidth-sc.clientWidth-sc.scrollLeft>8)};
-  sc.addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);
-  mb.addEventListener('click',()=>sc.scrollBy({left:sc.clientWidth*.7,behavior:'smooth'}));
-  setTimeout(()=>{upd();if(sc.scrollWidth>sc.clientWidth+8&&!matchMedia('(prefers-reduced-motion:reduce)').matches){let seen=0;try{seen=+localStorage.getItem('sn-peek')||0}catch(e){}if(seen<3){try{localStorage.setItem('sn-peek',String(seen+1))}catch(e){}sc.scrollTo({left:70,behavior:'smooth'});setTimeout(()=>sc.scrollTo({left:0,behavior:'smooth'}),700)}}},900);
+  const sc=document.querySelector('.tools-sc');if(!sc)return;
+  setTimeout(()=>{if(sc.scrollWidth>sc.clientWidth+8&&!matchMedia('(prefers-reduced-motion:reduce)').matches){let seen=0;try{seen=+localStorage.getItem('sn-peek')||0}catch(e){}if(seen<3){try{localStorage.setItem('sn-peek',String(seen+1))}catch(e){}sc.scrollTo({left:70,behavior:'smooth'});setTimeout(()=>sc.scrollTo({left:0,behavior:'smooth'}),700)}}},900);
 })();
 
 /* forecast: hour by hour or every 3 hours; data note folded on phones */
@@ -2821,6 +2819,8 @@ $('fcStepBtn').addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagat
 fcStepLabel();
 if(matchMedia('(min-width:701px)').matches)$('fcInfo').open=true;
 
+function ckIbTitles(){['ckNewList','ckDupList'].forEach(id=>{const b=$(id);if(b)b.title=b.getAttribute('aria-label')||''})}
+['langEn','langPt'].forEach(id=>$(id).addEventListener('click',()=>setTimeout(ckIbTitles,0)));setTimeout(ckIbTitles,0);
 boot();
 })();
 </script>
