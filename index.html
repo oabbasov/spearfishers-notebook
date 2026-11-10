@@ -54,6 +54,28 @@ header{display:flex;gap:12px;align-items:center;justify-content:space-between}
 
 .sheet-head h2{margin:0;font:500 17px var(--display)}
 .set-sec{display:grid;gap:8px}
+.fr-body{display:grid;gap:10px}
+.fr-opts{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:0;display:grid;gap:6px}
+.fr-opts legend{font-size:12.5px;color:var(--muted);padding:0 4px}
+label.chk{display:flex;align-items:center;gap:8px;font-size:14.5px;cursor:pointer}
+label.chk input{width:18px;height:18px;margin:0;flex:none;accent-color:var(--accent)}
+.fr-code{font-family:ui-monospace,monospace;letter-spacing:.08em}
+.fr-link{font-size:13px;color:var(--muted)}
+.fr-b{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fr-add input{flex:1;min-width:150px}
+.fr-ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.fr-ul li{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--line);border-radius:8px}
+.fr-n{font-weight:600}
+.fr-sp{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:10px}
+.fr-sp>li{border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.fr-h{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fr-h svg{flex:none}
+.fr-c{margin-left:auto;font-size:13px;color:var(--muted);white-space:nowrap}
+.fr-it{display:grid;gap:6px;margin-top:6px}
+.fr-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13.5px;color:var(--muted)}
+.fr-row span{flex-basis:100%}
+.fr-row img{width:84px;height:64px;object-fit:cover;border-radius:6px;display:block}
+
 .set-sec h3{margin:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .set-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;overflow-wrap:anywhere}
 .set-list{display:grid;gap:6px}
@@ -901,6 +923,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
           <label data-for="dive" for="eGear"><span data-i="gear"></span><input id="eGear" list="gearList"></label>
         </div>
         <label for="eTags"><span data-i="tags"></span><input id="eTags"></label>
+        <label class="chk" id="eNoShareL" hidden><input type="checkbox" id="eNoShare"><span data-i="noShareL"></span></label>
       </div>
     </details>
     <details id="eHist" hidden><summary data-i="hist"></summary><div class="hist" id="eHistList"></div></details>
@@ -945,6 +968,29 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
         <span class="hint" id="delAccMsg" hidden></span>
       </div>
     </section>
+    <section class="set-sec" id="setFriends" hidden>
+      <h3 data-i="setFriends"></h3>
+      <p class="hint" id="frSetup" data-i="frSetup" hidden></p>
+      <div id="frBody" class="fr-body">
+        <p class="hint" data-i="frIntro"></p>
+        <label for="frName"><span data-i="frName"></span><input id="frName" maxlength="40" autocomplete="nickname"></label>
+        <label class="chk"><input type="checkbox" id="frOn"><span data-i="frOn"></span></label>
+        <fieldset id="frOpts" class="fr-opts" hidden><legend data-i="frShow"></legend>
+          <label class="chk"><input type="checkbox" id="frO_photo"><span data-i="frO_photo"></span></label>
+          <label class="chk"><input type="checkbox" id="frO_weight"><span data-i="frO_weight"></span></label>
+          <label class="chk"><input type="checkbox" id="frO_len"><span data-i="frO_len"></span></label>
+          <label class="chk"><input type="checkbox" id="frO_depth"><span data-i="frO_depth"></span></label>
+          <label class="chk"><input type="checkbox" id="frO_where"><span data-i="frO_where"></span></label>
+          <label class="chk"><input type="checkbox" id="frO_region"><span data-i="frO_region"></span></label>
+          <label class="chk"><input type="checkbox" id="frO_dateExact"><span data-i="frO_dateExact"></span></label>
+        </fieldset>
+        <div class="set-row"><span><span data-i="frMyCode"></span>: <b id="frCode" class="fr-code"></b></span><span class="fr-b"><button type="button" id="frShare" data-i="frInvite"></button><button type="button" id="frCopy" data-i="frCopy"></button></span></div>
+        <input id="frLink" readonly class="fr-link" aria-label="Link">
+        <div class="set-row fr-add"><input id="frAddIn" data-ph="frAddL" data-al="frAddL" autocomplete="off" autocapitalize="off"><button type="button" id="frAddGo" class="primary" data-i="frAdd"></button></div>
+        <ul id="frUl" class="fr-ul"></ul>
+        <p class="hint" id="frNone" data-i="frNone"></p>
+      </div>
+    </section>
     <section class="set-sec">
       <h3 data-i="setData"></h3>
       <div class="set-list">
@@ -958,6 +1004,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
     </section>
   </div>
 </dialog>
+<dialog id="frLib" class="sheet sheet-wide"><div class="sheet-in"><div class="sheet-head"><h2 id="frLibT"></h2><button type="button" id="frLibClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div id="frLibBody"></div></div></dialog>
 <dialog id="species" class="sheet"><div class="sheet-in"><div class="sheet-head"><span></span><button type="button" id="spClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div id="spBody" class="sp"></div></div></dialog>
 <dialog id="lib" class="sheet sheet-wide lib-d"><div class="sheet-in">
   <div class="sheet-head"><h2><span data-i="libTitle"></span> <span class="hint" id="libCount"></span></h2><button type="button" id="libClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
@@ -1542,7 +1589,7 @@ function dbStore(db,uid){
     backup(id,d,del){const n=Date.now();return hist.doc(id+'-'+n).set({entryId:id,savedAt:n,deleted:!!del,data:d})},
     async history(){const q=await hist.orderBy('savedAt','desc').limit(1000).get();return q.docs.map(x=>x.data())}};
 }
-function onData(list,meta){checkDoc=list.find(e=>e.id==='checklist')||null;entries=list.filter(e=>e.id!=='checklist'&&e.type!=='checklist');if($('checklist').open&&!ckEditing&&!ckAddTo&&!(document.activeElement&&document.activeElement.closest&&document.activeElement.closest('#checklist input')))ckDraw();if(!meta||!meta.fromCache){loaded=true;clearTimeout(loadTimer)}render(true);if(loaded)restoreDraft();try{fcFillSelect()}catch(e){}}
+function onData(list,meta){setTimeout(()=>{try{shSoon()}catch(e){}},0);checkDoc=list.find(e=>e.id==='checklist')||null;entries=list.filter(e=>e.id!=='checklist'&&e.type!=='checklist');if($('checklist').open&&!ckEditing&&!ckAddTo&&!(document.activeElement&&document.activeElement.closest&&document.activeElement.closest('#checklist input')))ckDraw();if(!meta||!meta.fromCache){loaded=true;clearTimeout(loadTimer)}render(true);if(loaded)restoreDraft();try{fcFillSelect()}catch(e){}}
 function showMode(k){modeKey=k;$('modeNotice').textContent=k?t(k):'';$('modeNotice').hidden=!k}
 /* Supabase: accounts, entries, history and photos. Every row belongs to one user (row level security). */
 const CFG=window.NOTEBOOK_CONFIG||{};
@@ -1649,7 +1696,7 @@ function startApp(user){
   $('authView').hidden=true;$('appView').hidden=false;
   $('who').textContent=user.email||'';$('setAccount').hidden=false;
   store=sbStore(user.id);assets=sbAssets(user.id);downloads=fileDownloads;
-  $('shotBlock').hidden=false;$('photoBlock').hidden=false;$('exportCsv').hidden=false;$('backupBtn').hidden=false;
+  frStart(user);$('shotBlock').hidden=false;$('photoBlock').hidden=false;$('exportCsv').hidden=false;$('backupBtn').hidden=false;
   loadTimer=setTimeout(()=>{if(!loaded)showMode('loadSlow')},10000);
   store.sub(l=>{if(modeKey==='loadSlow')showMode('');onData(l)},()=>{clearTimeout(loadTimer);loaded=true;showMode('loadDead');render(false)});
 }
@@ -1923,7 +1970,7 @@ try{if(localStorage.getItem('sn-tide')==='0')$('tideCard').open=false}catch(e){}
 let tideRZ=null;addEventListener('resize',()=>{clearTimeout(tideRZ);tideRZ=setTimeout(()=>{drawTides();drawForecast()},150)});
 setInterval(()=>{drawTides();drawForecast()},60000);
 function setLang(l){lang=l;try{localStorage.setItem('sn-lang',l)}catch(e){}applyLang();if(!$('authView').hidden)showAuth()}
-$('gearBtn').addEventListener('click',()=>{$('settings').showModal()});
+$('gearBtn').addEventListener('click',()=>{$('settings').showModal();if(shMe&&shProf)frList()});
 $('setClose').addEventListener('click',()=>$('settings').close());
 $('settings').addEventListener('click',ev=>{if(ev.target===$('settings'))$('settings').close()});
 $('langEn').addEventListener('click',()=>setLang('en'));$('langPt').addEventListener('click',()=>setLang('pt'));
@@ -2210,7 +2257,7 @@ function openForm(e,id){
   $('dlgTitle').textContent=t(id?'editEntry':'newEntry');$('eDelete').hidden=!id;$('eHist').hidden=!id;$('eHist').open=false;$('eHistList').innerHTML='';$('eDelete').textContent=t('del');
   const set=(i,v)=>{$(i).value=v==null?'':v};
   set('eDate',x.date||today());set('eSpot',x.spot);set('eGps',x.gps);set('eDepth',decS(x.maxDepth!=null?x.maxDepth:x.depth));set('eDives',x.dives);set('eVis',decS(x.vis));set('eTemp',decS(x.temp));
-  set('eIn',x.timeIn);set('eOut',x.timeOut);set('eTideIn',tidesOf(x)[0]);set('eTideOut',tidesOf(x)[1]);set('eCurrent',x.current);set('eDir',x.currentDir);set('eWeather',x.weather);set('eSea',x.sea);set('eWind',x.wind);set('eGear',x.gear);set('eNotes',x.notes);set('eTags',(x.tags||[]).join(', '));
+  set('eIn',x.timeIn);set('eOut',x.timeOut);set('eTideIn',tidesOf(x)[0]);set('eTideOut',tidesOf(x)[1]);set('eCurrent',x.current);set('eDir',x.currentDir);set('eWeather',x.weather);set('eSea',x.sea);set('eWind',x.wind);set('eGear',x.gear);set('eNotes',x.notes);set('eTags',(x.tags||[]).join(', '));$('eNoShare').checked=!!x.noShare;$('eNoShareL').hidden=!shMe;
   $('eCatches').innerHTML='';(x.catches&&x.catches.length?x.catches:[null]).forEach(catchRow);
   $('eMore').open=false;setType('dive');drawPhotos();drawShots();drawMoods();gpsHint();spotHint();$('ePhotoInput').value='';
   $('dlg').showModal();
@@ -2245,7 +2292,7 @@ function readForm(){
     depth:num(v('eDepth')),maxDepth:undefined,dives:num(v('eDives')),vis:num(v('eVis')),temp:num(v('eTemp')),
     timeIn:v('eIn'),timeOut:v('eOut'),tideIn:v('eTideIn'),tideOut:v('eTideOut'),tide:'',
     current:v('eCurrent'),currentDir:v('eDir'),weather:v('eWeather'),shots:form.shots,sea:v('eSea'),wind:v('eWind'),gear:v('eGear'),
-    notes:v('eNotes'),tags:uniq(v('eTags').split(',')),photos:form.photos,createdAt:(form.original&&form.original.createdAt)||Date.now()};
+    notes:v('eNotes'),noShare:$('eNoShare').checked||undefined,tags:uniq(v('eTags').split(',')),photos:form.photos,createdAt:(form.original&&form.original.createdAt)||Date.now()};
 }
 /* Unsaved typing survives a page reload */
 const DK='sn-draft';let draftTimer=null,draftChecked=false;
@@ -3107,7 +3154,7 @@ Object.assign(T.pt,{pickPhotos:'Escolher fotos'});Object.assign(T.en,{pickPhotos
       +'<circle cx="'+knee[0]+'" cy="'+knee[1]+'" r="'+(7*U)+'"/><path d="'+torso+'"/><circle cx="'+hc[0]+'" cy="'+hc[1]+'" r="'+hr0+'"/>'
       +'<path d="'+arm+'" class="dv-s" stroke-width="'+(7.5*U)+'"/>'
       +'<rect x="'+g0+'" y="'+(gy-2.4*U)+'" width="'+(g1-g0)+'" height="'+(4.2*U)+'" rx="'+(1.6*U)+'"/>'
-      +'<path d="M'+(g1+1*u)+' '+(gy-.4*u)+'H'+(g1+22*u)+'" class="dv-s" stroke-width="'+(1.4*u)+'"/><path d="M'+(g1+28*u)+' '+(gy-.4*u)+'l-8*u 0" />'
+      +'<path d="M'+(g1+1*u)+' '+(gy-.4*u)+'H'+(g1+22*u)+'" class="dv-s" stroke-width="'+(1.4*u)+'"/>'
       +'<path d="M'+(g1+29*u)+' '+(gy-.4*u)+'l'+(-9*u)+' '+(-3.4*u)+'v'+(6.8*u)+'Z"/>'
       +'</g>'
       +'<path d="M'+(g0+40*u)+' '+(gy-2.4*u)+'Q'+(g0+70*u)+' '+(gy-7*u)+' '+(g1-8*u)+' '+(gy-2.6*u)+'" class="dv-band" stroke-width="'+(1.6*u)+'"/>'
@@ -3139,8 +3186,8 @@ Object.assign(T.pt,{ftRights:'Todos os direitos reservados.'});Object.assign(T.e
     const m=$('delAccMsg'),go=$('delAccGo');go.disabled=true;m.hidden=false;m.textContent=t('delAccWorking');
     try{
       const{data:u}=await sb.auth.getUser();const uid=u&&u.user&&u.user.id;if(!uid)throw new Error('no user');
-      for(let round=0;round<50;round++){const{data:list,error}=await sb.storage.from('photos').list(uid,{limit:1000});if(error)throw error;if(!list||!list.length)break;
-        const{error:e2}=await sb.storage.from('photos').remove(list.map(o=>uid+'/'+o.name));if(e2)throw e2;if(list.length<1000)break}
+      for(const dir of [uid+'/share',uid])for(let round=0;round<50;round++){const{data:raw,error}=await sb.storage.from('photos').list(dir,{limit:1000});if(error)throw error;const list=(raw||[]).filter(o=>o.id);if(!list.length)break;
+        const{error:e2}=await sb.storage.from('photos').remove(list.map(o=>dir+'/'+o.name));if(e2)throw e2;if(list.length<1000)break}
       const{error:e3}=await sb.rpc('delete_my_account');if(e3)throw e3;
       try{await sb.auth.signOut()}catch(e){}
       try{localStorage.removeItem('sn-reset')}catch(e){}
@@ -3153,13 +3200,108 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794328491';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794332496';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
       if(m&&m[1]!==B){if(!busy())location.reload();else{last=0;setTimeout(check,30000)}}}catch(e){}}
   setTimeout(check,4000);addEventListener('focus',check);document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});
 })();
+/* ===== Amigos: share a trimmed copy of your catches with accepted friends =====
+   Your entries stay private. A separate table (shared_catches) holds only what you chose to show;
+   the region is computed from coordinates (never the spot name or the coordinates themselves) and
+   shared photos are re-encoded copies, so no GPS left inside the file. */
+const SH_DEF={on:false,photo:true,weight:true,len:true,depth:false,where:true,region:true,date:'month'};
+const SH_REG=(()=>{const fix={'Setúbal (Troia)':'Setúbal','Baleeira (Sagres)':'Sagres','Faro-Olhão':'Faro','Barra do Ancão':'Faro','Barra de Armona':'Olhão','Barra de Tavira':'Tavira','Barra do Douro':'Porto','Outão':'Arrábida','Leixões':'Matosinhos'};
+  const L=[];try{TIDE_PORTS.forEach(p=>L.push([fix[p[0]]||p[0],p[1],p[2]]));TIDE_SEC.forEach(p=>L.push([fix[p[0]]||p[0],p[1],p[2]]))}catch(e){}
+  [['Sintra',38.80,-9.48],['Costa da Caparica',38.64,-9.24],['Porto Covo',37.85,-8.79],['Vila Nova de Milfontes',37.72,-8.78],['Zambujeira do Mar',37.52,-8.79],['Aljezur',37.32,-8.85],['Carrapateira',37.19,-8.90],['São Pedro de Moel',39.76,-9.03],['Berlengas',39.41,-9.51],['Sagres',37.01,-8.94]].forEach(x=>L.push(x));return L})();
+function shRegion(c){if(!c)return null;let best=null,bd=1e9;const k=Math.cos(c.lat*Math.PI/180);
+  SH_REG.forEach(([n,la,lo])=>{const d=Math.hypot((la-c.lat)*111,(lo-c.lon)*111*k);if(d<bd){bd=d;best=n}});return bd<=40?best:null}
+let shMe=null,shProf=null,shBusy=false,shAgain=false,shT=null;
+function shCfg(){return Object.assign({},SH_DEF,(shProf&&shProf.share)||{})}
+function shSoon(){if(!shMe||!shProf)return;clearTimeout(shT);shT=setTimeout(shSync,2500)}
+function shHash(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
+async function shStrip(id){const{data,error}=await sb.storage.from('photos').download(id);if(error)throw error;
+  const bm=await createImageBitmap(data);const s=Math.min(1,1280/Math.max(bm.width,bm.height));const cv=document.createElement('canvas');cv.width=Math.round(bm.width*s);cv.height=Math.round(bm.height*s);
+  cv.getContext('2d').drawImage(bm,0,0,cv.width,cv.height);return await new Promise(r=>cv.toBlob(r,'image/jpeg',.85))}
+function shPayload(e,cfg,spotMap){
+  const cs=(e.catches||[]).filter(c=>c&&c.name);if(!cs.length)return null;
+  const d={v:1,date:cfg.date==='exact'?e.date:String(e.date||'').slice(0,7),catches:cs.map(c=>{const o={name:c.name,count:c.count||1};if(c.sub)o.sub=c.sub;
+    if(cfg.weight&&c.weight!=null)o.weight=c.weight;if(cfg.len&&c.len!=null)o.len=c.len;if(cfg.depth&&c.depth!=null)o.depth=c.depth;if(cfg.where&&whereOf(c).length)o.where=whereOf(c);return o})};
+  if(cfg.region){const r=shRegion(coordsOf(e,spotMap));if(r)d.region=r}
+  return d}
+async function shSync(){
+  if(!shMe||!sb)return;if(shBusy){shAgain=true;return}shBusy=true;
+  try{
+    const cfg=shCfg();const{data:have,error}=await sb.from('shared_catches').select('entry_id,data');if(error)throw error;
+    const H=new Map((have||[]).map(r=>[r.entry_id,r.data]));
+    const spotMap=new Map();entries.forEach(x=>{const c=parseCoords(x.gps);if(c&&x.spot&&!spotMap.has(norm(x.spot)))spotMap.set(norm(x.spot),{c})});
+    const want=new Map();if(cfg.on)entries.forEach(e=>{if(e.noShare||e.type==='checklist')return;const p=shPayload(e,cfg,spotMap);if(p)want.set(e.id,{p,e})});
+    const gone=[...H.keys()].filter(k=>!want.has(k));
+    for(const k of gone){const old=H.get(k);if(old&&old.photos&&old.photos.length)await sb.storage.from('photos').remove(old.photos);await sb.from('shared_catches').delete().eq('entry_id',k)}
+    for(const [id,{p,e}] of want){
+      const old=H.get(id)||null;const src=cfg.photo?(e.photos||[]).filter(x=>typeof x==='string'&&x.includes('/')).slice(0,4):[];
+      p.ph=src.length?shHash(src.join('|')):'';
+      if(old&&old.ph===p.ph&&old.photos)p.photos=old.photos;
+      else{if(old&&old.photos&&old.photos.length)await sb.storage.from('photos').remove(old.photos);
+        const out=[];for(const s of src){try{const b=await shStrip(s);const path=shMe+'/share/'+id+'-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)+'.jpg';const r=await sb.storage.from('photos').upload(path,b,{contentType:'image/jpeg'});if(!r.error)out.push(path)}catch(_){}}
+        if(out.length)p.photos=out}
+      if(!p.photos)delete p.ph;
+      if(old&&JSON.stringify(old)===JSON.stringify(p))continue;
+      await sb.from('shared_catches').upsert({user_id:shMe,entry_id:id,data:p,updated_at:new Date().toISOString()},{onConflict:'user_id,entry_id'})}
+  }catch(e){console.warn('share sync',e)}
+  shBusy=false;if(shAgain){shAgain=false;shSoon()}}
+async function frStart(user){
+  shMe=user.id;$('setFriends').hidden=false;
+  try{let{data}=await sb.from('profiles').select('name,code,share').eq('user_id',shMe).maybeSingle();
+    if(!data){const r=await sb.from('profiles').insert({user_id:shMe}).select('name,code,share').single();data=r.data}
+    shProf=data||null}catch(e){shProf=null}
+  if(!shProf){$('frBody').hidden=true;$('frSetup').hidden=false;return}
+  frDrawSettings();frList();shSoon();
+  const m=location.search.match(/[?&]amigo=([a-z0-9]{4,16})/i);
+  if(m){try{history.replaceState(null,'',location.pathname)}catch(e){}frAdd(m[1])}}
+function frDrawSettings(){const c=shCfg();$('frName').value=shProf.name||'';$('frOn').checked=!!c.on;$('frOpts').hidden=!c.on;
+  ['photo','weight','len','depth','where','region'].forEach(k=>{$('frO_'+k).checked=!!c[k]});$('frO_dateExact').checked=c.date==='exact';
+  $('frCode').textContent=shProf.code||'';$('frLink').value=location.origin+location.pathname+'?amigo='+(shProf.code||'')}
+async function frSaveProf(){const share={on:$('frOn').checked,photo:$('frO_photo').checked,weight:$('frO_weight').checked,len:$('frO_len').checked,depth:$('frO_depth').checked,where:$('frO_where').checked,region:$('frO_region').checked,date:$('frO_dateExact').checked?'exact':'month'};
+  $('frOpts').hidden=!share.on;const name=$('frName').value.trim().slice(0,40)||null;
+  const{error}=await sb.from('profiles').update({name,share,updated_at:new Date().toISOString()}).eq('user_id',shMe);
+  if(error){toast(t('frErr'));return}shProf.name=name;shProf.share=share;shSoon()}
+async function frAdd(code){code=String(code||'').trim().toLowerCase().replace(/^.*amigo=/,'');if(!code)return;
+  const{data,error}=await sb.rpc('friend_request',{c:code});
+  toast(error?t('frErr'):t({not_found:'frNotFound',self:'frSelf',accepted:'frNowFriends',pending:'frSent'}[data]||'frSent'));$('frAddIn').value='';frList()}
+async function frList(){const el=$('frUl');const{data,error}=await sb.rpc('friend_list');if(error){el.innerHTML='';return}
+  const L=data||[];$('frNone').hidden=!!L.length;
+  el.innerHTML=L.map(f=>'<li data-id="'+esc(f.id)+'"><span class="fr-n">'+esc(f.name||t('frNoName'))+'</span>'+(f.status==='accepted'?'<span class="fr-b"><button type="button" data-a="view" class="link">'+esc(t('frView'))+'</button><button type="button" data-a="del" class="link danger-l">'+esc(t('frRemove'))+'</button></span>':f.mine?'<span class="fr-b"><span class="hint">'+esc(t('frWaiting'))+'</span><button type="button" data-a="del" class="link danger-l">'+esc(t('cancel'))+'</button></span>':'<span class="fr-b"><button type="button" data-a="ok" class="primary">'+esc(t('frAccept'))+'</button><button type="button" data-a="del" class="link danger-l">'+esc(t('frDecline'))+'</button></span>')+'</li>').join('')}
+async function frView(id,name){
+  const d=$('frLib');$('frLibT').textContent=name||t('frNoName');$('frLibBody').innerHTML='<p class="hint">…</p>';if(!d.open)d.showModal();
+  const{data,error}=await sb.from('shared_catches').select('data,updated_at').eq('user_id',id).limit(2000);
+  if(error){$('frLibBody').innerHTML='<p class="hint">'+esc(t('frErr'))+'</p>';return}
+  const rows=(data||[]).map(r=>r.data).filter(Boolean);if(!rows.length){$('frLibBody').innerHTML='<p class="hint">'+esc(t('frEmpty'))+'</p>';return}
+  const sp=new Map();rows.forEach(r=>(r.catches||[]).forEach(c=>{const k=norm(c.name)+'|'+norm(c.sub||'');if(!sp.has(k))sp.set(k,{c,n:0,best:null,items:[]});const s=sp.get(k);s.n+=c.count||1;if(c.weight!=null&&(s.best==null||c.weight>s.best))s.best=c.weight;s.items.push({c,r})}));
+  const ids=[...new Set(rows.flatMap(r=>r.photos||[]))];let urls={};if(ids.length){const{data:u}=await sb.storage.from('photos').createSignedUrls(ids,3600);(u||[]).forEach(x=>{if(x.signedUrl)urls[x.path]=x.signedUrl})}
+  const fd=s=>{if(!s)return'';const p=s.split('-');return p.length>2?p[2]+'/'+p[1]+'/'+p[0]:p[1]+'/'+p[0]};
+  const list=[...sp.values()].sort((a,b)=>b.n-a.n);
+  $('frLibBody').innerHTML='<p class="hint">'+esc(t('fishN')(list.reduce((s,x)=>s+x.n,0)))+' · '+list.length+' '+esc(t('frSpecies'))+'</p><ul class="fr-sp">'+list.map(s=>{const L=latinOf(s.c.name,s.c.sub);
+    return '<li><div class="fr-h">'+fishSvg(s.c.name,s.c.sub)+'<b>'+esc(catchLabel(s.c))+'</b>'+(L?' <i class="lat">('+esc(L)+')</i>':'')+'<span class="fr-c">×'+s.n+(s.best!=null?' · máx. '+s.best.toLocaleString(locale(),{maximumFractionDigits:3})+' kg':'')+'</span></div><div class="fr-it">'+
+      s.items.sort((a,b)=>String(b.r.date).localeCompare(String(a.r.date))).map(({c,r})=>{const bits=[fd(r.date),r.region,c.weight!=null?c.weight.toLocaleString(locale(),{maximumFractionDigits:3})+' kg':'',c.len!=null?'L '+fmt(c.len)+' cm':'',c.depth!=null?fmt(c.depth)+' m':'',(c.where||[]).filter(w=>WHERE.includes(w)).map(w=>t('wh_'+w)).join(' + ')].filter(Boolean);
+        return '<div class="fr-row"><span>'+esc(bits.join(' · '))+'</span>'+((r.photos||[]).filter(p=>urls[p]).map(p=>'<a href="'+esc(urls[p])+'" target="_blank" rel="noopener"><img src="'+esc(urls[p])+'" alt="" loading="lazy"></a>').join(''))+'</div>'}).join('')+'</div></li>'}).join('')+'</ul>'}
+(function(){if(!$('setFriends'))return;
+  ['frOn','frO_photo','frO_weight','frO_len','frO_depth','frO_where','frO_region','frO_dateExact'].forEach(id=>$(id).addEventListener('change',frSaveProf));
+  let nt;$('frName').addEventListener('input',()=>{clearTimeout(nt);nt=setTimeout(frSaveProf,700)});
+  $('frAddGo').addEventListener('click',()=>frAdd($('frAddIn').value));$('frAddIn').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();frAdd($('frAddIn').value)}});
+  $('frCopy').addEventListener('click',async()=>{const v=$('frLink').value;try{await navigator.clipboard.writeText(v);toast(t('frCopied'))}catch(e){$('frLink').select()}});
+  $('frShare').addEventListener('click',async()=>{const v=$('frLink').value;try{if(navigator.share){await navigator.share({title:'Spearo Diary',text:t('frInviteTxt'),url:v});return}}catch(e){return}try{await navigator.clipboard.writeText(v);toast(t('frCopied'))}catch(e){$('frLink').select()}});
+  $('frUl').addEventListener('click',async ev=>{const b=ev.target.closest('button');if(!b)return;const li=b.closest('li'),id=li.dataset.id,a=b.dataset.a;
+    if(a==='view')return frView(id,li.querySelector('.fr-n').textContent);
+    if(a==='ok')await sb.rpc('friend_accept',{o:id});
+    if(a==='del'){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent=t('frSure');setTimeout(()=>{if(b.isConnected){b.dataset.sure='';frList()}},4000);return}await sb.rpc('friend_remove',{o:id})}
+    frList()});
+  $('frLibClose').addEventListener('click',()=>$('frLib').close());
+})();
+Object.assign(T.pt,{setFriends:'Amigos',frIntro:'Os amigos veem só a sua biblioteca de capturas, com os campos que escolher. Nunca veem coordenadas, nomes dos pesqueiros, notas nem horas.',frName:'Nome visível',frOn:'Partilhar a minha biblioteca com amigos',frShow:'Mostrar aos amigos',frO_photo:'Fotos',frO_weight:'Peso',frO_len:'Comprimento',frO_depth:'Profundidade',frO_where:'Caçado em',frO_region:'Zona (ex. Ericeira, Cascais)',frO_dateExact:'Data exata (sem isto: só mês e ano)',frMyCode:'O seu código',frInvite:'Convidar',frCopy:'Copiar',frAddL:'Código de um amigo',frAdd:'Adicionar',frNone:'Ainda sem amigos.',frView:'Ver biblioteca',frRemove:'Remover',frAccept:'Aceitar',frDecline:'Recusar',frWaiting:'À espera',frSure:'Tem a certeza?',frNoName:'Sem nome',frErr:'Não foi possível. Tente de novo.',frNotFound:'Código não encontrado.',frSelf:'Esse é o seu próprio código.',frSent:'Pedido enviado.',frNowFriends:'Agora são amigos!',frCopied:'Ligação copiada.',frInviteTxt:'Junta-te a mim no Spearo Diary:',frEmpty:'Este amigo ainda não partilha capturas.',frSpecies:'espécies',frSetup:'Os amigos ainda não estão ativos neste servidor.',noShareL:'Não partilhar esta entrada com amigos'});
+Object.assign(T.en,{setFriends:'Friends',frIntro:'Friends only see your catch library, with the fields you choose. They never see coordinates, spot names, notes or times.',frName:'Display name',frOn:'Share my library with friends',frShow:'Show to friends',frO_photo:'Photos',frO_weight:'Weight',frO_len:'Length',frO_depth:'Depth',frO_where:'Caught in',frO_region:'Area (e.g. Ericeira, Cascais)',frO_dateExact:'Exact date (otherwise month and year only)',frMyCode:'Your code',frInvite:'Invite',frCopy:'Copy',frAddL:"A friend's code",frAdd:'Add',frNone:'No friends yet.',frView:'View library',frRemove:'Remove',frAccept:'Accept',frDecline:'Decline',frWaiting:'Waiting',frSure:'Are you sure?',frNoName:'No name',frErr:"Couldn't do that. Try again.",frNotFound:'Code not found.',frSelf:"That's your own code.",frSent:'Request sent.',frNowFriends:'You are now friends!',frCopied:'Link copied.',frInviteTxt:'Join me on Spearo Diary:',frEmpty:"This friend isn't sharing catches yet.",frSpecies:'species',frSetup:'Friends are not enabled on this server yet.',noShareL:"Don't share this entry with friends"});
+
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!DEMO)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 boot();
 })();
