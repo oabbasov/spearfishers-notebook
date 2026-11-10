@@ -56,12 +56,16 @@ header{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .set-sec{display:grid;gap:8px}
 .sc-d{width:min(440px,calc(100vw - 24px))}
 .sc-d .sheet-in{gap:12px;max-height:calc(100dvh - 26px);overflow-y:auto}
-.sc-wrap{position:relative;justify-self:center;line-height:0;height:min(48dvh,440px);aspect-ratio:9/16;max-width:100%}
+.sc-wrap{position:relative;line-height:0;height:min(48dvh,440px);aspect-ratio:9/16;max-width:calc(100% - 88px)}
 .sc-wrap.post{aspect-ratio:4/5;height:min(40dvh,360px)}
 .sc-wrap canvas{width:100%;height:100%;border-radius:10px;background:var(--sea-soft);box-shadow:0 4px 18px rgba(4,20,26,.25)}
 .sc-busy{position:absolute;inset:0;display:grid;place-items:center;line-height:1}
-.sc-arr{all:unset;cursor:pointer;position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(4,20,26,.55);color:#fff;display:grid;place-items:center}
-.sc-arr.l{left:6px}.sc-arr.r{right:6px}
+.sc-stage{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0}
+.sc-arr{all:unset;box-sizing:border-box;cursor:pointer;flex:none;width:36px;height:36px;border-radius:50%;background:var(--sea-soft);color:var(--ink);display:grid;place-items:center}
+.sc-arr:hover{background:var(--line)}
+.sc-arr[hidden]{display:grid!important;visibility:hidden}
+.sc-ic{display:inline-flex;align-items:center;gap:2px}
+.sc-ic .ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .sc-n{position:absolute;right:8px;top:8px;background:rgba(4,20,26,.55);color:#fff;font-size:12px;line-height:1;padding:4px 8px;border-radius:999px}
 .sc-wrap.drag canvas{cursor:grab;touch-action:none}
 .sc-fit{display:flex;gap:8px;justify-content:center}
@@ -1104,9 +1108,7 @@ dialog:not(#viewer){top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-
 </dialog>
 <dialog id="scD" class="sheet sc-d"><div class="sheet-in">
   <div class="sheet-head"><h2 data-i="scTitle"></h2><button type="button" id="scClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
-  <div class="sc-wrap" id="scWrap"><canvas id="scCv" width="1080" height="1920"></canvas><p class="hint sc-busy" id="scBusy" hidden>…</p>
-    <button type="button" class="sc-arr l" id="scPrev" aria-label="‹"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="sc-arr r" id="scNext" aria-label="›"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="sc-n" id="scN"></span></div>
-  <div class="sc-fit" id="scFitB"><button type="button" data-v="fill" data-i="scFill"></button><button type="button" data-v="fit" data-i="scWhole"></button></div>
+  <div class="sc-stage"><button type="button" class="sc-arr l" id="scPrev" aria-label="‹"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="sc-wrap" id="scWrap"><canvas id="scCv" width="1080" height="1920"></canvas><p class="hint sc-busy" id="scBusy" hidden>…</p><span class="sc-n" id="scN"></span></div><button type="button" class="sc-arr r" id="scNext" aria-label="›"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
   <p class="hint sc-h2" id="scHint2" data-i="scHint2"></p>
   <div class="so-tabs" id="scFmt"><button type="button" data-v="story" data-i="scStory"></button><button type="button" data-v="post" data-i="scPost"></button></div>
   <div class="sc-row"><span class="sc-lab" data-i="scLocL"></span><div class="so-tabs" id="scLoc"><button type="button" data-v="zone" data-i="scZone"></button><button type="button" data-v="spot" data-i="scSpot"></button><button type="button" data-v="none" data-i="scNone"></button></div><div class="sc-chips" id="scNear"></div></div>
@@ -3344,7 +3346,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794340918';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794342290';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3568,7 +3570,7 @@ Object.assign(T.en,{socNav:'Friends',soFeed:'Feed',soFind:'Search',soMe:'Profile
   frIntro:'Your followers only see the catches you share, with the fields you choose. They never see coordinates, spot names, notes or times.',frName:'Display name',frOn:'Share my catches',frShow:'Show',frO_photo:'Photos',frO_weight:'Weight',frO_len:'Length',frO_depth:'Depth',frO_where:'Caught in',frO_region:'Area (e.g. Ericeira, Cascais)',frO_dateExact:'Exact date (otherwise month and year only)',frAccept:'Accept',frDecline:'Decline',frSure:'Are you sure?',frNoName:'No name',frErr:"Couldn't do that. Try again.",noShareL:"Don't share this entry with friends"});
 
 /* ===== Share an entry as an image (Instagram story or post) ===== */
-const SC_OPTS=[['w','scWeight'],['l','scLen'],['d','scDepth'],['wh','scWhere'],['dt','scDate'],['tm','scTime'],['md','scMaxD'],['dv','scDives'],['vi','scVis'],['wt','scWater'],['td','scTide'],['se','scSea'],['we','scWeather'],['wi','scWind'],['cu','scCur'],['ge','scGear']];
+const SC_OPTS=[['w','scWeight'],['l','scLen'],['dt','scDate'],['md','maxU'],['dv','scDives'],['wt','°C'],['cu','scCur']];
 const SC=Object.assign({fmt:'story',loc:'zone',photo:true,o:{w:1,l:1,dt:1,md:1,vi:1,wt:1}},(()=>{try{const v=JSON.parse(localStorage.getItem('sn-sc')||'{}');return v&&v.o?v:{}}catch(e){return{}}})());
 let scE=null,scImgs=[],scPi=0,scFish=new Map(),scRaf=0,scLogo=null,scNear=null,scNearSel=null,scCrop=new Map();
 function scSave(){try{localStorage.setItem('sn-sc',JSON.stringify({fmt:SC.fmt,loc:SC.loc,photo:SC.photo,o:SC.o}))}catch(e){}}
@@ -3599,7 +3601,9 @@ async function scLogoMake(){const h1=document.querySelector('header h1');if(!h1)
   return L}
 function scLocText(e){if(SC.loc==='none')return'';if(SC.loc==='spot')return e.spot||'';return scNearSel||''}
 function scCoords(e){const sm=new Map();entries.forEach(x=>{const c=parseCoords(x.gps);if(c&&x.spot&&!sm.has(norm(x.spot)))sm.set(norm(x.spot),{c})});return coordsOf(e,sm)}
-async function scNearby(e){const c=scCoords(e);const reg=c?shRegion(c):null;
+async function scGeo(name){const k='sn-geo-'+norm(name);try{const v=JSON.parse(localStorage.getItem(k)||'null');if(v)return v.lat!=null?v:null}catch(_){}
+  try{const r=await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&format=json&language=pt&countryCode=PT&name='+encodeURIComponent(name));const j=await r.json();const g=j.results&&j.results[0];const v=g?{lat:g.latitude,lon:g.longitude}:{};try{localStorage.setItem(k,JSON.stringify(v))}catch(_){}return g?v:null}catch(_){return null}}
+async function scNearby(e){let c=scCoords(e);if(!c&&e.spot)c=await scGeo(e.spot);const reg=c?shRegion(c):null;
   if(!c){scNear=[];scNearSel=null;return}
   const key='sn-near-'+c.lat.toFixed(3)+','+c.lon.toFixed(3);let list=null;try{list=JSON.parse(localStorage.getItem(key)||'null')}catch(_){}
   if(!list){try{const q='[out:json][timeout:12];(nwr["natural"="beach"]["name"](around:5000,'+c.lat+','+c.lon+');node["place"~"^(city|town|village|hamlet|suburb|neighbourhood|locality)$"]["name"](around:9000,'+c.lat+','+c.lon+'););out center tags 80;';
@@ -3609,23 +3613,26 @@ async function scNearby(e){const c=scCoords(e);const reg=c?shRegion(c):null;
       list=(js.elements||[]).map(el=>{const la=el.lat!=null?el.lat:el.center&&el.center.lat,lo=el.lon!=null?el.lon:el.center&&el.center.lon;const n=el.tags&&(el.tags['name:'+lang]||el.tags.name);
           return la==null||!n?null:{n,b:el.tags.natural==='beach',d:Math.hypot((la-c.lat)*111,(lo-c.lon)*111*k)}}).filter(Boolean)
         .sort((a,b)=>a.d-b.d).filter(x=>{const kk=norm(x.n);if(seen.has(kk))return false;seen.add(kk);return true}).slice(0,7);
-      try{localStorage.setItem(key,JSON.stringify(list))}catch(_){}}catch(err){list=[]}}
+      if(list.length)try{localStorage.setItem(key,JSON.stringify(list))}catch(_){}}catch(err){list=[]}
+    if(!list.length){try{const r=await fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=14&accept-language='+lang+'&lat='+c.lat+'&lon='+c.lon);const j=await r.json();const a=j.address||{};const n=a.village||a.town||a.suburb||a.hamlet||a.city||a.municipality;if(n)list=[{n}]}catch(_){}}}
   scNear=list.slice();if(reg&&!scNear.some(x=>norm(x.n)===norm(reg)))scNear.push({n:reg,r:true});
   let pick=null;try{pick=JSON.parse(localStorage.getItem('sn-sc-pick')||'{}')[e.id]}catch(_){}
   scNearSel=(pick&&scNear.some(x=>x.n===pick))?pick:(scNear[0]&&scNear[0].n)||null}
 function scWith(){return String($('scWithIn').value||'').split(/[\s,;]+/).map(s=>s.replace(/^@+/,'').toLowerCase().replace(/[^a-z0-9._]/g,'')).filter(Boolean).map(s=>'@'+s)}
 function scMeta(e){const o=SC.o,a=[],b=[];
-  if(o.dt)a.push(fmtDate(e.date));if(o.tm&&e.timeIn)a.push(e.timeIn+(e.timeOut?'–'+e.timeOut:''));const L=scLocText(e);if(L)a.push(L);
-  const md=entryMaxDepth(e);if(o.md&&md!=null)b.push(t('scMaxD')+' '+fmt(md)+' m');if(o.dv&&e.dives!=null)b.push(fmt(e.dives)+' '+t('divesU'));
-  if(o.vi&&e.vis!=null)b.push(t('shVis')+' '+fmt(e.vis)+' m');if(o.wt&&e.temp!=null)b.push(t('scWaterS')+' '+fmt(e.temp)+' °C');
-  const[ta,tb]=tidesOf(e);if(o.td&&(ta||tb))b.push(t('scTideS')+' '+(ta?t('tideS_'+ta):'—')+(tb?' → '+t('tideS_'+tb):''));
-  if(o.se&&e.sea)b.push(t('sea_'+e.sea));if(o.we&&e.weather)b.push(t('w_'+e.weather));if(o.wi&&e.wind)b.push(t('wind')+' '+e.wind);
-  if(o.cu&&e.current)b.push(t('cur_'+e.current));if(o.ge&&e.gear)b.push(String(e.gear));
+  if(o.dt)a.push({t:fmtDate(e.date)});const L=scLocText(e);if(L)a.push({t:L});
+  const md=entryMaxDepth(e);if(o.md&&md!=null)b.push({i:'depth',t:t('maxU')+' '+fmt(md)+' m'});if(o.dv&&e.dives!=null)b.push({t:fmt(e.dives)+' '+t('divesU')});
+  if(o.wt&&e.temp!=null)b.push({t:fmt(e.temp)+' °C'});if(o.cu&&e.current)b.push({t:t('cur_'+e.current)});
   return [a,b]}
 function scCur(){const im=SC.photo?scImgs[scPi]:null;if(!im)return null;const k=scPi+'|'+SC.fmt;
   if(!scCrop.has(k)){const W=1080,H=SC.fmt==='story'?1920:1350;const f0=Math.min(W/im.naturalWidth,H/im.naturalHeight),c0=Math.max(W/im.naturalWidth,H/im.naturalHeight);scCrop.set(k,{z:c0/f0,cx:W/2,cy:H/2})}
   return scCrop.get(k)}
-function scWrapLines(x,items,max,maxL){const out=[];let cur='';items.forEach(s=>{const n=cur?cur+'  ·  '+s:s;if(x.measureText(n).width>max&&cur){out.push(cur);cur=s}else cur=n});if(cur)out.push(cur);return out.slice(0,maxL)}
+const SC_IW=40,SC_SEP='  ·  ';
+function scItemW(x,it){return x.measureText(it.t).width+(it.i?SC_IW+4:0)}
+function scWrapLines(x,items,max,maxL){const out=[];let cur=[],w=0;const sw=x.measureText(SC_SEP).width;items.forEach(it=>{const iw=scItemW(x,it);if(cur.length&&w+sw+iw>max){out.push(cur);cur=[it];w=iw}else{w+=(cur.length?sw:0)+iw;cur.push(it)}});if(cur.length)out.push(cur);return out.slice(0,maxL)}
+function scDrawLine(x,line,X,Y,col){let px=X;line.forEach((it,j)=>{if(j){x.fillText(SC_SEP,px,Y);px+=x.measureText(SC_SEP).width}
+  if(it.i==='depth'){const s=SC_IW/24;x.save();x.translate(px,Y-SC_IW*.82);x.scale(s,s);x.strokeStyle=col;x.lineWidth=2.2;x.lineCap='round';x.lineJoin='round';x.stroke(new Path2D('M12 3v13M6.5 10.5 12 16l5.5-5.5M4 21h16'));x.restore();px+=SC_IW+4}
+  x.fillText(it.t,px,Y);px+=x.measureText(it.t).width})}
 function scFit(x,s,w){if(x.measureText(s).width<=w)return s;while(s.length>1&&x.measureText(s+'…').width>w)s=s.slice(0,-1);return s.trimEnd()+'…'}
 function scPaint(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920:1350,story=SC.fmt==='story';
   const cv=$('scCv');if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H}const x=cv.getContext('2d');x.clearRect(0,0,W,H);x.textAlign='left';
@@ -3642,19 +3649,18 @@ function scPaint(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920
   let g=x.createLinearGradient(0,H*.36,0,H);g.addColorStop(0,'rgba(4,20,26,0)');g.addColorStop(.45,'rgba(4,20,26,.62)');g.addColorStop(1,'rgba(4,20,26,.93)');x.fillStyle=g;x.fillRect(0,H*.36,W,H*.64);
   const P=76;
   // logo: the site title with its diver, on a soft dark glow so it reads on any photo
-  const L=scLogo,tw=story?520:460,top=story?250:150;
-  if(L){const k=tw/L.w,cx=P+tw/2,cy=top+L.h*k*.35;const rg=x.createRadialGradient(cx,cy,10,cx,cy,tw*.78);rg.addColorStop(0,'rgba(4,20,26,.55)');rg.addColorStop(.6,'rgba(4,20,26,.25)');rg.addColorStop(1,'rgba(4,20,26,0)');
-    x.save();x.translate(cx,cy);x.scale(1,.55);x.translate(-cx,-cy);x.fillStyle=rg;x.fillRect(cx-tw,cy-tw,tw*2,tw*2);x.restore();
-    const ox=P-L.sx*k,oy=top;x.save();x.shadowColor='rgba(0,0,0,.55)';x.shadowBlur=22;x.shadowOffsetY=3;
+  const L=scLogo,tw=story?416:368;
+  if(L){const k=tw/L.w,lift=-.95*L.f,old=(story?250:150)+lift*(story?520:460)/L.w,top=old/2-lift*k;
+    const ox=P-L.sx*k,oy=top;x.save();x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=10;x.shadowOffsetY=2;
     x.font=L.wt+' '+(L.f*k)+'px '+L.fam;x.fillStyle='#FFFFFF';x.fillText('Spearo',ox+L.sx*k,oy+L.base*k);x.fillStyle='#57C4D1';x.fillText('Diary',ox+L.dx*k,oy+L.base*k);
     if(L.img)x.drawImage(L.img,ox+L.il*k,oy+L.it*k,L.iw*k,L.ih*k);x.restore()}
-  else{x.font='700 50px '+D;x.fillStyle='#fff';x.fillText('Spearo',P,top+50);const sw=x.measureText('Spearo ').width;x.fillStyle='#57C4D1';x.fillText('Diary',P+sw,top+50)}
+  else{x.font='700 42px '+D;x.fillStyle='#fff';x.fillText('Spearo',P,story?140:90);const sw=x.measureText('Spearo ').width;x.fillStyle='#57C4D1';x.fillText('Diary',P+sw,story?140:90)}
   // bottom block, drawn upwards
   let y=H-(story?260:84);
   x.font='500 28px '+B;x.fillStyle='rgba(214,232,233,.75)';x.fillText('spearodiary.github.io',P,y);y-=60;
   const [ma,mb]=scMeta(e);x.font='500 34px '+B;x.fillStyle='#E3F0EF';
-  const lines=scWrapLines(x,ma,W-2*P,2).concat(scWrapLines(x,mb,W-2*P,3));
-  lines.reverse().forEach(s=>{x.fillText(scFit(x,s,W-2*P),P,y);y-=48});
+  const lines=scWrapLines(x,ma,W-2*P,2).concat(scWrapLines(x,mb,W-2*P,2));
+  lines.reverse().forEach(l=>{scDrawLine(x,l,P,y,'#E3F0EF');y-=50});
   const wi=scWith();if(wi.length){y-=4;x.font='600 36px '+B;x.fillStyle='#57C4D1';x.fillText(scFit(x,t('scWithT')+' '+wi.join(', '),W-2*P),P,y);y-=52}
   y-=22;
   const show=cs.slice(0,story?5:4),more=cs.length-show.length;
@@ -3663,18 +3669,17 @@ function scPaint(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920
   for(let i=show.length-1;i>=0;i--){const c=show[i];const f=scFish.get((fishSvg(c.name,c.sub).match(/#f-([^"]+)/)||[])[1]);const tp=y-RH+16;
     if(f)x.drawImage(f,P-8,tp+(RH-FH)/2-14,FW,FH);
     const tx=P+FW+18,avail=W-P-tx,o=SC.o;
-    const det=[o.w&&c.weight!=null?c.weight.toLocaleString(locale(),{maximumFractionDigits:3})+' kg':'',o.l&&c.len!=null?fmt(c.len)+' cm':'',o.d&&c.depth!=null?fmt(c.depth)+' m':''].filter(Boolean).join(' · ');
+    const det=[o.w&&c.weight!=null?c.weight.toLocaleString(locale(),{maximumFractionDigits:3})+' kg':'',o.l&&c.len!=null?fmt(c.len)+' cm':''].filter(Boolean).join(' · ');
     x.font='600 40px '+B;const dw=det?x.measureText(det).width:0;
     if(det){x.fillStyle='#FFD9BF';x.textAlign='right';x.fillText(det,W-P,tp+52);x.textAlign='left'}
     x.font='700 '+(cs.length>3?44:50)+'px '+D;x.fillStyle='#fff';x.fillText(scFit(x,catchLabel(c)+((c.count||1)>1?' ×'+c.count:''),avail-(det?dw+24:0)),tx,tp+54);
-    const sub=[latinOf(c.name,c.sub),o.wh?whereOf(c).filter(w=>WHERE.includes(w)).map(w=>t('wh_'+w)).join(' + '):''].filter(Boolean);
-    if(sub.length){x.font='italic 400 31px '+B;x.fillStyle='#BFD8DA';x.fillText(scFit(x,sub.join(' · '),avail),tx,tp+96)}
+    const lat=latinOf(c.name,c.sub);if(lat){x.font='italic 400 31px '+B;x.fillStyle='#BFD8DA';x.fillText(scFit(x,lat,avail),tx,tp+96)}
     y-=RH}}
 function scQueue(){if(scRaf)return;scRaf=requestAnimationFrame(()=>{scRaf=0;scPaint()})}
 function scUi(){document.querySelectorAll('#scFmt button').forEach(b=>b.classList.toggle('on',b.dataset.v===SC.fmt));document.querySelectorAll('#scLoc button').forEach(b=>b.classList.toggle('on',b.dataset.v===SC.loc));
   $('scPh').checked=SC.photo;SC_OPTS.forEach(([k])=>{const i=$('scO_'+k);if(i)i.checked=!!SC.o[k]});
   $('scPhL').hidden=!scImgs.length;const hasP=SC.photo&&scImgs.length;const many=hasP&&scImgs.length>1;$('scPrev').hidden=$('scNext').hidden=!many;$('scN').hidden=!many;$('scN').textContent=(scPi+1)+'/'+scImgs.length;
-  $('scFitB').hidden=!hasP;$('scHint2').hidden=!hasP;$('scWrap').classList.toggle('post',SC.fmt==='post');$('scWrap').classList.toggle('drag',!!hasP);
+  $('scHint2').hidden=!hasP;$('scWrap').classList.toggle('post',SC.fmt==='post');$('scWrap').classList.toggle('drag',!!hasP);
   const nb=$('scNear');nb.hidden=SC.loc!=='zone';nb.innerHTML=scNear==null?'<span class="hint">…</span>':scNear.length?scNear.map(p=>'<button type="button" class="sc-chip'+(p.n===scNearSel?' on':'')+'" data-n="'+esc(p.n)+'">'+esc(p.n)+(p.d!=null?' <small>'+(p.d<1?Math.round(p.d*1000)+' m':p.d.toFixed(1).replace('.',locale().startsWith('pt')?',':'.')+' km')+'</small>':'')+'</button>').join(''):'<span class="hint">'+esc(t('scNoNear'))+'</span>';
   const fr=[...new Map((SO.fol||[]).filter(f=>f.status==='accepted'&&f.username).map(f=>[f.username,f])).keys()];const cur=new Set(scWith());
   $('scWithChips').innerHTML=fr.map(u=>'<button type="button" class="sc-chip'+(cur.has('@'+u)?' on':'')+'" data-u="'+esc(u)+'">@'+esc(u)+'</button>').join('');$('scWithL').hidden=!shMe}
@@ -3687,7 +3692,7 @@ async function scOpen(e){scE=e;scPi=0;scImgs=[];scNear=null;scNearSel=null;scCro
 async function scFile(){scPaint();const b=await new Promise(r=>$('scCv').toBlob(r,'image/jpeg',.92));return new File([b],'spearo-diary-'+(scE.date||'catch')+'.jpg',{type:'image/jpeg'})}
 function scDownload(f){const u=URL.createObjectURL(f);const a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
 (function(){const d=$('scD');if(!d)return;
-  $('scChk').insertAdjacentHTML('beforeend',SC_OPTS.map(([k,l])=>'<label class="chk"><input type="checkbox" id="scO_'+k+'"><span data-i="'+l+'"></span></label>').join(''));
+  $('scChk').insertAdjacentHTML('beforeend',SC_OPTS.map(([k,l])=>'<label class="chk"><input type="checkbox" id="scO_'+k+'">'+(k==='md'?'<span class="sc-ic">'+ICON.depth+'<span data-i="maxU"></span></span>':k==='wt'?'<span>°C</span>':'<span data-i="'+l+'"></span>')+'</label>').join(''));
   $('scClose').addEventListener('click',()=>d.close());
   $('list').addEventListener('click',ev=>{const b=ev.target.closest('[data-share]');if(!b)return;const e=entries.find(x=>x.id===b.dataset.share);if(e)scOpen(e)});
   const re=()=>{scSave();scUi();scQueue()};
@@ -3699,28 +3704,27 @@ function scDownload(f){const u=URL.createObjectURL(f);const a=document.createEle
   $('scPh').addEventListener('change',()=>{SC.photo=$('scPh').checked;re()});
   SC_OPTS.forEach(([k])=>$('scO_'+k).addEventListener('change',ev=>{SC.o[k]=ev.target.checked?1:0;re()}));
   $('scPrev').addEventListener('click',()=>{scPi=(scPi-1+scImgs.length)%scImgs.length;re()});$('scNext').addEventListener('click',()=>{scPi=(scPi+1)%scImgs.length;re()});
-  $('scFitB').addEventListener('click',ev=>{const b=ev.target.closest('button');const c=scCur();if(!b||!c)return;const im=scImgs[scPi],W=1080,H=SC.fmt==='story'?1920:1350;
-    c.z=b.dataset.v==='fit'?1:Math.max(W/im.naturalWidth,H/im.naturalHeight)/Math.min(W/im.naturalWidth,H/im.naturalHeight);c.cx=W/2;c.cy=H/2;scQueue()});
+  const scToggle=()=>{const c=scCur();if(!c)return;const im=scImgs[scPi],W=1080,H=SC.fmt==='story'?1920:1350;const cz=Math.max(W/im.naturalWidth,H/im.naturalHeight)/Math.min(W/im.naturalWidth,H/im.naturalHeight);c.z=c.z>1.01?1:cz;c.cx=W/2;c.cy=H/2;scQueue()};
   // drag to move, pinch or wheel to zoom, double tap to switch whole photo / fill
   const cv=$('scCv'),ptr=new Map();
   const toCv=(px,py)=>{const r=cv.getBoundingClientRect(),k=cv.width/r.width;return[(px-r.left)*k,(py-r.top)*k]};
   const zoomAt=(c,r,m)=>{const im=scImgs[scPi],W=cv.width,H=cv.height,f0=Math.min(W/im.naturalWidth,H/im.naturalHeight),c0=Math.max(W/im.naturalWidth,H/im.naturalHeight);
     const nz=Math.max(1,Math.min(c.z*r,6*c0/f0));r=nz/c.z;c.cx=m[0]+(c.cx-m[0])*r;c.cy=m[1]+(c.cy-m[1])*r;c.z=nz};
-  cv.addEventListener('pointerdown',ev=>{if(!scCur())return;ev.preventDefault();try{cv.setPointerCapture(ev.pointerId)}catch(_){}ptr.set(ev.pointerId,[ev.clientX,ev.clientY])});
+  let tap=null;
+  cv.addEventListener('pointerdown',ev=>{if(!scCur())return;ev.preventDefault();try{cv.setPointerCapture(ev.pointerId)}catch(_){}ptr.set(ev.pointerId,[ev.clientX,ev.clientY]);tap=ptr.size===1?{x:ev.clientX,y:ev.clientY,t:Date.now()}:null});
   cv.addEventListener('pointermove',ev=>{if(!ptr.has(ev.pointerId))return;const c=scCur();if(!c)return;const pv=ptr.get(ev.pointerId),k=cv.width/cv.getBoundingClientRect().width;
     if(ptr.size===1){c.cx+=(ev.clientX-pv[0])*k;c.cy+=(ev.clientY-pv[1])*k}
     else{const o=[...ptr.entries()].find(([id])=>id!==ev.pointerId)[1];const d0=Math.hypot(pv[0]-o[0],pv[1]-o[1]),d1=Math.hypot(ev.clientX-o[0],ev.clientY-o[1]);
       const m0=toCv((pv[0]+o[0])/2,(pv[1]+o[1])/2),m1=toCv((ev.clientX+o[0])/2,(ev.clientY+o[1])/2);c.cx+=m1[0]-m0[0];c.cy+=m1[1]-m0[1];if(d0>4)zoomAt(c,d1/d0,m1)}
-    ptr.set(ev.pointerId,[ev.clientX,ev.clientY]);scQueue()});
-  const up=ev=>ptr.delete(ev.pointerId);cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+    if(tap&&Math.hypot(ev.clientX-tap.x,ev.clientY-tap.y)>8)tap=null;ptr.set(ev.pointerId,[ev.clientX,ev.clientY]);scQueue()});
+  const up=ev=>{const was=ptr.has(ev.pointerId);ptr.delete(ev.pointerId);if(was&&tap&&!ptr.size&&ev.type==='pointerup'&&Date.now()-tap.t<400)scToggle();if(!ptr.size)tap=null};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
   cv.addEventListener('wheel',ev=>{const c=scCur();if(!c)return;ev.preventDefault();zoomAt(c,Math.exp(-ev.deltaY/400),toCv(ev.clientX,ev.clientY));scQueue()},{passive:false});
-  cv.addEventListener('dblclick',ev=>{const c=scCur();if(!c)return;const im=scImgs[scPi],W=cv.width,H=cv.height;const cz=Math.max(W/im.naturalWidth,H/im.naturalHeight)/Math.min(W/im.naturalWidth,H/im.naturalHeight);c.z=c.z>1.01?1:cz;c.cx=W/2;c.cy=H/2;scQueue()});
   ['gesturestart','gesturechange'].forEach(n=>cv.addEventListener(n,ev=>ev.preventDefault()));
   $('scShare').addEventListener('click',async()=>{try{const f=await scFile();if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]})}catch(err){if(err&&err.name!=='AbortError')scDownload(f)}}else scDownload(f)}catch(e){toast(t('frErr'))}});
-  $('scSaveB').addEventListener('click',async()=>{try{scDownload(await scFile())}catch(e){toast(t('frErr'))}});
+  $('scSaveB').addEventListener('click',async()=>{try{const f=await scFile();const mob=matchMedia('(pointer:coarse)').matches;if(mob&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]})}catch(err){}}else scDownload(f)}catch(e){toast(t('frErr'))}});
 })();
-Object.assign(T.pt,{share:'Partilhar',scTitle:'Partilhar imagem',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Local',scZone:'Perto de',scSpot:'Pesqueiro',scNone:'Esconder',scPhoto:'Foto',scWeight:'Peso',scLen:'Comprimento',scDepth:'Profund. do peixe',scWhere:'Caçado em',scDate:'Data',scTime:'Hora',scMaxD:'Prof. máx.',scDives:'Mergulhos',scVis:'Visibilidade',scWater:'Temp. da água',scWaterS:'Água',scTide:'Maré',scTideS:'Maré',scSea:'Mar',scWeather:'Tempo',scWind:'Vento',scCur:'Corrente',scGear:'Equipamento',scShowL:'Mostrar',scWithL:'Com amigos',scWithPh:'@username',scWithT:'com',scFill:'Preencher',scWhole:'Foto inteira',scHint2:'Arraste a foto para a mover e aperte com dois dedos para zoom. Toque duplo: foto inteira ou preencher.',scNoNear:'Sem localidades por perto: use «Pesqueiro» ou esconda.',scSaveB:'Guardar imagem',scHint:'No telemóvel, escolha Instagram no menu de partilha (Story ou publicação). No computador, guarde a imagem. Os nomes por perto vêm do OpenStreetMap.',scMore:'mais',shVis:'Visib.'});
-Object.assign(T.en,{share:'Share',scTitle:'Share image',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Place',scZone:'Near',scSpot:'Spot',scNone:'Hide',scPhoto:'Photo',scWeight:'Weight',scLen:'Length',scDepth:'Fish depth',scWhere:'Caught in',scDate:'Date',scTime:'Time',scMaxD:'Max depth',scDives:'Dives',scVis:'Visibility',scWater:'Water temp.',scWaterS:'Water',scTide:'Tide',scTideS:'Tide',scSea:'Sea',scWeather:'Weather',scWind:'Wind',scCur:'Current',scGear:'Gear',scShowL:'Show',scWithL:'With friends',scWithPh:'@username',scWithT:'with',scFill:'Fill',scWhole:'Whole photo',scHint2:'Drag the photo to move it and pinch to zoom. Double tap: whole photo or fill.',scNoNear:'No places nearby: use “Spot” or hide it.',scSaveB:'Save image',scHint:'On your phone, pick Instagram in the share menu (Story or post). On a computer, save the image. Nearby names come from OpenStreetMap.',scMore:'more',shVis:'Vis.'});
+Object.assign(T.pt,{share:'Partilhar',scTitle:'Partilhar imagem',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Local',scZone:'Perto de',scSpot:'Pesqueiro',scNone:'Esconder',scPhoto:'Foto',scWeight:'Peso',scLen:'Comprimento',scDepth:'Profund. do peixe',scWhere:'Caçado em',scDate:'Data',scTime:'Hora',scMaxD:'Prof. máx.',scDives:'Mergulhos',scVis:'Visibilidade',scWater:'Temp. da água',scWaterS:'Água',scTide:'Maré',scTideS:'Maré',scSea:'Mar',scWeather:'Tempo',scWind:'Vento',scCur:'Corrente',scGear:'Equipamento',scShowL:'Mostrar',scWithL:'Com amigos',scWithPh:'@username',scWithT:'com',scFill:'Preencher',scWhole:'Foto inteira',scHint2:'Toque na foto: inteira ou a preencher. Arraste para mover, dois dedos para zoom.',scNoNear:'Sem localidades por perto: use «Pesqueiro» ou esconda.',scSaveB:'Guardar imagem',scHint:'No telemóvel: em «Partilhar» escolha Instagram; em «Guardar imagem» toque em «Guardar imagem» no menu e a foto vai para a galeria. Os nomes por perto vêm do OpenStreetMap.',scMore:'mais',shVis:'Visib.'});
+Object.assign(T.en,{share:'Share',scTitle:'Share image',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Place',scZone:'Near',scSpot:'Spot',scNone:'Hide',scPhoto:'Photo',scWeight:'Weight',scLen:'Length',scDepth:'Fish depth',scWhere:'Caught in',scDate:'Date',scTime:'Time',scMaxD:'Max depth',scDives:'Dives',scVis:'Visibility',scWater:'Water temp.',scWaterS:'Water',scTide:'Tide',scTideS:'Tide',scSea:'Sea',scWeather:'Weather',scWind:'Wind',scCur:'Current',scGear:'Gear',scShowL:'Show',scWithL:'With friends',scWithPh:'@username',scWithT:'with',scFill:'Fill',scWhole:'Whole photo',scHint2:'Tap the photo: whole or fill. Drag to move, pinch to zoom.',scNoNear:'No places nearby: use “Spot” or hide it.',scSaveB:'Save image',scHint:'On your phone: in “Share” pick Instagram; in “Save image” tap “Save Image” in the menu and it goes to your photos. Nearby names come from OpenStreetMap.',scMore:'more',shVis:'Vis.'});
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!DEMO)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 boot();
 })();
