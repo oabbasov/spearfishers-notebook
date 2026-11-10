@@ -388,6 +388,7 @@ a{color:var(--sea);text-underline-offset:2px}
 .catch-item:focus-visible{outline:2px solid var(--sea)}
 .catch b{font-weight:600}
 .cond{font-size:13px;line-height:1.7;color:var(--muted);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.cond .ci{display:inline-block;max-width:100%}
 .acts .ico{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;border-radius:8px;text-decoration:none;color:var(--sea)}
 .acts .ico:hover{background:var(--sea-soft)}
 .acts .ico:focus-visible{outline:2px solid var(--sea);outline-offset:1px}
@@ -1942,8 +1943,8 @@ function tideHtml(e){
 }
 function entryHtml(e,cm){
   const k=kindOf(e),title=e.spot||e.title||'';
-  const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+(latinOf(c.name,c.sub)?' <i class="lat">('+hl(latinOf(c.name,c.sub))+')</i>':'')+(c.count>1?' ×'+c.count:'')+(c.weight!=null?' <span class="kg">'+fmt(c.weight)+' '+t('catchKgS')+'</span>':'')+cwHtml(w)+'</span>'}).join(''):'';
-  const cond=[e.timeIn?'<span style="white-space:nowrap">'+ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):'')+(duration(e.timeIn,e.timeOut)?' ('+duration(e.timeIn,e.timeOut)+')':'')+'</span>':'',e.depth!=null?iconVal('depth',e.depth):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null?fmt(e.temp)+' °C':'',tideHtml(e),currentHtml(e),e.weather?'<span style="white-space:nowrap">'+WICON[e.weather]+hl(t('w_'+e.weather))+'</span>':'',e.sea?hl(t('sea_'+e.sea)):'',e.wind?hl(e.wind):'',e.gear?hl(e.gear):'',e.gps&&!parseCoords(e.gps)&&!isUrl(e.gps)?hl(e.gps):'',(e.tags||[]).map(x=>'#'+hl(x)).join(' ')].filter(Boolean).join(' · ');
+  const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+(latinOf(c.name,c.sub)?' <i class="lat">('+hl(latinOf(c.name,c.sub))+')</i>':'')+((c.count>1||c.weight!=null)?' <span style="white-space:nowrap">'+(c.count>1?'×'+c.count:'')+(c.weight!=null?(c.count>1?' ':'')+'<span class="kg">'+fmt(c.weight)+' '+t('catchKgS')+'</span>':'')+'</span>':'')+cwHtml(w)+'</span>'}).join(''):'';
+  const cond=[e.timeIn?'<span style="white-space:nowrap">'+ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):'')+(duration(e.timeIn,e.timeOut)?' ('+duration(e.timeIn,e.timeOut)+')':'')+'</span>':'',e.depth!=null?iconVal('depth',e.depth):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null?fmt(e.temp)+' °C':'',tideHtml(e),currentHtml(e),e.weather?'<span style="white-space:nowrap">'+WICON[e.weather]+hl(t('w_'+e.weather))+'</span>':'',e.sea?hl(t('sea_'+e.sea)):'',e.wind?hl(e.wind):'',e.gear?String(e.gear).split(/,\s*/).filter(Boolean).map(x=>'<span class="ci">'+hl(x)+'</span>').join(', '):'',e.gps&&!parseCoords(e.gps)&&!isUrl(e.gps)?hl(e.gps):'',(e.tags||[]).map(x=>'<span class="ci">#'+hl(x)+'</span>').join(' ')].filter(Boolean).map(x=>/^<span class="ci">/.test(x)?x:'<span class="ci">'+x+'</span>').join(' · ');
   const c=coordsOf(e,cm),mh=mapsHref(e,c);
   return '<article class="entry'+(e.id===freshId?' fresh':'')+'"><div class="head">'
     +(title?'<h3>'+(mh?'<a class="spot-link" href="'+esc(mh)+'" target="_blank" rel="noopener" title="'+esc(t('maps'))+'">'+hl(title)+'</a>':hl(title))+'</h3>':'')
@@ -3089,7 +3090,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794270117';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794270332';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
