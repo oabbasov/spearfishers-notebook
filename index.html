@@ -83,6 +83,46 @@ header{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .sc-btns{display:flex;gap:8px}
 .sc-btns button{flex:1}
 .so-d .sheet-in{gap:14px}
+.gear{position:relative}
+.gear-b{position:absolute;top:0;right:-2px;margin:0;pointer-events:none}
+.so-pw{display:grid;gap:6px;background:var(--bg)}
+.so-pics a,.so-pics img{flex:0 0 100%;scroll-snap-align:start;min-width:0}
+.so-pics img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;cursor:zoom-in}
+.so-pics{aspect-ratio:1}
+.so-dots{width:calc(var(--n) * 22px);overflow:hidden;justify-self:center;margin-top:2px}
+.so-dr{display:flex;transition:transform .25s ease}
+.so-dot{flex:0 0 22px;display:grid;place-items:center;height:14px;opacity:.38;transition:transform .25s ease,opacity .25s}
+.so-dot .fi{width:18px;height:10px}
+.so-dot.on{opacity:1}
+.so-dot.s{transform:scale(.72)}.so-dot.xs{transform:scale(.48)}.so-dot.h{transform:scale(0);opacity:0}
+#soc .so-cs li{flex-wrap:nowrap}
+#soc .so-cn{flex:1 1 auto}
+#soc .so-cn b,#soc .so-cn i{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#soc .so-cm{flex-direction:column;align-items:flex-end;gap:2px;flex:0 1 auto;max-width:52%;text-align:right;line-height:1.25;margin-left:0}
+#soc .so-cm span{overflow:hidden;text-overflow:ellipsis;max-width:100%}
+#soc .so-cf{padding-right:0}
+.so-send{all:unset;box-sizing:border-box;flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--on-accent);cursor:pointer;transition:opacity .15s}
+.so-send:disabled{opacity:.3;cursor:default}
+.so-send:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.so-av img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.so-me{display:grid;gap:12px}
+.so-avb{all:unset;position:relative;cursor:pointer;border-radius:50%;line-height:0;flex:none}
+.so-avb:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.so-cam{position:absolute;right:-2px;bottom:-2px;width:26px;height:26px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink)}
+.so-tt input.so-name,.so-tt input.so-user{border:1px solid transparent;background:transparent;padding:3px 6px;margin-left:-7px;border-radius:6px;width:100%}
+.so-tt input.so-name{font:600 19px var(--display)}
+.so-tt input.so-user{color:var(--muted);font-size:14px}
+.so-tt input.so-name:hover,.so-tt input.so-user:hover{border-color:var(--line)}
+.so-tt input.so-name:focus,.so-tt input.so-user:focus{border-color:var(--sea);background:var(--bg);outline:none}
+.so-tt{gap:2px}
+.so-tt .so-uw>span{left:-1px;font-size:14px}
+.so-tt .so-uw input.so-user{padding-left:16px}
+#setProfile .so-tt input{min-height:0;height:auto}
+.so-tt .so-us{min-height:1.25em;font-size:12px}
+#soc .so-cm{font-size:13px}
+.so-h{margin:-4px 0 4px 30px;font-size:12.5px}
+@media (hover:hover) and (pointer:fine){[data-share]{display:none!important}}
+
 .so-tabs{display:flex;gap:3px;background:var(--sea-soft);border-radius:10px;padding:3px}
 .so-tabs button{all:unset;box-sizing:border-box;cursor:pointer;flex:1;text-align:center;padding:8px 6px;border-radius:8px;font-weight:600;font-size:14px;color:var(--muted);display:inline-flex;justify-content:center;align-items:center;gap:4px}
 .so-tabs button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(4,20,26,.18)}
@@ -100,9 +140,6 @@ header{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .so-wt small{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis}
 .so-pics{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:2px;background:var(--sea-soft);scrollbar-width:none}
 .so-pics::-webkit-scrollbar{display:none}
-.so-pics a{flex:0 0 100%;scroll-snap-align:start}
-.so-pics.many a{flex-basis:88%}
-.so-pics img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
 .so-cs{list-style:none;margin:0;padding:10px 12px 4px;display:grid;gap:8px}
 .so-cs li{display:flex;align-items:center;gap:10px;min-width:0;flex-wrap:wrap}
 .so-cs .fi{width:48px;height:27px;flex:none}
@@ -916,7 +953,7 @@ dialog:not(#viewer){top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-
       <button type="button" id="ckBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><span data-i="ckNav"></span></button>
       <button type="button" id="sizesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h20v8H2z"/><path d="M6 8v3M10 8v4M14 8v3M18 8v4"/></svg><span data-i="sizesNav"></span></button>
       <button type="button" id="libBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-4 7-6 11-6 3 0 5 2 7 6-2 4-4 6-7 6-4 0-8-2-11-6z"/><path d="M3 12l-1.5-3M3 12l-1.5 3"/><circle cx="16.5" cy="10.5" r=".8" fill="currentColor"/></svg><span data-i="libNav"></span></button>
-      <button type="button" id="socBtn" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19.5c.6-3.4 3-5.3 6-5.3s5.4 1.9 6 5.3"/><circle cx="17" cy="9.2" r="2.5"/><path d="M16.6 14.3c2.4.3 4 1.9 4.5 4.7"/></svg><span data-i="socNav"></span><span class="so-badge" id="socBadge" hidden></span></button>
+      <button type="button" id="feedBtn" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M4 13.5h16M8 17h5"/><path d="M7.5 9c1.5-1.6 3.2-2.3 5-2.3 1.5 0 2.6.8 3.5 2.3-.9 1.5-2 2.3-3.5 2.3-1.8 0-3.5-.7-5-2.3z"/></svg><span data-i="soFeed"></span></button><button type="button" id="findBtn" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 20 20"/></svg><span data-i="soFind"></span></button>
       <button type="button" id="rulesBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg><span data-i="rulesNav"></span></button>
       <span class="tl-sep" aria-hidden="true"></span>
       <div class="tl-ext">
@@ -925,7 +962,7 @@ dialog:not(#viewer){top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-
         <a class="tl" href="https://spearo.app" target="_blank" rel="noopener">Spearo<svg class="ext-i" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
       </div>
     </div>
-    <button type="button" class="gear" id="gearBtn" data-al="settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
+    <button type="button" class="gear" id="gearBtn" data-al="settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg><span class="so-badge gear-b" id="gearBadge" hidden></span></button>
   </nav>
   <div id="defNow" class="def-now" hidden aria-live="polite"></div>
   <details class="tidecard" id="fcCard" open>
@@ -1093,6 +1130,34 @@ dialog:not(#viewer){top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-
         <span class="hint" id="delAccMsg" hidden></span>
       </div>
     </section>
+    <section class="set-sec" id="setProfile" hidden>
+      <h3 data-i="soMe"></h3>
+      <p class="hint" id="soSetup" data-i="soSetup" hidden></p>
+      <div id="soMeBody" class="so-me">
+        <div class="so-top"><button type="button" class="so-avb" id="soAvB" data-al="soAvCh"><span id="soMeAv"></span><span class="so-cam"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 8h3l1.6-2.2h6.8L17 8h3v11H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13.2" r="3.3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span></button><input type="file" id="soAvIn" accept="image/*" hidden>
+          <div class="so-tt"><input id="frName" class="so-name" maxlength="40" autocomplete="nickname" data-ph="frName" data-al="frName"><span class="so-uw"><span aria-hidden="true">@</span><input id="soUser" class="so-user" maxlength="20" autocomplete="username" autocapitalize="off" spellcheck="false" data-ph="soUser" data-al="soUser"></span><span class="so-us" id="soUserSt" aria-live="polite"></span><div id="soMeStats"></div></div></div>
+        <p class="so-note" id="soNeedUser" hidden></p>
+        <section class="so-sec" id="soReqS" hidden><h3 data-i="soRequests"></h3><ul class="so-list" id="soReqUl"></ul></section>
+        <section class="so-sec"><h3 data-i="soActivity"></h3><ul class="so-list" id="soActUl"></ul></section>
+        <section class="so-sec"><h3 data-i="soPrivH"></h3>
+          <label class="chk"><input type="checkbox" id="soDisc"><span data-i="soDisc"></span></label><p class="hint so-h" data-i="soDiscH"></p>
+          <label class="chk"><input type="checkbox" id="soPriv"><span data-i="soPriv"></span></label><p class="hint so-h" data-i="soPrivH2"></p>
+        </section>
+        <section class="so-sec"><h3 data-i="soShareH"></h3><p class="hint" data-i="frIntro"></p>
+          <label class="chk"><input type="checkbox" id="frOn"><span data-i="frOn"></span></label>
+          <fieldset id="frOpts" class="fr-opts" hidden><legend data-i="frShow"></legend>
+            <label class="chk"><input type="checkbox" id="frO_photo"><span data-i="frO_photo"></span></label>
+            <label class="chk"><input type="checkbox" id="frO_weight"><span data-i="frO_weight"></span></label>
+            <label class="chk"><input type="checkbox" id="frO_len"><span data-i="frO_len"></span></label>
+            <label class="chk"><input type="checkbox" id="frO_depth"><span data-i="frO_depth"></span></label>
+            <label class="chk"><input type="checkbox" id="frO_region"><span data-i="frO_region"></span></label>
+            <label class="chk"><input type="checkbox" id="frO_dateExact"><span data-i="frO_dateExact"></span></label>
+          </fieldset>
+        </section>
+            <details class="so-sec so-fd"><summary><span data-i="soFollowersL"></span> <span class="hint" id="soFolN"></span></summary><ul class="so-list" id="soFolUl"></ul></details>
+        <details class="so-sec so-fd"><summary><span data-i="soFollowingL"></span> <span class="hint" id="soFingN"></span></summary><ul class="so-list" id="soFingUl"></ul></details>
+      </div>
+    </section>
     <section class="set-sec">
       <h3 data-i="setData"></h3>
       <div class="set-list">
@@ -1118,37 +1183,9 @@ dialog:not(#viewer){top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-
   <p class="hint" data-i="scHint"></p>
 </div></dialog>
 <dialog id="soc" class="sheet sheet-wide lib-d so-d"><div class="sheet-in">
-  <div class="sheet-head"><h2 data-i="socNav"></h2><button type="button" id="socClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
-  <p class="hint" id="soSetup" data-i="soSetup" hidden></p>
-  <div class="so-tabs" id="soTabs" role="tablist"><button type="button" role="tab" data-t="feed" data-i="soFeed"></button><button type="button" role="tab" data-t="find" data-i="soFind"></button><button type="button" role="tab" data-t="me"><span data-i="soMe"></span><span class="so-badge" id="soMeBadge" hidden></span></button></div>
+  <div class="sheet-head"><h2 id="socT"></h2><button type="button" id="socClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
   <div id="so_feed" class="so-view" hidden></div>
   <div id="so_find" class="so-view" hidden><label class="so-q"><span class="so-qi"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><input type="search" id="soQ" data-ph="soFindPh" data-al="soFindPh" autocomplete="off" autocapitalize="off" spellcheck="false"></label><p class="hint" id="soFindHint" data-i="soFindHint"></p><div id="soRes"></div></div>
-  <div id="so_me" class="so-view" hidden>
-    <div class="so-top" id="soMeTop"></div>
-    <p class="so-note" id="soNeedUser" data-i="soNeedUser" hidden></p>
-    <section class="so-sec" id="soReqS" hidden><h3 data-i="soRequests"></h3><ul class="so-list" id="soReqUl"></ul></section>
-    <section class="so-sec"><h3 data-i="soActivity"></h3><ul class="so-list" id="soActUl"></ul></section>
-    <section class="so-sec"><h3 data-i="soMyProf"></h3>
-      <label for="frName"><span data-i="frName"></span><input id="frName" maxlength="40" autocomplete="nickname"></label>
-      <label for="soUser"><span data-i="soUser"></span><span class="so-uw"><span aria-hidden="true">@</span><input id="soUser" maxlength="20" autocomplete="username" autocapitalize="off" spellcheck="false"></span><span class="so-us" id="soUserSt" aria-live="polite"></span></label>
-      <label class="chk"><input type="checkbox" id="soDisc"><span data-i="soDisc"></span></label>
-      <label class="chk"><input type="checkbox" id="soPriv"><span data-i="soPriv"></span></label>
-    </section>
-    <section class="so-sec"><h3 data-i="soShareH"></h3><p class="hint" data-i="frIntro"></p>
-      <label class="chk"><input type="checkbox" id="frOn"><span data-i="frOn"></span></label>
-      <fieldset id="frOpts" class="fr-opts" hidden><legend data-i="frShow"></legend>
-        <label class="chk"><input type="checkbox" id="frO_photo"><span data-i="frO_photo"></span></label>
-        <label class="chk"><input type="checkbox" id="frO_weight"><span data-i="frO_weight"></span></label>
-        <label class="chk"><input type="checkbox" id="frO_len"><span data-i="frO_len"></span></label>
-        <label class="chk"><input type="checkbox" id="frO_depth"><span data-i="frO_depth"></span></label>
-        <label class="chk"><input type="checkbox" id="frO_where"><span data-i="frO_where"></span></label>
-        <label class="chk"><input type="checkbox" id="frO_region"><span data-i="frO_region"></span></label>
-        <label class="chk"><input type="checkbox" id="frO_dateExact"><span data-i="frO_dateExact"></span></label>
-      </fieldset>
-    </section>
-    <details class="so-sec so-fd"><summary><span data-i="soFollowersL"></span> <span class="hint" id="soFolN"></span></summary><ul class="so-list" id="soFolUl"></ul></details>
-    <details class="so-sec so-fd"><summary><span data-i="soFollowingL"></span> <span class="hint" id="soFingN"></span></summary><ul class="so-list" id="soFingUl"></ul></details>
-  </div>
   <div id="so_prof" class="so-view" hidden></div>
 </div></dialog>
 <dialog id="species" class="sheet"><div class="sheet-in"><div class="sheet-head"><span></span><button type="button" id="spClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div id="spBody" class="sp"></div></div></dialog>
@@ -3346,7 +3383,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794342290';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794345659';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3373,7 +3410,7 @@ async function shStrip(id){const{data,error}=await sb.storage.from('photos').dow
 function shPayload(e,cfg,spotMap){
   const cs=(e.catches||[]).filter(c=>c&&c.name);if(!cs.length)return null;
   const d={v:1,date:cfg.date==='exact'?e.date:String(e.date||'').slice(0,7),catches:cs.map(c=>{const o={name:c.name,count:c.count||1};if(c.sub)o.sub=c.sub;
-    if(cfg.weight&&c.weight!=null)o.weight=c.weight;if(cfg.len&&c.len!=null)o.len=c.len;if(cfg.depth&&c.depth!=null)o.depth=c.depth;if(cfg.where&&whereOf(c).length)o.where=whereOf(c);return o})};
+    if(cfg.weight&&c.weight!=null)o.weight=c.weight;if(cfg.len&&c.len!=null)o.len=c.len;if(cfg.depth&&c.depth!=null)o.depth=c.depth;return o})};
   if(cfg.region){const r=shRegion(coordsOf(e,spotMap));if(r)d.region=r}
   return d}
 async function shSync(){
@@ -3386,7 +3423,7 @@ async function shSync(){
     const gone=[...H.keys()].filter(k=>!want.has(k));
     for(const k of gone){const old=H.get(k);if(old&&old.photos&&old.photos.length)await sb.storage.from('photos').remove(old.photos);await sb.from('shared_catches').delete().eq('user_id',shMe).eq('entry_id',k)}
     for(const [id,{p,e}] of want){
-      const old=H.get(id)||null;const src=cfg.photo?(e.photos||[]).filter(x=>typeof x==='string'&&x.includes('/')).slice(0,4):[];
+      const old=H.get(id)||null;const src=cfg.photo?(e.photos||[]).filter(x=>typeof x==='string'&&x.includes('/')).slice(0,8):[];
       p.ph=src.length?shHash(src.join('|')):'';
       if(old&&old.ph===p.ph&&old.photos)p.photos=old.photos;
       else{if(old&&old.photos&&old.photos.length)await sb.storage.from('photos').remove(old.photos);
@@ -3398,21 +3435,25 @@ async function shSync(){
   }catch(e){console.warn('share sync',e)}
   shBusy=false;if(shAgain){shAgain=false;shSoon()}}
 
-const SO={tab:'feed',fol:[],cards:new Map(),urls:new Map(),posts:new Map(),feed:[],off:0,more:false,prof:null,act:[],social:true,q:'',res:[]};
+const SO={av:new Map(),tab:'feed',fol:[],cards:new Map(),urls:new Map(),posts:new Map(),feed:[],off:0,more:false,prof:null,act:[],social:true,q:'',res:[]};
 const SO_I={
   heart:'<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 20.2s-7.4-4.5-9.4-9.3C1.3 7.6 3.4 4.4 6.7 4.4c2.1 0 3.6 1.2 5.3 3.2 1.7-2 3.2-3.2 5.3-3.2 3.3 0 5.4 3.2 4.1 6.5-2 4.8-9.4 9.3-9.4 9.3z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>',
   bubble:'<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1.4-4.4a8.5 8.5 0 1 1 15.6-4.6z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>',
   back:'<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  up:'<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 19V5.5M5.8 11.4 12 5.2l6.2 6.2" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  cam:'<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 8h3l1.6-2.2h6.8L17 8h3v11H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13.2" r="3.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
   search:'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'};
 function soHue(id){return parseInt(shHash(String(id||'')),36)%360}
-function soAv(id,p,big){p=p||{};const s=String(p.name||p.username||'?').trim();const w=s.split(/[\s._-]+/).filter(Boolean);const ini=((w[0]||'?')[0]+(w[1]?w[1][0]:'')).toUpperCase();
-  return '<span class="so-av'+(big?' so-av-l':'')+'" style="--h:'+soHue(id)+'" aria-hidden="true">'+esc(ini)+'</span>'}
-function soName(id,p){p=p||SO.cards.get(id)||{};return p.name||(p.username?'@'+p.username:t('frNoName'))}
+function soAv(id,p,big){p=p||SO.cards.get(id)||{};const s=String(p.name||p.username||'?').trim();const w=s.split(/[\s._-]+/).filter(Boolean);const ini=((w[0]||'?')[0]+(w[1]?w[1][0]:'')).toUpperCase();const u=SO.av.get(id);
+  return '<span class="so-av'+(big?' so-av-l':'')+'" style="--h:'+soHue(id)+'" aria-hidden="true">'+(u?'<img src="'+esc(u)+'" alt="">':esc(ini))+'</span>'}
+async function soAvLoad(ids){const need=[...new Set(ids)].filter(i=>i&&!SO.av.has(i));if(!need.length)return;need.forEach(i=>SO.av.set(i,null));
+  try{const{data}=await sb.storage.from('photos').createSignedUrls(need.map(i=>i+'/share/avatar.jpg'),3600);(data||[]).forEach(x=>{if(x&&x.signedUrl&&!x.error){const id=String(x.path||'').split('/')[0];if(id)SO.av.set(id,x.signedUrl)}})}catch(_){}}
+function soName(id,p){p=p||(id===shMe&&shProf)||SO.cards.get(id)||{};return p.name||(p.username?'@'+p.username:t('frNoName'))}
 function soDate(d){d=String(d||'');const m=d.match(/^(\d{4})-(\d{2})(?:-(\d{2}))?/);if(!m)return'';const dt=new Date(+m[1],+m[2]-1,+(m[3]||1));
   return dt.toLocaleDateString(locale(),m[3]?{day:'numeric',month:'short',year:'numeric'}:{month:'long',year:'numeric'})}
 function soKg(n){return n.toLocaleString(locale(),{maximumFractionDigits:3})+' kg'}
-async function soCards(ids){const need=[...new Set(ids)].filter(i=>i&&!SO.cards.has(i));if(!need.length)return;
-  const{data}=await sb.rpc('profile_cards',{ids:need});(data||[]).forEach(p=>SO.cards.set(p.id,p))}
+async function soCards(ids){const need=[...new Set(ids)].filter(i=>i&&!SO.cards.has(i));
+  await Promise.all([need.length?sb.rpc('profile_cards',{ids:need}).then(({data})=>(data||[]).forEach(p=>SO.cards.set(p.id,p))):null,soAvLoad(ids)])}
 async function soUrls(paths){const now=Date.now();const need=[...new Set(paths)].filter(p=>{const u=SO.urls.get(p);return !u||u.exp<now});if(!need.length)return;
   const{data}=await sb.storage.from('photos').createSignedUrls(need,3600);(data||[]).forEach(x=>{if(x.signedUrl)SO.urls.set(x.path,{u:x.signedUrl,exp:now+3300e3})})}
 async function soDecorate(rows){if(!rows.length)return;const eids=[...new Set(rows.map(r=>r.entry_id))];
@@ -3421,22 +3462,30 @@ async function soDecorate(rows){if(!rows.length)return;const eids=[...new Set(ro
   rows.forEach(r=>{r.likes=likes.filter(l=>l.owner===r.user_id&&l.entry_id===r.entry_id);r.coms=coms.filter(c=>c.owner===r.user_id&&c.entry_id===r.entry_id);SO.posts.set(r.user_id+'|'+r.entry_id,r)});
   await Promise.all([soCards(rows.map(r=>r.user_id).concat(coms.map(c=>c.user_id))),soUrls(rows.flatMap(r=>(r.data&&r.data.photos)||[]))])}
 function soCatch(c){const L=latinOf(c.name,c.sub);
-  const bits=[c.weight!=null?soKg(c.weight):'',c.len!=null?'L '+fmt(c.len)+' cm':'',c.depth!=null?fmt(c.depth)+' m':'',(c.where||[]).filter(w=>WHERE.includes(w)).map(w=>t('wh_'+w)).join(' + ')].filter(Boolean);
-  return '<li>'+fishSvg(c.name,c.sub)+'<span class="so-cn"><b>'+esc(catchLabel(c))+((c.count||1)>1?' <span class="so-x">×'+c.count+'</span>':'')+'</b>'+(L?'<i>'+esc(L)+'</i>':'')+'</span>'+(bits.length?'<span class="so-cm">'+bits.map(b=>'<span>'+esc(b)+'</span>').join('')+'</span>':'')+'</li>'}
+  const l1=[c.weight!=null?soKg(c.weight):'',c.depth!=null?fmt(c.depth)+' m':''].filter(Boolean).join(' · '),l2=[c.len!=null?'L '+fmt(c.len)+' cm':'',(c.where||[]).filter(w=>WHERE.includes(w)).map(w=>t('wh_'+w)).join(' + ')].filter(Boolean).join(' · ');
+  return '<li>'+fishSvg(c.name,c.sub)+'<span class="so-cn"><b>'+esc(catchLabel(c))+((c.count||1)>1?' <span class="so-x">×'+c.count+'</span>':'')+'</b>'+(L?'<i>'+esc(L)+'</i>':'')+'</span>'+(l1||l2?'<span class="so-cm">'+(l1?'<span>'+esc(l1)+'</span>':'')+(l2?'<span>'+esc(l2)+'</span>':'')+'</span>':'')+'</li>'}
+const SO_DOT=()=>fishSvg('Sargo','legitimo');
+function soDots(n){if(n<2)return'';let h='';for(let i=0;i<n;i++)h+='<span class="so-dot">'+SO_DOT()+'</span>';return '<div class="so-dots" style="--n:'+Math.min(n,5)+'"><div class="so-dr">'+h+'</div></div>'}
+function soDotsSet(pw,i){const dr=pw.querySelector('.so-dr');if(!dr)return;const ds=[...dr.children],n=ds.length;const s=n<=5?0:Math.max(0,Math.min(i-2,n-5));
+  ds.forEach((d,j)=>{let c='';if(j<s||j>s+4)c='h';else if(n>5){if(j===s+4&&s+4<n-1)c='xs';else if(j===s+3&&s+4<n-1)c='s';if(j===s&&s>0)c='xs';else if(j===s+1&&s>0)c=c||'s'}
+    d.className='so-dot'+(c?' '+c:'')+(j===i?' on':'')});dr.style.transform='translateX('+(-s*100/Math.min(n,5))+'%)'}
 function soPost(r){const d=r.data||{},p=SO.cards.get(r.user_id)||{};const liked=(r.likes||[]).some(l=>l.user_id===shMe);const coms=r.coms||[];
   const sub=[p.username?'@'+p.username:'',d.region,soDate(d.date)].filter(Boolean).join(' · ');
   const pics=(d.photos||[]).map(x=>SO.urls.get(x)).filter(Boolean);
   const showC=r.open?coms:coms.slice(-2);
   return '<article class="so-post" data-o="'+esc(r.user_id)+'" data-e="'+esc(r.entry_id)+'">'+
     '<div class="so-hd"><button type="button" class="so-who" data-u="'+esc(r.user_id)+'">'+soAv(r.user_id,p)+'<span class="so-wt"><b>'+esc(soName(r.user_id,p))+'</b><small>'+esc(sub)+'</small></span></button></div>'+
-    (pics.length?'<div class="so-pics'+(pics.length>1?' many':'')+'">'+pics.map(u=>'<a href="'+esc(u.u)+'" target="_blank" rel="noopener"><img src="'+esc(u.u)+'" alt="" loading="lazy"></a>').join('')+'</div>':'')+
+    (pics.length?'<div class="so-pw"><div class="so-pics">'+pics.map((u,i)=>'<img src="'+esc(u.u)+'" alt="" loading="lazy" data-vi="'+i+'">').join('')+'</div>'+soDots(pics.length)+'</div>':'')+
     '<ul class="so-cs">'+(d.catches||[]).map(soCatch).join('')+'</ul>'+
     '<div class="so-act"><button type="button" class="so-like'+(liked?' on':'')+'" data-a="like" aria-pressed="'+liked+'" aria-label="'+esc(t('soLike'))+'">'+SO_I.heart+'<span>'+((r.likes||[]).length||'')+'</span></button>'+
-    '<button type="button" data-a="com" aria-label="'+esc(t('soComment'))+'">'+SO_I.bubble+'<span>'+(coms.length||'')+'</span></button></div>'+
+    '</div>'+
     '<div class="so-coms">'+(!r.open&&coms.length>2?'<button type="button" class="link so-all" data-a="all">'+esc(t('soAllComs')(coms.length))+'</button>':'')+
     showC.map(c=>'<div class="so-c" data-id="'+esc(c.id)+'"><b data-u="'+esc(c.user_id)+'">'+esc(soName(c.user_id))+'</b> <span>'+esc(c.body)+'</span>'+((c.user_id===shMe||r.user_id===shMe)?'<button type="button" class="so-cx" data-a="cdel" aria-label="'+esc(t('soDelC'))+'">×</button>':'')+'</div>').join('')+
-    '<form class="so-cf"><input maxlength="500" placeholder="'+esc(t('soComment'))+'" aria-label="'+esc(t('soComment'))+'" autocomplete="off"><button type="submit" class="link">'+esc(t('soSend'))+'</button></form></div></article>'}
-function soRedraw(key){const r=SO.posts.get(key);if(!r)return;document.querySelectorAll('#soc .so-post').forEach(a=>{if(a.dataset.o+'|'+a.dataset.e===key)a.outerHTML=soPost(r)})}
+    '<form class="so-cf"><input maxlength="500" placeholder="'+esc(t('soComment'))+'" aria-label="'+esc(t('soComment'))+'" autocomplete="off" enterkeyhint="send"><button type="submit" class="so-send" aria-label="'+esc(t('soSend'))+'" disabled>'+SO_I.up+'</button></form></div></article>'}
+function soPostsInit(root){root.querySelectorAll('.so-pw').forEach(pw=>{if(pw._i)return;pw._i=1;const sc=pw.querySelector('.so-pics');soDotsSet(pw,0);
+  sc.addEventListener('scroll',()=>{const i=Math.round(sc.scrollLeft/Math.max(1,sc.clientWidth));if(i!==pw._c){pw._c=i;soDotsSet(pw,i)}},{passive:true});
+  const im=sc.querySelector('img');const fit=()=>{if(im.naturalWidth){const r=Math.max(.8,Math.min(1.91,im.naturalWidth/im.naturalHeight));sc.style.aspectRatio=r}};if(im.complete)fit();else im.addEventListener('load',fit,{once:true})})}
+function soRedraw(key){const r=SO.posts.get(key);if(!r)return;document.querySelectorAll('#soc .so-post').forEach(a=>{if(a.dataset.o+'|'+a.dataset.e===key){const sl=(a.querySelector('.so-pics')||{}).scrollLeft||0;a.outerHTML=soPost(r)}});soPostsInit($('soc'))}
 function soFollowing(){return SO.fol.filter(f=>f.kind==='following'&&f.status==='accepted').map(f=>f.id)}
 async function soLoadFollows(){const{data,error}=await sb.rpc('my_follows');if(error){SO.social=false;return}SO.fol=data||[];soBadge()}
 async function soLoadAct(){
@@ -3446,36 +3495,36 @@ async function soLoadAct(){
   await soCards(SO.act.map(a=>a.user_id));soBadge()}
 function soSeen(){try{return localStorage.getItem('sn-so-seen-'+shMe)||''}catch(e){return''}}
 function soBadge(){const req=SO.fol.filter(f=>f.kind==='follower'&&f.status==='pending').length;const seen=soSeen();const nw=SO.act.filter(a=>String(a.created_at)>seen).length;
-  const n=req+nw;['socBadge','soMeBadge'].forEach(id=>{const b=$(id);if(b){b.textContent=n>9?'9+':n;b.hidden=!n}})}
-function soTab(k){SO.tab=k;SO.prof=null;document.querySelectorAll('#soc .so-tabs button').forEach(b=>{const on=b.dataset.t===k;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
-  ['feed','find','me'].forEach(x=>{$('so_'+x).hidden=x!==k});$('so_prof').hidden=true;$('soTabs').hidden=false;
-  if(k==='feed')soFeed(true);if(k==='find'){soFind();setTimeout(()=>{if(matchMedia('(hover:hover) and (pointer:fine)').matches)$('soQ').focus()},30)}if(k==='me')soMe()}
-async function soOpen(){const d=$('soc');if(!d.open)d.showModal();
-  if(!SO.social){['feed','find','me','prof'].forEach(x=>$('so_'+x).hidden=true);$('soTabs').hidden=true;$('soSetup').hidden=false;return}
-  await soLoadFollows();soLoadAct();soTab(shProf&&shProf.username?(SO.tab==='me'?'me':SO.tab):'me')}
+  const n=req+nw;['gearBadge'].forEach(id=>{const b=$(id);if(b){b.textContent=n>9?'9+':n;b.hidden=!n}})}
+function soTab(k){SO.tab=k;SO.prof=null;$('socT').textContent=t(k==='find'?'soFind':'soFeed');
+  ['feed','find'].forEach(x=>{$('so_'+x).hidden=x!==k});$('so_prof').hidden=true;
+  if(k==='feed')soFeed(true);if(k==='find'){soFind();setTimeout(()=>{if(matchMedia('(hover:hover) and (pointer:fine)').matches)$('soQ').focus()},30)}}
+async function soOpen(k){const d=$('soc');if(!d.open)d.showModal();await soLoadFollows();soLoadAct();soTab(k)}
+function soSettings(){const d=$('soc');if(d.open)d.close();const st=$('settings');if(!st.open)st.showModal();soMe();setTimeout(()=>$('setProfile').scrollIntoView({block:'start'}),30)}
 async function soFeed(reset){const el=$('so_feed');if(reset){SO.feed=[];SO.off=0;el.innerHTML='<p class="hint so-wait">…</p>'}
   const ids=[shMe,...soFollowing()];
   const{data,error}=await sb.from('shared_catches').select('user_id,entry_id,data,caught,updated_at').in('user_id',ids).order('caught',{ascending:false}).order('updated_at',{ascending:false}).range(SO.off,SO.off+19);
   if(SO.tab!=='feed')return;if(error){el.innerHTML='<p class="hint">'+esc(t('frErr'))+'</p>';return}
   const rows=data||[];await soDecorate(rows);SO.more=rows.length===20;SO.off+=rows.length;SO.feed.push(...rows);
-  if(!SO.feed.length){el.innerHTML='<div class="so-empty"><p>'+esc(t(soFollowing().length?'soFeedNone':'soFeedEmpty'))+'</p>'+(shCfg().on?'':'<p class="hint">'+esc(t('soShareOff'))+'</p>')+'<button type="button" class="primary" data-go="find">'+esc(t('soGoFind'))+'</button></div>';return}
-  el.innerHTML=SO.feed.map(soPost).join('')+(SO.more?'<button type="button" class="so-moreb" data-a="more">'+esc(t('soMore'))+'</button>':'')}
+  if(!SO.feed.length){el.innerHTML='<div class="so-empty"><p>'+esc(t(soFollowing().length?'soFeedNone':'soFeedEmpty'))+'</p>'+(shCfg().on&&shProf.username?'':'<p class="hint">'+esc(t('soShareOff'))+'</p><button type="button" data-go="me">'+esc(t('soOpenProf'))+'</button>')+'<button type="button" class="primary" data-go="find">'+esc(t('soGoFind'))+'</button></div>';return}
+  el.innerHTML=SO.feed.map(soPost).join('')+(SO.more?'<button type="button" class="so-moreb" data-a="more">'+esc(t('soMore'))+'</button>':'');soPostsInit(el)}
 function soFBtn(id,st,mini){const cls=st==='accepted'?'':st==='pending'?' so-pend':' primary';const k=st==='accepted'?'soFollowing':st==='pending'?'soRequested':'soFollow';
   return '<button type="button" class="so-fb'+cls+(mini?' so-fb-s':'')+'" data-f="'+esc(id)+'" data-st="'+esc(st||'')+'">'+esc(t(k))+'</button>'}
 function soPerson(id,p,right){p=p||SO.cards.get(id)||{};return '<li class="so-row"><button type="button" class="so-who" data-u="'+esc(id)+'">'+soAv(id,p)+'<span class="so-wt"><b>'+esc(soName(id,p))+'</b>'+(p.username?'<small>@'+esc(p.username)+'</small>':'')+'</span></button>'+(right||'')+'</li>'}
 let soQT=null;
-async function soFind(){const q=$('soQ').value.trim();const el=$('soRes');
+async function soFind(){const q=$('soQ').value.trim();const el=$('soRes');if(!SO.av.size)soAvLoad([shMe]);
   if(q.length<2){el.innerHTML='';$('soFindHint').hidden=false;return}$('soFindHint').hidden=true;
   const{data,error}=await sb.rpc('search_profiles',{q});if($('soQ').value.trim()!==q)return;
   if(error){el.innerHTML='<p class="hint">'+esc(t('frErr'))+'</p>';return}
-  (data||[]).forEach(p=>SO.cards.set(p.id,{id:p.id,username:p.username,name:p.name}));
+  (data||[]).forEach(p=>SO.cards.set(p.id,{id:p.id,username:p.username,name:p.name}));await soAvLoad((data||[]).map(p=>p.id));if($('soQ').value.trim()!==q)return;
   el.innerHTML=(data||[]).length?'<ul class="so-list">'+data.map(p=>soPerson(p.id,p,soFBtn(p.id,p.status,true))).join('')+'</ul>':'<p class="hint">'+esc(t('soFindNone'))+'</p>'}
 function soStats(a,b,c){return '<div class="so-stats">'+(c!=null?'<span><b>'+c+'</b>'+esc(t('soFish'))+'</span>':'')+'<span><b>'+a+'</b>'+esc(t('soFollowers'))+'</span><span><b>'+b+'</b>'+esc(t('soFollowingN'))+'</span></div>'}
-async function soProfile(id){if(id===shMe){soTab('me');return}
-  SO.prof=id;['feed','find','me'].forEach(x=>$('so_'+x).hidden=true);$('soTabs').hidden=true;const el=$('so_prof');el.hidden=false;
+async function soProfile(id){if(id===shMe){soSettings();return}
+  const d=$('soc');if(!d.open){d.showModal();SO.tab=SO.tab||'feed'}
+  SO.prof=id;['feed','find'].forEach(x=>$('so_'+x).hidden=true);const el=$('so_prof');el.hidden=false;
   el.innerHTML='<button type="button" class="link so-back" data-a="back">'+SO_I.back+esc(t('soBack'))+'</button><p class="hint">…</p>';$('soc').querySelector('.sheet-in').scrollTop=0;
   const{data,error}=await sb.rpc('profile_get',{o:id});if(SO.prof!==id)return;const p=data&&data[0];
-  if(error||!p){el.querySelector('p').textContent=t('frErr');return}SO.cards.set(id,{id,username:p.username,name:p.name});
+  if(error||!p){el.querySelector('p').textContent=t('frErr');return}SO.cards.set(id,{id,username:p.username,name:p.name});await soAvLoad([id]);
   let h='<button type="button" class="link so-back" data-a="back">'+SO_I.back+esc(t('soBack'))+'</button><div class="so-top">'+soAv(id,p,true)+'<div class="so-tt"><h3>'+esc(soName(id,p))+'</h3>'+(p.username?'<p class="hint">@'+esc(p.username)+'</p>':'')+soStats(p.followers,p.following,p.fish)+'</div></div>';
   h+='<div class="so-pa">'+soFBtn(id,p.status)+(p.follows_me==='accepted'?'<span class="so-tag">'+esc(t('soFollowsYou'))+'</span>':'')+'</div>';
   if(p.follows_me==='pending')h+='<div class="so-req"><span>'+esc(t('soWants'))+'</span><button type="button" class="primary" data-r="ok" data-id="'+esc(id)+'">'+esc(t('frAccept'))+'</button><button type="button" data-r="no" data-id="'+esc(id)+'">'+esc(t('frDecline'))+'</button></div>';
@@ -3483,34 +3532,41 @@ async function soProfile(id){if(id===shMe){soTab('me');return}
   el.innerHTML=h+'<div id="soPP"><p class="hint">…</p></div>';
   const{data:rows}=await sb.from('shared_catches').select('user_id,entry_id,data,caught,updated_at').eq('user_id',id).order('caught',{ascending:false}).order('updated_at',{ascending:false}).limit(40);
   await soDecorate(rows||[]);if(SO.prof!==id)return;
-  $('soPP').innerHTML=(rows||[]).length?rows.map(soPost).join(''):'<div class="so-empty"><p>'+esc(t('soNoPosts'))+'</p></div>'}
-function soMe(){const el=$('so_me');const me=shProf||{};const fl=SO.fol;
+  $('soPP').innerHTML=(rows||[]).length?rows.map(soPost).join(''):'<div class="so-empty"><p>'+esc(t('soNoPosts'))+'</p></div>';soPostsInit($('soPP'))}
+function soMe(){if(!SO.social||!shProf)return;const me=shProf;const fl=SO.fol;
   const followers=fl.filter(f=>f.kind==='follower'&&f.status==='accepted'),following=fl.filter(f=>f.kind==='following'),req=fl.filter(f=>f.kind==='follower'&&f.status==='pending');
   fl.forEach(f=>SO.cards.set(f.id,{id:f.id,username:f.username,name:f.name}));
-  $('soMeTop').innerHTML=soAv(shMe,me,true)+'<div class="so-tt"><h3>'+esc(me.name||(me.username?'@'+me.username:t('soYou')))+'</h3>'+(me.username?'<p class="hint">@'+esc(me.username)+'</p>':'')+soStats(followers.length,following.filter(f=>f.status==='accepted').length,null)+'</div>';
-  $('soNeedUser').hidden=!!me.username;
+  $('soMeAv').innerHTML=soAv(shMe,me,true);
+  $('soMeStats').innerHTML=soStats(followers.length,following.filter(f=>f.status==='accepted').length,null);
+  $('soNeedUser').hidden=!!(me.username&&me.discoverable);$('soNeedUser').textContent=t(me.username?'soNeedDisc':'soNeedUser');
   $('soReqS').hidden=!req.length;$('soReqUl').innerHTML=req.map(f=>soPerson(f.id,f,'<span class="so-rb"><button type="button" class="primary" data-r="ok" data-id="'+esc(f.id)+'">'+esc(t('frAccept'))+'</button><button type="button" data-r="no" data-id="'+esc(f.id)+'">'+esc(t('frDecline'))+'</button></span>')).join('');
   const seen=soSeen();
   $('soActUl').innerHTML=SO.act.length?SO.act.map(a=>{const e=entries.find(x=>x.id===a.entry_id);const c=e&&(e.catches||[]).find(x=>x&&x.name);
     return '<li class="so-row so-ar'+(String(a.created_at)>seen?' new':'')+'"><button type="button" class="so-who" data-u="'+esc(a.user_id)+'">'+soAv(a.user_id,SO.cards.get(a.user_id))+'<span class="so-wt"><span><b>'+esc(soName(a.user_id))+'</b> '+esc(a.k==='like'?t('soLiked'):t('soCommented'))+(c?' · '+esc(catchLabel(c)):'')+'</span>'+(a.k==='com'?'<small>«'+esc(a.body)+'»</small>':'')+'</span></button><span class="so-ai'+(a.k==='like'?' on':'')+'">'+(a.k==='like'?SO_I.heart:SO_I.bubble)+'</span></li>'}).join(''):'<li class="hint">'+esc(t('soNoAct'))+'</li>';
-  if(SO.act.length){try{localStorage.setItem('sn-so-seen-'+shMe,SO.act[0].created_at)}catch(e){}soBadge()}
+  if(SO.act.length&&$('settings').open){try{localStorage.setItem('sn-so-seen-'+shMe,SO.act[0].created_at)}catch(e){}soBadge()}
   $('soFolN').textContent=followers.length;$('soFingN').textContent=following.length;
   $('soFolUl').innerHTML=followers.length?followers.map(f=>soPerson(f.id,f,'<button type="button" class="so-fb so-fb-s" data-r="no" data-id="'+esc(f.id)+'">'+esc(t('soRemove'))+'</button>')).join(''):'<li class="hint">'+esc(t('soNone'))+'</li>';
   $('soFingUl').innerHTML=following.length?following.map(f=>soPerson(f.id,f,soFBtn(f.id,f.status,true))).join(''):'<li class="hint">'+esc(t('soNone'))+'</li>';
   frDrawSettings()}
+async function soMeLoad(){if(!SO.social||!shProf)return;soMe();await Promise.all([soLoadFollows(),soLoadAct()]);await soAvLoad([shMe,...SO.fol.map(f=>f.id)]);soMe()}
+async function soAvUpload(file){if(!file)return;try{const im=await scLoadImg(URL.createObjectURL(file));if(!im)throw 0;const S=480,cv=document.createElement('canvas');cv.width=cv.height=S;
+    const m=Math.min(im.naturalWidth,im.naturalHeight);cv.getContext('2d').drawImage(im,(im.naturalWidth-m)/2,(im.naturalHeight-m)/2,m,m,0,0,S,S);
+    const b=await new Promise(r=>cv.toBlob(r,'image/jpeg',.86));const path=shMe+'/share/avatar.jpg';
+    await sb.storage.from('photos').remove([path]);const{error}=await sb.storage.from('photos').upload(path,b,{contentType:'image/jpeg',upsert:true});if(error)throw error;
+    SO.av.set(shMe,URL.createObjectURL(b));soMe()}catch(e){toast(t('frErr'))}}
 async function soFollowClick(b){const id=b.dataset.f,st=b.dataset.st;
   if(st){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent=t(st==='pending'?'soCancelReq':'soUnfollow');b.classList.add('so-warn');setTimeout(()=>{if(b.isConnected&&b.dataset.sure==='1'){b.dataset.sure='';b.classList.remove('so-warn');b.textContent=t(st==='pending'?'soRequested':'soFollowing')}},4000);return}
     const{error}=await sb.rpc('unfollow',{o:id});if(error){toast(t('frErr'));return}b.outerHTML=soFBtn(id,null,b.classList.contains('so-fb-s'))}
   else{const{data,error}=await sb.rpc('follow',{o:id});if(error||!data||data==='not_found'||data==='self'){toast(t('frErr'));return}b.outerHTML=soFBtn(id,data,b.classList.contains('so-fb-s'));if(data==='pending')toast(t('soReqSent'))}
-  await soLoadFollows();if(SO.prof===id)soProfile(id);else if(SO.tab==='me'&&!SO.prof)soMe()}
-function frDrawSettings(){const c=shCfg();const me=shProf||{};$('frName').value=me.name||'';if(document.activeElement!==$('soUser'))$('soUser').value=me.username||'';
+  await soLoadFollows();if(SO.prof===id)soProfile(id);if($('settings').open)soMe()}
+function frDrawSettings(){const c=shCfg();const me=shProf||{};if(document.activeElement!==$('frName'))$('frName').value=me.name||'';if(document.activeElement!==$('soUser'))$('soUser').value=me.username||'';
   $('soDisc').checked=!!me.discoverable;$('soPriv').checked=me.private!==false;$('frOn').checked=!!c.on;$('frOpts').hidden=!c.on;
-  ['photo','weight','len','depth','where','region'].forEach(k=>{$('frO_'+k).checked=!!c[k]});$('frO_dateExact').checked=c.date==='exact'}
-async function frSaveProf(){const share={on:$('frOn').checked,photo:$('frO_photo').checked,weight:$('frO_weight').checked,len:$('frO_len').checked,depth:$('frO_depth').checked,where:$('frO_where').checked,region:$('frO_region').checked,date:$('frO_dateExact').checked?'exact':'month'};
+  ['photo','weight','len','depth','region'].forEach(k=>{$('frO_'+k).checked=!!c[k]});$('frO_dateExact').checked=c.date==='exact'}
+async function frSaveProf(){const share={on:$('frOn').checked,photo:$('frO_photo').checked,weight:$('frO_weight').checked,len:$('frO_len').checked,depth:$('frO_depth').checked,where:false,region:$('frO_region').checked,date:$('frO_dateExact').checked?'exact':'month'};
   $('frOpts').hidden=!share.on;const name=$('frName').value.trim().slice(0,40)||null;const upd={name,share,updated_at:new Date().toISOString()};
   if(SO.social){upd.discoverable=$('soDisc').checked;upd.private=$('soPriv').checked}
-  const{error}=await sb.from('profiles').update(upd).eq('user_id',shMe);
-  if(error){toast(t('frErr'));return}Object.assign(shProf,upd);shSoon();if(SO.tab==='me'&&!SO.prof&&$('soc').open){const n=$('soMeTop').querySelector('h3');if(n)n.textContent=name||(shProf.username?'@'+shProf.username:t('soYou'))}}
+  const prev=Object.assign({},shProf);Object.assign(shProf,upd);const{error}=await sb.from('profiles').update(upd).eq('user_id',shMe);
+  if(error){Object.assign(shProf,prev);toast(t('frErr'));frDrawSettings();return}shSoon();$('soMeAv').innerHTML=soAv(shMe,shProf,true);$('soNeedUser').hidden=!!(shProf.username&&shProf.discoverable);$('soNeedUser').textContent=t(shProf.username?'soNeedDisc':'soNeedUser')}
 let soUT=null;
 async function soSaveUser(final){const inp=$('soUser'),st=$('soUserSt');const v=inp.value.toLowerCase().replace(/^@/,'').replace(/[^a-z0-9._]/g,'').slice(0,20);if(inp.value!==v)inp.value=v;
   st.className='so-us';if(!v||v===(shProf.username||'')){st.textContent='';return}
@@ -3519,10 +3575,9 @@ async function soSaveUser(final){const inp=$('soUser'),st=$('soUserSt');const v=
   if(free===false){st.textContent=t('soUserTaken');st.classList.add('bad');return}
   const{error}=await sb.from('profiles').update({username:v,updated_at:new Date().toISOString()}).eq('user_id',shMe);
   if(error){st.textContent=t(error.code==='23505'?'soUserTaken':'frErr');st.classList.add('bad');return}
-  shProf.username=v;st.textContent='✓ '+t('soUserOk');st.classList.add('ok');$('soNeedUser').hidden=true;
-  const top=$('soMeTop');if(top){const h=top.querySelector('.so-tt');if(h){const p=h.querySelector('p.hint');if(p)p.textContent='@'+v;else h.querySelector('h3').insertAdjacentHTML('afterend','<p class="hint">@'+esc(v)+'</p>')}}}
+  shProf.username=v;st.textContent='✓ '+t('soUserOk');st.classList.add('ok');$('soNeedUser').hidden=!!shProf.discoverable;$('soNeedUser').textContent=t('soNeedDisc');setTimeout(()=>{if(st.classList.contains('ok'))st.textContent=''},2500)}
 async function soReq(id,ok){const{error}=await sb.rpc(ok?'follower_accept':'follower_remove',{o:id});if(error){toast(t('frErr'));return}
-  await soLoadFollows();if(SO.prof===id)soProfile(id);else soMe()}
+  await soLoadFollows();if(SO.prof===id)soProfile(id);if($('settings').open)soMe()}
 async function soLike(key){const r=SO.posts.get(key);if(!r)return;const mine=r.likes.find(l=>l.user_id===shMe);
   if(mine){r.likes=r.likes.filter(l=>l!==mine);soRedraw(key);const{error}=await sb.from('likes').delete().eq('owner',r.user_id).eq('entry_id',r.entry_id).eq('user_id',shMe);if(error){r.likes.push(mine);soRedraw(key);toast(t('frErr'))}}
   else{const l={owner:r.user_id,entry_id:r.entry_id,user_id:shMe};r.likes.push(l);soRedraw(key);const{error}=await sb.from('likes').insert({owner:r.user_id,entry_id:r.entry_id});if(error){r.likes=r.likes.filter(x=>x!==l);soRedraw(key);toast(t('frErr'))}}}
@@ -3538,35 +3593,39 @@ async function frStart(user){
     if(r.error){SO.social=false;r=await sb.from('profiles').select('name,share').eq('user_id',shMe).maybeSingle()}
     let data=r.data;if(!data&&!r.error){const n=await sb.from('profiles').insert({user_id:shMe}).select(SO.social?'name,share,username,discoverable,private':'name,share').single();data=n.data}
     shProf=data||null}catch(e){shProf=null}
-  if(!shProf)return;$('socBtn').hidden=false;
-  if(!SO.social){$('soSetup').hidden=false}
+  if(!shProf)return;$('setProfile').hidden=false;
+  if(!SO.social){$('soSetup').hidden=false;$('soMeBody').hidden=true}else{$('feedBtn').hidden=$('findBtn').hidden=false}
   shSoon();if(SO.social){soLoadFollows();soLoadAct()}
   try{if(/[?&]amigo=/.test(location.search))history.replaceState(null,'',location.pathname)}catch(e){}}
 (function(){const d=$('soc');if(!d)return;
-  $('socBtn').addEventListener('click',soOpen);$('socClose').addEventListener('click',()=>d.close());
-  d.querySelectorAll('.so-tabs button').forEach(b=>b.addEventListener('click',()=>soTab(b.dataset.t)));
-  ['frOn','frO_photo','frO_weight','frO_len','frO_depth','frO_where','frO_region','frO_dateExact','soDisc','soPriv'].forEach(id=>$(id).addEventListener('change',frSaveProf));
+  $('feedBtn').addEventListener('click',()=>soOpen('feed'));$('findBtn').addEventListener('click',()=>soOpen('find'));$('socClose').addEventListener('click',()=>d.close());
+  $('gearBtn').addEventListener('click',()=>{soMeLoad()});
+  ['frOn','frO_photo','frO_weight','frO_len','frO_depth','frO_region','frO_dateExact','soDisc','soPriv'].forEach(id=>$(id).addEventListener('change',frSaveProf));
   let nt;$('frName').addEventListener('input',()=>{clearTimeout(nt);nt=setTimeout(frSaveProf,700)});
+  [$('frName'),$('soUser')].forEach(i=>i.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();i.blur()}}));
   $('soUser').addEventListener('input',()=>{clearTimeout(soUT);soUT=setTimeout(()=>soSaveUser(false),700)});
   $('soUser').addEventListener('change',()=>{clearTimeout(soUT);soSaveUser(true)});
+  $('soAvB').addEventListener('click',()=>$('soAvIn').click());$('soAvIn').addEventListener('change',ev=>{const f=ev.target.files&&ev.target.files[0];ev.target.value='';soAvUpload(f)});
   $('soQ').addEventListener('input',()=>{clearTimeout(soQT);soQT=setTimeout(soFind,300)});
-  d.addEventListener('submit',ev=>{const f=ev.target.closest('.so-cf');if(!f)return;ev.preventDefault();const a=f.closest('.so-post');const i=f.querySelector('input');const v=i.value;i.value='';soComment(a.dataset.o+'|'+a.dataset.e,v,a)});
-  d.addEventListener('click',ev=>{const g=ev.target.closest('[data-go]');if(g){soTab(g.dataset.go);return}
+  d.addEventListener('input',ev=>{const i=ev.target.closest('.so-cf input');if(i)i.form.querySelector('.so-send').disabled=!i.value.trim()});
+  d.addEventListener('submit',ev=>{const f=ev.target.closest('.so-cf');if(!f)return;ev.preventDefault();const a=f.closest('.so-post');const i=f.querySelector('input');const v=i.value;if(!v.trim())return;i.value='';f.querySelector('.so-send').disabled=true;soComment(a.dataset.o+'|'+a.dataset.e,v,a)});
+  const click=ev=>{const g=ev.target.closest('[data-go]');if(g){if(g.dataset.go==='me')soSettings();else soTab(g.dataset.go);return}
     const fb=ev.target.closest('[data-f]');if(fb){soFollowClick(fb);return}
     const rq=ev.target.closest('[data-r]');if(rq){if(rq.dataset.r==='no'&&rq.dataset.sure!=='1'&&rq.textContent===t('soRemove')){rq.dataset.sure='1';rq.textContent=t('frSure');return}soReq(rq.dataset.id,rq.dataset.r==='ok');return}
+    const im=ev.target.closest('.so-pics img');if(im){const l=[...im.parentNode.querySelectorAll('img')].map(x=>x.src);vOpen(l,+im.dataset.vi||0);return}
     const b=ev.target.closest('[data-a]');const art=ev.target.closest('.so-post');const key=art?art.dataset.o+'|'+art.dataset.e:null;
     if(b){const a=b.dataset.a;
       if(a==='back'){soTab(SO.tab);return}
       if(a==='more'){b.remove();soFeed(false);return}
       if(a==='like')return soLike(key);
-      if(a==='com'){art.querySelector('.so-cf input').focus();return}
       if(a==='all'){const r=SO.posts.get(key);if(r){r.open=true;soRedraw(key)}return}
       if(a==='cdel')return soDelC(key,b.closest('.so-c').dataset.id)}
-    const u=ev.target.closest('[data-u]');if(u){soProfile(u.dataset.u)}});
+    const u=ev.target.closest('[data-u]');if(u){soProfile(u.dataset.u)}};
+  d.addEventListener('click',click);$('setProfile').addEventListener('click',ev=>{if(ev.target.closest('#soAvB'))return;click(ev)});
 })();
-Object.assign(T.pt,{socNav:'Amigos',soFeed:'Feed',soFind:'Procurar',soMe:'Perfil',soFeedEmpty:'Ainda não segue ninguém. Procure amigos pelo nome ou @username.',soFeedNone:'Quem segue ainda não partilhou capturas.',soShareOff:'As suas capturas não estão partilhadas: ative em Perfil › Partilhar as minhas capturas.',soGoFind:'Procurar amigos',soMore:'Mostrar mais',soFindPh:'Nome ou @username',soFindHint:'Escreva pelo menos 2 letras. Só aparecem perfis com «Aparecer na pesquisa» ligado.',soFindNone:'Ninguém encontrado.',soFollow:'Seguir',soFollowing:'A seguir',soRequested:'Pedido enviado',soUnfollow:'Deixar de seguir?',soCancelReq:'Cancelar pedido?',soReqSent:'Pedido enviado. Espere pela aprovação.',soFollowsYou:'Segue-o',soWants:'Quer segui-lo',soFollowers:'seguidores',soFollowingN:'a seguir',soFish:'peixes',soPrivate:'Perfil privado. Siga e espere pela aprovação para ver as capturas.',soNoPosts:'Ainda sem capturas partilhadas.',soComment:'Comentar…',soSend:'Enviar',soAllComs:n=>'Ver os '+n+' comentários',soDelC:'Apagar comentário',soLike:'Gosto',soLiked:'gostou',soCommented:'comentou',soActivity:'Atividade',soNoAct:'Ainda sem atividade.',soRequests:'Pedidos para seguir',soMyProf:'O meu perfil',soUser:'Username',soUserHint:'3 a 20 caracteres: letras minúsculas, números, ponto e _.',soUserTaken:'Este username já existe.',soUserOk:'Guardado',soDisc:'Aparecer na pesquisa (por nome e @username)',soPriv:'Perfil privado: aprovo quem me segue',soNeedUser:'Escolha um username e ligue «Aparecer na pesquisa» para que os amigos o encontrem.',soFollowersL:'Seguidores',soFollowingL:'A seguir',soRemove:'Remover',soNone:'Ninguém ainda.',soSetup:'A rede de amigos ainda não está ativa neste servidor.',soYou:'Eu',soBack:'Voltar',soShareH:'Partilha',
+Object.assign(T.pt,{socNav:'Amigos',soFeed:'Feed',soFind:'Procurar',soMe:'Perfil',soFeedEmpty:'Ainda não segue ninguém. Procure amigos pelo nome ou @username.',soFeedNone:'Quem segue ainda não partilhou capturas.',soShareOff:'Para aparecer no feed dos amigos, crie o perfil e ligue «Partilhar as minhas capturas» nas definições.',soGoFind:'Procurar amigos',soMore:'Mostrar mais',soFindPh:'Nome ou @username',soFindHint:'Escreva pelo menos 2 letras. Só aparecem perfis com «Aparecer na pesquisa» ligado.',soFindNone:'Ninguém encontrado.',soFollow:'Seguir',soFollowing:'A seguir',soRequested:'Pedido enviado',soUnfollow:'Deixar de seguir?',soCancelReq:'Cancelar pedido?',soReqSent:'Pedido enviado. Espere pela aprovação.',soFollowsYou:'Segue-o',soWants:'Quer segui-lo',soFollowers:'seguidores',soFollowingN:'a seguir',soFish:'peixes',soPrivate:'Perfil privado. Siga e espere pela aprovação para ver as capturas.',soNoPosts:'Ainda sem capturas partilhadas.',soComment:'Comentar…',soSend:'Enviar',soAllComs:n=>'Ver os '+n+' comentários',soDelC:'Apagar comentário',soLike:'Gosto',soLiked:'gostou',soCommented:'comentou',soActivity:'Atividade',soNoAct:'Ainda sem atividade.',soRequests:'Pedidos para seguir',soMyProf:'O meu perfil',soUser:'Username',soUserHint:'3 a 20 caracteres: letras minúsculas, números, ponto e _.',soUserTaken:'Este username já existe.',soUserOk:'Guardado',soDisc:'Aparecer na pesquisa (por nome e @username)',soPriv:'Perfil privado: aprovo quem me segue',soNeedUser:'Escolha um username e ligue «Aparecer na pesquisa» para que os amigos o encontrem.',soFollowersL:'Seguidores',soFollowingL:'A seguir',soRemove:'Remover',soNone:'Ninguém ainda.',soSetup:'A rede de amigos ainda não está ativa neste servidor.',soYou:'Eu',soBack:'Voltar',soShareH:'Partilha',soPrivH:'Privacidade',soOpenProf:'Abrir o meu perfil',soNeedDisc:'Ligue «Aparecer na pesquisa» para que os amigos o encontrem.',soDiscH:'Ligado: qualquer pessoa com conta encontra-o na pesquisa pelo nome ou @username. Desligado: ninguém o encontra; quem já o segue continua a ver as suas capturas.',soPrivH2:'Ligado: cada pessoa que o quiser seguir envia um pedido e só vê as capturas depois de o aceitar. Desligado: qualquer pessoa pode segui-lo logo e, se aparecer na pesquisa, ver as capturas partilhadas.',soAvCh:'Mudar a foto',soNameEd:'Toque para editar',
   frIntro:'Quem o segue vê só as capturas que partilhar, com os campos que escolher. Nunca vê coordenadas, nomes dos pesqueiros, notas nem horas.',frName:'Nome visível',frOn:'Partilhar as minhas capturas',frShow:'Mostrar',frO_photo:'Fotos',frO_weight:'Peso',frO_len:'Comprimento',frO_depth:'Profundidade',frO_where:'Caçado em',frO_region:'Zona (ex. Ericeira, Cascais)',frO_dateExact:'Data exata (sem isto: só mês e ano)',frAccept:'Aceitar',frDecline:'Recusar',frSure:'Tem a certeza?',frNoName:'Sem nome',frErr:'Não foi possível. Tente de novo.',noShareL:'Não partilhar esta entrada com amigos'});
-Object.assign(T.en,{socNav:'Friends',soFeed:'Feed',soFind:'Search',soMe:'Profile',soFeedEmpty:"You don't follow anyone yet. Search for friends by name or @username.",soFeedNone:"The people you follow haven't shared catches yet.",soShareOff:'Your catches are not shared: turn on Profile › Share my catches.',soGoFind:'Find friends',soMore:'Show more',soFindPh:'Name or @username',soFindHint:'Type at least 2 letters. Only profiles with “Show in search” turned on appear.',soFindNone:'Nobody found.',soFollow:'Follow',soFollowing:'Following',soRequested:'Requested',soUnfollow:'Unfollow?',soCancelReq:'Cancel request?',soReqSent:'Request sent. Wait for approval.',soFollowsYou:'Follows you',soWants:'Wants to follow you',soFollowers:'followers',soFollowingN:'following',soFish:'fish',soPrivate:'Private profile. Follow and wait for approval to see the catches.',soNoPosts:'No shared catches yet.',soComment:'Add a comment…',soSend:'Post',soAllComs:n=>'View all '+n+' comments',soDelC:'Delete comment',soLike:'Like',soLiked:'liked',soCommented:'commented',soActivity:'Activity',soNoAct:'No activity yet.',soRequests:'Follow requests',soMyProf:'My profile',soUser:'Username',soUserHint:'3 to 20 characters: lowercase letters, numbers, dot and _.',soUserTaken:'This username is taken.',soUserOk:'Saved',soDisc:'Show in search (by name and @username)',soPriv:'Private profile: I approve followers',soNeedUser:'Pick a username and turn on “Show in search” so friends can find you.',soFollowersL:'Followers',soFollowingL:'Following',soRemove:'Remove',soNone:'Nobody yet.',soSetup:'Friends are not enabled on this server yet.',soYou:'Me',soBack:'Back',soShareH:'Sharing',
+Object.assign(T.en,{socNav:'Friends',soFeed:'Feed',soFind:'Search',soMe:'Profile',soFeedEmpty:"You don't follow anyone yet. Search for friends by name or @username.",soFeedNone:"The people you follow haven't shared catches yet.",soShareOff:'To appear in your friends’ feed, set up your profile and turn on “Share my catches” in settings.',soGoFind:'Find friends',soMore:'Show more',soFindPh:'Name or @username',soFindHint:'Type at least 2 letters. Only profiles with “Show in search” turned on appear.',soFindNone:'Nobody found.',soFollow:'Follow',soFollowing:'Following',soRequested:'Requested',soUnfollow:'Unfollow?',soCancelReq:'Cancel request?',soReqSent:'Request sent. Wait for approval.',soFollowsYou:'Follows you',soWants:'Wants to follow you',soFollowers:'followers',soFollowingN:'following',soFish:'fish',soPrivate:'Private profile. Follow and wait for approval to see the catches.',soNoPosts:'No shared catches yet.',soComment:'Add a comment…',soSend:'Post',soAllComs:n=>'View all '+n+' comments',soDelC:'Delete comment',soLike:'Like',soLiked:'liked',soCommented:'commented',soActivity:'Activity',soNoAct:'No activity yet.',soRequests:'Follow requests',soMyProf:'My profile',soUser:'Username',soUserHint:'3 to 20 characters: lowercase letters, numbers, dot and _.',soUserTaken:'This username is taken.',soUserOk:'Saved',soDisc:'Show in search (by name and @username)',soPriv:'Private profile: I approve followers',soNeedUser:'Pick a username and turn on “Show in search” so friends can find you.',soFollowersL:'Followers',soFollowingL:'Following',soRemove:'Remove',soNone:'Nobody yet.',soSetup:'Friends are not enabled on this server yet.',soYou:'Me',soBack:'Back',soShareH:'Sharing',soPrivH:'Privacy',soOpenProf:'Open my profile',soNeedDisc:'Turn on “Show in search” so friends can find you.',soDiscH:'On: anyone with an account can find you by name or @username. Off: nobody can find you; people who already follow you still see your catches.',soPrivH2:'On: anyone who wants to follow you sends a request and only sees your catches after you accept. Off: anyone can follow you right away and, if you show in search, see your shared catches.',soAvCh:'Change photo',soNameEd:'Tap to edit',
   frIntro:'Your followers only see the catches you share, with the fields you choose. They never see coordinates, spot names, notes or times.',frName:'Display name',frOn:'Share my catches',frShow:'Show',frO_photo:'Photos',frO_weight:'Weight',frO_len:'Length',frO_depth:'Depth',frO_where:'Caught in',frO_region:'Area (e.g. Ericeira, Cascais)',frO_dateExact:'Exact date (otherwise month and year only)',frAccept:'Accept',frDecline:'Decline',frSure:'Are you sure?',frNoName:'No name',frErr:"Couldn't do that. Try again.",noShareL:"Don't share this entry with friends"});
 
 /* ===== Share an entry as an image (Instagram story or post) ===== */
