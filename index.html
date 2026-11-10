@@ -863,6 +863,12 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 .auth .err{color:var(--danger);font-size:13.5px}
 .auth .tabs{display:flex;gap:6px}
 .auth .tabs button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:var(--bg)}
+
+/* keep dialogs inside the iPhone safe area (home-screen app draws under the status bar) */
+:root{--safeV:calc(env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px))}
+dialog:not(#viewer){top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px);max-height:calc(100dvh - 24px - var(--safeV))}
+.lib-d{height:calc(100dvh - 24px - var(--safeV))}
+.sc-d .sheet-in{max-height:calc(100dvh - 26px - var(--safeV))}
 </style>
 </head>
 <body>
@@ -3325,7 +3331,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794340122';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794340178';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
