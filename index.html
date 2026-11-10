@@ -655,8 +655,8 @@ dialog h2{margin:0;font:500 16px var(--display)}
 .catch-row,.catch-head{display:grid;grid-template-columns:minmax(0,1fr) 124px 48px 62px 30px;gap:6px;align-items:center}
 @media (max-width:560px){.catch-row,.catch-head{grid-template-columns:minmax(0,1fr) 48px 62px 30px}.catch-head .hsub{display:none}.cSub{grid-column:1/-1;grid-row:2}.cSub:empty{display:none}}
 .catch-head{font-size:12px}
-.catch-row button{padding:6px;line-height:1;border-color:transparent;background:none;color:var(--muted);font-size:20px;box-shadow:none}
-.catch-row button:hover{color:var(--ink)}
+.catch-row>button{padding:6px;line-height:1;border-color:transparent;background:none;color:var(--muted);font-size:20px;box-shadow:none}
+.catch-row>button:hover{color:var(--ink)}
 .hint{font-size:12.5px;font-weight:400;color:var(--muted)}
 details>summary{cursor:pointer;font-weight:500;font-size:14px;list-style:none;display:flex;align-items:center;gap:8px;min-height:32px}
 details>summary::-webkit-details-marker{display:none}
@@ -3090,7 +3090,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794270512';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794271030';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
