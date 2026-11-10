@@ -415,6 +415,14 @@ a{color:var(--sea);text-underline-offset:2px}
 .entry .acts{position:absolute;top:8px;right:8px;gap:0;margin:0}
 @media (max-width:560px){.entry .acts{flex-wrap:wrap;justify-content:flex-end}.entry .acts .ctot{order:9;flex-basis:100%;text-align:right;margin:2px 8px 0 0}}
 .catch-item .kg,.catch-item .cg,.catch-item .cone{white-space:nowrap}
+.catch-item{display:block;max-width:100%;white-space:normal}
+.catch-item .cl1{display:flex;align-items:center;gap:0;min-width:0;max-width:100%;white-space:nowrap}
+.catch-item .cl1>svg{flex:none}
+.catch-item .cl1>b{flex:none}
+.catch-item .cl1>.lat{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;margin-left:5px}
+.catch-item .cl1>.cone{flex:none;margin-left:5px}
+.catch-item .cdet{display:block;margin-top:2px}
+@media (max-width:560px){.entry:has(.acts .ctot)>.head{margin-bottom:9px}}
 @media (max-width:560px){.catch-item .cdet{display:block;margin-top:2px}}
 /* title */
 header{display:grid;grid-template-columns:1fr;justify-items:center;margin-bottom:10px;position:relative}
@@ -1043,10 +1051,9 @@ function catchDet(c){const g=[],L=latinOf(c.name,c.sub);
   if(c.len!=null)g.push('L '+fmt(c.len)+' cm');if(c.depth!=null)g.push('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>'+fmt(c.depth)+' m');
   if(whereOf(c).length)g.push(whereOf(c).map(w=>esc(t('wh_'+w))).join(' + '));
   const det=g.map(x=>'<span class="cg">'+x+'</span>').join(' · ');
-  if(g.length>1)return (L?' <i class="lat">('+hl(L)+')</i>':'')+' <span class="cdet">'+det+'</span>';
-  if(!g.length)return L?' <i class="lat">('+hl(L)+')</i>':'';
-  if(!L)return ' <span style="white-space:nowrap">'+det+'</span>';
-  return ' <span class="cone"><i class="lat">('+hl(L)+')</i> '+det+'</span>'}
+  const lat=L?'<i class="lat">('+hl(L)+')</i>':'';
+  if(g.length>1)return [lat,'<span class="cdet">'+det+'</span>'];
+  return [lat+(g.length?'<span class="cone">'+det+'</span>':''),'']}
 const WHERE=['hole','water','rock','sand','weed'];
 const whereOf=c=>(Array.isArray(c.where)?c.where:c.where?[c.where]:[]).filter(w=>WHERE.includes(w));
 const NONFISH_O=new Set(['Octopoda','Sepiida','Myopsida','Oegopsida','Decapoda','Camarodonta','Pectinida','Mytilida','Ostreida']);
@@ -1984,7 +1991,7 @@ function tideHtml(e){
 }
 function entryHtml(e,cm){
   const k=kindOf(e),title=e.spot||e.title||'';
-  const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+catchDet(c)+cwHtml(w)+'</span>'}).join(''):'';
+  const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+(d=>'<span class="cl1">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+d[0]+cwHtml(w)+'</span>'+d[1])(catchDet(c))+'</span>'}).join(''):'';
   const cond=[e.timeIn?'<span style="white-space:nowrap">'+ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):'')+(duration(e.timeIn,e.timeOut)?' ('+duration(e.timeIn,e.timeOut)+')':'')+'</span>':'',entryMaxDepth(e)!=null?'<span title="'+esc(t('maxDepth'))+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(t('maxDepth'))+'">'+ICON.depth+'</span>'+esc(t('maxU'))+' '+fmt(entryMaxDepth(e))+' m</span>':'',e.dives!=null?fmt(e.dives)+' '+esc(t('divesU')):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null?fmt(e.temp)+' °C':'',tideHtml(e),currentHtml(e),e.weather?'<span style="white-space:nowrap">'+WICON[e.weather]+hl(t('w_'+e.weather))+'</span>':'',e.sea?hl(t('sea_'+e.sea)):'',e.wind?hl(e.wind):'',e.gear?hl(e.gear):'',e.gps&&!parseCoords(e.gps)&&!isUrl(e.gps)?hl(e.gps):'',(e.tags||[]).map(x=>'<span class="ci">#'+hl(x)+'</span>').join(' ')].filter(Boolean).map(x=>/^<span class="ci">/.test(x)?x:'<span class="ci">'+x+'</span>').join(' · ');
   const c=coordsOf(e,cm),mh=mapsHref(e,c);
   return '<article class="entry'+(e.id===freshId?' fresh':'')+'"><div class="head">'
@@ -3131,7 +3138,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794310151';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794310568';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
