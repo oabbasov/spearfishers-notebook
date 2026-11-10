@@ -119,11 +119,11 @@ a{color:var(--sea);text-underline-offset:2px}
 .capture-row #quick{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:10px 12px;font-size:16px}
 .capture-row #quick:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
 
-.capture{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"in btn" "mood btn" "pv pv";column-gap:12px;row-gap:6px}
+.capture{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"in in btn" "pv mood btn";column-gap:12px;row-gap:6px}
 .capture-row{display:contents}
 .capture-row #quick{grid-area:in;min-width:0}
-.capture-row #quickMood{grid-area:mood;align-self:center;justify-self:start}
-.capture-row>.primary{grid-area:btn;align-self:center;margin-left:6px;padding:0 22px;min-height:54px}
+.capture-row #quickMood{grid-area:mood;align-self:start;justify-self:end}
+.capture-row>.primary{grid-area:btn;align-self:start;margin-left:6px;padding:0 22px;min-height:54px}
 .capture .preview{grid-area:pv;padding-right:4px}
 @media (max-width:560px){
  .capture{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"in in" "mood btn" "pv pv";row-gap:8px}
@@ -280,7 +280,7 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .sea-l .uw,#fcBox .sea-l .uw0{margin-right:-6px;padding-right:6px}
 #fcBox .sea-l .uw{background:color-mix(in srgb,var(--uw) 11%,transparent)}
 #fcBox .sea-l .uw0{background:linear-gradient(to bottom,transparent calc(100% - 5px),color-mix(in srgb,var(--uw) 15%,transparent) calc(100% - 5px))}
-.sea-r{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding-bottom:14px}
+.sea-r{position:relative;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding-bottom:14px}
 .sea-r svg{display:block}
 #fcBox .sb{fill:var(--sea-soft);opacity:.45}
 #fcBox .scur{stroke:var(--ink);stroke-width:1;opacity:.55;pointer-events:none}
@@ -295,6 +295,9 @@ a{color:var(--sea);text-underline-offset:2px}
 #fcBox .sm{stroke:var(--muted);stroke-width:.8;stroke-opacity:.5}
 #fcBox .sday{fill:var(--ink);font:600 12px var(--body)}
 #fcBox .sday2{fill:var(--muted);font-weight:400}
+#fcBox .drow{position:absolute;left:0;top:0;height:26px;pointer-events:none}
+#fcBox .dseg{position:absolute;top:0;height:26px}
+#fcBox .dseg span{position:sticky;left:10px;display:inline-block;padding:3px 0 0 10px;font:600 14.4px var(--body);color:var(--ink);white-space:nowrap}
 #fcBox .shr{fill:var(--muted);font:11px var(--body);font-variant-numeric:tabular-nums}
 #fcBox .sax{fill:var(--muted);font:9.5px var(--body)}
 #fcBox .sv{fill:var(--ink);font:600 12px var(--body);font-variant-numeric:tabular-nums}
@@ -579,7 +582,12 @@ header h1{position:relative;padding-top:1.07em}
 .ns-merge .ns-btn::after{right:15px}
 .ns-merge .ns-btn:hover::after{border-color:var(--ink)}
 .ck-top.ck-one{grid-template-columns:1fr}
-.bar .ns-btn{min-height:42px;font-size:15px;padding:9px 30px 9px 10px}
+#ckName::placeholder{color:var(--ink);opacity:1}
+#ckName{font-weight:600;color:var(--ink)}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bar .ns-btn,.more .ns-btn{min-height:42px;font-size:15px;padding:9px 30px 9px 10px}
+.more .ns-btn{font-size:16px}
+.more .ns-pop{min-width:180px}
 
 
 .ck-top{gap:10px}
@@ -911,7 +919,7 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
 <dialog id="rules" class="sheet sheet-wide"><div class="sheet-in"><div class="sheet-head"><h2 data-i="rulesTitle"></h2><button type="button" id="rulesClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div id="rulesBody" class="rules"></div></div></dialog>
 <dialog id="checklist" class="sheet"><div class="sheet-in">
   <div class="sheet-head"><h2><span data-i="ckTitle"></span> <span class="hint" id="ckCount"></span></h2><button type="button" id="ckClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
-  <div class="grid2 ck-top"><label for="ckSel"><span data-i="ckListL"></span><select id="ckSel"></select></label><label for="ckName"><span data-i="ckNameL"></span><input id="ckName" autocomplete="off"></label></div>
+  <div class="grid2 ck-top"><label for="ckSel"><span data-i="ckListL" class="sr-only"></span><select id="ckSel"></select></label><label for="ckName"><span data-i="ckNameL"></span><input id="ckName" autocomplete="off"></label></div>
   <div class="ck-lbtn"><button type="button" id="ckNewList" class="ck-ib" data-al="ckNewL"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><button type="button" id="ckDupList" class="ck-ib" data-al="ckDupL"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M15 9V5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15H9"/></svg></button><button type="button" id="ckDelList" class="danger"></button><button type="button" id="ckReset" class="primary" data-i="ckResetL"></button></div>
   <ul class="ck" id="ckList"></ul>
   <form id="ckForm" class="ck-add"><input id="ckNew" data-ph="ckPh" data-al="ckPh" autocomplete="off"><button type="submit" data-i="add"></button></form>
@@ -1736,7 +1744,10 @@ function sunTimes(dayMs,lat,lon){
   return{rise:toMs(Jt-w/360),set:toMs(Jt+w/360)};
 }
 function moonAge(ms){const p=((ms/864e5+2440587.5-2451550.1)/29.530588853)%1;return p<0?p+1:p}
-function sunRS(cx,cy,k){const h=cy+3,ax=cx-9;return '<path d="M'+(cx-4.6)+' '+h+'A4.6 4.6 0 0 1 '+(cx+4.6)+' '+h+'Z" class="sund"/><path d="M'+(cx-6.8)+' '+(h+.8)+'H'+(cx+6.8)+'" stroke="#E5A31F" stroke-width="1.2" stroke-linecap="round"/><path d="'+(k==='up'?'M'+ax+' '+(h+.5)+'V'+(cy-5.5)+'M'+(ax-2.3)+' '+(cy-3.2)+'L'+ax+' '+(cy-5.5)+'L'+(ax+2.3)+' '+(cy-3.2):'M'+ax+' '+(cy-5.5)+'V'+(h+.5)+'M'+(ax-2.3)+' '+(h-1.8)+'L'+ax+' '+(h+.5)+'L'+(ax+2.3)+' '+(h-1.8))+'" stroke="#E5A31F" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'}
+function sunRS(cx,cy,k){const h=cy+3.5,r=3.6,C='#E5A31F';let s='<path d="M'+(cx-r)+' '+h+'A'+r+' '+r+' 0 0 1 '+(cx+r)+' '+h+'Z" class="sund"/><path d="M'+(cx-7)+' '+(h+.7)+'H'+(cx+7);
+  [20,55,90,125,160].forEach(a=>{const q=a*Math.PI/180,c=Math.cos(q),n=Math.sin(q);s+='M'+(cx+c*(r+1.4)).toFixed(2)+' '+(h-n*(r+1.4)).toFixed(2)+'L'+(cx+c*(r+3.2)).toFixed(2)+' '+(h-n*(r+3.2)).toFixed(2)});
+  s+='" stroke="'+C+'" stroke-width="1.1" stroke-linecap="round" fill="none"/>';
+  const top=h-r-4.6;s+='<path d="'+(k==='up'?'M'+cx+' '+(top)+'V'+(top-5.4)+'M'+(cx-2.2)+' '+(top-3.2)+'L'+cx+' '+(top-5.4)+'L'+(cx+2.2)+' '+(top-3.2):'M'+cx+' '+(h+2.4)+'V'+(h+7.6)+'M'+(cx-2.2)+' '+(h+5.4)+'L'+cx+' '+(h+7.6)+'L'+(cx+2.2)+' '+(h+5.4))+'" stroke="'+C+'" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';return s}
 function moonSvg(x,y,r,p){
   const k=Math.cos(2*Math.PI*p),rx=Math.abs(k)*r,wax=p<.5,cres=k>0;
   const outer='M'+x+' '+(y-r)+'A'+r+' '+r+' 0 0 '+(wax?1:0)+' '+x+' '+(y+r);
@@ -1768,7 +1779,8 @@ function drawForecast(){
   hrs.forEach((t,i)=>{const hh=lisbonParts(t).hour;if(i%2)g+='<rect x="'+i*CW+'" y="'+Y.hour[0]+'" width="'+CW+'" height="'+(HT-Y.hour[0])+'" class="sb"/>';if(hh===0&&i)g+='<line x1="'+i*CW+'" x2="'+i*CW+'" y1="0" y2="'+HT+'" class="sm"/>'});
   // day + hour labels
   const fmtD=new Intl.DateTimeFormat(locale(),{timeZone:TZ,weekday:'long',day:'numeric',month:'short'});
-  for(let d=0;d<3;d++){const st=t0+d*864e5,lab=esc(fmtD.format(new Date(st+432e5)));const da=XT(st)-CW/2,db=da+24/ST*CW;g+=ST===1?'<text x="'+(da+8)+'" y="15" class="sday dlab" data-a="'+da+'" data-b="'+db+'">'+lab+'</text>':'<text x="'+((da+db)/2)+'" y="15" text-anchor="middle" class="sday">'+lab+'</text>'}
+  let dayHtml='';const FKd=1.2;
+  for(let d=0;d<3;d++){const st=t0+d*864e5,lab=esc(fmtD.format(new Date(st+432e5)));const da=XT(st)-CW/2,db=da+24/ST*CW;if(ST===1)dayHtml+='<div class="dseg" style="left:'+(da*FKd).toFixed(1)+'px;width:'+((db-da)*FKd).toFixed(1)+'px"><span>'+lab+'</span></div>';else g+='<text x="'+((da+db)/2)+'" y="15" text-anchor="middle" class="sday">'+lab+'</text>'}
   {const tEnd0=t0+72*36e5;for(let d=-1;d<=3;d++){const day=t0+d*864e5+432e5,st=sunTimes(day,sp0.lat,sp0.lon),nx=sunTimes(day+864e5,sp0.lat,sp0.lon);if(!st||!nx)continue;
     const a=Math.max(st.set,t0-HALF),b=Math.min(nx.rise,tEnd0-HALF);if(b>a)g+='<rect x="'+XT(a).toFixed(1)+'" y="'+Y.hour[0]+'" width="'+(XT(b)-XT(a)).toFixed(1)+'" height="'+(HT-Y.hour[0])+'" class="night"/>';
     {const da=Math.max(st.rise,t0-HALF),db=Math.min(st.set,tEnd0-HALF);if(db>da)g+='<rect x="'+XT(da).toFixed(1)+'" y="'+Y.hour[0]+'" width="'+(XT(db)-XT(da)).toFixed(1)+'" height="3" rx="1.5" class="dayl"/>'}
@@ -1785,7 +1797,7 @@ function drawForecast(){
   // wind chart
   const wv=hrs.map(t=>{const w=near(wm,t)||{};return{...w,ws:wc(w.wind_speed_10m),wg:wc(w.wind_gusts_10m)}}),U=WU[wUnit],wmax=Math.max(wc(15),...wv.map(w=>w.wg||0)),wTop=Y.wind[0]+8,wBot=Y.wind[0]+Y.wind[1]-4,WY=v=>wBot-(v/wmax)*(wBot-wTop);
   const ln=(vals,Yf)=>{let d='';vals.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+cx(i).toFixed(1)+' '+Yf(v).toFixed(1)});return d};
-  wv.forEach((w,i)=>{const y=Y.windA[0];if(w.wind_speed_10m!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.windA[1]-4)+'" rx="5" class="cwb" fill-opacity=".52"/>';if(w.wind_direction_10m!=null)g+=arrow(cx(i),y+10,w.wind_direction_10m,'fa',1);if(w.ws!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f0(w.ws)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(w.wg)+'</text>'});
+  wv.forEach((w,i)=>{const y=Y.windA[0];if(w.wind_speed_10m!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.windA[1]-4)+'" rx="5" class="cwb" fill-opacity=".42"/>';if(w.wind_direction_10m!=null)g+=arrow(cx(i),y+10,w.wind_direction_10m,'fa',1);if(w.ws!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f0(w.ws)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(w.wg)+'</text>'});
   // waves chart
   const mv=hrs.map(t=>near(mm,t)||{}),hasW=mv.some(m=>m.wave_height!=null),hmax=Math.max(1.5,1.2*Math.max(...mv.map(m=>Math.max(m.wave_height||0,m.swell_wave_height||0)))),vTop=Y.wave[0]+14,vBot=Y.wave[0]+Y.wave[1]-4,VY=v=>vBot-(v/hmax)*(vBot-vTop);
   mv.forEach((m,i)=>{const y=Y.waveA[0];if(m.wave_height!=null)g+='<rect x="'+(i*CW+2)+'" y="'+(y+2)+'" width="'+(CW-4)+'" height="'+(Y.waveA[1]-4)+'" rx="5" class="cvb" fill-opacity="'+Math.min(.41,.045+m.wave_height/6.8).toFixed(2)+'"/>';if(m.wave_direction!=null)g+=arrow(cx(i),y+10,m.wave_direction,'fa2',1);if(m.wave_height!=null)g+='<text x="'+cx(i)+'" y="'+(y+29)+'" text-anchor="middle" class="sv">'+f1(m.wave_height)+'</text><text x="'+cx(i)+'" y="'+(y+42)+'" text-anchor="middle" class="ss">'+f0(m.wave_period)+'s</text>'});
@@ -1812,7 +1824,7 @@ function drawForecast(){
   const keep=seaFirst?null:(box.querySelector('.sea-r')||{}).scrollLeft;
   box.innerHTML='<div class="sea'+(nol?' nol':'')+'">'+left+'<div class="sea-r"><svg width="'+(W*FK)+'" height="'+(HT*FK)+'" viewBox="0 0 '+W+' '+HT+'">'+g+'</svg></div></div>';
   const r=box.querySelector('.sea-r');r.scrollLeft=keep!=null?keep:Math.max(0,(nx-CW*2)*FK);seaFirst=false;
-  {const dl=[...r.querySelectorAll('.dlab')];if(dl.length){const upd=()=>{const L0=r.scrollLeft/FK;dl.forEach(el=>{const a=+el.dataset.a,b=+el.dataset.b,w=el.getComputedTextLength();el.setAttribute('x',Math.max(a+8,Math.min(b-w-8,L0+8)).toFixed(1))})};r.addEventListener('scroll',upd,{passive:true});upd()}}
+  if(dayHtml)r.insertAdjacentHTML('afterbegin','<div class="drow" style="width:'+(W*FK)+'px">'+dayHtml+'</div>');
   const sv=r.querySelector('svg');sv.insertAdjacentHTML('beforeend','<rect class="scol" x="0" y="'+Y.hour[0]+'" width="'+CW+'" height="'+(HT-Y.hour[0])+'" visibility="hidden"/><line class="scur" x1="0" x2="0" y1="'+Y.hour[0]+'" y2="'+HT+'" visibility="hidden"/>');
   const col=sv.querySelector('.scol'),cur=sv.querySelector('.scur');
   sv.addEventListener('pointermove',ev=>{if(ev.pointerType!=='mouse'||!matchMedia('(hover:hover)').matches){cur.setAttribute('visibility','hidden');col.setAttribute('visibility','hidden');return}const b=sv.getBoundingClientRect(),x=(ev.clientX-b.left)/FK,i=Math.max(0,Math.min(NH-1,Math.floor(x/CW)));cur.setAttribute('x1',x);cur.setAttribute('x2',x);col.setAttribute('x',i*CW);cur.setAttribute('visibility','visible');col.setAttribute('visibility','visible')});
@@ -2868,11 +2880,10 @@ Object.assign(T.pt,{dnNow:'Defeso agora',dnSoon:'Defeso a partir de'});
 Object.assign(T.en,{dnNow:'Closed season now',dnSoon:'Closed season from'});
 
 /* ===== Notebook-style date picker for the entry form (instead of the phone's full-screen calendar) ===== */
-(function(){
-  const inp=$('eDate'),btn=$('eDateBtn'),pop=$('eDatePop'),txt=$('eDateTxt');if(!inp||!btn)return;
+function dpMake(inp,btn,pop,txt,clr){if(!inp||!btn)return;
   const D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value');
   const loc=()=>lang==='pt'?'pt-PT':'en-GB';
-  const show=v=>{if(!/^\d{4}-\d\d-\d\d$/.test(v||'')){txt.textContent='—';return}const[y,m,d]=v.split('-').map(Number);txt.textContent=d+' '+MON[lang][m-1]+' '+y};
+  const show=v=>{if(!/^\d{4}-\d\d-\d\d$/.test(v||'')){txt.textContent=clr?(lang==='pt'?'dd/mm/aaaa':'dd/mm/yyyy'):'—';txt.classList.toggle('ph',!!clr);return}txt.classList.remove('ph');const[y,m,d]=v.split('-').map(Number);txt.textContent=d+' '+MON[lang][m-1]+' '+y};
   const MON={pt:['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'],en:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},MONL={pt:['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'],en:['January','February','March','April','May','June','July','August','September','October','November','December']},WD={pt:['S','T','Q','Q','S','S','D'],en:['M','T','W','T','F','S','S']};
   Object.defineProperty(inp,'value',{configurable:true,get(){return D.get.call(inp)},set(v){D.set.call(inp,v);show(v)}});
   let vy,vm;const iso=(y,m,d)=>y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
@@ -2882,20 +2893,27 @@ Object.assign(T.en,{dnNow:'Closed season now',dnSoon:'Closed season from'});
     let g=wd.map(w=>'<span class="wd">'+esc(w)+'</span>').join('')+'<span></span>'.repeat(off);
     for(let d=1;d<=n;d++){const v=iso(vy,vm,d);g+='<button type="button" data-d="'+v+'" class="'+(v===cur?'sel':v===td?'td':'')+'"'+(v===cur?' aria-current="date"':'')+'>'+d+'</button>'}
     const mt=MONL[lang][vm]+' '+vy;
-    pop.innerHTML='<div class="dp-h"><button type="button" data-n="-1" aria-label="‹">‹</button><span>'+esc(mt.charAt(0).toUpperCase()+mt.slice(1))+'</span><button type="button" data-n="1" aria-label="›">›</button></div><div class="dp-g">'+g+'</div><div class="dp-f"><button type="button" data-d="'+td+'">'+esc(t('dpToday'))+'</button></div>';
+    pop.innerHTML='<div class="dp-h"><button type="button" data-n="-1" aria-label="‹">‹</button><span>'+esc(mt.charAt(0).toUpperCase()+mt.slice(1))+'</span><button type="button" data-n="1" aria-label="›">›</button></div><div class="dp-g">'+g+'</div><div class="dp-f">'+(clr?'<button type="button" data-c="1">'+esc(t('dpClear'))+'</button>':'')+'<button type="button" data-d="'+td+'">'+esc(t('dpToday'))+'</button></div>';
   }
   function open(){const v=inp.value||today();vy=+v.slice(0,4);vm=+v.slice(5,7)-1;draw();pop.hidden=false;btn.setAttribute('aria-expanded','true');const f=pop.querySelector('.sel,.td');f&&f.focus()}
   function close(back){pop.hidden=true;btn.setAttribute('aria-expanded','false');if(back)btn.focus()}
   btn.addEventListener('click',()=>pop.hidden?open():close());
   pop.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;ev.stopPropagation();
     if(b.dataset.n){vm+= +b.dataset.n;if(vm<0){vm=11;vy--}if(vm>11){vm=0;vy++}draw();return}
-    if(b.dataset.d){inp.value=b.dataset.d;inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}));close(true)}});
+    if(b.dataset.c||b.dataset.d){inp.value=b.dataset.c?'':b.dataset.d;inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}));close(true)}});
   pop.addEventListener('keydown',ev=>{if(ev.key==='Escape'){ev.preventDefault();ev.stopPropagation();close(true)}});
-  document.addEventListener('pointerdown',ev=>{if(!pop.hidden&&!ev.target.closest('#eDatePop')&&!ev.target.closest('#eDateBtn'))close()},true);
+  document.addEventListener('pointerdown',ev=>{if(!pop.hidden&&!pop.contains(ev.target)&&!btn.contains(ev.target))close()},true);
   ['langEn','langPt'].forEach(id=>{const b=$(id);b&&b.addEventListener('click',()=>setTimeout(()=>{show(inp.value);if(!pop.hidden)draw()},0))});
   show(inp.value);
-})();
-Object.assign(T.pt,{dpToday:'Hoje'});Object.assign(T.en,{dpToday:'Today'});
+}
+dpMake($('eDate'),$('eDateBtn'),$('eDatePop'),$('eDateTxt'));
+/* the date filters use the same calendar */
+['fFrom','fTo'].forEach(id=>{const inp=$(id);if(!inp)return;const lab=inp.closest('label');inp.type='hidden';
+  const w=document.createElement('div');w.className='dp-wrap';
+  w.innerHTML='<button type="button" class="dpick" id="'+id+'Btn" aria-haspopup="dialog" aria-expanded="false"><span id="'+id+'Txt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.8v3.4M16 2.8v3.4"/></svg></button><div class="dp" id="'+id+'Pop" role="dialog" hidden></div>';
+  inp.after(w);w.prepend(inp);if(lab){lab.htmlFor=id+'Btn';lab.addEventListener('click',ev=>{if(!ev.target.closest('.dp-wrap'))ev.preventDefault()})}
+  dpMake(inp,$(id+'Btn'),$(id+'Pop'),$(id+'Txt'),true)});
+Object.assign(T.pt,{dpToday:'Hoje',dpClear:'Limpar'});Object.assign(T.en,{dpToday:'Today',dpClear:'Clear'});
 
 $('tlWindy').addEventListener('click',()=>{try{const sp=(typeof fcSpot!=='undefined'&&fcSpot)||(typeof FC_DEF!=='undefined'&&FC_DEF);if(sp)$('tlWindy').href=windyUrl(sp)}catch(e){}});
 /* ===== Notebook-style time pickers (entry and exit) ===== */
@@ -2961,7 +2979,7 @@ function nsMenu(sel,merge){
 /* ===== Checklist: own menu for the list picker; typing adds an item ===== */
 (function(){
   const sel=$('ckSel');if(!sel)return;
-  nsMenu(sel,$('ckName'));if($('fSpot'))nsMenu($('fSpot'));
+  nsMenu(sel,$('ckName'));['fSpot','fType','sort','fTide','fSea','fCurrent','fDir','fWeather','fMood'].forEach(id=>{if($(id))nsMenu($(id))});
   /* typing anywhere in the open checklist goes into the "add an item" field */
   const dlg=$('checklist'),add=$('ckNew');
   dlg.addEventListener('keydown',ev=>{if(ev.key.length!==1||ev.ctrlKey||ev.metaKey||ev.altKey)return;const a=document.activeElement;if(a&&(a.matches('input,textarea,select,[contenteditable]')))return;add.focus()});
@@ -3066,7 +3084,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794268917';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794269529';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3081,7 +3099,7 @@ boot();
   try{if(localStorage.getItem('sn-sr-open')==='1')c.open=true}catch(e){}
   c.addEventListener('toggle',()=>{try{localStorage.setItem('sn-sr-open',c.open?'1':'0')}catch(e){}if(c.open&&matchMedia('(hover:hover) and (pointer:fine)').matches)setTimeout(()=>document.getElementById('q').focus({preventScroll:true}),30)});
   const ids=['q','fSpot','fSpecies','fMonth','fType','fFrom','fTo','fDepthMin','fVis','fTide','fSea','fCurrent','fDir','fWeather','fMood'];
-  const upd=()=>{const on=ids.some(i=>{const e=document.getElementById(i);return e&&e.value})||(document.getElementById('fCaught')||{}).checked;document.getElementById('srOn').hidden=!on;const fs=document.getElementById('fSpot');if(fs&&fs._nsSync)fs._nsSync();try{document.getElementById('srOn').title=t('clear')}catch(e){}};
+  const upd=()=>{const on=ids.some(i=>{const e=document.getElementById(i);return e&&e.value})||(document.getElementById('fCaught')||{}).checked;document.getElementById('srOn').hidden=!on;document.querySelectorAll('#srCard select').forEach(s=>{if(s._nsSync)s._nsSync()});try{document.getElementById('srOn').title=t('clear')}catch(e){}};
   const dot=document.getElementById('srOn'),clr=ev=>{ev.preventDefault();ev.stopPropagation();dot.classList.add('x');setTimeout(()=>{document.getElementById('clearFilters').click();dot.classList.remove('x');upd()},140)};
   dot.addEventListener('click',clr);dot.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' ')clr(ev)});
   document.addEventListener('input',upd);document.addEventListener('change',upd);document.addEventListener('click',()=>setTimeout(upd,0));upd();
