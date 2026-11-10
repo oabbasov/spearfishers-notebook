@@ -119,10 +119,10 @@ a{color:var(--sea);text-underline-offset:2px}
 .capture-row #quick{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:10px 12px;font-size:16px}
 .capture-row #quick:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
 
-.capture{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"in mood btn" "pv pv btn";column-gap:12px;row-gap:6px}
+.capture{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"in btn" "mood btn" "pv pv";column-gap:12px;row-gap:6px}
 .capture-row{display:contents}
 .capture-row #quick{grid-area:in;min-width:0}
-.capture-row #quickMood{grid-area:mood;align-self:center}
+.capture-row #quickMood{grid-area:mood;align-self:center;justify-self:start}
 .capture-row>.primary{grid-area:btn;align-self:center;margin-left:6px;padding:0 22px;min-height:54px}
 .capture .preview{grid-area:pv;padding-right:4px}
 @media (max-width:560px){
@@ -574,6 +574,13 @@ header h1{position:relative;padding-top:1.07em}
 .ns-pop button:hover,.ns-pop button:focus-visible{background:var(--sea-soft)}
 .ns-pop button .ck{width:16px;flex:none;color:var(--accent);font-weight:700}
 .ns-pop button[aria-selected="true"]{font-weight:600}
+.ns-merge #ckName{width:100%;padding-right:40px}
+.ns-merge .ns-btn{position:absolute;top:0;right:0;bottom:0;width:40px;min-height:0;padding:0;border:0;background:transparent;border-radius:0 6px 6px 0}
+.ns-merge .ns-btn::after{right:15px}
+.ns-merge .ns-btn:hover::after{border-color:var(--ink)}
+.ck-top.ck-one{grid-template-columns:1fr}
+.bar .ns-btn{min-height:42px;font-size:15px;padding:9px 30px 9px 10px}
+
 
 .ck-top{gap:10px}
 .rf-btn{font:inherit;font-weight:700;padding:0}
@@ -2932,24 +2939,29 @@ fcStepLabel();
 
 function ckIbTitles(){['ckNewList','ckDupList'].forEach(id=>{const b=$(id);if(b)b.title=b.getAttribute('aria-label')||''})}
 ['langEn','langPt'].forEach(id=>$(id).addEventListener('click',()=>setTimeout(ckIbTitles,0)));setTimeout(ckIbTitles,0);
-/* ===== Checklist: own menu for the list picker; typing adds an item ===== */
-(function(){
-  const sel=$('ckSel');if(!sel)return;
+/* ===== Own dropdown menu for a native select (list picker, spot filter) ===== */
+function nsMenu(sel,merge){
   const wrap=document.createElement('div');wrap.className='ns-wrap';sel.parentNode.insertBefore(wrap,sel);wrap.appendChild(sel);sel.hidden=true;
   const btn=document.createElement('button');btn.type='button';btn.className='ns-btn';btn.setAttribute('aria-haspopup','listbox');btn.setAttribute('aria-expanded','false');
   const pop=document.createElement('div');pop.className='ns-pop';pop.setAttribute('role','listbox');pop.hidden=true;wrap.append(btn,pop);
   const lab=sel.closest('label');if(lab){lab.htmlFor='';lab.addEventListener('click',ev=>{if(!ev.target.closest('.ns-wrap'))ev.preventDefault()})}
-  const sync=()=>{const o=sel.options[sel.selectedIndex];btn.textContent=o?o.textContent:'—';btn.setAttribute('aria-label',(lab?lab.textContent.trim()+': ':'')+btn.textContent)};
+  if(merge){const ol=merge.closest('label');wrap.classList.add('ns-merge');wrap.insertBefore(merge,btn);if(ol&&ol!==lab)ol.remove();const top=wrap.closest('.ck-top');if(top)top.classList.add('ck-one')}
+  const sync=()=>{const o=sel.options[sel.selectedIndex],nm=o?o.textContent:'—';btn.textContent=merge?'':nm;btn.setAttribute('aria-label',(lab?lab.querySelector('span')?lab.querySelector('span').textContent.trim()+': ':'':'')+nm)};sel._nsSync=sync;
   new MutationObserver(sync).observe(sel,{childList:true,subtree:true,attributes:true});sel.addEventListener('change',sync);
   const close=back=>{pop.hidden=true;btn.setAttribute('aria-expanded','false');if(back)btn.focus()};
   btn.addEventListener('click',ev=>{ev.preventDefault();if(!pop.hidden){close();return}
     pop.innerHTML=[...sel.options].map(o=>'<button type="button" role="option" data-v="'+esc(o.value)+'" aria-selected="'+(o.value===sel.value)+'"><span class="ck">'+(o.value===sel.value?'✓':'')+'</span>'+esc(o.textContent)+'</button>').join('');
     pop.hidden=false;btn.setAttribute('aria-expanded','true');const f=pop.querySelector('[aria-selected="true"]')||pop.querySelector('button');f&&f.focus()});
-  pop.addEventListener('click',ev=>{const b=ev.target.closest('button[data-v]');if(!b)return;ev.preventDefault();if(b.dataset.v!==sel.value){sel.value=b.dataset.v;sel.dispatchEvent(new Event('change',{bubbles:true}))}close(true)});
+  pop.addEventListener('click',ev=>{const b=ev.target.closest('button[data-v]');if(!b)return;ev.preventDefault();if(b.dataset.v!==sel.value){sel.value=b.dataset.v;sel.dispatchEvent(new Event('input',{bubbles:true}));sel.dispatchEvent(new Event('change',{bubbles:true}))}close(true)});
   pop.addEventListener('keydown',ev=>{const bs=[...pop.querySelectorAll('button')],i=bs.indexOf(document.activeElement);
     if(ev.key==='Escape'){ev.preventDefault();ev.stopPropagation();close(true)}else if(ev.key==='ArrowDown'){ev.preventDefault();(bs[i+1]||bs[0]).focus()}else if(ev.key==='ArrowUp'){ev.preventDefault();(bs[i-1]||bs[bs.length-1]).focus()}});
-  document.addEventListener('pointerdown',ev=>{if(!pop.hidden&&!ev.target.closest('.ns-wrap'))close()},true);
+  document.addEventListener('pointerdown',ev=>{if(!pop.hidden&&!wrap.contains(ev.target))close()},true);
   sync();
+}
+/* ===== Checklist: own menu for the list picker; typing adds an item ===== */
+(function(){
+  const sel=$('ckSel');if(!sel)return;
+  nsMenu(sel,$('ckName'));if($('fSpot'))nsMenu($('fSpot'));
   /* typing anywhere in the open checklist goes into the "add an item" field */
   const dlg=$('checklist'),add=$('ckNew');
   dlg.addEventListener('keydown',ev=>{if(ev.key.length!==1||ev.ctrlKey||ev.metaKey||ev.altKey)return;const a=document.activeElement;if(a&&(a.matches('input,textarea,select,[contenteditable]')))return;add.focus()});
@@ -3054,7 +3066,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794268447';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794268917';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3069,7 +3081,7 @@ boot();
   try{if(localStorage.getItem('sn-sr-open')==='1')c.open=true}catch(e){}
   c.addEventListener('toggle',()=>{try{localStorage.setItem('sn-sr-open',c.open?'1':'0')}catch(e){}if(c.open&&matchMedia('(hover:hover) and (pointer:fine)').matches)setTimeout(()=>document.getElementById('q').focus({preventScroll:true}),30)});
   const ids=['q','fSpot','fSpecies','fMonth','fType','fFrom','fTo','fDepthMin','fVis','fTide','fSea','fCurrent','fDir','fWeather','fMood'];
-  const upd=()=>{const on=ids.some(i=>{const e=document.getElementById(i);return e&&e.value})||(document.getElementById('fCaught')||{}).checked;document.getElementById('srOn').hidden=!on;try{document.getElementById('srOn').title=t('clear')}catch(e){}};
+  const upd=()=>{const on=ids.some(i=>{const e=document.getElementById(i);return e&&e.value})||(document.getElementById('fCaught')||{}).checked;document.getElementById('srOn').hidden=!on;const fs=document.getElementById('fSpot');if(fs&&fs._nsSync)fs._nsSync();try{document.getElementById('srOn').title=t('clear')}catch(e){}};
   const dot=document.getElementById('srOn'),clr=ev=>{ev.preventDefault();ev.stopPropagation();dot.classList.add('x');setTimeout(()=>{document.getElementById('clearFilters').click();dot.classList.remove('x');upd()},140)};
   dot.addEventListener('click',clr);dot.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' ')clr(ev)});
   document.addEventListener('input',upd);document.addEventListener('change',upd);document.addEventListener('click',()=>setTimeout(upd,0));upd();
