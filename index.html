@@ -587,7 +587,10 @@ header h1{position:relative;padding-top:1.07em}
 .sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .bar .ns-btn,.more .ns-btn{min-height:42px;font-size:15px;padding:9px 30px 9px 10px}
 .more .ns-btn{font-size:16px}
-.more .ns-pop{min-width:180px}
+.ns-pop{right:auto;width:max-content;min-width:100%;max-width:min(340px,calc(100vw - 40px))}
+.ns-pop.flip{left:auto;right:0}
+.ns-pop button{white-space:nowrap}
+.ns-pop button .nt{overflow:hidden;text-overflow:ellipsis;min-width:0}
 
 
 .ck-top{gap:10px}
@@ -2968,8 +2971,8 @@ function nsMenu(sel,merge){
   new MutationObserver(sync).observe(sel,{childList:true,subtree:true,attributes:true});sel.addEventListener('change',sync);
   const close=back=>{pop.hidden=true;btn.setAttribute('aria-expanded','false');if(back)btn.focus()};
   btn.addEventListener('click',ev=>{ev.preventDefault();if(!pop.hidden){close();return}
-    pop.innerHTML=[...sel.options].map(o=>'<button type="button" role="option" data-v="'+esc(o.value)+'" aria-selected="'+(o.value===sel.value)+'"><span class="ck">'+(o.value===sel.value?'✓':'')+'</span>'+esc(o.textContent)+'</button>').join('');
-    pop.hidden=false;btn.setAttribute('aria-expanded','true');const f=pop.querySelector('[aria-selected="true"]')||pop.querySelector('button');f&&f.focus()});
+    pop.innerHTML=[...sel.options].map(o=>'<button type="button" role="option" data-v="'+esc(o.value)+'" aria-selected="'+(o.value===sel.value)+'"><span class="ck">'+(o.value===sel.value?'✓':'')+'</span><span class="nt">'+esc(o.textContent)+'</span></button>').join('');
+    pop.classList.remove('flip');pop.hidden=false;if(pop.getBoundingClientRect().right>innerWidth-8)pop.classList.add('flip');btn.setAttribute('aria-expanded','true');const f=pop.querySelector('[aria-selected="true"]')||pop.querySelector('button');f&&f.focus()});
   pop.addEventListener('click',ev=>{const b=ev.target.closest('button[data-v]');if(!b)return;ev.preventDefault();if(b.dataset.v!==sel.value){sel.value=b.dataset.v;sel.dispatchEvent(new Event('input',{bubbles:true}));sel.dispatchEvent(new Event('change',{bubbles:true}))}close(true)});
   pop.addEventListener('keydown',ev=>{const bs=[...pop.querySelectorAll('button')],i=bs.indexOf(document.activeElement);
     if(ev.key==='Escape'){ev.preventDefault();ev.stopPropagation();close(true)}else if(ev.key==='ArrowDown'){ev.preventDefault();(bs[i+1]||bs[0]).focus()}else if(ev.key==='ArrowUp'){ev.preventDefault();(bs[i-1]||bs[bs.length-1]).focus()}});
@@ -3084,7 +3087,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794269529';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794269586';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
