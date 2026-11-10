@@ -54,6 +54,20 @@ header{display:flex;gap:12px;align-items:center;justify-content:space-between}
 
 .sheet-head h2{margin:0;font:500 17px var(--display)}
 .set-sec{display:grid;gap:8px}
+.sc-d{width:min(440px,calc(100vw - 24px))}
+.sc-d .sheet-in{gap:12px;max-height:calc(100dvh - 26px);overflow-y:auto}
+.sc-wrap{position:relative;justify-self:center;line-height:0;height:min(48dvh,440px);aspect-ratio:9/16;max-width:100%}
+.sc-wrap.post{aspect-ratio:4/5;height:min(40dvh,360px)}
+.sc-wrap canvas{width:100%;height:100%;border-radius:10px;background:var(--sea-soft);box-shadow:0 4px 18px rgba(4,20,26,.25)}
+.sc-busy{position:absolute;inset:0;display:grid;place-items:center;line-height:1}
+.sc-arr{all:unset;cursor:pointer;position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(4,20,26,.55);color:#fff;display:grid;place-items:center}
+.sc-arr.l{left:6px}.sc-arr.r{right:6px}
+.sc-n{position:absolute;right:8px;top:8px;background:rgba(4,20,26,.55);color:#fff;font-size:12px;line-height:1;padding:4px 8px;border-radius:999px}
+.sc-row{display:grid;gap:6px}
+.sc-lab{font-size:12.5px;color:var(--muted)}
+.sc-chk{display:flex;flex-wrap:wrap;gap:4px 16px}
+.sc-btns{display:flex;gap:8px}
+.sc-btns button{flex:1}
 .so-d .sheet-in{gap:14px}
 .so-tabs{display:flex;gap:3px;background:var(--sea-soft);border-radius:10px;padding:3px}
 .so-tabs button{all:unset;box-sizing:border-box;cursor:pointer;flex:1;text-align:center;padding:8px 6px;border-radius:8px;font-weight:600;font-size:14px;color:var(--muted);display:inline-flex;justify-content:center;align-items:center;gap:4px}
@@ -1072,6 +1086,16 @@ html.vopen,html.vopen body{overflow:hidden;overscroll-behavior:none}
     </section>
   </div>
 </dialog>
+<dialog id="scD" class="sheet sc-d"><div class="sheet-in">
+  <div class="sheet-head"><h2 data-i="scTitle"></h2><button type="button" id="scClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+  <div class="sc-wrap" id="scWrap"><canvas id="scCv" width="1080" height="1920"></canvas><p class="hint sc-busy" id="scBusy" hidden>…</p>
+    <button type="button" class="sc-arr l" id="scPrev" aria-label="‹"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="sc-arr r" id="scNext" aria-label="›"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="sc-n" id="scN"></span></div>
+  <div class="so-tabs" id="scFmt"><button type="button" data-v="story" data-i="scStory"></button><button type="button" data-v="post" data-i="scPost"></button></div>
+  <div class="sc-row"><span class="sc-lab" data-i="scLocL"></span><div class="so-tabs" id="scLoc"><button type="button" data-v="zone" data-i="scZone"></button><button type="button" data-v="spot" data-i="scSpot"></button><button type="button" data-v="none" data-i="scNone"></button></div></div>
+  <div class="sc-chk"><label class="chk" id="scPhL"><input type="checkbox" id="scPh"><span data-i="scPhoto"></span></label><label class="chk"><input type="checkbox" id="scW"><span data-i="scWeight"></span></label><label class="chk"><input type="checkbox" id="scL"><span data-i="scLen"></span></label><label class="chk"><input type="checkbox" id="scDp"><span data-i="scDepth"></span></label><label class="chk"><input type="checkbox" id="scC"><span data-i="scCond"></span></label></div>
+  <div class="sc-btns"><button type="button" class="primary" id="scShare" data-i="share"></button><button type="button" id="scSaveB" data-i="scSaveB"></button></div>
+  <p class="hint" data-i="scHint"></p>
+</div></dialog>
 <dialog id="soc" class="sheet sheet-wide lib-d so-d"><div class="sheet-in">
   <div class="sheet-head"><h2 data-i="socNav"></h2><button type="button" id="socClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
   <p class="hint" id="soSetup" data-i="soSetup" hidden></p>
@@ -2157,7 +2181,7 @@ function entryHtml(e,cm){
     +'<span class="date">'+esc(fmtDate(e.date))+(k!=='dive'?' · '+esc(typeLabel(k)):'')+'</span>'
     +(e.example?'<span class="ex">'+esc(t('example'))+'</span>':'')
     +'<span class="acts">'+((e.catches||[]).length>1||catchCount(e)>1?'<span class="ctot">'+esc(t('totL'))+': '+esc(t((e.catches||[]).every(isFishC)?'fishN':'spcN')(catchCount(e)))+(catchKg(e)?' · '+fmt(catchKg(e))+' kg':'')+'</span>':'')+(c?'<a class="ico" href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener" title="Windy" aria-label="Windy"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12h15.5a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 16h7"/></svg></a>':'')
-    +(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
+    +(((e.catches||[]).length||(e.photos||[]).length)&&!e.example?'<button type="button" class="link ico" data-share="'+esc(e.id)+'" title="'+esc(t('share'))+'" aria-label="'+esc(t('share'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6.5"/></svg></button>':'')+(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
     +(cond?'<div class="cond">'+cond+'</div>':'')
     +(catches?'<div class="catch">'+catches+'</div>':(k==='dive'?'<div class="cond">'+esc(t('noCatch'))+'</div>':''))
     +(e.notes?'<div class="note">'+hl(e.notes)+'</div>':'')
@@ -3301,7 +3325,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794338793';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794340122';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3524,6 +3548,79 @@ Object.assign(T.pt,{socNav:'Amigos',soFeed:'Feed',soFind:'Procurar',soMe:'Perfil
 Object.assign(T.en,{socNav:'Friends',soFeed:'Feed',soFind:'Search',soMe:'Profile',soFeedEmpty:"You don't follow anyone yet. Search for friends by name or @username.",soFeedNone:"The people you follow haven't shared catches yet.",soShareOff:'Your catches are not shared: turn on Profile › Share my catches.',soGoFind:'Find friends',soMore:'Show more',soFindPh:'Name or @username',soFindHint:'Type at least 2 letters. Only profiles with “Show in search” turned on appear.',soFindNone:'Nobody found.',soFollow:'Follow',soFollowing:'Following',soRequested:'Requested',soUnfollow:'Unfollow?',soCancelReq:'Cancel request?',soReqSent:'Request sent. Wait for approval.',soFollowsYou:'Follows you',soWants:'Wants to follow you',soFollowers:'followers',soFollowingN:'following',soFish:'fish',soPrivate:'Private profile. Follow and wait for approval to see the catches.',soNoPosts:'No shared catches yet.',soComment:'Add a comment…',soSend:'Post',soAllComs:n=>'View all '+n+' comments',soDelC:'Delete comment',soLike:'Like',soLiked:'liked',soCommented:'commented',soActivity:'Activity',soNoAct:'No activity yet.',soRequests:'Follow requests',soMyProf:'My profile',soUser:'Username',soUserHint:'3 to 20 characters: lowercase letters, numbers, dot and _.',soUserTaken:'This username is taken.',soUserOk:'Saved',soDisc:'Show in search (by name and @username)',soPriv:'Private profile: I approve followers',soNeedUser:'Pick a username and turn on “Show in search” so friends can find you.',soFollowersL:'Followers',soFollowingL:'Following',soRemove:'Remove',soNone:'Nobody yet.',soSetup:'Friends are not enabled on this server yet.',soYou:'Me',soBack:'Back',soShareH:'Sharing',
   frIntro:'Your followers only see the catches you share, with the fields you choose. They never see coordinates, spot names, notes or times.',frName:'Display name',frOn:'Share my catches',frShow:'Show',frO_photo:'Photos',frO_weight:'Weight',frO_len:'Length',frO_depth:'Depth',frO_where:'Caught in',frO_region:'Area (e.g. Ericeira, Cascais)',frO_dateExact:'Exact date (otherwise month and year only)',frAccept:'Accept',frDecline:'Decline',frSure:'Are you sure?',frNoName:'No name',frErr:"Couldn't do that. Try again.",noShareL:"Don't share this entry with friends"});
 
+/* ===== Share an entry as an image (Instagram story or post) ===== */
+const SC=Object.assign({fmt:'story',loc:'zone',photo:true,w:true,l:true,d:false,c:true},(()=>{try{return JSON.parse(localStorage.getItem('sn-sc')||'{}')}catch(e){return{}}})());
+let scE=null,scImgs=[],scPi=0,scFish=new Map(),scT=null;
+function scSave(){try{localStorage.setItem('sn-sc',JSON.stringify({fmt:SC.fmt,loc:SC.loc,photo:SC.photo,w:SC.w,l:SC.l,d:SC.d,c:SC.c}))}catch(e){}}
+function scLoadImg(src){return new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src})}
+async function scFishImg(c){const m=fishSvg(c.name,c.sub).match(/#f-([^"]+)/);const k=m&&m[1];if(!k)return null;if(scFish.has(k))return scFish.get(k);
+  const sym=document.getElementById('f-'+k);if(!sym)return null;
+  const im=await scLoadImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 36" width="384" height="216">'+sym.innerHTML+'</svg>'));scFish.set(k,im);return im}
+async function scPhoto(id){try{let b;
+  if(sb&&id.includes('/')){const{data,error}=await sb.storage.from('photos').download(id);if(error)throw error;b=data}else{b=await(await fetch(blob(id))).blob()}
+  const u=URL.createObjectURL(b);const im=await scLoadImg(u);return im}catch(e){return null}}
+function scLocText(e){if(SC.loc==='none')return'';if(SC.loc==='spot')return e.spot||'';
+  const sm=new Map();entries.forEach(x=>{const c=parseCoords(x.gps);if(c&&x.spot&&!sm.has(norm(x.spot)))sm.set(norm(x.spot),{c})});return shRegion(coordsOf(e,sm))||''}
+function scFit(x,s,w){if(x.measureText(s).width<=w)return s;while(s.length>1&&x.measureText(s+'…').width>w)s=s.slice(0,-1);return s.trimEnd()+'…'}
+async function scDraw(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920:1350,story=SC.fmt==='story';
+  const cv=$('scCv');cv.width=W;cv.height=H;const x=cv.getContext('2d');
+  const D='Unbounded,"Arial Black",sans-serif',B='"Golos Text",system-ui,sans-serif';
+  try{await Promise.all(['700 60px Unbounded','500 40px Unbounded','500 40px "Golos Text"','600 40px "Golos Text"','italic 400 32px "Golos Text"'].map(f=>document.fonts.load(f)))}catch(_){}
+  const cs=(e.catches||[]).filter(c=>c&&c.name);
+  const ph=SC.photo?scImgs[scPi]:null;
+  if(ph){const s=Math.max(W/ph.naturalWidth,H/ph.naturalHeight);const w=ph.naturalWidth*s,h=ph.naturalHeight*s;x.drawImage(ph,(W-w)/2,(H-h)/2,w,h)}
+  else{const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1E8BD6');g.addColorStop(.45,'#0C6878');g.addColorStop(1,'#06202A');x.fillStyle=g;x.fillRect(0,0,W,H);
+    const f=cs[0]&&await scFishImg(cs[0]);if(f){const fw=W*.78,fh=fw*36/64;x.save();x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=40;x.shadowOffsetY=18;x.drawImage(f,(W-fw)/2,H*(story?.33:.27)-fh/2,fw,fh);x.restore()}}
+  // scrims
+  let g=x.createLinearGradient(0,0,0,story?420:300);g.addColorStop(0,'rgba(4,20,26,.6)');g.addColorStop(1,'rgba(4,20,26,0)');x.fillStyle=g;x.fillRect(0,0,W,story?420:300);
+  g=x.createLinearGradient(0,H*.38,0,H);g.addColorStop(0,'rgba(4,20,26,0)');g.addColorStop(.45,'rgba(4,20,26,.62)');g.addColorStop(1,'rgba(4,20,26,.92)');x.fillStyle=g;x.fillRect(0,H*.38,W,H*.62);
+  const P=76;x.textBaseline='alphabetic';
+  // logo
+  const ly=story?190:118;x.font='700 50px '+D;x.fillStyle='#fff';x.fillText('Spearo',P,ly);const sw=x.measureText('Spearo ').width;x.fillStyle='#FF7A33';x.fillText('Diary',P+sw,ly);
+  // bottom block, drawn upwards
+  let y=H-(story?250:84);
+  x.font='500 28px '+B;x.fillStyle='rgba(214,232,233,.75)';x.fillText('spearodiary.github.io',P,y);y-=62;
+  const meta=[fmtDate(e.date),scLocText(e)];if(SC.c){const md=entryMaxDepth(e);if(md!=null)meta.push(t('maxU')+' '+fmt(md)+' m');if(e.vis!=null)meta.push(t('shVis')+' '+fmt(e.vis)+' m');if(e.temp!=null)meta.push(fmt(e.temp)+' °C')}
+  x.font='500 36px '+B;x.fillStyle='#E3F0EF';const mt=meta.filter(Boolean);
+  // wrap meta onto up to 2 lines
+  const ml=[];let cur='';mt.forEach(s=>{const n=cur?cur+'  ·  '+s:s;if(x.measureText(n).width>W-2*P&&cur){ml.push(cur);cur=s}else cur=n});if(cur)ml.push(cur);
+  ml.slice(0,2).reverse().forEach(s=>{x.fillText(scFit(x,s,W-2*P),P,y);y-=50});
+  y-=26;
+  const show=cs.slice(0,story?5:4),more=cs.length-show.length;
+  if(more>0){x.font='600 34px '+B;x.fillStyle='#BFD8DA';x.fillText('+'+more+' '+t('scMore'),P,y);y-=60}
+  const RH=cs.length>3?118:132,FW=150,FH=FW*36/64;
+  for(let i=show.length-1;i>=0;i--){const c=show[i];const f=await scFishImg(c);const top=y-RH+16;
+    if(f)x.drawImage(f,P-8,top+(RH-FH)/2-14,FW,FH);
+    const tx=P+FW+18,avail=W-P-tx;
+    const det=[SC.w&&c.weight!=null?c.weight.toLocaleString(locale(),{maximumFractionDigits:3})+' kg':'',SC.l&&c.len!=null?fmt(c.len)+' cm':'',SC.d&&c.depth!=null?fmt(c.depth)+' m':''].filter(Boolean).join(' · ');
+    x.font='600 40px '+B;const dw=det?x.measureText(det).width:0;
+    if(det){x.fillStyle='#FFD9BF';x.textAlign='right';x.fillText(det,W-P,top+52);x.textAlign='left'}
+    x.font='700 '+(cs.length>3?44:50)+'px '+D;x.fillStyle='#fff';x.fillText(scFit(x,catchLabel(c)+((c.count||1)>1?' ×'+c.count:''),avail-(det?dw+24:0)),tx,top+54);
+    const L=latinOf(c.name,c.sub);if(L){x.font='italic 400 31px '+B;x.fillStyle='#BFD8DA';x.fillText(scFit(x,L,avail),tx,top+96)}
+    y-=RH}
+  if(!cs.length&&e.spot&&SC.loc==='spot'){x.font='700 56px '+D;x.fillStyle='#fff';x.fillText(scFit(x,e.spot,W-2*P),P,y)}}
+function scUi(){document.querySelectorAll('#scFmt button').forEach(b=>b.classList.toggle('on',b.dataset.v===SC.fmt));document.querySelectorAll('#scLoc button').forEach(b=>b.classList.toggle('on',b.dataset.v===SC.loc));
+  $('scPh').checked=SC.photo;$('scW').checked=SC.w;$('scL').checked=SC.l;$('scDp').checked=SC.d;$('scC').checked=SC.c;
+  $('scPhL').hidden=!scImgs.length;const many=SC.photo&&scImgs.length>1;$('scPrev').hidden=$('scNext').hidden=!many;$('scN').hidden=!many;$('scN').textContent=(scPi+1)+'/'+scImgs.length;
+  $('scWrap').classList.toggle('post',SC.fmt==='post')}
+async function scOpen(e){scE=e;scPi=0;scImgs=[];const d=$('scD');scUi();$('scBusy').hidden=false;if(!d.open)d.showModal();
+  const ids=(e.photos||[]).slice(0,6);scImgs=(await Promise.all(ids.map(scPhoto))).filter(Boolean);if(scE!==e)return;
+  $('scBusy').hidden=true;scUi();await scDraw()}
+async function scFile(){await scDraw();const b=await new Promise(r=>$('scCv').toBlob(r,'image/jpeg',.92));return new File([b],'spearo-diary-'+(scE.date||'catch')+'.jpg',{type:'image/jpeg'})}
+function scDownload(f){const u=URL.createObjectURL(f);const a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
+(function(){const d=$('scD');if(!d)return;
+  $('scClose').addEventListener('click',()=>d.close());
+  $('list').addEventListener('click',ev=>{const b=ev.target.closest('[data-share]');if(!b)return;const e=entries.find(x=>x.id===b.dataset.share);if(e)scOpen(e)});
+  const re=()=>{scSave();scUi();clearTimeout(scT);scT=setTimeout(scDraw,30)};
+  $('scFmt').addEventListener('click',ev=>{const b=ev.target.closest('button');if(b){SC.fmt=b.dataset.v;re()}});
+  $('scLoc').addEventListener('click',ev=>{const b=ev.target.closest('button');if(b){SC.loc=b.dataset.v;re()}});
+  [['scPh','photo'],['scW','w'],['scL','l'],['scDp','d'],['scC','c']].forEach(([id,k])=>$(id).addEventListener('change',()=>{SC[k]=$(id).checked;re()}));
+  $('scPrev').addEventListener('click',()=>{scPi=(scPi-1+scImgs.length)%scImgs.length;re()});$('scNext').addEventListener('click',()=>{scPi=(scPi+1)%scImgs.length;re()});
+  $('scShare').addEventListener('click',async()=>{try{const f=await scFile();if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]})}catch(err){if(err&&err.name!=='AbortError')scDownload(f)}}else scDownload(f)}catch(e){toast(t('frErr'))}});
+  $('scSaveB').addEventListener('click',async()=>{try{scDownload(await scFile())}catch(e){toast(t('frErr'))}});
+})();
+Object.assign(T.pt,{share:'Partilhar',scTitle:'Partilhar imagem',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Local',scZone:'Zona',scSpot:'Pesqueiro',scNone:'Esconder',scPhoto:'Foto',scWeight:'Peso',scLen:'Comprimento',scDepth:'Profundidade',scCond:'Condições',scSaveB:'Guardar imagem',scHint:'No telemóvel, escolha Instagram no menu de partilha (Story ou publicação). No computador, guarde a imagem.',scMore:'mais',shVis:'Visib.'});
+Object.assign(T.en,{share:'Share',scTitle:'Share image',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Place',scZone:'Area',scSpot:'Spot',scNone:'Hide',scPhoto:'Photo',scWeight:'Weight',scLen:'Length',scDepth:'Depth',scCond:'Conditions',scSaveB:'Save image',scHint:'On your phone, pick Instagram in the share menu (Story or post). On a computer, save the image.',scMore:'more',shVis:'Vis.'});
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!DEMO)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 boot();
 })();
