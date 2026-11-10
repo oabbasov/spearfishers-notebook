@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>(function(){var sa=window.navigator.standalone===true||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches);if(!sa)return;document.documentElement.classList.add("app");var m=document.querySelector("meta[name=viewport]");m.content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover";var ok=function(t){return t&&t.closest&&t.closest("#viewer,#scCv")};document.addEventListener("gesturestart",function(e){if(!ok(e.target))e.preventDefault()});document.addEventListener("touchmove",function(e){if(e.touches.length>1&&!ok(e.target))e.preventDefault()},{passive:false})})();</script>
 <title>Spearo Diary</title>
 <meta name="theme-color" content="#0C6878">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -995,6 +996,19 @@ details.esec .inner{padding-top:12px}
 #setProfD[open]>summary::before{transform:rotate(45deg)}
 #setProfD>summary h3{margin:0}
 #setProfD>.so-me,#setProfD>#soSetup{margin-top:12px}
+
+.sess{display:flex;align-items:center;gap:8px}
+.sess>.dp-wrap{flex:1;min-width:0}
+.sess-sep{color:var(--muted);flex:none}
+.sess>.dp-wrap:last-child .dp{left:auto;right:0}
+.sess-dur{color:var(--ink);font-weight:600;margin-left:2px}
+.tdur{white-space:nowrap}.tdur .ic{width:13px;height:13px;vertical-align:-2px;margin-right:2px}
+.set-data{gap:0}
+.set-data[open]{gap:10px}
+.set-data>summary{font:600 14.5px var(--display)}
+.set-data .set-list{display:grid;gap:8px}
+.set-data .set-list button{width:100%;justify-content:flex-start;text-align:left;font:600 14.5px var(--display);padding:12px 14px;border-radius:12px}
+html.app,html.app body{touch-action:manipulation}
 </style>
 </head>
 <body>
@@ -1133,8 +1147,7 @@ details.esec .inner{padding-top:12px}
       <div><button type="button" class="link" id="addCatch" data-i="addFish"></button></div>
     </div>
     <div data-for="dive" class="grid2">
-      <div class="lbl dp-wrap"><label for="eInBtn" data-i="timeIn" style="display:block"></label><button type="button" class="dpick" id="eInBtn" aria-haspopup="dialog" aria-expanded="false"><span id="eInTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button><input id="eIn" type="hidden"><div class="dp tp" id="eInPop" role="dialog" hidden></div></div>
-      <div class="lbl dp-wrap"><label for="eOutBtn" data-i="timeOut" style="display:block"></label><button type="button" class="dpick" id="eOutBtn" aria-haspopup="dialog" aria-expanded="false"><span id="eOutTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button><input id="eOut" type="hidden"><div class="dp tp" id="eOutPop" role="dialog" hidden></div></div>
+      <div class="lbl sess-w" style="grid-column:1/-1"><span><i data-ic="time"></i><span data-i="session"></span><span class="sess-dur" id="eDur"></span></span><div class="sess"><div class="dp-wrap"><button type="button" class="dpick" id="eInBtn" aria-haspopup="dialog" data-al="timeIn" aria-expanded="false"><span id="eInTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button><input id="eIn" type="hidden"><div class="dp tp" id="eInPop" role="dialog" hidden></div></div><span class="sess-sep" aria-hidden="true">→</span><div class="dp-wrap"><button type="button" class="dpick" id="eOutBtn" aria-haspopup="dialog" data-al="timeOut" aria-expanded="false"><span id="eOutTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button><input id="eOut" type="hidden"><div class="dp tp" id="eOutPop" role="dialog" hidden></div></div></div></div>
       <label for="eTideIn"><span><i data-ic="tide"></i><span data-i="tideIn"></span></span><select id="eTideIn"></select></label>
       <label for="eTideOut"><span><i data-ic="tide"></i><span data-i="tideOut"></span></span><select id="eTideOut"></select></label>
       <span class="hint" id="tideHint" hidden data-i="tideAuto" style="grid-column:1/-1"></span>
@@ -1243,9 +1256,8 @@ details.esec .inner{padding-top:12px}
           <label class="chk"><input type="checkbox" id="soDisc"><span data-i="soDisc"></span></label><p class="hint so-h" data-i="soDiscH"></p>
           <label class="chk"><input type="checkbox" id="soPriv"><span data-i="soPriv"></span></label><p class="hint so-h" data-i="soPrivH2"></p>
           <label class="chk" id="soPauseL" hidden><input type="checkbox" id="soPause"><span data-i="soPause"></span></label><p class="hint so-h" id="soPauseH" data-i="soPauseH" hidden></p>
-          </details>
-    </section>
-        <section class="so-sec"><h3 data-i="soShareH"></h3><p class="hint" data-i="frIntro"></p>
+        </section>
+        <details class="so-sec so-fd"><summary data-i="soShareH"></summary><p class="hint" data-i="frIntro"></p>
           <label class="chk"><input type="checkbox" id="frOn"><span data-i="frOn"></span></label>
           <fieldset id="frOpts" class="fr-opts" hidden><legend data-i="frShow"></legend>
             <label class="chk"><input type="checkbox" id="frO_photo"><span data-i="frO_photo"></span></label>
@@ -1255,13 +1267,14 @@ details.esec .inner{padding-top:12px}
             <label class="chk"><input type="checkbox" id="frO_region"><span data-i="frO_region"></span></label>
             <label class="chk"><input type="checkbox" id="frO_dateExact"><span data-i="frO_dateExact"></span></label>
           </fieldset>
-        </section>
-            <details class="so-sec so-fd"><summary><span data-i="soFollowersL"></span> <span class="hint" id="soFolN"></span></summary><ul class="so-list" id="soFolUl"></ul></details>
+        </details>
+        <details class="so-sec so-fd"><summary><span data-i="soFollowersL"></span> <span class="hint" id="soFolN"></span></summary><ul class="so-list" id="soFolUl"></ul></details>
         <details class="so-sec so-fd"><summary><span data-i="soFollowingL"></span> <span class="hint" id="soFingN"></span></summary><ul class="so-list" id="soFingUl"></ul></details>
       </div>
+      </details>
     </section>
     <section class="set-sec">
-      <h3 data-i="setData"></h3>
+      <details class="so-sec so-fd set-data"><summary data-i="setData"></summary>
       <div class="set-list">
         <button type="button" id="backupBtn" data-i="backupL" hidden></button>
         <button type="button" id="restoreBtn" data-i="restoreL"></button>
@@ -1270,6 +1283,7 @@ details.esec .inner{padding-top:12px}
       </div>
       <input type="file" id="restoreInput" accept="application/json,.json" hidden>
       <div class="hist" id="delList" hidden></div>
+      </details>
     </section>
   </div>
 </dialog>
@@ -1891,6 +1905,23 @@ function blob(id){
   if(sb&&id.includes('/')){urlWanted.add(id);clearTimeout(urlTimer);urlTimer=setTimeout(fetchUrls,30)}
   return'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
 }
+const thumbOf=id=>{const i=id.indexOf('/');return id.slice(0,i)+'/t/'+id.slice(i+1).replace(/\.[a-z0-9]+$/i,'')+'.jpg'};
+const tWanted=new Set(),tBusy=new Set();let tTimer=null;
+function tblob(id){if(!id||!sb||!String(id).includes('/'))return blob(id);const k='t:'+id;if(urlCache.has(k)){const v=urlCache.get(k);return v||blob(id)}
+  tWanted.add(id);clearTimeout(tTimer);tTimer=setTimeout(fetchThumbs,30);return'data:image/gif;base64,R0lGODlhAQABAAAAACw='}
+async function fetchThumbs(){const ids=[...tWanted].filter(i=>!urlCache.has('t:'+i));tWanted.clear();if(!ids.length)return;
+  let data=[];try{({data}=await sb.storage.from('photos').createSignedUrls(ids.map(thumbOf),60*60*12))}catch(_){}
+  const by=new Map((data||[]).map(r=>[r.path,r]));const miss=[];
+  ids.forEach(id=>{const r=by.get(thumbOf(id));if(r&&r.signedUrl&&!r.error)urlCache.set('t:'+id,r.signedUrl);else{urlCache.set('t:'+id,null);miss.push(id)}});
+  render(false);if($('dlg').open)drawPhotos();
+  for(const id of miss){try{await makeThumb(id)}catch(_){}}}
+async function thumbBlob(b){const u=URL.createObjectURL(b);try{const im=await new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=u});
+  const S=Math.min(1,320/Math.min(im.naturalWidth,im.naturalHeight));const cv=document.createElement('canvas');cv.width=Math.max(1,Math.round(im.naturalWidth*S));cv.height=Math.max(1,Math.round(im.naturalHeight*S));
+  cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);return await new Promise(r=>cv.toBlob(r,'image/jpeg',.8))}finally{URL.revokeObjectURL(u)}}
+async function makeThumb(id,src){if(tBusy.has(id))return;tBusy.add(id);
+  try{let b=src;if(!b){const r=await sb.storage.from('photos').download(id);if(r.error)return;b=r.data}
+    const tb=await thumbBlob(b);if(!tb)return;await sb.storage.from('photos').upload(thumbOf(id),tb,{contentType:'image/jpeg',upsert:true});
+    urlCache.set('t:'+id,URL.createObjectURL(tb));render(false);if($('dlg').open)drawPhotos()}finally{tBusy.delete(id)}}
 async function fetchUrls(){
   const ids=[...urlWanted];urlWanted.clear();if(!ids.length)return;
   const{data}=await sb.storage.from('photos').createSignedUrls(ids,60*60*12);
@@ -1926,7 +1957,7 @@ function sbAssets(uid){
       if(!/^image\/(jpeg|png|webp)$/.test(f.type))throw{code:'unsupported_type'};
       const path=uid+'/'+Date.now().toString(36)+Math.random().toString(36).slice(2,8)+'.'+f.type.split('/')[1];
       const{error}=await sb.storage.from('photos').upload(path,f,{contentType:f.type});
-      if(error)throw error;return{id:path};
+      if(error)throw error;makeThumb(path,f).catch(()=>{});return{id:path};
     },
     async download(id){const{data,error}=await sb.storage.from('photos').download(id);if(error)throw error;return data}
   };
@@ -2255,6 +2286,7 @@ function autoTide(){
   if(did){$('tideHint').textContent=t('tideAuto').replace('{p}',tf.name);$('tideHint').hidden=false;saveDraft()}
 }
 ['eIn','eOut','eDate','eSpot','eGps'].forEach(i=>$(i).addEventListener('change',autoTide));
+function sessDur(){const d=duration($('eIn').value,$('eOut').value);$('eDur').textContent=d?' · '+d:''}['eIn','eOut'].forEach(i=>$(i).addEventListener('change',sessDur));
 $('tideCard').addEventListener('toggle',()=>{try{localStorage.setItem('sn-tide',$('tideCard').open?'1':'0')}catch(e){}drawTides()});
 try{if(localStorage.getItem('sn-tide')==='0')$('tideCard').open=false}catch(e){}
 let tideRZ=null;addEventListener('resize',()=>{clearTimeout(tideRZ);tideRZ=setTimeout(()=>{drawTides();drawForecast()},150)});
@@ -2339,14 +2371,14 @@ function entryHtml(e,cm){
   const k=kindOf(e),title=e.spot||e.title||'';
   const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+(d=>'<span class="cl1">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+d[0]+cwHtml(w)+'</span>'+d[1])(catchDet(c))+'</span>'}).join(''):'';
 const icv=(k,lab,v)=>'<span title="'+esc(lab)+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(lab)+'">'+ICON[k]+'</span>'+v+'</span>';
-  const cond=[e.timeIn?'<span style="white-space:nowrap">'+ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):'')+(duration(e.timeIn,e.timeOut)?' ('+duration(e.timeIn,e.timeOut)+')':'')+'</span>':'',entryMaxDepth(e)!=null?'<span title="'+esc(t('maxDepth'))+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(t('maxDepth'))+'">'+ICON.depth+'</span>'+esc(t('maxU'))+' '+fmt(entryMaxDepth(e))+' m</span>':'',e.dives!=null?icv('dives',t('divesN'),fmt(e.dives)):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null||e.tempDeep!=null?icv('temp',t('tempSurf'),[e.temp!=null?fmt(e.temp)+' °C':'',e.tempDeep!=null?fmt(e.tempDeep)+' °C':''].filter(Boolean).join(' / ')):'',e.thermo!=null?icv('thermo',t('thermo'),fmt(e.thermo)+' m'):'',tideHtml(e),currentHtml(e),e.weather?'<span style="white-space:nowrap">'+WICON[e.weather]+hl(t('w_'+e.weather))+'</span>':'',e.sea?icv('sea',t('sea'),hl(t('sea_'+e.sea))):'',e.wind?icv('wind',t('wind'),hl(windTxt(e.wind))):'',e.access?icv(e.access,t('acc_'+e.access),''):'',e.lastro!=null?icv('lastro',t('lastro'),fmt(e.lastro)+' kg'):'',e.neutral!=null?icv('neutral',t('neutral'),fmt(e.neutral)+' m'):'',e.apnea!=null?icv('apnea',t('apnea'),apneaF(e.apnea)):'',e.feel?icv('feel',t('feel'),hl(t('fe_'+e.feel))):'',e.equal?icv('equal',t('equal'),hl(t('eq_'+e.equal))):'',e.gps&&!parseCoords(e.gps)&&!isUrl(e.gps)?hl(e.gps):'',(e.tags||[]).map(x=>'<span class="ci">#'+hl(x)+'</span>').join(' ')].filter(Boolean).map(x=>/^<span class="ci">/.test(x)?x:'<span class="ci">'+x+'</span>').join(' · ');
+  const cond=[e.timeIn?'<span style="white-space:nowrap">'+ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):'')+'</span>':'',entryMaxDepth(e)!=null?'<span title="'+esc(t('maxDepth'))+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(t('maxDepth'))+'">'+ICON.depth+'</span>'+esc(t('maxU'))+' '+fmt(entryMaxDepth(e))+' m</span>':'',e.dives!=null?icv('dives',t('divesN'),fmt(e.dives)):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null||e.tempDeep!=null?icv('temp',t('tempSurf'),[e.temp!=null?fmt(e.temp)+' °C':'',e.tempDeep!=null?fmt(e.tempDeep)+' °C':''].filter(Boolean).join(' / ')):'',e.thermo!=null?icv('thermo',t('thermo'),fmt(e.thermo)+' m'):'',tideHtml(e),currentHtml(e),e.weather?'<span style="white-space:nowrap">'+WICON[e.weather]+hl(t('w_'+e.weather))+'</span>':'',e.sea?icv('sea',t('sea'),hl(t('sea_'+e.sea))):'',e.wind?icv('wind',t('wind'),hl(windTxt(e.wind))):'',e.access?icv(e.access,t('acc_'+e.access),''):'',e.lastro!=null?icv('lastro',t('lastro'),fmt(e.lastro)+' kg'):'',e.neutral!=null?icv('neutral',t('neutral'),fmt(e.neutral)+' m'):'',e.apnea!=null?icv('apnea',t('apnea'),apneaF(e.apnea)):'',e.feel?icv('feel',t('feel'),hl(t('fe_'+e.feel))):'',e.equal?icv('equal',t('equal'),hl(t('eq_'+e.equal))):'',e.gps&&!parseCoords(e.gps)&&!isUrl(e.gps)?hl(e.gps):'',(e.tags||[]).map(x=>'<span class="ci">#'+hl(x)+'</span>').join(' ')].filter(Boolean).map(x=>/^<span class="ci">/.test(x)?x:'<span class="ci">'+x+'</span>').join(' · ');
   const c=coordsOf(e,cm),mh=mapsHref(e,c);
   return '<article class="entry'+(e.id===freshId?' fresh':'')+'"><div class="head">'
     +(title?'<h3>'+(mh?'<a class="spot-link" href="'+esc(mh)+'" target="_blank" rel="noopener" title="'+esc(t('maps'))+'">'+hl(title)+'</a>':hl(title))+'</h3>':'')
     +(e.mood&&MOUTH[e.mood]?'<span class="mood" role="img" aria-label="'+esc(t('mood_'+e.mood))+'" title="'+esc(t('mood_'+e.mood))+'">'+face(e.mood)+'</span>':'')
     +'<span class="date">'+esc(fmtDate(e.date))+(k!=='dive'?' · '+esc(typeLabel(k)):'')+'</span>'
     +(e.example?'<span class="ex">'+esc(t('example'))+'</span>':'')
-    +'<span class="acts">'+((e.catches||[]).length>1||catchCount(e)>1?'<span class="ctot">'+esc(t('totL'))+': '+esc(t((e.catches||[]).every(isFishC)?'fishN':'spcN')(catchCount(e)))+(catchKg(e)?' · '+fmt(catchKg(e))+' kg':'')+'</span>':'')+(c?'<a class="ico" href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener" title="Windy" aria-label="Windy"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12h15.5a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 16h7"/></svg></a>':'')
+    +'<span class="acts">'+(((e.catches||[]).length>1||catchCount(e)>1||duration(e.timeIn,e.timeOut))?'<span class="ctot">'+[((e.catches||[]).length>1||catchCount(e)>1)?esc(t('totL'))+': '+esc(t((e.catches||[]).every(isFishC)?'fishN':'spcN')(catchCount(e)))+(catchKg(e)?' · '+fmt(catchKg(e))+' kg':''):'',duration(e.timeIn,e.timeOut)?'<span class="tdur" title="'+esc(t('session'))+'">'+ICON.time+esc(duration(e.timeIn,e.timeOut))+'</span>':''].filter(Boolean).join(' · ')+'</span>':'')+(c?'<a class="ico" href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener" title="Windy" aria-label="Windy"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12h15.5a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 16h7"/></svg></a>':'')
     +(((e.catches||[]).length||(e.photos||[]).length)&&!e.example?'<button type="button" class="link ico" data-share="'+esc(e.id)+'" title="'+esc(t('share'))+'" aria-label="'+esc(t('share'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6.5"/></svg></button>':'')+(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
     +(cond?'<div class="cond">'+cond+'</div>':'')
     +(catches?'<div class="catch">'+catches+'</div>':(k==='dive'?'<div class="cond">'+esc(t('noCatch'))+'</div>':''))
@@ -2355,7 +2387,7 @@ const icv=(k,lab,v)=>'<span title="'+esc(lab)+'" style="white-space:nowrap"><spa
     +(e.tactic?'<div class="note"><b class="nl">'+esc(t('tactic'))+':</b> '+hl(e.tactic)+'</div>':'')
     +((e.errors||[]).length||e.errNote?'<div class="note"><b class="nl">'+esc(t('errS'))+':</b> '+[(e.errors||[]).filter(k=>ERRS.includes(k)).map(k=>esc(t('er_'+k))).join(', '),e.errNote?hl(e.errNote):''].filter(Boolean).join('. ')+'</div>':'')
     +(e.lesson?'<div class="note"><b class="nl">'+esc(t('lesson'))+':</b> '+hl(e.lesson)+'</div>':'')
-    +compareHtml(e)+((e.photos||[]).length?'<div class="photos">'+e.photos.map(p=>'<a href="'+esc(blob(p))+'" target="_blank" rel="noopener"><img loading="lazy" alt="'+esc(t('photoAlt'))+'" src="'+esc(blob(p))+'"></a>').join('')+'</div>':'')
+    +compareHtml(e)+((e.photos||[]).length?'<div class="photos">'+e.photos.map(p=>'<a href="'+esc(blob(p))+'" target="_blank" rel="noopener"><img loading="lazy" alt="'+esc(t('photoAlt'))+'" src="'+esc(tblob(p))+'"></a>').join('')+'</div>':'')
     +'</article>';
 }
 function render(dataChanged){
@@ -2548,13 +2580,13 @@ function runFix(){
 $('eNotes').addEventListener('change',runFix);
 $('fixBtn').addEventListener('click',runFix);
 $('fixUndo').addEventListener('click',()=>{if(fixPrev!=null){$('eNotes').value=fixPrev;fixState(null)}});
-function drawPhotos(){$('ePhotos').innerHTML=form.photos.map(p=>'<div><img alt="" src="'+esc(blob(p))+'"><button type="button" aria-label="×" data-rm="'+esc(p)+'">×</button></div>').join('')}
+function drawPhotos(){$('ePhotos').innerHTML=form.photos.map(p=>'<div><img alt="" src="'+esc(tblob(p))+'" data-full="'+esc(blob(p))+'"><button type="button" aria-label="×" data-rm="'+esc(p)+'">×</button></div>').join('')}
 function openForm(e,id){
   const x=e||{};form.id=id||null;form.original=id?x:null;form.photos=(x.photos||[]).slice();form.mood=x.mood||'';form.shots=(x.shots||[]).map(q=>({...q}));confirmDel=false;fixState(null);$('tideHint').hidden=true;
   $('dlgTitle').textContent=t(id?'editEntry':'newEntry');$('eDelete').hidden=!id;$('eHist').hidden=!id;$('eHist').open=false;$('eHistList').innerHTML='';$('eDelete').textContent=t('del');
   const set=(i,v)=>{$(i).value=v==null?'':v};
   set('eDate',x.date||today());set('eSpot',x.spot);set('eGps',x.gps);set('eDepth',decS(x.maxDepth!=null?x.maxDepth:x.depth));set('eDives',x.dives);set('eVis',decS(x.vis));set('eTemp',decS(x.temp));
-  set('eIn',x.timeIn);set('eOut',x.timeOut);set('eTideIn',tidesOf(x)[0]);set('eTideOut',tidesOf(x)[1]);set('eCurrent',x.current);set('eDir',x.currentDir);set('eWeather',x.weather);set('eSea',x.sea);set('eWind',x.wind);set('eGear',x.gear);set('eNotes',x.notes);set('eTags',(x.tags||[]).join(', '));$('eNoShare').checked=!!x.noShare;$('eNoShareL').hidden=!shMe;
+  set('eIn',x.timeIn);set('eOut',x.timeOut);setTimeout(sessDur,0);set('eTideIn',tidesOf(x)[0]);set('eTideOut',tidesOf(x)[1]);set('eCurrent',x.current);set('eDir',x.currentDir);set('eWeather',x.weather);set('eSea',x.sea);set('eWind',x.wind);set('eGear',x.gear);set('eNotes',x.notes);set('eTags',(x.tags||[]).join(', '));$('eNoShare').checked=!!x.noShare;$('eNoShareL').hidden=!shMe;
   windOpt(x.wind);set('eWind',x.wind);set('eTempDeep',decS(x.tempDeep));set('eThermo',decS(x.thermo));set('eLastro',decS(x.lastro));set('eNeutral',decS(x.neutral));set('eApnea',apneaF(x.apnea));set('eFeel',x.feel);set('eEq',x.equal);set('eTactic',x.tactic);set('eErrNote',x.errNote);set('eLesson',x.lesson);
   form.access=x.access||'';drawAccess();form.errs=[];{const ol=(x.errors||[]).filter(k=>ERRS.includes(k)).map(k=>t('er_'+k)).join(', ');if(ol)$('eErrNote').value=[ol,x.errNote].filter(Boolean).join('. ')}drawGuns(x.guns&&x.guns.length?x.guns:['']);
   $('eCatches').innerHTML='';(x.catches&&x.catches.length?x.catches:[null]).forEach(catchRow);
@@ -2661,14 +2693,14 @@ addEventListener('resize',()=>{if($('viewer').open)vGo(vI,false)});
 $('list').addEventListener('click',ev=>{
   const a=ev.target.closest('.photos a,.cmp-imgs a');if(!a)return;
   ev.preventDefault();const g=a.closest('.photos,.cmp-imgs');
-  vOpen([...g.querySelectorAll('img')].map(i=>i.currentSrc||i.src),[...g.querySelectorAll('a')].indexOf(a));
+  vOpen([...g.querySelectorAll('a')].map(x=>{const h=x.getAttribute('href');return h&&!/^data:image\/gif/.test(h)?h:(x.querySelector('img')||{}).src}),[...g.querySelectorAll('a')].indexOf(a));
 },true);
 $('vPrev').addEventListener('click',()=>vGo(vI-1,true));
 $('vNext').addEventListener('click',()=>vGo(vI+1,true));
 $('vClose').addEventListener('click',()=>$('viewer').close());
 $('viewer').addEventListener('click',ev=>{if(ev.target===$('viewer')||ev.target.closest('.vtrack>div'))$('viewer').close()});
 $('viewer').addEventListener('keydown',ev=>{if(ev.key==='ArrowLeft')$('vPrev').click();if(ev.key==='ArrowRight')$('vNext').click()});
-$('ePhotos').addEventListener('click',ev=>{const im=ev.target.closest('img');if(!im)return;const l=[...$('ePhotos').querySelectorAll('img')].map(i=>i.src);vOpen(l,l.indexOf(im.src))});
+$('ePhotos').addEventListener('click',ev=>{const im=ev.target.closest('img');if(!im)return;const all=[...$('ePhotos').querySelectorAll('img')];vOpen(all.map(i=>i.dataset.full&&!/^data:image\/gif/.test(i.dataset.full)?i.dataset.full:i.src),all.indexOf(im))});
 $('list').addEventListener('click',ev=>{
   const b=ev.target.closest('[data-edit]');if(!b)return;
   const e=entries.find(x=>x.id===b.dataset.edit);if(e)openForm(e,e.id);
@@ -3494,7 +3526,7 @@ Object.assign(T.pt,{ftRights:'Todos os direitos reservados.'});Object.assign(T.e
     const m=$('delAccMsg'),go=$('delAccGo');go.disabled=true;m.hidden=false;m.textContent=t('delAccWorking');
     try{
       const{data:u}=await sb.auth.getUser();const uid=u&&u.user&&u.user.id;if(!uid)throw new Error('no user');
-      for(const dir of [uid+'/share',uid])for(let round=0;round<50;round++){const{data:raw,error}=await sb.storage.from('photos').list(dir,{limit:1000});if(error)throw error;const list=(raw||[]).filter(o=>o.id);if(!list.length)break;
+      for(const dir of [uid+'/share',uid+'/t',uid])for(let round=0;round<50;round++){const{data:raw,error}=await sb.storage.from('photos').list(dir,{limit:1000});if(error)throw error;const list=(raw||[]).filter(o=>o.id);if(!list.length)break;
         const{error:e2}=await sb.storage.from('photos').remove(list.map(o=>dir+'/'+o.name));if(e2)throw e2;if(list.length<1000)break}
       const{error:e3}=await sb.rpc('delete_my_account');if(e3)throw e3;
       try{await sb.auth.signOut()}catch(e){}
@@ -3508,7 +3540,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794351999';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794353546';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3776,9 +3808,9 @@ async function frStart(user){
     const u=ev.target.closest('[data-u]');if(u){soProfile(u.dataset.u)}};
   [d,fc].forEach(x=>{x.addEventListener('click',click);x.addEventListener('input',onIn);x.addEventListener('submit',onSub)});$('setProfile').addEventListener('click',ev=>{if(ev.target.closest('#soAvB'))return;click(ev)});
 })();
-Object.assign(T.pt,{socNav:'Amigos',soFeed:'Feed',soFind:'Procurar',soMe:'Perfil',soFeedEmpty:'Ainda não segue ninguém. Procure amigos pelo nome ou @username.',soFeedNone:'Quem segue ainda não partilhou capturas.',soShareOff:'Para aparecer no feed dos amigos, crie o perfil e ligue «Partilhar as minhas capturas» nas definições.',soGoFind:'Procurar amigos',soMore:'Mostrar mais',soFindPh:'Nome ou @username',soFindHint:'Escreva pelo menos 2 letras. Só aparecem perfis com «Aparecer na pesquisa» ligado.',soFindNone:'Ninguém encontrado.',soFollow:'Seguir',soFollowing:'A seguir',soRequested:'Pedido enviado',soUnfollow:'Deixar de seguir?',soCancelReq:'Cancelar pedido?',soReqSent:'Pedido enviado. Espere pela aprovação.',soFollowsYou:'Segue-o',soWants:'Quer segui-lo',soFollowers:'seguidores',soFollowingN:'a seguir',soFish:'peixes',soPrivate:'Perfil privado. Siga e espere pela aprovação para ver as capturas.',soNoPosts:'Ainda sem capturas partilhadas.',soComment:'Comentar…',soSend:'Enviar',soAllComs:n=>'Ver os '+n+' comentários',soDelC:'Apagar comentário',soLike:'Gosto',soLiked:'gostou',soCommented:'comentou',soActivity:'Atividade',soNoAct:'Ainda sem atividade.',soRequests:'Pedidos para seguir',soMyProf:'O meu perfil',soUser:'Username',soUserHint:'3 a 20 caracteres: letras minúsculas, números, ponto e _.',soUserTaken:'Este username já existe.',soUserOk:'Guardado',soDisc:'Aparecer na pesquisa (por nome e @username)',soPriv:'Perfil privado: aprovo quem me segue',soNeedUser:'Escolha um username e ligue «Aparecer na pesquisa» para que os amigos o encontrem.',soFollowersL:'Seguidores',soFollowingL:'A seguir',soRemove:'Remover',soNone:'Ninguém ainda.',soSetup:'A rede de amigos ainda não está ativa neste servidor.',soYou:'Eu',soBack:'Voltar',soShareH:'Partilha',soPrivH:'Privacidade',soOpenProf:'Abrir o meu perfil',soNeedDisc:'Ligue «Aparecer na pesquisa» para que os amigos o encontrem.',soDiscH:'Ligado: qualquer pessoa com conta encontra-o na pesquisa pelo nome ou @username. Desligado: ninguém o encontra; quem já o segue continua a ver as suas capturas.',soPrivH2:'Ligado: cada pessoa que o quiser seguir envia um pedido e só vê as capturas depois de o aceitar. Desligado: qualquer pessoa pode segui-lo logo e, se aparecer na pesquisa, ver as capturas partilhadas.',soAvCh:'Mudar a foto',soNameEd:'Toque para editar',
+Object.assign(T.pt,{socNav:'Amigos',soFeed:'Feed',soFind:'Procurar',soMe:'Perfil',soFeedEmpty:'Ainda não segue ninguém. Procure amigos pelo nome ou @username.',soFeedNone:'Quem segue ainda não partilhou capturas.',soShareOff:'Para aparecer no feed dos amigos, crie o perfil e ligue «Partilhar as minhas capturas» nas definições.',soGoFind:'Procurar amigos',soMore:'Mostrar mais',soFindPh:'Nome ou @username',soFindHint:'Escreva pelo menos 2 letras. Só aparecem perfis com «Aparecer na pesquisa» ligado.',soFindNone:'Ninguém encontrado.',soFollow:'Seguir',soFollowing:'A seguir',soRequested:'Pedido enviado',soUnfollow:'Deixar de seguir?',soCancelReq:'Cancelar pedido?',soReqSent:'Pedido enviado. Espere pela aprovação.',soFollowsYou:'Segue-o',soWants:'Quer segui-lo',soFollowers:'seguidores',soFollowingN:'a seguir',soFish:'peixes',soPrivate:'Perfil privado. Siga e espere pela aprovação para ver as capturas.',soNoPosts:'Ainda sem capturas partilhadas.',soComment:'Comentar…',soSend:'Enviar',soAllComs:n=>'Ver os '+n+' comentários',soDelC:'Apagar comentário',soLike:'Gosto',soLiked:'gostou',soCommented:'comentou',soActivity:'Atividade',soNoAct:'Ainda sem atividade.',soRequests:'Pedidos para seguir',soMyProf:'O meu perfil',soUser:'Username',soUserHint:'3 a 20 caracteres: letras minúsculas, números, ponto e _.',soUserTaken:'Este username já existe.',soUserOk:'Guardado',soDisc:'Aparecer na pesquisa (por nome e @username)',soPriv:'Perfil privado: aprovo quem me segue',soNeedUser:'Escolha um username e ligue «Aparecer na pesquisa» para que os amigos o encontrem.',soFollowersL:'Seguidores',soFollowingL:'A seguir',soRemove:'Remover',soNone:'Ninguém ainda.',soSetup:'A rede de amigos ainda não está ativa neste servidor.',soYou:'Eu',soBack:'Voltar',soShareH:'Partilha das capturas',soPrivH:'Privacidade',soOpenProf:'Abrir o meu perfil',soNeedDisc:'Ligue «Aparecer na pesquisa» para que os amigos o encontrem.',soDiscH:'Ligado: qualquer pessoa com conta encontra-o na pesquisa pelo nome ou @username. Desligado: ninguém o encontra; quem já o segue continua a ver as suas capturas.',soPrivH2:'Ligado: cada pessoa que o quiser seguir envia um pedido e só vê as capturas depois de o aceitar. Desligado: qualquer pessoa pode segui-lo logo e, se aparecer na pesquisa, ver as capturas partilhadas.',soAvCh:'Mudar a foto',soNameEd:'Toque para editar',
   frIntro:'Quem o segue vê só as capturas que partilhar, com os campos que escolher. Nunca vê coordenadas, nomes dos pesqueiros, notas nem horas.',frName:'Nome visível',frOn:'Partilhar as minhas capturas',frShow:'Mostrar',frO_photo:'Fotos',frO_weight:'Peso',frO_len:'Comprimento',frO_depth:'Profundidade',frO_where:'Caçado em',frO_region:'Zona (ex. Ericeira, Cascais)',frO_dateExact:'Data exata (sem isto: só mês e ano)',frAccept:'Aceitar',frDecline:'Recusar',frSure:'Tem a certeza?',frNoName:'Sem nome',frErr:'Não foi possível. Tente de novo.',noShareL:'Não partilhar esta entrada com amigos'});
-Object.assign(T.en,{socNav:'Friends',soFeed:'Feed',soFind:'Search',soMe:'Profile',soFeedEmpty:"You don't follow anyone yet. Search for friends by name or @username.",soFeedNone:"The people you follow haven't shared catches yet.",soShareOff:'To appear in your friends’ feed, set up your profile and turn on “Share my catches” in settings.',soGoFind:'Find friends',soMore:'Show more',soFindPh:'Name or @username',soFindHint:'Type at least 2 letters. Only profiles with “Show in search” turned on appear.',soFindNone:'Nobody found.',soFollow:'Follow',soFollowing:'Following',soRequested:'Requested',soUnfollow:'Unfollow?',soCancelReq:'Cancel request?',soReqSent:'Request sent. Wait for approval.',soFollowsYou:'Follows you',soWants:'Wants to follow you',soFollowers:'followers',soFollowingN:'following',soFish:'fish',soPrivate:'Private profile. Follow and wait for approval to see the catches.',soNoPosts:'No shared catches yet.',soComment:'Add a comment…',soSend:'Post',soAllComs:n=>'View all '+n+' comments',soDelC:'Delete comment',soLike:'Like',soLiked:'liked',soCommented:'commented',soActivity:'Activity',soNoAct:'No activity yet.',soRequests:'Follow requests',soMyProf:'My profile',soUser:'Username',soUserHint:'3 to 20 characters: lowercase letters, numbers, dot and _.',soUserTaken:'This username is taken.',soUserOk:'Saved',soDisc:'Show in search (by name and @username)',soPriv:'Private profile: I approve followers',soNeedUser:'Pick a username and turn on “Show in search” so friends can find you.',soFollowersL:'Followers',soFollowingL:'Following',soRemove:'Remove',soNone:'Nobody yet.',soSetup:'Friends are not enabled on this server yet.',soYou:'Me',soBack:'Back',soShareH:'Sharing',soPrivH:'Privacy',soOpenProf:'Open my profile',soNeedDisc:'Turn on “Show in search” so friends can find you.',soDiscH:'On: anyone with an account can find you by name or @username. Off: nobody can find you; people who already follow you still see your catches.',soPrivH2:'On: anyone who wants to follow you sends a request and only sees your catches after you accept. Off: anyone can follow you right away and, if you show in search, see your shared catches.',soAvCh:'Change photo',soNameEd:'Tap to edit',
+Object.assign(T.en,{socNav:'Friends',soFeed:'Feed',soFind:'Search',soMe:'Profile',soFeedEmpty:"You don't follow anyone yet. Search for friends by name or @username.",soFeedNone:"The people you follow haven't shared catches yet.",soShareOff:'To appear in your friends’ feed, set up your profile and turn on “Share my catches” in settings.',soGoFind:'Find friends',soMore:'Show more',soFindPh:'Name or @username',soFindHint:'Type at least 2 letters. Only profiles with “Show in search” turned on appear.',soFindNone:'Nobody found.',soFollow:'Follow',soFollowing:'Following',soRequested:'Requested',soUnfollow:'Unfollow?',soCancelReq:'Cancel request?',soReqSent:'Request sent. Wait for approval.',soFollowsYou:'Follows you',soWants:'Wants to follow you',soFollowers:'followers',soFollowingN:'following',soFish:'fish',soPrivate:'Private profile. Follow and wait for approval to see the catches.',soNoPosts:'No shared catches yet.',soComment:'Add a comment…',soSend:'Post',soAllComs:n=>'View all '+n+' comments',soDelC:'Delete comment',soLike:'Like',soLiked:'liked',soCommented:'commented',soActivity:'Activity',soNoAct:'No activity yet.',soRequests:'Follow requests',soMyProf:'My profile',soUser:'Username',soUserHint:'3 to 20 characters: lowercase letters, numbers, dot and _.',soUserTaken:'This username is taken.',soUserOk:'Saved',soDisc:'Show in search (by name and @username)',soPriv:'Private profile: I approve followers',soNeedUser:'Pick a username and turn on “Show in search” so friends can find you.',soFollowersL:'Followers',soFollowingL:'Following',soRemove:'Remove',soNone:'Nobody yet.',soSetup:'Friends are not enabled on this server yet.',soYou:'Me',soBack:'Back',soShareH:'Sharing your catches',soPrivH:'Privacy',soOpenProf:'Open my profile',soNeedDisc:'Turn on “Show in search” so friends can find you.',soDiscH:'On: anyone with an account can find you by name or @username. Off: nobody can find you; people who already follow you still see your catches.',soPrivH2:'On: anyone who wants to follow you sends a request and only sees your catches after you accept. Off: anyone can follow you right away and, if you show in search, see your shared catches.',soAvCh:'Change photo',soNameEd:'Tap to edit',
   frIntro:'Your followers only see the catches you share, with the fields you choose. They never see coordinates, spot names, notes or times.',frName:'Display name',frOn:'Share my catches',frShow:'Show',frO_photo:'Photos',frO_weight:'Weight',frO_len:'Length',frO_depth:'Depth',frO_where:'Caught in',frO_region:'Area (e.g. Ericeira, Cascais)',frO_dateExact:'Exact date (otherwise month and year only)',frAccept:'Accept',frDecline:'Decline',frSure:'Are you sure?',frNoName:'No name',frErr:"Couldn't do that. Try again.",noShareL:"Don't share this entry with friends"});
 
 /* ===== Share an entry as an image (Instagram story or post) ===== */
@@ -3939,6 +3971,7 @@ Object.assign(T.pt,{share:'Partilhar',scTitle:'Partilhar imagem',scStory:'Story 
 Object.assign(T.en,{share:'Share',scTitle:'Share image',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Place',scZone:'Near',scSpot:'Spot',scNone:'Hide',scPhoto:'Photo',scWeight:'Weight',scLen:'Length',scDepth:'Fish depth',scWhere:'Caught in',scDate:'Date',scTime:'Time',scMaxD:'Max depth',scDives:'Dives',scVis:'Visibility',scWater:'Water temp.',scWaterS:'Water',scTide:'Tide',scTideS:'Tide',scSea:'Sea',scWeather:'Weather',scWind:'Wind',scCur:'Current',scGear:'Gear',scShowL:'Show',scWithL:'With friends',scWithPh:'@username',scWithT:'with',scFill:'Fill',scWhole:'Whole photo',scHint2:'Tap the photo: whole or fill. Drag to move, pinch to zoom.',scNoNear:'No places nearby: use “Spot” or hide it.',scSaveB:'Save image',scHint:'On your phone: in “Share” pick Instagram; in “Save image” tap “Save Image” in the menu and it goes to your photos. Nearby names come from OpenStreetMap.',scMore:'more',shVis:'Vis.'});
 Object.assign(T.pt,{soAllPosts:'Ver todas as publicações',soProfH:'Definições de perfil e privacidade',soPause:'Pausar a partilha: ninguém vê as minhas capturas',soPauseH:'Para fechar o acesso a todos sem remover ninguém. Os seguidores continuam na lista; quando desligar, voltam a ver tudo como antes.',soPausedOn:'Partilha em pausa: ninguém vê as suas capturas.',soPausedOff:'Partilha retomada.'});
 Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy settings',soPause:'Pause sharing: nobody sees my catches',soPauseH:'Closes access to everyone without removing anybody. Your followers stay on the list; when you turn this off they see everything again.',soPausedOn:'Sharing paused: nobody sees your catches.',soPausedOff:'Sharing resumed.'});
+Object.assign(T.pt,{session:'Sessão'});Object.assign(T.en,{session:'Session'});
 Object.assign(T.pt,{climH:'Condições climáticas',physH:'Condições físicas',equipH:'Equipamento',analH:'Análise da caçada',errPh2:'Tiros falhados, peixe que escapou, linha presa, compensação, equipamento…'});
 Object.assign(T.en,{climH:'Weather and water',physH:'Physical condition',equipH:'Gear',analH:'Dive review',errPh2:'Missed shots, fish that got away, snagged line, equalising, gear…'});
 Object.assign(T.pt,{acc_boat:'Barco',acc_shore:'Costa',accessL:'Acesso',tempSurf:'Água à superf., °C',tempDeep:'Água sob a termoclina, °C',thermo:'Termoclina, m',thermoS:'termoclina',lastro:'Lastro, kg',lastroS:'lastro',neutral:'Flutuabilidade neutra, m',neutralS:'neutra',apnea:'Apneia máx., min:s',apneaS:'apneia máx.',feel:'Estado físico',equal:'Compensação',equalS:'compensação',suit:'Fato',gun:'Arma',addGun:'Acrescentar arma',tactic:'Tática',tacticPh:'Como caçou: zona, profundidade, aproximação…',errL:'Erros e incidentes',errS:'Incidentes',errPh:'Detalhes (opcional)',lesson:'Conclusão para o futuro',lessonPh:'O que fazer diferente da próxima vez',methL:'Método',cNotePh:'Nota sobre este peixe',wd_none:'Sem vento',wd_light:'Fraco (até 10 km/h)',wd_moderate:'Moderado (10–20 km/h)',wd_fresh:'Fresco (20–30 km/h)',wd_strong:'Forte (30–40 km/h)',wd_gale:'Muito forte (> 40 km/h)',fe_great:'Excelente',fe_good:'Bom',fe_ok:'Normal',fe_tired:'Cansado',fe_bad:'Mal',eq_easy:'Fácil',eq_medium:'Média',eq_hard:'Difícil',eq_hardR:'Difícil, ouvido direito',eq_hardL:'Difícil, ouvido esquerdo',er_miss:'Tiros falhados',er_lost:'Peixe escapou',er_snag:'Linha presa no fundo',er_equal:'Problemas de compensação',er_gearp:'Problema de equipamento',me_wait:'Espera',me_indio:'Índio',me_hole:'Buraco',me_fall:'Caída',wh_water:'Coluna de água',wh_rock:'Rocha',wh_sand:'Areia',wh_weed:'Alga'});
