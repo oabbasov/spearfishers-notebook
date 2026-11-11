@@ -1021,6 +1021,24 @@ html.app,html.app body{touch-action:manipulation}
 #setProfile .so-fd>summary{display:flex;align-items:center;gap:8px;list-style:none}
 #setProfile .so-fd>summary::-webkit-details-marker{display:none}
 #setProfile .so-fd>summary::before{width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);margin:0 4px 0 2px}
+
+.dlg-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dlg-head h2{margin:0}
+.seg.mini{display:inline-flex;gap:0;border:1px solid var(--line);border-radius:999px;padding:2px;flex:none}
+.seg.mini button{min-height:0;padding:4px 10px;border:0;border-radius:999px;background:none;color:var(--muted);font-size:12px;font-weight:600;box-shadow:none}
+.seg.mini button.on{background:var(--sea-soft);color:var(--ink)}
+#entryForm.compact .fx,#entryForm.compact .cWhere,#entryForm.compact .cNote{display:none!important}
+.sess-row{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end}
+.sess-w{flex:0 1 auto;min-width:0}
+.sess{position:relative;display:block}
+.sessb{width:auto;min-width:0;gap:8px;white-space:nowrap}
+.sess .sess-p{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none}
+.sess .sess-p>.dpick{display:none}
+.sess .sess-p .dp{pointer-events:auto;left:0;right:auto}
+.sess>.sess-p:last-child .dp{left:0;right:auto}
+.acc-w{flex:1 1 auto;min-width:0}
+.acc-w .acc{flex-wrap:wrap}
+#shotBlock>summary::before{width:7px;height:7px;border-right-width:2px;border-bottom-width:2px}
 </style>
 </head>
 <body>
@@ -1143,7 +1161,7 @@ html.app,html.app body{touch-action:manipulation}
 
 <dialog id="dlg">
   <form id="entryForm" method="dialog" novalidate>
-    <h2 id="dlgTitle"></h2>
+    <div class="dlg-head"><h2 id="dlgTitle"></h2><div class="seg mini" id="eMode" role="group"><button type="button" data-v="compact" data-i="modeC"></button><button type="button" data-v="full" data-i="modeF"></button></div></div>
     <div class="seg" id="eType" role="group" hidden></div>
     <div class="grid2">
       <div class="lbl dp-wrap"><label for="eDateBtn" data-i="date" style="display:block"></label><button type="button" class="dpick" id="eDateBtn" aria-haspopup="dialog" aria-expanded="false"><span id="eDateTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.8v3.4M16 2.8v3.4"/></svg></button><input id="eDate" type="hidden"><div class="dp" id="eDatePop" role="dialog" hidden></div></div>
@@ -1159,12 +1177,11 @@ html.app,html.app body{touch-action:manipulation}
       <div><button type="button" class="link" id="addCatch" data-i="addFish"></button></div>
     </div>
     <div data-for="dive" class="grid2">
-      <div class="lbl sess-w" style="grid-column:1/-1"><span><i data-ic="time"></i><span data-i="session"></span><span class="sess-dur" id="eDur"></span></span><div class="sess"><div class="dp-wrap"><button type="button" class="dpick" id="eInBtn" aria-haspopup="dialog" data-al="timeIn" aria-expanded="false"><span id="eInTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button><input id="eIn" type="hidden"><div class="dp tp" id="eInPop" role="dialog" hidden></div></div><span class="sess-sep" aria-hidden="true">→</span><div class="dp-wrap"><button type="button" class="dpick" id="eOutBtn" aria-haspopup="dialog" data-al="timeOut" aria-expanded="false"><span id="eOutTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button><input id="eOut" type="hidden"><div class="dp tp" id="eOutPop" role="dialog" hidden></div></div></div></div>
-      <label for="eTideIn"><span><i data-ic="tide"></i><span data-i="tideIn"></span></span><select id="eTideIn"></select></label>
-      <label for="eTideOut"><span><i data-ic="tide"></i><span data-i="tideOut"></span></span><select id="eTideOut"></select></label>
-      <span class="hint" id="tideHint" hidden data-i="tideAuto" style="grid-column:1/-1"></span>
+      <div class="sess-row" style="grid-column:1/-1"><div class="lbl sess-w"><span data-i="session"></span><div class="sess"><button type="button" class="dpick sessb" id="eSessBtn" aria-haspopup="dialog"><span id="eSessTxt" class="ph">--:-- → --:--</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button><div class="dp-wrap sess-p"><button type="button" class="dpick" id="eInBtn" aria-haspopup="dialog" data-al="timeIn" aria-expanded="false"><span id="eInTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button><input id="eIn" type="hidden"><div class="dp tp" id="eInPop" role="dialog" hidden></div></div><div class="dp-wrap sess-p"><button type="button" class="dpick" id="eOutBtn" aria-haspopup="dialog" data-al="timeOut" aria-expanded="false"><span id="eOutTxt"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button><input id="eOut" type="hidden"><div class="dp tp" id="eOutPop" role="dialog" hidden></div></div></div></div><div class="lbl fx acc-w"><span data-i="accessL2"></span><div class="acc" id="eAccess" role="group"><button type="button" data-v="boat" aria-pressed="false"><span data-i="acc_boat"></span></button><button type="button" data-v="shore" aria-pressed="false"><span data-i="acc_shore"></span></button></div></div></div>
+      <label class="fx" for="eTideIn"><span data-i="tideIn"></span><select id="eTideIn"></select></label>
+      <label class="fx" for="eTideOut"><span data-i="tideOut"></span><select id="eTideOut"></select></label>
+      <span class="hint fx" id="tideHint" hidden data-i="tideAuto" style="grid-column:1/-1"></span>
     </div>
-    <div data-for="dive" class="acc" id="eAccess" role="group"><button type="button" data-v="boat" aria-pressed="false"><i data-ic="boat"></i><span data-i="acc_boat"></span></button><button type="button" data-v="shore" aria-pressed="false"><i data-ic="shore"></i><span data-i="acc_shore"></span></button></div>
     <div data-for="dive" class="lbl"><span data-i="moodQ"></span><div class="moods" id="eMood" role="group" data-al="moodQ"></div></div>
     <label for="eNotes"><span data-i="notes"></span><textarea id="eNotes" spellcheck="true"></textarea><span class="fix" id="fixBar" hidden><span id="fixMsg"></span><button type="button" class="link" id="fixUndo" data-i="undo" hidden></button><button type="button" class="link" id="fixBtn" data-i="fixNow"></button></span></label>
     <div class="lbl" id="photoBlock" hidden>
@@ -1173,13 +1190,7 @@ html.app,html.app body{touch-action:manipulation}
       <input id="ePhotoInput" class="vh-file" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple>
       <label for="ePhotoInput" class="file-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2.5h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.5"/></svg><span data-i="pickPhotos"></span></label>
     </div>
-    <div data-for="dive"><details class="esec" id="shotBlock" hidden><summary data-i="shotsT"></summary><div class="inner"><span class="hint" data-i="shotsHint"></span><div class="shot-grid" id="eShots"></div><input id="eShotInput" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple hidden></div></details></div>
-    <details class="esec" id="eAnal" data-for="dive"><summary data-i="analH"></summary><div class="inner">
-      <label for="eTactic"><span data-i="tactic"></span><textarea id="eTactic" rows="2" spellcheck="true" data-ph="tacticPh"></textarea></label>
-      <label for="eErrNote"><span data-i="errL"></span><textarea id="eErrNote" rows="2" spellcheck="true" data-ph="errPh2"></textarea></label>
-      <label for="eLesson"><span data-i="lesson"></span><textarea id="eLesson" rows="2" spellcheck="true" data-ph="lessonPh"></textarea></label>
-    </div></details>
-    <details class="esec" id="eMore" data-for="dive spot"><summary data-i="climH"></summary><div class="inner">
+    <details class="esec fx" id="eMore" data-for="dive spot"><summary data-i="climH"></summary><div class="inner">
         <div class="grid3">
           <label for="eVis"><span><i data-ic="vis"></i><span data-i="vis"></span></span><input id="eVis" type="text" inputmode="decimal" autocomplete="off"></label>
           <label for="eTemp"><span><i data-ic="temp"></i><span data-i="tempSurf"></span></span><input id="eTemp" type="text" inputmode="decimal" autocomplete="off"></label>
@@ -1192,7 +1203,7 @@ html.app,html.app body{touch-action:manipulation}
           <label for="eWind"><span><i data-ic="wind"></i><span data-i="wind"></span></span><select id="eWind"></select></label>
         </div>
     </div></details>
-    <details class="esec" id="ePhys" data-for="dive spot"><summary data-i="physH"></summary><div class="inner">
+    <details class="esec fx" id="ePhys" data-for="dive spot"><summary data-i="physH"></summary><div class="inner">
         <div class="grid3">
           <label for="eDepth"><span><i data-ic="depth"></i><span data-i="maxDepth"></span></span><input id="eDepth" type="text" inputmode="decimal" autocomplete="off"></label>
           <label for="eDives"><span><i data-ic="dives"></i><span data-i="divesN"></span></span><input id="eDives" type="number" min="0" step="1" inputmode="numeric"></label>
@@ -1203,12 +1214,18 @@ html.app,html.app body{touch-action:manipulation}
           <label for="eEq"><span><i data-ic="equal"></i><span data-i="equal"></span></span><select id="eEq"></select></label>
         </div>
     </div></details>
-    <details class="esec" id="eEquip" data-for="dive"><summary data-i="equipH"></summary><div class="inner">
+    <details class="esec fx" id="eEquip" data-for="dive"><summary data-i="equipH"></summary><div class="inner">
         <div class="grid2 gearRow">
           <label for="eGear"><span><i data-ic="suit"></i><span data-i="suit"></span></span><input id="eGear" list="gearList" autocomplete="off"></label>
           <div class="lbl"><span><i data-ic="gun"></i><span data-i="gun"></span></span><div id="eGuns" class="guns"></div></div>
         </div>
     </div></details>
+    <details class="esec fx" id="eAnal" data-for="dive"><summary data-i="analH"></summary><div class="inner">
+      <label for="eTactic"><span data-i="tactic"></span><textarea id="eTactic" rows="2" spellcheck="true" data-ph="tacticPh"></textarea></label>
+      <label for="eErrNote"><span data-i="errL"></span><textarea id="eErrNote" rows="2" spellcheck="true" data-ph="errPh2"></textarea></label>
+      <label for="eLesson"><span data-i="lesson"></span><textarea id="eLesson" rows="2" spellcheck="true" data-ph="lessonPh"></textarea></label>
+    </div></details>
+    <div data-for="dive" class="fx"><details class="esec" id="shotBlock" hidden><summary data-i="shotsT"></summary><div class="inner"><span class="hint" data-i="shotsHint"></span><div class="shot-grid" id="eShots"></div><input id="eShotInput" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple hidden></div></details></div>
     <div class="esec-after">
       <label for="eTags"><span><b class="hash">#</b><span data-i="tags"></span></span><input id="eTags"></label>
       <label class="chk" id="eNoShareL" hidden><input type="checkbox" id="eNoShare"><span data-i="noShareL"></span></label>
@@ -1414,7 +1431,7 @@ const entryMaxDepth=e=>{const v=[e.maxDepth,e.depth,...(e.catches||[]).map(c=>c.
 function catchDet(c){const g=[],L=latinOf(c.name,c.sub);
   const cw=[c.count>1?'×'+c.count:'',c.weight!=null?'<span class="kg">'+c.weight.toLocaleString(locale(),{maximumFractionDigits:3})+' '+t('catchKgS')+'</span>':''].filter(Boolean).join(' ');if(cw)g.push(cw);
   if(c.len!=null)g.push('L '+fmt(c.len)+' cm');if(c.depth!=null)g.push('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>'+fmt(c.depth)+' m');
-  const icT=k=>'<span class="cic" role="img" title="'+esc(t(k))+'" aria-label="'+esc(t(k))+'">'+ICON[k]+'</span>';if(whereOf(c).length||methOf(c))g.push(whereOf(c).map(w=>icT('wh_'+w)).join('')+(methOf(c)?icT('me_'+methOf(c)):''));
+  const icT=k=>'<span class="cic" role="img" title="'+esc(t(k))+'" aria-label="'+esc(t(k))+'">'+ICON[k]+'</span>';if(whereOf(c).length)g.push(whereOf(c).map(w=>esc(t('wh_'+w))).join(' + '));if(methOf(c))g.push(esc(t('me_'+methOf(c))));
   const det=g.map(x=>'<span class="cg">'+x+'</span>').join(' · ');
   const lat=L?'<i class="lat">('+hl(L)+')</i>':'';
   const nt=c.note?'<span class="cnote">'+hl(c.note)+'</span>':'';
@@ -2298,7 +2315,13 @@ function autoTide(){
   if(did){$('tideHint').textContent=t('tideAuto').replace('{p}',tf.name);$('tideHint').hidden=false;saveDraft()}
 }
 ['eIn','eOut','eDate','eSpot','eGps'].forEach(i=>$(i).addEventListener('change',autoTide));
-function sessDur(){const d=duration($('eIn').value,$('eOut').value);$('eDur').textContent=d?' · '+d:''}['eIn','eOut'].forEach(i=>$(i).addEventListener('change',sessDur));
+function sessDur(){const a=$('eIn').value,b=$('eOut').value,d=duration(a,b);const x=$('eSessTxt');x.textContent=(a||'--:--')+' → '+(b||'--:--')+(d?'  ·  '+d:'');x.className=a||b?'':'ph'}
+let sessChain=false;
+$('eSessBtn').addEventListener('click',()=>{const oi=!$('eInPop').hidden,oo=!$('eOutPop').hidden;if(oi||oo)return;sessChain=true;setTimeout(()=>$('eInBtn').click(),0)});
+$('eIn').addEventListener('change',()=>setTimeout(()=>{if(sessChain&&$('eInPop').hidden){sessChain=false;if($('eIn').value)$('eOutBtn').click()}},0));
+function setMode(m){const f=$('entryForm');f.classList.toggle('compact',m==='compact');$('eMode').querySelectorAll('button').forEach(b=>{const on=b.dataset.v===m;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});try{localStorage.setItem('sn-form-mode',m)}catch(_){}}
+$('eMode').addEventListener('click',ev=>{const b=ev.target.closest('button');if(b)setMode(b.dataset.v)});
+setMode((()=>{try{return localStorage.getItem('sn-form-mode')||'full'}catch(_){return'full'}})());['eIn','eOut'].forEach(i=>$(i).addEventListener('change',sessDur));
 $('tideCard').addEventListener('toggle',()=>{try{localStorage.setItem('sn-tide',$('tideCard').open?'1':'0')}catch(e){}drawTides()});
 try{if(localStorage.getItem('sn-tide')==='0')$('tideCard').open=false}catch(e){}
 let tideRZ=null;addEventListener('resize',()=>{clearTimeout(tideRZ);tideRZ=setTimeout(()=>{drawTides();drawForecast()},150)});
@@ -2383,14 +2406,14 @@ function entryHtml(e,cm){
   const k=kindOf(e),title=e.spot||e.title||'';
   const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+(d=>'<span class="cl1">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+d[0]+cwHtml(w)+'</span>'+d[1])(catchDet(c))+'</span>'}).join(''):'';
 const icv=(k,lab,v)=>'<span title="'+esc(lab)+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(lab)+'">'+ICON[k]+'</span>'+v+'</span>';
-  const cond=[e.timeIn?'<span style="white-space:nowrap">'+ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):'')+'</span>':'',entryMaxDepth(e)!=null?'<span title="'+esc(t('maxDepth'))+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(t('maxDepth'))+'">'+ICON.depth+'</span>'+esc(t('maxU'))+' '+fmt(entryMaxDepth(e))+' m</span>':'',e.dives!=null?icv('dives',t('divesN'),fmt(e.dives)):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null||e.tempDeep!=null?icv('temp',t('tempSurf'),[e.temp!=null?fmt(e.temp)+' °C':'',e.tempDeep!=null?fmt(e.tempDeep)+' °C':''].filter(Boolean).join(' / ')):'',e.thermo!=null?icv('thermo',t('thermo'),fmt(e.thermo)+' m'):'',tideHtml(e),currentHtml(e),e.weather?'<span style="white-space:nowrap">'+WICON[e.weather]+hl(t('w_'+e.weather))+'</span>':'',e.sea?icv('sea',t('sea'),hl(t('sea_'+e.sea))):'',e.wind?icv('wind',t('wind'),hl(windTxt(e.wind))):'',e.access?icv(e.access,t('acc_'+e.access),''):'',e.lastro!=null?icv('lastro',t('lastro'),fmt(e.lastro)+' kg'):'',e.neutral!=null?icv('neutral',t('neutral'),fmt(e.neutral)+' m'):'',e.apnea!=null?icv('apnea',t('apnea'),apneaF(e.apnea)):'',e.feel?icv('feel',t('feel'),hl(t('fe_'+e.feel))):'',e.equal?icv('equal',t('equal'),hl(t('eq_'+e.equal))):'',e.gps&&!parseCoords(e.gps)&&!isUrl(e.gps)?hl(e.gps):'',(e.tags||[]).map(x=>'<span class="ci">#'+hl(x)+'</span>').join(' ')].filter(Boolean).map(x=>/^<span class="ci">/.test(x)?x:'<span class="ci">'+x+'</span>').join(' · ');
+  const cond=[e.timeIn?'<span style="white-space:nowrap">'+ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):'')+'</span>':'',entryMaxDepth(e)!=null?'<span title="'+esc(t('maxDepth'))+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(t('maxDepth'))+'">'+ICON.depth+'</span>'+esc(t('maxU'))+' '+fmt(entryMaxDepth(e))+' m</span>':'',e.dives!=null?icv('dives',t('divesN'),fmt(e.dives)):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null||e.tempDeep!=null?icv('temp',t('tempSurf'),[e.temp!=null?fmt(e.temp)+' °C':'',e.tempDeep!=null?fmt(e.tempDeep)+' °C':''].filter(Boolean).join(' / ')):'',e.thermo!=null?icv('thermo',t('thermo'),fmt(e.thermo)+' m'):'',tideHtml(e),currentHtml(e),e.weather?'<span style="white-space:nowrap">'+WICON[e.weather]+hl(t('w_'+e.weather))+'</span>':'',e.sea?icv('sea',t('sea'),hl(t('sea_'+e.sea))):'',e.wind?icv('wind',t('wind'),hl(windTxt(e.wind))):'',e.access?hl(t('accC_'+e.access)):'',e.lastro!=null?icv('lastro',t('lastro'),fmt(e.lastro)+' kg'):'',e.neutral!=null?icv('neutral',t('neutral'),fmt(e.neutral)+' m'):'',e.apnea!=null?icv('apnea',t('apnea'),apneaF(e.apnea)):'',e.feel?icv('feel',t('feel'),hl(t('fe_'+e.feel))):'',e.equal?icv('equal',t('equal'),hl(t('eq_'+e.equal))):'',e.gps&&!parseCoords(e.gps)&&!isUrl(e.gps)?hl(e.gps):'',(e.tags||[]).map(x=>'<span class="ci">#'+hl(x)+'</span>').join(' ')].filter(Boolean).map(x=>/^<span class="ci">/.test(x)?x:'<span class="ci">'+x+'</span>').join(' · ');
   const c=coordsOf(e,cm),mh=mapsHref(e,c);
   return '<article class="entry'+(e.id===freshId?' fresh':'')+'"><div class="head">'
     +(title?'<h3>'+(mh?'<a class="spot-link" href="'+esc(mh)+'" target="_blank" rel="noopener" title="'+esc(t('maps'))+'">'+hl(title)+'</a>':hl(title))+'</h3>':'')
     +(e.mood&&MOUTH[e.mood]?'<span class="mood" role="img" aria-label="'+esc(t('mood_'+e.mood))+'" title="'+esc(t('mood_'+e.mood))+'">'+face(e.mood)+'</span>':'')
     +'<span class="date">'+esc(fmtDate(e.date))+(k!=='dive'?' · '+esc(typeLabel(k)):'')+'</span>'
     +(e.example?'<span class="ex">'+esc(t('example'))+'</span>':'')
-    +'<span class="acts">'+(((e.catches||[]).length>1||catchCount(e)>1||duration(e.timeIn,e.timeOut))?'<span class="ctot">'+[((e.catches||[]).length>1||catchCount(e)>1)?esc(t('totL'))+': '+esc(t((e.catches||[]).every(isFishC)?'fishN':'spcN')(catchCount(e)))+(catchKg(e)?' · '+fmt(catchKg(e))+' kg':''):'',duration(e.timeIn,e.timeOut)?'<span class="tdur" title="'+esc(t('session'))+'">'+ICON.time+esc(duration(e.timeIn,e.timeOut))+'</span>':''].filter(Boolean).join(' · ')+'</span>':'')+(c?'<a class="ico" href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener" title="Windy" aria-label="Windy"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12h15.5a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 16h7"/></svg></a>':'')
+    +'<span class="acts">'+(((e.catches||[]).length>1||catchCount(e)>1||duration(e.timeIn,e.timeOut))?'<span class="ctot">'+esc(t('totL'))+': '+[((e.catches||[]).length>1||catchCount(e)>1)?esc(t((e.catches||[]).every(isFishC)?'fishN':'spcN')(catchCount(e)))+(catchKg(e)?' · '+fmt(catchKg(e))+' kg':''):'',duration(e.timeIn,e.timeOut)?'<span class="tdur" title="'+esc(t('session'))+'">'+ICON.time+esc(duration(e.timeIn,e.timeOut))+'</span>':''].filter(Boolean).join(' · ')+'</span>':'')+(c?'<a class="ico" href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener" title="Windy" aria-label="Windy"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12h15.5a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 16h7"/></svg></a>':'')
     +(((e.catches||[]).length||(e.photos||[]).length)&&!e.example?'<button type="button" class="link ico" data-share="'+esc(e.id)+'" title="'+esc(t('share'))+'" aria-label="'+esc(t('share'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6.5"/></svg></button>':'')+(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
     +(cond?'<div class="cond">'+cond+'</div>':'')
     +(catches?'<div class="catch">'+catches+'</div>':(k==='dive'?'<div class="cond">'+esc(t('noCatch'))+'</div>':''))
@@ -2457,7 +2480,7 @@ $('moreBtn').addEventListener('click',()=>{const m=$('more');m.hidden=!m.hidden;
 /* Full form */
 function catchRow(c){
   const d=document.createElement('div');d.className='catch-row';
-  d.innerHTML='<div class="fishbox"><span class="cIcon"></span><input class="cName" autocomplete="off" role="combobox" aria-expanded="false"></div><div class="cSub fishbox"></div><input class="cCount" type="number" min="1" step="1" inputmode="numeric"><input class="cDep" type="text" inputmode="decimal" autocomplete="off"><input class="cLen" type="text" inputmode="decimal" autocomplete="off"><input class="cWeight" type="text" inputmode="decimal" autocomplete="off"><button type="button">×</button><div class="cLabs" aria-hidden="true"><span>'+esc(t('qty'))+'</span><span>kg</span><span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>m</span><span>L, cm</span></div><div class="cWhere" role="group"><span class="cwL">'+esc(t('whereL'))+'</span>'+WHERE.map(k=>'<button type="button" data-w="'+k+'" aria-pressed="false" title="'+esc(t('wh_'+k))+'">'+ICON['wh_'+k]+'<span>'+esc(t('wh_'+k))+'</span></button>').join('')+'</div><div class="cWhere cMeth" role="group"><span class="cwL">'+esc(t('methL'))+'</span>'+METHODS.map(k=>'<button type="button" data-m="'+k+'" aria-pressed="false" title="'+esc(t('me_'+k))+'">'+ICON['me_'+k]+'<span>'+esc(t('me_'+k))+'</span></button>').join('')+'</div><input class="cNote" autocomplete="off" maxlength="300">';
+  d.innerHTML='<div class="fishbox"><span class="cIcon"></span><input class="cName" autocomplete="off" role="combobox" aria-expanded="false"></div><div class="cSub fishbox"></div><input class="cCount" type="number" min="1" step="1" inputmode="numeric"><input class="cDep" type="text" inputmode="decimal" autocomplete="off"><input class="cLen" type="text" inputmode="decimal" autocomplete="off"><input class="cWeight" type="text" inputmode="decimal" autocomplete="off"><button type="button">×</button><div class="cLabs" aria-hidden="true"><span>'+esc(t('qty'))+'</span><span>kg</span><span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>m</span><span>L, cm</span></div><div class="cWhere" role="group"><span class="cwL">'+esc(t('whereL'))+'</span>'+WHERE.map(k=>'<button type="button" data-w="'+k+'" aria-pressed="false" title="'+esc(t('wh_'+k))+'">'+esc(t('wh_'+k))+'</button>').join('')+'</div><div class="cWhere cMeth" role="group"><span class="cwL">'+esc(t('methL'))+'</span>'+METHODS.map(k=>'<button type="button" data-m="'+k+'" aria-pressed="false" title="'+esc(t('me_'+k))+'">'+esc(t('me_'+k))+'</button>').join('')+'</div><input class="cNote" autocomplete="off" maxlength="300">';
   d.querySelector('.cName').setAttribute('aria-label',t('fish'));d.querySelector('.cCount').setAttribute('aria-label',t('qty'));d.querySelector('.cLen').setAttribute('aria-label',t('cmL'));d.querySelector('.cDep').setAttribute('aria-label',t('depth'));d.querySelector('.cDep').placeholder='⌖ m';d.querySelector('.cLen').placeholder='L cm';d.querySelector('.cWeight').setAttribute('aria-label',t('kg'));
   d.querySelector('.cName').value=c?fishLabel(c.name):'';d.querySelector('.cCount').value=c&&c.count||'';d.querySelector('.cLen').value=c&&c.len!=null?decS(c.len):'';{const sw=a=>{d.dataset.where=a.join(',');d.querySelectorAll('.cWhere button').forEach(b=>{const on=a.includes(b.dataset.w);b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})};sw(c?whereOf(c):[]);d.querySelector('.cWhere').addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;const a=d.dataset.where?d.dataset.where.split(','):[],w=b.dataset.w;sw(a.includes(w)?a.filter(x=>x!==w):WHERE.filter(x=>x===w||a.includes(x)))})}d.querySelector('.cDep').value=c&&c.depth!=null?decS(c.depth):'';d.querySelector('.cWeight').value=c&&c.weight!=null?decS(c.weight):'';
   {const sm=m=>{d.dataset.method=m||'';d.querySelectorAll('.cMeth button').forEach(b=>{const on=b.dataset.m===m;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})};sm(c?methOf(c):'');d.querySelector('.cMeth').addEventListener('click',ev=>{const b=ev.target.closest('button');if(b)sm(d.dataset.method===b.dataset.m?'':b.dataset.m)})}
@@ -3552,7 +3575,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794389473';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794390461';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3983,6 +4006,7 @@ Object.assign(T.pt,{share:'Partilhar',scTitle:'Partilhar imagem',scStory:'Story 
 Object.assign(T.en,{share:'Share',scTitle:'Share image',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Place',scZone:'Near',scSpot:'Spot',scNone:'Hide',scPhoto:'Photo',scWeight:'Weight',scLen:'Length',scDepth:'Fish depth',scWhere:'Caught in',scDate:'Date',scTime:'Time',scMaxD:'Max depth',scDives:'Dives',scVis:'Visibility',scWater:'Water temp.',scWaterS:'Water',scTide:'Tide',scTideS:'Tide',scSea:'Sea',scWeather:'Weather',scWind:'Wind',scCur:'Current',scGear:'Gear',scShowL:'Show',scWithL:'With friends',scWithPh:'@username',scWithT:'with',scFill:'Fill',scWhole:'Whole photo',scHint2:'Tap the photo: whole or fill. Drag to move, pinch to zoom.',scNoNear:'No places nearby: use “Spot” or hide it.',scSaveB:'Save image',scHint:'On your phone: in “Share” pick Instagram; in “Save image” tap “Save Image” in the menu and it goes to your photos. Nearby names come from OpenStreetMap.',scMore:'more',shVis:'Vis.'});
 Object.assign(T.pt,{soAllPosts:'Ver todas as publicações',soProfH:'Definições de perfil e privacidade',soPause:'Pausar a partilha: ninguém vê as minhas capturas',soPauseH:'Para fechar o acesso a todos sem remover ninguém. Os seguidores continuam na lista; quando desligar, voltam a ver tudo como antes.',soPausedOn:'Partilha em pausa: ninguém vê as suas capturas.',soPausedOff:'Partilha retomada.'});
 Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy settings',soPause:'Pause sharing: nobody sees my catches',soPauseH:'Closes access to everyone without removing anybody. Your followers stay on the list; when you turn this off they see everything again.',soPausedOn:'Sharing paused: nobody sees your catches.',soPausedOff:'Sharing resumed.'});
+Object.assign(T.pt,{modeC:'Compacto',modeF:'Completo',accessL2:'Entrada de',accC_boat:'Entrada de barco',accC_shore:'Entrada de costa'});Object.assign(T.en,{modeC:'Compact',modeF:'Full',accessL2:'Entry from',accC_boat:'From a boat',accC_shore:'From shore'});
 Object.assign(T.pt,{session:'Sessão'});Object.assign(T.en,{session:'Session'});
 Object.assign(T.pt,{climH:'Condições climáticas',physH:'Condições físicas',equipH:'Equipamento',analH:'Análise da caçada',errPh2:'Tiros falhados, peixe que escapou, linha presa, compensação, equipamento…'});
 Object.assign(T.en,{climH:'Weather and water',physH:'Physical condition',equipH:'Gear',analH:'Dive review',errPh2:'Missed shots, fish that got away, snagged line, equalising, gear…'});
