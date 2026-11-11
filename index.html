@@ -1009,6 +1009,18 @@ details.esec .inner{padding-top:12px}
 .set-data .set-list{display:grid;gap:8px}
 .set-data .set-list button{width:100%;justify-content:flex-start;text-align:left;font:600 14.5px var(--display);padding:12px 14px;border-radius:12px}
 html.app,html.app body{touch-action:manipulation}
+
+.set-data{border:0;padding:0;background:none;border-radius:0}
+.set-data>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;margin:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-family:inherit}
+.set-data>summary::-webkit-details-marker{display:none}
+.set-data>summary::before{content:"";width:7px;height:7px;border:0;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);transition:transform .15s;margin:0 4px 0 2px}
+.set-data[open]>summary::before{transform:rotate(45deg)}
+.set-data[open]>.set-list{margin-top:12px}
+.set-data .set-list button,#setProfile .so-fd>summary{font-family:inherit;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+#setProfile .so-fd>summary .hint{letter-spacing:0}
+#setProfile .so-fd>summary{display:flex;align-items:center;gap:8px;list-style:none}
+#setProfile .so-fd>summary::-webkit-details-marker{display:none}
+#setProfile .so-fd>summary::before{width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);margin:0 4px 0 2px}
 </style>
 </head>
 <body>
@@ -3540,7 +3552,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794353546';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794389473';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
