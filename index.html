@@ -1134,6 +1134,23 @@ body.arranging .arr-sp{display:inline-block}
 .so-post .so-cm .so-m1{white-space:normal;overflow:visible}
 .so-m{white-space:nowrap}
 .so-m .ic{width:13px;height:13px;vertical-align:-2px;margin-right:3px;fill:none;stroke:currentColor;stroke-width:2}
+
+.so-meb{all:unset;cursor:pointer;color:var(--sea);font-weight:600;font-size:14px;padding:4px 8px;border-radius:999px;border:1px solid var(--line)}
+.so-meb:focus-visible{outline:2px solid var(--sea)}
+.onoff{color:var(--sea)}
+.onoff.off{color:var(--muted)}
+.so-hd{display:flex;align-items:center;gap:8px}
+.so-hd .so-who{flex:1;min-width:0}
+.so-hd .onoff{flex:none;margin-right:8px}
+.so-post.off .so-pw,.so-post.off .so-cs{opacity:.45}
+
+.count-row{align-items:flex-start}
+.count-row>button{height:30px;margin-top:-5.5px;display:inline-grid;place-items:center;padding:0 4px;min-height:0}
+.count-row>button[hidden],.count-row>.arr-sp{display:none}
+body.arranging .count-row>.arr-sp{display:inline-grid}
+.sum-s{white-space:pre}
+.entry [data-b=gear]{margin-top:10px}
+@media (max-width:560px){.sum2{display:block}.sum-s{display:none}.entry .head .date{margin-top:2px}}
 </style>
 </head>
 <body>
@@ -1179,7 +1196,7 @@ body.arranging .arr-sp{display:inline-block}
   </nav>
   <div id="defNow" class="def-now" hidden aria-live="polite"></div>
   <details class="tidecard so-card" id="feedCard" hidden>
-    <summary><svg class="fc-ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.500"/><path d="M2.500 20c.600-3.500 3.200-5.500 6.500-5.500s5.900 2 6.500 5.500"/><path d="M15.500 4.800a3.500 3.500 0 0 1 0 6.400M18 14.800c2 .800 3.200 2.600 3.500 5.200"/></svg><span data-i="soFeed"></span><button type="button" class="so-sbtn" id="feedFind" data-al="soFind"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button></summary>
+    <summary><svg class="fc-ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.500"/><path d="M2.500 20c.600-3.500 3.200-5.500 6.500-5.500s5.900 2 6.500 5.500"/><path d="M15.500 4.800a3.500 3.500 0 0 1 0 6.400M18 14.800c2 .800 3.200 2.600 3.500 5.200"/></svg><span data-i="soFeed"></span><button type="button" class="so-meb" id="feedMe" data-i="soMe"></button><button type="button" class="so-sbtn" id="feedFind" data-al="soFind"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button></summary>
   <div id="so_find" class="so-view so-findbox" hidden><label class="so-q"><span class="so-qi"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><input type="search" id="soQ" data-ph="soFindPh" data-al="soFindPh" autocomplete="off" autocapitalize="off" spellcheck="false"></label><p class="hint" id="soFindHint" data-i="soFindHint"></p><div id="soRes"></div></div>
     <div id="so_feed" class="so-view so-scroll"></div>
   </details>
@@ -1248,7 +1265,7 @@ body.arranging .arr-sp{display:inline-block}
     <span data-i="exNote"></span>
     <button type="button" class="link" id="clearExamples"></button>
   </div>
-  <div class="count-row"><div class="count" id="summary" aria-live="polite"></div><button type="button" class="link arr-sp" id="arrSp" data-i="arrSp"></button><button type="button" class="link ico arr-btn" id="arrBtn"></button></div>
+  <div class="count-row"><div class="count" id="summary" aria-live="polite"></div><button type="button" class="link arr-sp" id="arrSp" data-i="arrSp"></button><button type="button" class="link ico onoff" id="allOn" hidden></button><button type="button" class="link ico arr-btn" id="arrBtn"></button></div>
   <div class="list" id="list"></div>
   <footer class="linksbox" id="windyBar" hidden></footer>
   <footer class="site-foot"><span>© <span id="ftYear">2026</span> Spearo Diary</span><span aria-hidden="true">·</span><span data-i="ftRights"></span></footer>
@@ -2600,7 +2617,7 @@ const icv=(k,lab,v)=>'<span title="'+esc(lab)+'" style="white-space:nowrap"><spa
     +'<span class="date">'+esc(fmtDate(e.date))+(k!=='dive'?' · '+esc(typeLabel(k)):'')+'</span>'
     +(e.example?'<span class="ex">'+esc(t('example'))+'</span>':'')
     +'<span class="acts">'+(((e.catches||[]).length>1||catchCount(e)>1||duration(e.timeIn,e.timeOut))?'<span class="ctot">'+esc(t('totL'))+': '+[((e.catches||[]).length>1||catchCount(e)>1)?esc(t((e.catches||[]).every(isFishC)?'fishN':'spcN')(catchCount(e)))+(catchKg(e)?' · '+fmt(catchKg(e))+' kg':''):'',duration(e.timeIn,e.timeOut)?'<span class="tdur" title="'+esc(t('session'))+'">'+ICON.time+esc(duration(e.timeIn,e.timeOut))+'</span>':''].filter(Boolean).join(' · ')+'</span>':'')+(c?'<a class="ico" href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener" title="Windy" aria-label="Windy"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12h15.5a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 16h7"/></svg></a>':'')
-    +(((e.catches||[]).length||(e.photos||[]).length)&&!e.example?'<button type="button" class="link ico" data-share="'+esc(e.id)+'" title="'+esc(t('share'))+'" aria-label="'+esc(t('share'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6.5"/></svg></button>':'')+(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
+    +(canOnOff(e)?onBtn(!!e.postOff,'data-onoff="'+esc(e.id)+'"'):'')+(((e.catches||[]).length||(e.photos||[]).length)&&!e.example?'<button type="button" class="link ico" data-share="'+esc(e.id)+'" title="'+esc(t('share'))+'" aria-label="'+esc(t('share'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6.5"/></svg></button>':'')+(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
     +(B=>cardOrd('b').map(k=>/^sp\d+$/.test(k)?'<div class="csp" data-b="'+k+'" style="height:'+((cOrd.h||{})[k]||24)+'px">'+BH+'<button type="button" class="csp-x" data-spx="'+k+'" aria-label="×">×</button><span class="csp-r" data-spr="'+k+'"></span></div>':(B[k]||'')).join(''))({
       cond:(cond?'<div class="cond" data-b="cond">'+BH+cond+'</div>':''),
       catch:(catches?'<div class="catch" data-b="catch">'+BH+catches+'</div>':(k==='dive'?'<div class="cond" data-b="catch">'+BH+esc(t('noCatch'))+'</div>':'')),
@@ -2618,7 +2635,8 @@ function render(dataChanged){
   updateFishBtn();
   const shown=sorted(entries.filter(matches)),cm=spotCoords();
   const f=shown.reduce((a,e)=>a+catchCount(e),0),kg=shown.reduce((a,e)=>a+catchKg(e),0),dives=shown.filter(e=>kindOf(e)==='dive').length;
-  $('summary').textContent=entries.length?[t('found')(shown.length),dives?t('diveN')(dives):'',f?t('fishN')(f):'',kg?fmt(kg)+' '+t('catchKgS'):''].filter(Boolean).join(' · '):'';
+  {const a=[t('found')(shown.length),dives?t('diveN')(dives):''].filter(Boolean),b=[f?t('fishN')(f):'',kg?fmt(kg)+' '+t('catchKgS'):''].filter(Boolean);
+   $('summary').innerHTML=entries.length?esc(a.join(' · '))+(b.length?'<span class="sum2"><span class="sum-s"> · </span>'+esc(b.join(' · '))+'</span>':''):''}
   $('exampleNotice').hidden=!entries.some(e=>e.example);
   const list=$('list');
   if(shown.length)list.innerHTML=shown.map(e=>entryHtml(e,cm)).join('');
@@ -3777,7 +3795,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794428502';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794434555';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3807,13 +3825,14 @@ function shPayload(e,cfg,spotMap){
     if(cfg.weight&&c.weight!=null)o.weight=c.weight;if(cfg.len&&c.len!=null)o.len=c.len;if(cfg.depth&&c.depth!=null)o.depth=c.depth;return o})};
   if(cfg.region){const r=shRegion(coordsOf(e,spotMap));if(r)d.region=r}
   return d}
+let SH_HID=null;async function shHid(){if(SH_HID!=null)return SH_HID;try{const r=await sb.from('shared_catches').select('hidden,published_at').limit(1);SH_HID=!r.error}catch(_){SH_HID=false}return SH_HID}
 async function shSync(){
   if(!shMe||!sb)return;if(shBusy){shAgain=true;return}shBusy=true;
   try{
-    const cfg=shCfg();const{data:have,error}=await sb.from('shared_catches').select('entry_id,data').eq('user_id',shMe);if(error)throw error;
-    const H=new Map((have||[]).map(r=>[r.entry_id,r.data]));
+    const cfg=shCfg(),hid=await shHid();const{data:have,error}=await sb.from('shared_catches').select(hid?'entry_id,data,hidden':'entry_id,data').eq('user_id',shMe);if(error)throw error;
+    const H=new Map((have||[]).map(r=>[r.entry_id,r.data])),HH=new Map((have||[]).map(r=>[r.entry_id,!!r.hidden]));
     const spotMap=new Map();entries.forEach(x=>{const c=parseCoords(x.gps);if(c&&x.spot&&!spotMap.has(norm(x.spot)))spotMap.set(norm(x.spot),{c})});
-    const want=new Map();if(cfg.on)entries.forEach(e=>{if(e.noShare||e.type==='checklist')return;const p=shPayload(e,cfg,spotMap);if(p)want.set(e.id,{p,e})});
+    const want=new Map();if(cfg.on)entries.forEach(e=>{if(e.noShare||e.type==='checklist'||(!hid&&e.postOff))return;const p=shPayload(e,cfg,spotMap);if(p)want.set(e.id,{p,e})});
     const gone=[...H.keys()].filter(k=>!want.has(k));
     for(const k of gone){const old=H.get(k);if(old&&old.photos&&old.photos.length)await sb.storage.from('photos').remove(old.photos);await sb.from('shared_catches').delete().eq('user_id',shMe).eq('entry_id',k)}
     for(const [id,{p,e}] of want){
@@ -3824,8 +3843,8 @@ async function shSync(){
         const out=[];for(const s of src){try{const b=await shStrip(s);const path=shMe+'/share/'+id+'-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)+'.jpg';const r=await sb.storage.from('photos').upload(path,b,{contentType:'image/jpeg'});if(!r.error)out.push(path)}catch(_){}}
         if(out.length)p.photos=out}
       if(!p.photos)delete p.ph;
-      if(old&&JSON.stringify(old)===JSON.stringify(p))continue;
-      await sb.from('shared_catches').upsert({user_id:shMe,entry_id:id,data:p,updated_at:new Date().toISOString()},{onConflict:'user_id,entry_id'})}
+      if(old&&JSON.stringify(old)===JSON.stringify(p)&&(!hid||HH.get(id)===!!e.postOff))continue;
+      await sb.from('shared_catches').upsert(Object.assign({user_id:shMe,entry_id:id,data:p,updated_at:new Date().toISOString()},hid?{hidden:!!e.postOff}:{}),{onConflict:'user_id,entry_id'})}
   }catch(e){console.warn('share sync',e)}
   shBusy=false;if(shAgain){shAgain=false;shSoon()}}
 
@@ -3863,12 +3882,17 @@ function soDots(n){if(n<2)return'';let h='';for(let i=0;i<n;i++)h+='<span class=
 function soDotsSet(pw,i){const dr=pw.querySelector('.so-dr');if(!dr)return;const ds=[...dr.children],n=ds.length;const s=n<=5?0:Math.max(0,Math.min(i-2,n-5));
   ds.forEach((d,j)=>{let c='';if(j<s||j>s+4)c='h';else if(n>5){if(j===s+4&&s+4<n-1)c='xs';else if(j===s+3&&s+4<n-1)c='s';if(j===s&&s>0)c='xs';else if(j===s+1&&s>0)c=c||'s'}
     d.className='so-dot'+(c?' '+c:'')+(j===i?' on':'')});dr.style.transform='translateX('+(-s*100/Math.min(n,5))+'%)'}
+const ON_I='<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.500 12h17M12 3.500c2.300 2.400 3.500 5.200 3.500 8.500s-1.200 6.100-3.500 8.500c-2.300-2.400-3.500-5.200-3.500-8.500S9.700 5.900 12 3.500z"/></svg>';
+const OFF_I='<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.300 4.300A8.500 8.500 0 0 1 19.700 15.700M5.900 6A8.500 8.500 0 0 0 18 18.100"/><path d="M3 3l18 18"/></svg>';
+function onBtn(off,attr){return '<button type="button" class="link ico onoff'+(off?' off':'')+'" '+attr+' aria-pressed="'+(!off)+'" title="'+esc(t(off?'postOffS':'postOnS'))+'" aria-label="'+esc(t(off?'postOffS':'postOnS'))+'">'+(off?OFF_I:ON_I)+'</button>'}
+async function postSet(id,off){const ok=await saveEntry(id,{postOff:off||null});if(ok){toast(t(off?'postOffT':'postOnT'));shSoon()}return ok}
+function canOnOff(e){try{return !!(SO.social&&shProf&&shCfg().on&&!e.example&&!e.noShare&&(e.catches||[]).some(c=>c&&c.name))}catch(_){return false}}
 function soPost(r){const d=r.data||{},p=SO.cards.get(r.user_id)||{};const liked=(r.likes||[]).some(l=>l.user_id===shMe);const coms=r.coms||[];
   const sub=[p.username?'@'+p.username:'',d.region,soDate(d.date)].filter(Boolean).join(' · ');
   const pics=(d.photos||[]).map(x=>SO.urls.get(x)).filter(Boolean);
   const showC=r.open?coms:coms.slice(-2);
-  return '<article class="so-post" data-o="'+esc(r.user_id)+'" data-e="'+esc(r.entry_id)+'">'+
-    '<div class="so-hd"><button type="button" class="so-who" data-u="'+esc(r.user_id)+'">'+soAv(r.user_id,p)+'<span class="so-wt"><b>'+esc(soName(r.user_id,p))+'</b><small>'+esc(sub)+'</small></span></button></div>'+
+  return '<article class="so-post'+(r.hidden?' off':'')+'" data-o="'+esc(r.user_id)+'" data-e="'+esc(r.entry_id)+'">'+
+    '<div class="so-hd"><button type="button" class="so-who" data-u="'+esc(r.user_id)+'">'+soAv(r.user_id,p)+'<span class="so-wt"><b>'+esc(soName(r.user_id,p))+'</b><small>'+esc(sub)+'</small></span></button>'+(r.user_id===shMe&&entries.some(x=>x.id===r.entry_id)?onBtn(!!r.hidden,'data-a="onoff"'):'')+'</div>'+
     (pics.length?'<div class="so-pw"><div class="so-pics">'+pics.map((u,i)=>'<img src="'+esc(u.u)+'" alt="" loading="lazy" data-vi="'+i+'">').join('')+'</div>'+soDots(pics.length)+'</div>':'')+
     '<ul class="so-cs">'+(d.catches||[]).map(soCatch).join('')+'</ul>'+
     '<div class="so-act"><button type="button" class="so-like'+(liked?' on':'')+'" data-a="like" aria-pressed="'+liked+'" aria-label="'+esc(t('soLike'))+'">'+SO_I.heart+'<span>'+((r.likes||[]).length||'')+'</span></button>'+
@@ -3893,8 +3917,9 @@ function soBadge(){const req=SO.fol.filter(f=>f.kind==='follower'&&f.status==='p
 function soFindToggle(on){const f=$('so_find');on=on==null?f.hidden:on;f.hidden=!on;if(on){if(!$('feedCard').open)$('feedCard').open=true;soFind();setTimeout(()=>$('soQ').focus(),30)}else{$('soQ').value='';$('soRes').innerHTML=''}}
 function soSettings(){soPageClose(true);$('setProfD').open=true;const st=$('settings');if(!st.open)st.showModal();soMe();setTimeout(()=>$('setProfile').scrollIntoView({block:'start'}),30)}
 function soEmpty(){return '<div class="so-empty"><p>'+esc(t(soFollowing().length?'soFeedNone':'soFeedEmpty'))+'</p>'+(shCfg().on&&shProf.username?'':'<p class="hint">'+esc(t('soShareOff'))+'</p><button type="button" data-go="me">'+esc(t('soOpenProf'))+'</button>')+'<button type="button" class="primary" data-go="find">'+esc(t('soGoFind'))+'</button></div>'}
-async function soRows(off,n){const ids=[shMe,...soFollowing()];
-  const{data,error}=await sb.from('shared_catches').select('user_id,entry_id,data,caught,updated_at').in('user_id',ids).order('caught',{ascending:false}).order('updated_at',{ascending:false}).range(off,off+n-1);
+async function soRows(off,n,mine){const hid=await shHid();const ids=mine?[shMe]:soFollowing();if(!ids.length)return[];
+  let q=sb.from('shared_catches').select('user_id,entry_id,data,caught,updated_at'+(hid?',hidden,published_at':'')).in('user_id',ids);q=hid?q.order('published_at',{ascending:false}):q.order('updated_at',{ascending:false});
+  const{data,error}=await q.range(off,off+n-1);
   if(error)throw error;const rows=data||[];await soDecorate(rows);return rows}
 async function soFeed(){const el=$('so_feed');if(!el.firstChild)el.innerHTML='<p class="hint so-wait">…</p>';
   let rows;try{rows=await soRows(0,1)}catch(e){el.innerHTML='<p class="hint">'+esc(t('frErr'))+'</p>';return}
@@ -3902,10 +3927,12 @@ async function soFeed(){const el=$('so_feed');if(!el.firstChild)el.innerHTML='<p
   el.innerHTML=soPost(rows[0])+'<button type="button" class="so-allb" data-a="feedall">'+esc(t('soAllPosts'))+' ›</button>';soPostsInit(el)}
 async function soFeedPage(back){const d=$('soc');if(d.open&&SO.prof&&SO.prof!=='@feed'&&!back)(SO.stack=SO.stack||[]).push(SO.prof);if(!d.open)SO.stack=[];soPageOpen();
   SO.prof='@feed';$('socT').textContent=t('soFeed');const el=$('so_prof');el.innerHTML='<p class="hint">…</p>';$('soPg').scrollTop=0;SO.feed=[];SO.off=0;SO.more=true;await soFeedMore(true)}
-async function soFeedMore(first){if(SO.busy||!SO.more||SO.prof!=='@feed')return;SO.busy=true;const el=$('so_prof');
-  try{const rows=await soRows(SO.off,10);SO.more=rows.length===10;SO.off+=rows.length;SO.feed.push(...rows);if(SO.prof!=='@feed')return;
+async function soMePage(back){const d=$('soc');if(d.open&&SO.prof&&SO.prof!=='@me'&&!back)(SO.stack=SO.stack||[]).push(SO.prof);if(!d.open)SO.stack=[];soPageOpen();
+  SO.prof='@me';$('socT').textContent=shProf&&shProf.username?'@'+shProf.username:t('soMe');const el=$('so_prof');el.innerHTML='<p class="hint">…</p>';$('soPg').scrollTop=0;SO.feed=[];SO.off=0;SO.more=true;await soFeedMore(true)}
+async function soFeedMore(first){const mode=SO.prof;if(SO.busy||!SO.more||(mode!=='@feed'&&mode!=='@me'))return;SO.busy=true;const el=$('so_prof');
+  try{const rows=await soRows(SO.off,10,mode==='@me');SO.more=rows.length===10;SO.off+=rows.length;SO.feed.push(...rows);if(SO.prof!==mode)return;
     if(first)el.innerHTML='';const w=el.querySelector('.so-moreb');if(w)w.remove();
-    if(!SO.feed.length){el.innerHTML=soEmpty();return}
+    if(!SO.feed.length){el.innerHTML=mode==='@me'?'<div class="so-empty"><p>'+esc(t('soMeEmpty'))+'</p></div>':soEmpty();return}
     const box=document.createElement('div');box.className='so-list2';box.innerHTML=rows.map(soPost).join('');el.appendChild(box);soPostsInit(box);
     if(SO.more)el.insertAdjacentHTML('beforeend','<button type="button" class="so-moreb" data-a="more">'+esc(t('soMore'))+'</button>')}
   catch(e){if(first)el.innerHTML='<p class="hint">'+esc(t('frErr'))+'</p>'}finally{SO.busy=false}}
@@ -3924,7 +3951,7 @@ async function soFind(){const q=$('soQ').value.trim();const el=$('soRes');if(!SO
 function soStats(a,b,c){return '<div class="so-stats">'+(c!=null?'<span><b>'+c+'</b>'+esc(t('soFish'))+'</span>':'')+'<span><b>'+a+'</b>'+esc(t('soFollowers'))+'</span><span><b>'+b+'</b>'+esc(t('soFollowingN'))+'</span></div>'}
 function soPageOpen(){const d=$('soc');if(!d.open){d.classList.remove('out');d.showModal();document.documentElement.classList.add('vopen')}}
 function soPageClose(now){const d=$('soc');if(!d.open)return;SO.stack=[];SO.prof=null;const done=()=>{d.classList.remove('out');d.close();document.documentElement.classList.remove('vopen')};if(now){done();return}d.classList.add('out');setTimeout(done,240)}
-function soBack(){const prev=(SO.stack||[]).pop();if(prev){SO.prof=null;if(prev==='@feed')soFeedPage(true);else soProfile(prev,true)}else soPageClose()}
+function soBack(){const prev=(SO.stack||[]).pop();if(prev){SO.prof=null;if(prev==='@feed')soFeedPage(true);else if(prev==='@me')soMePage(true);else soProfile(prev,true)}else soPageClose()}
 async function soProfile(id,back){if(id===shMe){soSettings();return}
   const d=$('soc');if(d.open&&SO.prof&&SO.prof!==id&&!back){(SO.stack=SO.stack||[]).push(SO.prof)}
   if(!d.open)SO.stack=[];soPageOpen();
@@ -3956,6 +3983,9 @@ function soMe(){if(!SO.social||!shProf)return;const me=shProf;const fl=SO.fol;
   $('soFolUl').innerHTML=followers.length?followers.map(f=>soPerson(f.id,f,'<button type="button" class="so-fb so-fb-s" data-r="no" data-id="'+esc(f.id)+'">'+esc(t('soRemove'))+'</button>')).join(''):'<li class="hint">'+esc(t('soNone'))+'</li>';
   $('soFingUl').innerHTML=following.length?following.map(f=>soPerson(f.id,f,soFBtn(f.id,f.status,true))).join(''):'<li class="hint">'+esc(t('soNone'))+'</li>';
   frDrawSettings()}
+function allOnDraw(){const b=$('allOn');if(!b)return;b.hidden=!(SO.social&&SO.pauseOk);const off=!!SO.pause;b.classList.toggle('off',off);b.innerHTML=off?OFF_I:ON_I;b.title=t(off?'allOffS':'allOnS');b.setAttribute('aria-label',b.title);b.setAttribute('aria-pressed',String(!off))}
+async function allOnLoad(){if(SO.pause==null){try{const r=await sb.from('profiles').select('paused').eq('user_id',shMe).maybeSingle();SO.pause=r.error?false:!!(r.data&&r.data.paused);SO.pauseOk=!r.error}catch(_){SO.pauseOk=false}}allOnDraw()}
+async function pauseSet(v){const{error}=await sb.from('profiles').update({paused:v,updated_at:new Date().toISOString()}).eq('user_id',shMe);if(error){toast(t('frErr'));return false}SO.pause=v;const c=$('soPause');if(c)c.checked=v;allOnDraw();toast(t(v?'soPausedOn':'soPausedOff'));return true}
 async function soMeLoad(){if(!SO.social||!shProf)return;soMe();if(SO.pause==null){try{const r=await sb.from('profiles').select('paused').eq('user_id',shMe).maybeSingle();SO.pause=r.error?false:!!(r.data&&r.data.paused);SO.pauseOk=!r.error}catch(_){SO.pauseOk=false}}
   $('soPauseL').hidden=$('soPauseH').hidden=!SO.pauseOk;$('soPause').checked=!!SO.pause;await Promise.all([soLoadFollows(),soLoadAct()]);await soAvLoad([shMe,...SO.fol.map(f=>f.id)]);soMe()}
 async function soAvUpload(file){if(!file)return;try{const im=await scLoadImg(URL.createObjectURL(file));if(!im)throw 0;const S=480,cv=document.createElement('canvas');cv.width=cv.height=S;
@@ -4003,15 +4033,16 @@ async function frStart(user){
     let data=r.data;if(!data&&!r.error){const n=await sb.from('profiles').insert({user_id:shMe}).select(SO.social?'name,share,username,discoverable,private':'name,share').single();data=n.data}
     shProf=data||null}catch(e){shProf=null}
   if(!shProf)return;$('setProfile').hidden=false;
-  if(!SO.social){$('soSetup').hidden=false;$('soMeBody').hidden=true}else{$('feedCard').hidden=false;try{if(localStorage.getItem('sn-feed-open')!=='0')$('feedCard').open=true}catch(_){$('feedCard').open=true}}
+  if(!SO.social){$('soSetup').hidden=false;$('soMeBody').hidden=true}else{$('feedCard').hidden=false;render(false);allOnLoad();try{if(localStorage.getItem('sn-feed-open')!=='0')$('feedCard').open=true}catch(_){$('feedCard').open=true}}
   shSoon();if(SO.social){soLoadFollows();soLoadAct()}
   try{if(/[?&]amigo=/.test(location.search))history.replaceState(null,'',location.pathname)}catch(e){}}
 (function(){const d=$('soc');if(!d)return;
   const fc=$('feedCard');
   fc.addEventListener('toggle',()=>{try{localStorage.setItem('sn-feed-open',fc.open?'1':'0')}catch(_){}if(fc.open){soLoadFollows().then(()=>soFeed());soLoadAct()}});
   $('feedFind').addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();soFindToggle()});
+  $('feedMe').addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();soMePage()});
   d.addEventListener('cancel',ev=>{ev.preventDefault();soBack()});
-  $('soPg').addEventListener('scroll',()=>{const g=$('soPg');if(SO.prof==='@feed'&&g.scrollTop+g.clientHeight>g.scrollHeight-700)soFeedMore()},{passive:true});
+  $('soPg').addEventListener('scroll',()=>{const g=$('soPg');if((SO.prof==='@feed'||SO.prof==='@me')&&g.scrollTop+g.clientHeight>g.scrollHeight-700)soFeedMore()},{passive:true});
   {let sx=null,sy=0,dx=0;const pg=$('soPg');
     d.addEventListener('touchstart',ev=>{const t0=ev.touches[0];if(ev.touches.length!==1||t0.clientX>window.innerWidth*.6){sx=null;return}sx=t0.clientX;sy=t0.clientY;dx=0},{passive:true});
     d.addEventListener('touchmove',ev=>{if(sx==null)return;const t0=ev.touches[0];dx=t0.clientX-sx;const dy=Math.abs(t0.clientY-sy);if(dy>40&&dx<dy){sx=null;pg.style.transform='';return}if(dx>0)pg.style.transform='translateX('+dx+'px)'},{passive:true});
@@ -4022,7 +4053,8 @@ async function frStart(user){
   [$('frName'),$('soUser')].forEach(i=>i.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();i.blur()}}));
   $('soUser').addEventListener('input',()=>{clearTimeout(soUT);soUT=setTimeout(()=>soSaveUser(false),700)});
   $('soUser').addEventListener('change',()=>{clearTimeout(soUT);soSaveUser(true)});
-  $('soPause').addEventListener('change',async ev=>{const v=ev.target.checked;const{error}=await sb.from('profiles').update({paused:v,updated_at:new Date().toISOString()}).eq('user_id',shMe);if(error){ev.target.checked=!v;toast(t('frErr'));return}SO.pause=v;toast(t(v?'soPausedOn':'soPausedOff'))});
+  $('soPause').addEventListener('change',async ev=>{const v=ev.target.checked;if(!await pauseSet(v))ev.target.checked=!v});
+  $('allOn').addEventListener('click',()=>pauseSet(!SO.pause));
   $('soAvB').addEventListener('click',()=>$('soAvIn').click());$('soAvIn').addEventListener('change',ev=>{const f=ev.target.files&&ev.target.files[0];ev.target.value='';soAvUpload(f)});
   $('soQ').addEventListener('input',()=>{clearTimeout(soQT);soQT=setTimeout(soFind,300)});
   const onIn=ev=>{const i=ev.target.closest('.so-cf input');if(i)i.form.querySelector('.so-send').disabled=!i.value.trim()};
@@ -4040,6 +4072,7 @@ async function frStart(user){
       if(a==='more'){b.remove();soFeedMore();return}
       if(a==='feedall'){soFeedPage();return}
       if(a==='like')return soLike(key);
+      if(a==='onoff'){const r=SO.posts.get(key);if(!r)return;const off=!r.hidden;r.hidden=off;if(!SH_HID&&off){art.remove()}else soRedraw(key);postSet(r.entry_id,off);return}
       if(a==='all'){const r=SO.posts.get(key);if(r){r.open=true;soRedraw(key)}return}
       if(a==='cdel')return soDelC(key,b.closest('.so-c').dataset.id)}
     const u=ev.target.closest('[data-u]');if(u){soProfile(u.dataset.u)}};
@@ -4175,6 +4208,7 @@ function scDownload(f){const u=URL.createObjectURL(f);const a=document.createEle
 (function(){const d=$('scD');if(!d)return;
   $('scChk').insertAdjacentHTML('beforeend',SC_OPTS.map(([k,l])=>'<label class="chk"><input type="checkbox" id="scO_'+k+'">'+(k==='md'?'<span class="sc-ic">'+ICON.depth+'<span data-i="maxU"></span></span>':k==='wt'?'<span>°C</span>':'<span data-i="'+l+'"></span>')+'</label>').join(''));
   $('scClose').addEventListener('click',()=>d.close());
+  $('list').addEventListener('click',ev=>{const o=ev.target.closest('[data-onoff]');if(o){const e=entries.find(x=>x.id===o.dataset.onoff);if(e)postSet(e.id,!e.postOff);return}});
   $('list').addEventListener('click',ev=>{const b=ev.target.closest('[data-share]');if(!b)return;const e=entries.find(x=>x.id===b.dataset.share);if(e)scOpen(e)});
   const re=()=>{scSave();scUi();scQueue()};
   $('scFmt').addEventListener('click',ev=>{const b=ev.target.closest('button');if(b){SC.fmt=b.dataset.v;re()}});
@@ -4207,6 +4241,8 @@ function scDownload(f){const u=URL.createObjectURL(f);const a=document.createEle
 Object.assign(T.pt,{share:'Partilhar',scTitle:'Partilhar imagem',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Local',scZone:'Perto de',scSpot:'Pesqueiro',scNone:'Esconder',scPhoto:'Foto',scWeight:'Peso',scLen:'Comprimento',scDepth:'Profund. do peixe',scWhere:'Caçado em',scDate:'Data',scTime:'Hora',scMaxD:'Prof. máx.',scDives:'Mergulhos',scVis:'Visibilidade',scWater:'Temp. da água',scWaterS:'Água',scTide:'Maré',scTideS:'Maré',scSea:'Mar',scWeather:'Tempo',scWind:'Vento',scCur:'Corrente',scGear:'Equipamento',scShowL:'Mostrar',scWithL:'Com amigos',scWithPh:'@username',scWithT:'com',scFill:'Preencher',scWhole:'Foto inteira',scHint2:'Toque na foto: inteira ou a preencher. Arraste para mover, dois dedos para zoom.',scNoNear:'Sem localidades por perto: use «Pesqueiro» ou esconda.',scSaveB:'Guardar imagem',scHint:'No telemóvel: em «Partilhar» escolha Instagram; em «Guardar imagem» toque em «Guardar imagem» no menu e a foto vai para a galeria. Os nomes por perto vêm do OpenStreetMap.',scMore:'mais',shVis:'Visib.'});
 Object.assign(T.en,{share:'Share',scTitle:'Share image',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Place',scZone:'Near',scSpot:'Spot',scNone:'Hide',scPhoto:'Photo',scWeight:'Weight',scLen:'Length',scDepth:'Fish depth',scWhere:'Caught in',scDate:'Date',scTime:'Time',scMaxD:'Max depth',scDives:'Dives',scVis:'Visibility',scWater:'Water temp.',scWaterS:'Water',scTide:'Tide',scTideS:'Tide',scSea:'Sea',scWeather:'Weather',scWind:'Wind',scCur:'Current',scGear:'Gear',scShowL:'Show',scWithL:'With friends',scWithPh:'@username',scWithT:'with',scFill:'Fill',scWhole:'Whole photo',scHint2:'Tap the photo: whole or fill. Drag to move, pinch to zoom.',scNoNear:'No places nearby: use “Spot” or hide it.',scSaveB:'Save image',scHint:'On your phone: in “Share” pick Instagram; in “Save image” tap “Save Image” in the menu and it goes to your photos. Nearby names come from OpenStreetMap.',scMore:'more',shVis:'Vis.'});
 Object.assign(T.pt,{soAllPosts:'Ver todas as publicações',soProfH:'Definições de perfil e privacidade',soPause:'Pausar a partilha: ninguém vê as minhas capturas',soPauseH:'Para fechar o acesso a todos sem remover ninguém. Os seguidores continuam na lista; quando desligar, voltam a ver tudo como antes.',soPausedOn:'Partilha em pausa: ninguém vê as suas capturas.',soPausedOff:'Partilha retomada.'});
+Object.assign(T.pt,{soMe:'Eu',soMeEmpty:'Ainda não tem publicações. Ligue «Partilhar as minhas capturas» nas definições.',postOnS:'Publicação visível — tocar para esconder',postOffS:'Publicação escondida — tocar para mostrar',postOnT:'Publicação visível',postOffT:'Publicação escondida',allOnS:'Publicações visíveis — tocar para esconder todas',allOffS:'Todas as publicações escondidas — tocar para mostrar'});
+Object.assign(T.en,{soMe:'Me',soMeEmpty:'No posts yet. Turn on «Share my catches» in Settings.',postOnS:'Post visible — tap to hide',postOffS:'Post hidden — tap to show',postOnT:'Post visible',postOffT:'Post hidden',allOnS:'Posts visible — tap to hide all',allOffS:'All posts hidden — tap to show'});
 Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy settings',soPause:'Pause sharing: nobody sees my catches',soPauseH:'Closes access to everyone without removing anybody. Your followers stay on the list; when you turn this off they see everything again.',soPausedOn:'Sharing paused: nobody sees your catches.',soPausedOff:'Sharing resumed.'});
 /* ===== Card layout: unlock, then drag details and blocks; every card follows ===== */
 (function(){
@@ -4247,7 +4283,7 @@ Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy sett
 Object.assign(T.pt,{arrSp:'+ Espaço',arrOff:'Organizar as entradas',arrOn:'Bloquear a organização',arrHint:'Arraste os dados e os blocos (pela pega à esquerda). Todas as entradas seguem a mesma ordem.',spNext:'Seguinte'});Object.assign(T.en,{arrSp:'+ Space',arrOff:'Arrange entries',arrOn:'Lock the layout',arrHint:'Drag details and blocks (by the handle on the left). Every entry follows the same order.',spNext:'Next'});
 /* hide the separator before fish details that went down to the next line */
 function cg2Fix(root){(root||document).querySelectorAll('.cg2s').forEach(sp=>{const nx=sp.nextElementSibling;sp.style.display='';if(!nx)return;
-  const a=sp.getBoundingClientRect(),b=nx.getBoundingClientRect();if(b.top>a.top+a.height/2)sp.style.display='none'})}
+  const pv=sp.previousElementSibling,b=nx.getBoundingClientRect(),a=(pv||sp).getBoundingClientRect();if(b.top>a.top+4)sp.style.display='none'})}
 (function(){let q=0;const run=()=>{cancelAnimationFrame(q);q=requestAnimationFrame(()=>cg2Fix())};
   try{new MutationObserver(run).observe($('list'),{childList:true,subtree:true})}catch(_){}addEventListener('resize',run);run()})();
 Object.assign(T.pt,{cfH:'Definições de entrada',cfHint:'Escolha os campos que aparecem no modo Compacto ao criar uma entrada. No modo Completo aparece tudo.',cfEntry:'Entrada',cfDep:'Profundidade do peixe',cfLen:'Comprimento do peixe',cfNote:'Nota sobre o peixe',cfTide:'Maré'});Object.assign(T.en,{cfH:'Entry settings',cfHint:'Choose the fields shown in Compact mode when you add an entry. Full mode shows everything.',cfEntry:'Entry',cfDep:'Fish depth',cfLen:'Fish length',cfNote:'Note about the fish',cfTide:'Tide'});
