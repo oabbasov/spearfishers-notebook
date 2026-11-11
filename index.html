@@ -1151,6 +1151,27 @@ body.arranging .count-row>.arr-sp{display:inline-grid}
 .sum-s{white-space:pre}
 .entry [data-b=gear]{margin-top:10px}
 @media (max-width:560px){.sum2{display:block}.sum-s{display:none}.entry .head .date{margin-top:2px}}
+
+.catch-item .cl1>.cone{flex:none;margin-left:6px}
+.arr-btn{color:var(--good)}
+.arr-btn.on{color:var(--accent)}
+body.arranging .count-row{flex-wrap:wrap}
+body.arranging .count-row>.arr-sp{order:9;flex:1 0 100%;display:flex;justify-content:flex-end;margin-top:2px;height:auto}
+
+.onoff{color:var(--good)}
+.onoff.off{color:var(--accent)}
+#allOn{display:inline-flex;align-items:center;gap:4px;color:var(--good)}
+#allOn.off{color:var(--accent)}
+#allOn[hidden]{display:none}
+#allOn .all-t{font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--accent)}
+@media (min-width:561px){.catch-item .cdet{margin:0}}
+
+@media (min-width:561px){.catch-item .cl1{vertical-align:baseline;align-items:baseline}.catch-item .cl1>svg{align-self:center}}
+body.arranging .count-row>.arr-sp{margin-top:-4px}
+#allOn{text-decoration:none}
+
+button.onoff{color:var(--good)!important}
+button.onoff.off{color:var(--accent)!important}
 </style>
 </head>
 <body>
@@ -1550,11 +1571,12 @@ function catchDet(c){const g=[],L=latinOf(c.name,c.sub);
   const cw=[c.count>1?'×'+c.count:'',c.weight!=null?'<span class="kg">'+c.weight.toLocaleString(locale(),{maximumFractionDigits:3})+' '+t('catchKgS')+'</span>':''].filter(Boolean).join(' ');if(cw)g.push(cw);
   if(c.len!=null)g.push('L '+fmt(c.len)+' cm');const g1=g.length;if(c.depth!=null)g.push('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>'+fmt(c.depth)+' m');
   const icT=k=>'<span class="cic" role="img" title="'+esc(t(k))+'" aria-label="'+esc(t(k))+'">'+ICON[k]+'</span>';if(whereOf(c).length)g.push(whereOf(c).map(w=>esc(t('wh_'+w))).join(' + '));if(methOf(c))g.push(esc(t('me_'+methOf(c))));
-  const cgs=g.map(x=>'<span class="cg">'+x+'</span>'),det=cgs.slice(0,g1).join(' · ')+(g.length>g1?(g1?'<span class="cg2s"> · </span>':'')+'<span class="cg2">'+cgs.slice(g1).join(' · ')+'</span>':'');
+  const cgs=g.map(x=>'<span class="cg">'+x+'</span>'),dA=cgs.slice(0,g1).join(' · '),dB=g.length>g1?cgs.slice(g1).join(' · '):'';
   const lat=L?'<i class="lat">('+hl(L)+')</i>':'';
   const nt=c.note?'<span class="cnote">'+hl(c.note)+'</span>':'';
-  if(g.length>1)return [lat,'<span class="cdet">'+det+'</span>'+nt];
-  return [lat+(g.length?'<span class="cone">'+det+'</span>':''),nt]}
+  if(!dB)return [lat+(dA?'<span class="cone">'+dA+'</span>':''),nt];
+  if(!dA)return [lat,'<span class="cdet"><span class="cg2">'+dB+'</span></span>'+nt];
+  return [lat+'<span class="cone">'+dA+'</span>','<span class="cdet"><span class="cg2s"> · </span><span class="cg2">'+dB+'</span></span>'+nt]}
 const WHERE=['water','rock','sand','weed'];
 const whereOf=c=>(Array.isArray(c.where)?c.where:c.where?[c.where]:[]).filter(w=>WHERE.includes(w));
 const METHODS=['wait','indio','hole','fall'];
@@ -2595,7 +2617,7 @@ let cOrd=(()=>{try{return JSON.parse(localStorage.getItem('sn-cord')||'{}')||{}}
 function cardOrd(x){const a=(cOrd[x]||[]).filter(k=>C_DEF[x].includes(k)||(x==='b'&&/^sp\d+$/.test(k)));return a.concat(C_DEF[x].filter(k=>!a.includes(k)))}
 function entryHtml(e,cm){
   const k=kindOf(e),title=e.spot||e.title||'';
-  const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+(d=>'<span class="cl1">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+d[0]+cwHtml(w)+'</span>'+d[1])(catchDet(c))+'</span>'}).join(''):'';
+  const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+(d=>'<span class="cl1">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+(d[0].includes('<span class="cone">')?d[0].replace('<span class="cone">',cwHtml(w)+'<span class="cone">'):d[0]+cwHtml(w))+'</span>'+d[1])(catchDet(c))+'</span>'}).join(''):'';
 const icv=(k,lab,v)=>'<span title="'+esc(lab)+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(lab)+'">'+ICON[k]+'</span>'+v+'</span>';
   const CI={time:e.timeIn?'<span style="white-space:nowrap">'+ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):'')+'</span>':'',
     acc:e.access?icv('acc',t('accessL2'),hl(t('acc_'+e.access))):'',
@@ -3795,7 +3817,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794434555';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794438314';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3882,8 +3904,8 @@ function soDots(n){if(n<2)return'';let h='';for(let i=0;i<n;i++)h+='<span class=
 function soDotsSet(pw,i){const dr=pw.querySelector('.so-dr');if(!dr)return;const ds=[...dr.children],n=ds.length;const s=n<=5?0:Math.max(0,Math.min(i-2,n-5));
   ds.forEach((d,j)=>{let c='';if(j<s||j>s+4)c='h';else if(n>5){if(j===s+4&&s+4<n-1)c='xs';else if(j===s+3&&s+4<n-1)c='s';if(j===s&&s>0)c='xs';else if(j===s+1&&s>0)c=c||'s'}
     d.className='so-dot'+(c?' '+c:'')+(j===i?' on':'')});dr.style.transform='translateX('+(-s*100/Math.min(n,5))+'%)'}
-const ON_I='<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.500 12h17M12 3.500c2.300 2.400 3.500 5.200 3.500 8.500s-1.200 6.100-3.500 8.500c-2.300-2.400-3.500-5.200-3.500-8.500S9.700 5.900 12 3.500z"/></svg>';
-const OFF_I='<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.300 4.300A8.500 8.500 0 0 1 19.700 15.700M5.900 6A8.500 8.500 0 0 0 18 18.100"/><path d="M3 3l18 18"/></svg>';
+const ON_I='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18.500h10.500a4 4 0 0 0 .600-7.950A5.500 5.500 0 0 0 7.400 9.200 4.700 4.700 0 0 0 7 18.500z"/></svg>';
+const OFF_I='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18.500h10.500a4 4 0 0 0 .600-7.950A5.500 5.500 0 0 0 7.400 9.200 4.700 4.700 0 0 0 7 18.500z"/><path d="M3.500 3.500l17 17"/></svg>';
 function onBtn(off,attr){return '<button type="button" class="link ico onoff'+(off?' off':'')+'" '+attr+' aria-pressed="'+(!off)+'" title="'+esc(t(off?'postOffS':'postOnS'))+'" aria-label="'+esc(t(off?'postOffS':'postOnS'))+'">'+(off?OFF_I:ON_I)+'</button>'}
 async function postSet(id,off){const ok=await saveEntry(id,{postOff:off||null});if(ok){toast(t(off?'postOffT':'postOnT'));shSoon()}return ok}
 function canOnOff(e){try{return !!(SO.social&&shProf&&shCfg().on&&!e.example&&!e.noShare&&(e.catches||[]).some(c=>c&&c.name))}catch(_){return false}}
@@ -3917,7 +3939,10 @@ function soBadge(){const req=SO.fol.filter(f=>f.kind==='follower'&&f.status==='p
 function soFindToggle(on){const f=$('so_find');on=on==null?f.hidden:on;f.hidden=!on;if(on){if(!$('feedCard').open)$('feedCard').open=true;soFind();setTimeout(()=>$('soQ').focus(),30)}else{$('soQ').value='';$('soRes').innerHTML=''}}
 function soSettings(){soPageClose(true);$('setProfD').open=true;const st=$('settings');if(!st.open)st.showModal();soMe();setTimeout(()=>$('setProfile').scrollIntoView({block:'start'}),30)}
 function soEmpty(){return '<div class="so-empty"><p>'+esc(t(soFollowing().length?'soFeedNone':'soFeedEmpty'))+'</p>'+(shCfg().on&&shProf.username?'':'<p class="hint">'+esc(t('soShareOff'))+'</p><button type="button" data-go="me">'+esc(t('soOpenProf'))+'</button>')+'<button type="button" class="primary" data-go="find">'+esc(t('soGoFind'))+'</button></div>'}
-async function soRows(off,n,mine){const hid=await shHid();const ids=mine?[shMe]:soFollowing();if(!ids.length)return[];
+async function soRows(off,n,mine){const hid=await shHid();if(mine){const{data,error}=await sb.from('shared_catches').select('user_id,entry_id,data,caught,updated_at'+(hid?',hidden,published_at':'')).eq('user_id',shMe).limit(1000);if(error)throw error;
+    const E=new Map(entries.map(e=>[e.id,(e.date||'')+' '+(e.timeIn||'')]));const k=r=>E.get(r.entry_id)||String(r.caught||'');
+    const rows=(data||[]).sort((a,b)=>k(b).localeCompare(k(a))||String(b.published_at||b.updated_at||'').localeCompare(String(a.published_at||a.updated_at||''))).slice(off,off+n);await soDecorate(rows);return rows}
+  const ids=soFollowing();if(!ids.length)return[];
   let q=sb.from('shared_catches').select('user_id,entry_id,data,caught,updated_at'+(hid?',hidden,published_at':'')).in('user_id',ids);q=hid?q.order('published_at',{ascending:false}):q.order('updated_at',{ascending:false});
   const{data,error}=await q.range(off,off+n-1);
   if(error)throw error;const rows=data||[];await soDecorate(rows);return rows}
@@ -3983,7 +4008,7 @@ function soMe(){if(!SO.social||!shProf)return;const me=shProf;const fl=SO.fol;
   $('soFolUl').innerHTML=followers.length?followers.map(f=>soPerson(f.id,f,'<button type="button" class="so-fb so-fb-s" data-r="no" data-id="'+esc(f.id)+'">'+esc(t('soRemove'))+'</button>')).join(''):'<li class="hint">'+esc(t('soNone'))+'</li>';
   $('soFingUl').innerHTML=following.length?following.map(f=>soPerson(f.id,f,soFBtn(f.id,f.status,true))).join(''):'<li class="hint">'+esc(t('soNone'))+'</li>';
   frDrawSettings()}
-function allOnDraw(){const b=$('allOn');if(!b)return;b.hidden=!(SO.social&&SO.pauseOk);const off=!!SO.pause;b.classList.toggle('off',off);b.innerHTML=off?OFF_I:ON_I;b.title=t(off?'allOffS':'allOnS');b.setAttribute('aria-label',b.title);b.setAttribute('aria-pressed',String(!off))}
+function allOnDraw(){const b=$('allOn');if(!b)return;b.hidden=!(SO.social&&SO.pauseOk);const off=!!SO.pause;b.classList.toggle('off',off);b.innerHTML='<span class="all-t">ALL</span>'+(off?OFF_I:ON_I);b.title=t(off?'allOffS':'allOnS');b.setAttribute('aria-label',b.title);b.setAttribute('aria-pressed',String(!off))}
 async function allOnLoad(){if(SO.pause==null){try{const r=await sb.from('profiles').select('paused').eq('user_id',shMe).maybeSingle();SO.pause=r.error?false:!!(r.data&&r.data.paused);SO.pauseOk=!r.error}catch(_){SO.pauseOk=false}}allOnDraw()}
 async function pauseSet(v){const{error}=await sb.from('profiles').update({paused:v,updated_at:new Date().toISOString()}).eq('user_id',shMe);if(error){toast(t('frErr'));return false}SO.pause=v;const c=$('soPause');if(c)c.checked=v;allOnDraw();toast(t(v?'soPausedOn':'soPausedOff'));return true}
 async function soMeLoad(){if(!SO.social||!shProf)return;soMe();if(SO.pause==null){try{const r=await sb.from('profiles').select('paused').eq('user_id',shMe).maybeSingle();SO.pause=r.error?false:!!(r.data&&r.data.paused);SO.pauseOk=!r.error}catch(_){SO.pauseOk=false}}
@@ -4240,10 +4265,10 @@ function scDownload(f){const u=URL.createObjectURL(f);const a=document.createEle
 })();
 Object.assign(T.pt,{share:'Partilhar',scTitle:'Partilhar imagem',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Local',scZone:'Perto de',scSpot:'Pesqueiro',scNone:'Esconder',scPhoto:'Foto',scWeight:'Peso',scLen:'Comprimento',scDepth:'Profund. do peixe',scWhere:'Caçado em',scDate:'Data',scTime:'Hora',scMaxD:'Prof. máx.',scDives:'Mergulhos',scVis:'Visibilidade',scWater:'Temp. da água',scWaterS:'Água',scTide:'Maré',scTideS:'Maré',scSea:'Mar',scWeather:'Tempo',scWind:'Vento',scCur:'Corrente',scGear:'Equipamento',scShowL:'Mostrar',scWithL:'Com amigos',scWithPh:'@username',scWithT:'com',scFill:'Preencher',scWhole:'Foto inteira',scHint2:'Toque na foto: inteira ou a preencher. Arraste para mover, dois dedos para zoom.',scNoNear:'Sem localidades por perto: use «Pesqueiro» ou esconda.',scSaveB:'Guardar imagem',scHint:'No telemóvel: em «Partilhar» escolha Instagram; em «Guardar imagem» toque em «Guardar imagem» no menu e a foto vai para a galeria. Os nomes por perto vêm do OpenStreetMap.',scMore:'mais',shVis:'Visib.'});
 Object.assign(T.en,{share:'Share',scTitle:'Share image',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Place',scZone:'Near',scSpot:'Spot',scNone:'Hide',scPhoto:'Photo',scWeight:'Weight',scLen:'Length',scDepth:'Fish depth',scWhere:'Caught in',scDate:'Date',scTime:'Time',scMaxD:'Max depth',scDives:'Dives',scVis:'Visibility',scWater:'Water temp.',scWaterS:'Water',scTide:'Tide',scTideS:'Tide',scSea:'Sea',scWeather:'Weather',scWind:'Wind',scCur:'Current',scGear:'Gear',scShowL:'Show',scWithL:'With friends',scWithPh:'@username',scWithT:'with',scFill:'Fill',scWhole:'Whole photo',scHint2:'Tap the photo: whole or fill. Drag to move, pinch to zoom.',scNoNear:'No places nearby: use “Spot” or hide it.',scSaveB:'Save image',scHint:'On your phone: in “Share” pick Instagram; in “Save image” tap “Save Image” in the menu and it goes to your photos. Nearby names come from OpenStreetMap.',scMore:'more',shVis:'Vis.'});
-Object.assign(T.pt,{soAllPosts:'Ver todas as publicações',soProfH:'Definições de perfil e privacidade',soPause:'Pausar a partilha: ninguém vê as minhas capturas',soPauseH:'Para fechar o acesso a todos sem remover ninguém. Os seguidores continuam na lista; quando desligar, voltam a ver tudo como antes.',soPausedOn:'Partilha em pausa: ninguém vê as suas capturas.',soPausedOff:'Partilha retomada.'});
+Object.assign(T.pt,{soAllPosts:'Ver todas as publicações',soProfH:'Definições de perfil e privacidade',soPause:'Pausar a partilha: ninguém vê as minhas capturas',soPauseH:'Para fechar o acesso a todos sem remover ninguém. Os seguidores continuam na lista; quando desligar, voltam a ver tudo como antes.',soPausedOn:'Tudo em pausa: ninguém vê as capturas',soPausedOff:'Partilha retomada.'});
 Object.assign(T.pt,{soMe:'Eu',soMeEmpty:'Ainda não tem publicações. Ligue «Partilhar as minhas capturas» nas definições.',postOnS:'Publicação visível — tocar para esconder',postOffS:'Publicação escondida — tocar para mostrar',postOnT:'Publicação visível',postOffT:'Publicação escondida',allOnS:'Publicações visíveis — tocar para esconder todas',allOffS:'Todas as publicações escondidas — tocar para mostrar'});
 Object.assign(T.en,{soMe:'Me',soMeEmpty:'No posts yet. Turn on «Share my catches» in Settings.',postOnS:'Post visible — tap to hide',postOffS:'Post hidden — tap to show',postOnT:'Post visible',postOffT:'Post hidden',allOnS:'Posts visible — tap to hide all',allOffS:'All posts hidden — tap to show'});
-Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy settings',soPause:'Pause sharing: nobody sees my catches',soPauseH:'Closes access to everyone without removing anybody. Your followers stay on the list; when you turn this off they see everything again.',soPausedOn:'Sharing paused: nobody sees your catches.',soPausedOff:'Sharing resumed.'});
+Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy settings',soPause:'Pause sharing: nobody sees my catches',soPauseH:'Closes access to everyone without removing anybody. Your followers stay on the list; when you turn this off they see everything again.',soPausedOn:'All paused: nobody sees your catches',soPausedOff:'Sharing resumed.'});
 /* ===== Card layout: unlock, then drag details and blocks; every card follows ===== */
 (function(){
   const btn=$('arrBtn'),L=$('list');if(!btn||!L)return;
@@ -4283,7 +4308,7 @@ Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy sett
 Object.assign(T.pt,{arrSp:'+ Espaço',arrOff:'Organizar as entradas',arrOn:'Bloquear a organização',arrHint:'Arraste os dados e os blocos (pela pega à esquerda). Todas as entradas seguem a mesma ordem.',spNext:'Seguinte'});Object.assign(T.en,{arrSp:'+ Space',arrOff:'Arrange entries',arrOn:'Lock the layout',arrHint:'Drag details and blocks (by the handle on the left). Every entry follows the same order.',spNext:'Next'});
 /* hide the separator before fish details that went down to the next line */
 function cg2Fix(root){(root||document).querySelectorAll('.cg2s').forEach(sp=>{const nx=sp.nextElementSibling;sp.style.display='';if(!nx)return;
-  const pv=sp.previousElementSibling,b=nx.getBoundingClientRect(),a=(pv||sp).getBoundingClientRect();if(b.top>a.top+4)sp.style.display='none'})}
+  const it=sp.closest('.catch-item'),pv=sp.previousElementSibling||(it&&it.querySelector('.cl1')),b=nx.getBoundingClientRect(),a=(pv||sp).getBoundingClientRect();if(b.top>=a.bottom-2)sp.style.display='none'})}
 (function(){let q=0;const run=()=>{cancelAnimationFrame(q);q=requestAnimationFrame(()=>cg2Fix())};
   try{new MutationObserver(run).observe($('list'),{childList:true,subtree:true})}catch(_){}addEventListener('resize',run);run()})();
 Object.assign(T.pt,{cfH:'Definições de entrada',cfHint:'Escolha os campos que aparecem no modo Compacto ao criar uma entrada. No modo Completo aparece tudo.',cfEntry:'Entrada',cfDep:'Profundidade do peixe',cfLen:'Comprimento do peixe',cfNote:'Nota sobre o peixe',cfTide:'Maré'});Object.assign(T.en,{cfH:'Entry settings',cfHint:'Choose the fields shown in Compact mode when you add an entry. Full mode shows everything.',cfEntry:'Entry',cfDep:'Fish depth',cfLen:'Fish length',cfNote:'Note about the fish',cfTide:'Tide'});
