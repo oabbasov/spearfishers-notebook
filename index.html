@@ -1938,6 +1938,9 @@ function showMode(k){modeKey=k;$('modeNotice').textContent=k?t(k):'';$('modeNoti
 const CFG=window.NOTEBOOK_CONFIG||{};
 let sb=null,authMode='in';
 const urlCache=new Map(),urlWanted=new Set();let urlTimer=null;
+const UC_K='sn-urlc',ucExp={};let ucT=null;
+try{const o=JSON.parse(localStorage.getItem(UC_K)||'{}'),n=Date.now();Object.keys(o).forEach(k=>{if(o[k].e>n+36e5){urlCache.set(k,o[k].u);ucExp[k]=o[k].e}})}catch(_){}
+function ucPut(k,u,ttl){urlCache.set(k,u);if(!/^https:/.test(u))return;ucExp[k]=Date.now()+ttl;clearTimeout(ucT);ucT=setTimeout(()=>{try{const o={},n=Date.now();Object.keys(ucExp).forEach(x=>{const v=urlCache.get(x);if(ucExp[x]>n&&v&&/^https:/.test(v))o[x]={u:v,e:ucExp[x]}});localStorage.setItem(UC_K,JSON.stringify(o))}catch(_){}},500)}
 function blob(id){
   if(!id)return'';
   if(urlCache.has(id))return urlCache.get(id);
@@ -1949,9 +1952,9 @@ const tWanted=new Set(),tBusy=new Set();let tTimer=null;
 function tblob(id){if(!id||!sb||!String(id).includes('/'))return blob(id);const k='t:'+id;if(urlCache.has(k)){const v=urlCache.get(k);return v||blob(id)}
   tWanted.add(id);clearTimeout(tTimer);tTimer=setTimeout(fetchThumbs,30);return'data:image/gif;base64,R0lGODlhAQABAAAAACw='}
 async function fetchThumbs(){const ids=[...tWanted].filter(i=>!urlCache.has('t:'+i));tWanted.clear();if(!ids.length)return;
-  let data=[];try{({data}=await sb.storage.from('photos').createSignedUrls(ids.map(thumbOf),60*60*12))}catch(_){}
+  let data=[];try{({data}=await sb.storage.from('photos').createSignedUrls(ids.map(thumbOf),60*60*24*7))}catch(_){}
   const by=new Map((data||[]).map(r=>[r.path,r]));const miss=[];
-  ids.forEach(id=>{const r=by.get(thumbOf(id));if(r&&r.signedUrl&&!r.error)urlCache.set('t:'+id,r.signedUrl);else{urlCache.set('t:'+id,null);miss.push(id)}});
+  ids.forEach(id=>{const r=by.get(thumbOf(id));if(r&&r.signedUrl&&!r.error)ucPut('t:'+id,r.signedUrl,6.5*864e5);else{urlCache.set('t:'+id,null);miss.push(id)}});
   render(false);if($('dlg').open)drawPhotos();
   for(const id of miss){try{await makeThumb(id)}catch(_){}}}
 async function thumbBlob(b){const u=URL.createObjectURL(b);try{const im=await new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=u});
@@ -1963,23 +1966,29 @@ async function makeThumb(id,src){if(tBusy.has(id))return;tBusy.add(id);
     urlCache.set('t:'+id,URL.createObjectURL(tb));render(false);if($('dlg').open)drawPhotos()}finally{tBusy.delete(id)}}
 async function fetchUrls(){
   const ids=[...urlWanted];urlWanted.clear();if(!ids.length)return;
-  const{data}=await sb.storage.from('photos').createSignedUrls(ids,60*60*12);
-  (data||[]).forEach(r=>{if(r.signedUrl)urlCache.set(r.path,r.signedUrl)});
+  const{data}=await sb.storage.from('photos').createSignedUrls(ids,60*60*24*7);
+  (data||[]).forEach(r=>{if(r.signedUrl)ucPut(r.path,r.signedUrl,6.5*864e5)});
   render(false);if($('dlg').open){drawPhotos();drawShots()}
 }
 function sbStore(uid){
   let listener=null;
-  const load=async()=>{
-    const{data,error}=await sb.from('entries').select('id,data').limit(5000);
-    if(error)throw error;
-    listener&&listener(data.map(r=>({...r.data,id:r.id})));
-  };
+  const rows=new Map();let full=false,busy=null,again=false;
+  const load=async()=>{if(busy){again=true;return busy}busy=(async()=>{
+    if(!full){const{data,error}=await sb.from('entries').select('id,data,updated_at').limit(5000);if(error)throw error;
+      rows.clear();data.forEach(r=>rows.set(r.id,{u:r.updated_at||'',d:r.data}));full=true}
+    else{const{data,error}=await sb.from('entries').select('id,updated_at').limit(5000);if(error)throw error;
+      const seen=new Set();const need=[];data.forEach(r=>{seen.add(r.id);const o=rows.get(r.id);if(!o||o.u!==(r.updated_at||''))need.push(r.id)});
+      let gone=false;[...rows.keys()].forEach(id=>{if(!seen.has(id)){rows.delete(id);gone=true}});
+      if(!need.length&&!gone)return;
+      for(let i=0;i<need.length;i+=100){const{data:d2,error:e2}=await sb.from('entries').select('id,data,updated_at').in('id',need.slice(i,i+100));if(e2)throw e2;d2.forEach(r=>rows.set(r.id,{u:r.updated_at||'',d:r.data}))}}
+    listener&&listener([...rows].map(([id,r])=>({...r.d,id})));
+  })();try{return await busy}finally{busy=null;if(again){again=false;setTimeout(()=>load().catch(()=>{}),0)}}};
   addEventListener('focus',()=>{load().catch(()=>{})});
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')load().catch(()=>{})});
   /* live sync between devices: Supabase Realtime when the table is published, plus a light poll as a fallback */
   let rtT=null;const soon=()=>{clearTimeout(rtT);rtT=setTimeout(()=>load().catch(()=>{}),400)};
   try{sb.channel('entries-'+uid).on('postgres_changes',{event:'*',schema:'public',table:'entries',filter:'user_id=eq.'+uid},soon).subscribe()}catch(e){}
-  let lastPoll=0;setInterval(()=>{if(document.visibilityState!=='visible')return;const fast=$('checklist').open,gap=fast?8e3:3e4;if(Date.now()-lastPoll<gap)return;lastPoll=Date.now();load().catch(()=>{})},2e3);
+  let lastPoll=0;setInterval(()=>{if(document.visibilityState!=='visible')return;const fast=$('checklist').open,gap=fast?15e3:3e5;if(Date.now()-lastPoll<gap)return;lastPoll=Date.now();load().catch(()=>{})},2e3);
   return{
     sub(fn,fail){listener=fn;load().catch(fail)},
     newId(){return (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)).replace(/-/g,'')},
@@ -3614,7 +3623,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794391272';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794404797';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3685,8 +3694,8 @@ function soDate(d){d=String(d||'');const m=d.match(/^(\d{4})-(\d{2})(?:-(\d{2}))
 function soKg(n){return n.toLocaleString(locale(),{maximumFractionDigits:3})+' kg'}
 async function soCards(ids){const need=[...new Set(ids)].filter(i=>i&&!SO.cards.has(i));
   await Promise.all([need.length?sb.rpc('profile_cards',{ids:need}).then(({data})=>(data||[]).forEach(p=>SO.cards.set(p.id,p))):null,soAvLoad(ids)])}
-async function soUrls(paths){const now=Date.now();const need=[...new Set(paths)].filter(p=>{const u=SO.urls.get(p);return !u||u.exp<now});if(!need.length)return;
-  const{data}=await sb.storage.from('photos').createSignedUrls(need,3600);(data||[]).forEach(x=>{if(x.signedUrl)SO.urls.set(x.path,{u:x.signedUrl,exp:now+3300e3})})}
+async function soUrls(paths){const now=Date.now();paths.forEach(p=>{if(!SO.urls.has(p)&&urlCache.has('so:'+p))SO.urls.set(p,{u:urlCache.get('so:'+p),exp:(ucExp['so:'+p]||0)})});const need=[...new Set(paths)].filter(p=>{const u=SO.urls.get(p);return !u||u.exp<now});if(!need.length)return;
+  const{data}=await sb.storage.from('photos').createSignedUrls(need,60*60*24*2);(data||[]).forEach(x=>{if(x.signedUrl){SO.urls.set(x.path,{u:x.signedUrl,exp:now+46*36e5});ucPut('so:'+x.path,x.signedUrl,46*36e5)}})}
 async function soDecorate(rows){if(!rows.length)return;const eids=[...new Set(rows.map(r=>r.entry_id))];
   const [L,C]=await Promise.all([sb.from('likes').select('owner,entry_id,user_id').in('entry_id',eids),sb.from('comments').select('id,owner,entry_id,user_id,body,created_at').in('entry_id',eids).order('created_at',{ascending:true})]);
   const likes=(L&&L.data)||[],coms=(C&&C.data)||[];
