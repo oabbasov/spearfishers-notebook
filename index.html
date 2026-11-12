@@ -1342,6 +1342,9 @@ img.fade.ld{opacity:1}
 .sc-stage{position:relative}
 .sc-sw-abs{position:absolute;right:4px;bottom:4px;z-index:3;box-shadow:0 2px 8px rgba(0,0,0,.4)}
 .sp-photo img,.lib-th img{background-color:var(--sea-soft)}
+
+.ck-q{color:var(--danger);font-weight:800;font-size:19px;line-height:1}
+.lib-th{background-color:var(--sea-soft)}
 </style>
 </head>
 <body>
@@ -3393,7 +3396,7 @@ function ckDraw(){
   $('ckCount').textContent=n?done+' / '+n:'';
   $('ckSel').innerHTML=ls.map(l=>'<option value="'+esc(l.id)+'"'+(l.id===c.id?' selected':'')+'>'+esc(l.name||t('ckDefName'))+'</option>').join('');
   if(document.activeElement!==$('ckName'))$('ckName').value=c.name||'';
-  $('ckDelList').hidden=ls.length<2;$('ckDelList').classList.toggle('ck-ib',!ckDelArm);$('ckDelList').setAttribute('aria-label',t('ckDelL'));if(ckDelArm)$('ckDelList').textContent=t('ckDelSure');else $('ckDelList').innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M5.500 7l1 12.500a2 2 0 0 0 2 1.500h7a2 2 0 0 0 2-1.500l1-12.500M9 7V4.500h6V7"/></svg>';
+  $('ckDelList').hidden=ls.length<2;$('ckDelList').setAttribute('aria-label',t('ckDelL'));$('ckDelList').classList.add('ck-ib');if(ckDelArm){$('ckDelList').innerHTML='<span class="ck-q" aria-hidden="true">?</span>';$('ckDelList').setAttribute('aria-label',t('ckDelSure'))}else $('ckDelList').innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M5.500 7l1 12.500a2 2 0 0 0 2 1.500h7a2 2 0 0 0 2-1.500l1-12.500M9 7V4.500h6V7"/></svg>';
   $('ckList').innerHTML=it.length?it.map(x=>ckRow(x,0)).join(''):'<li class="hint">'+esc(t('ckEmpty'))+'</li>';
   $('ckBase').hidden=!!it.length;$('ckReset').hidden=!it.length;$('ckReset').disabled=!done;
   const ed=$('ckList').querySelector('.ck-edit');if(ed){ed.focus();ed.select()}
@@ -3658,12 +3661,14 @@ Object.assign(T.en,{cwBan:'Protected species: spearfishing it is forbidden',cwBa
 /* ===== Photos v3: iNaturalist first (real fish, never range maps), Wikipedia only if it is not a map; genus photo as last resort ===== */
 const mapLike=u=>/map|distrib|range|mapa|area|carte|karte|verbreit|\.svg/i.test(u||'');
 const isSp=q=>/^[A-Z][a-z]+ [a-z]+$/.test(q);
+let libTiny={};try{libTiny=JSON.parse(localStorage.getItem('sn-libtiny')||'{}')||{}}catch(_){}
+let libTinyT=null;function libTinyMake(lat,src){const im=new Image();im.crossOrigin='anonymous';im.onload=()=>{try{const W=20,H=Math.max(1,Math.min(30,Math.round(W*im.naturalHeight/im.naturalWidth)));const c=document.createElement('canvas');c.width=W;c.height=H;c.getContext('2d').drawImage(im,0,0,W,H);libTiny[lat]=c.toDataURL('image/jpeg',.6);clearTimeout(libTinyT);libTinyT=setTimeout(()=>{try{localStorage.setItem('sn-libtiny',JSON.stringify(libTiny))}catch(_){}},800)}catch(_){}};im.src=src}
 function libPhotos(){
   if(libIO)libIO.disconnect();
   if(!('IntersectionObserver' in window))return;
   libIO=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target;libIO.unobserve(el);
-    el.classList.add('shim');thumbPhoto(el.dataset.lat).then(p=>{el.classList.remove('shim');if(p&&el.isConnected)el.innerHTML='<img class="fade" alt="" decoding="async" src="'+esc(p.src)+'">'})}),{root:$('libUl').closest('.sheet-in'),rootMargin:'900px'});
-  document.querySelectorAll('#libUl .lib-th').forEach(el=>libIO.observe(el));
+    if(!el.style.backgroundImage)el.classList.add('shim');thumbPhoto(el.dataset.lat).then(p=>{el.classList.remove('shim');if(p&&el.isConnected){el.innerHTML='<img class="fade" alt="" decoding="async" src="'+esc(p.src)+'">';if(!libTiny[el.dataset.lat])libTinyMake(el.dataset.lat,p.src)}})}),{root:$('libUl').closest('.sheet-in'),rootMargin:'900px'});
+  document.querySelectorAll('#libUl .lib-th').forEach(el=>{const tn=libTiny[el.dataset.lat];if(tn)el.style.background='center/cover no-repeat url('+tn+')';libIO.observe(el)});
 }
 function spGallery(elId,lat,label){
   speciesPhotos(lat).then(ps=>{const el=$(elId);if(!el)return;
@@ -4036,7 +4041,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794524001';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794524921';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
