@@ -1283,6 +1283,11 @@ label .gi .ic{width:15px;height:15px}
 .catch-item.lost{opacity:.6}
 .catch-item.lost .cl1>b{text-decoration:line-through;text-decoration-thickness:1px}
 .lostB{flex:none;margin-left:6px;padding:0 6px;border:1px solid var(--danger);border-radius:999px;color:var(--danger);font-size:11.5px;font-weight:600;line-height:1.5}
+
+.gearL .gun-l{align-items:flex-start}
+.gearL .gun-l .gt{flex:1;min-width:0;overflow-wrap:anywhere}
+.gearL .gun-l .gi{margin-top:2px}
+.gearL .gw{display:inline-flex;flex-wrap:nowrap;gap:12px;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -1438,8 +1443,8 @@ label .gi .ic{width:15px;height:15px}
     <details class="esec fx" id="eMore" data-for="dive spot"><summary data-i="climH"></summary><div class="inner">
         <div class="grid3">
           <label for="eVis"><span><i data-ic="vis"></i><span data-i="vis"></span></span><input id="eVis" type="text" inputmode="decimal" autocomplete="off"></label>
-          <label for="eTemp"><span><i data-ic="temp"></i><span data-i="tempSurf"></span></span><input id="eTemp" type="text" inputmode="decimal" autocomplete="off"></label>
-          <label for="eTempDeep"><span><i data-ic="temp"></i><span data-i="tempDeep"></span></span><input id="eTempDeep" type="text" inputmode="decimal" autocomplete="off"></label>
+          <label for="eTemp"><span><span class="gi"><i data-ic="temp"></i><sub>s</sub></span><span data-i="tempSurf"></span></span><input id="eTemp" type="text" inputmode="decimal" autocomplete="off"></label>
+          <label for="eTempDeep"><span><span class="gi"><i data-ic="temp"></i><sub>t</sub></span><span data-i="tempDeep"></span></span><input id="eTempDeep" type="text" inputmode="decimal" autocomplete="off"></label>
           <label for="eThermo"><span><i data-ic="thermo"></i><span data-i="thermo"></span></span><input id="eThermo" type="text" inputmode="decimal" autocomplete="off"></label>
           <label for="eCurrent"><span><i data-ic="cur"></i><span data-i="current"></span></span><select id="eCurrent"></select></label>
           <label for="eDir"><span><i data-ic="cur"></i><span data-i="dirL"></span></span><select id="eDir"></select></label>
@@ -1623,7 +1628,7 @@ en:{quickPh:'@Sesimbra, sea bass 2.3kg 12m 8:30-10:15',quickAl:'Quick entry',add
  windyLabel:'Forecast on Windy:',windyEmpty:'Add coordinates to a spot to open its forecast on Windy.',windy:'Windy',edit:'Edit',
  date:'Date',coords:'Coordinates',coordsPh:'38.4300, -9.1000',gpsHint:'Paste coordinates, a Google Maps link or a Windy link.',gpsText:'Saved as a text note. Maps and Windy need coordinates.',gpsShort:'Short link saved for Maps. Windy needs coordinates or the full link.',findMaps:'View on Google Maps',maps:'Maps',moodQ:'How did it go?',mood_good:'Good dive',mood_ok:'Average dive',mood_bad:'Bad dive',qty:'Qty',kg:'kg',addFish:'Add another fish',notes:'Notes',conditions:'Conditions, gear and tags',addPhotos:'Add photos',
  depth:'Depth, m',maxDepth:'Max depth, m',whereL:'Caught in',wh_hole:'Hole',wh_water:'Open water',wh_rock:'Rock',wh_sand:'Sand',wh_weed:'Weed',mL:'m',spcN:n=>n+(n===1?' species':' species'),divesN:'Dives',divesU:'dives',maxU:'max',totL:'Total',cmL:'cm',vis:'Visibility, m',temp:'Water, °C',wind:'Wind',gear:'Gear',tags:'Tags, separated by commas',photos:'Photos',cancel:'Cancel',save:'Save',
- newEntry:'New entry',editEntry:'Edit entry',del:'Delete',sure:'Delete this entry?',
+ newEntry:'New hunt',editEntry:'Edit hunt',del:'Delete',sure:'Delete this entry?',
  dive:'Dive',spotT:'Spot',note:'Note',noCatch:'No catch',
  tide_rising:'Rising tide',tide_high:'High tide',tide_falling:'Falling tide',tide_low:'Low tide',tide_slack:'Slack water',tideS_rising:'rising',tideS_high:'high',tideS_falling:'falling',tideS_low:'low',tideS_slack:'slack',timeIn:'Time in',timeOut:'Time out',tideIn:'Tide at entry',tideOut:'Tide at exit',variety:'Variety',huntF:'Hunt',ckNav:'Checklist',rulesNav:'Rules',sizesNav:'Sizes and closed seasons',sizesTitle:'Minimum sizes and closed seasons',anyF:'Any',hunt_good:'Good',hunt_ok:'Average',hunt_bad:'Poor',ckTitle:'Gear checklist',ckHint:'Your own list. Tick items while packing; untick all before the next trip.',ckPh:'Add an item, e.g. spare shaft',ckEmpty:'No items yet. Add your own or start from the basic list.',ckBaseL:'Use the basic list',ckResetL:'Untick all for a new trip',rulesTitle:'Rules and species',spBanned:'Protected: spearfishing this species is forbidden in mainland Portugal.',spMin:'Minimum size',spMantle:'(mantle length)',spNoMin:'No minimum size in the official table.',spDefeso:'Closed season',spNow:'closed now',spLegalNote:'Mainland Portugal, checked 8 Nov 2026. See Sizes and closed seasons for details.',spImages:'Google Images',spLoading:'Loading photo…',spPhotoBy:'Photo:',spNoPhoto:'No photo found.',settings:'Settings',setAccount:'Account',setLang:'Language',setData:'Your data',setWind:'Wind units',close:'Close',authIntro:'Sign in to keep your own private notebook on every device.',signIn:'Sign in',signUp:'Create account',password:'Password (at least 6 characters)',signOut:'Sign out',authBad:'Wrong email or password.',forgot:'Forgot your password?',forgotNeedEmail:'Type your email above, then tap again.',forgotSent:'If there is an account with this email, you will get a link to set a new password. Check spam too.',forgotWait:'Wait a minute before asking for another link.',newPassIntro:'Choose a new password for your account.',newPassT:'New password (at least 6 characters)',newPassGo:'Save password',newPassOk:'Password changed.',newPassSame:'Use a password different from the old one.',chPass:'Change password',resetExpired:'This link has expired or was already used. Ask for a new one and open only the latest email.',authExists:'An account with this email already exists. Sign in instead.',authConfirm:'Check your email to confirm the account, then sign in.',authFail:'Could not sign in. Check your connection and try again.',setup:'This site is not connected to its database yet. Add the Supabase address and key at the top of index.html.',hist:'Previous versions',histNone:'No previous versions yet.',restore:'Restore',restored:'Version restored',deletedL:'Deleted entries',delNone:'No deleted entries.',draftBack:'Your unsaved changes were recovered.',dirL:'Current towards',weather:'Weather',w_sunny:'Sunny',w_partly:'Partly cloudy',w_cloudy:'Cloudy',w_fog:'Fog',w_drizzle:'Drizzle',w_rain:'Rain',w_storm:'Thunderstorm',shotsT:'App forecasts',shotsHint:'Add screenshots from your apps to compare them with what you saw.',addShot:'Add',cmp:'Forecast vs observed',cmpF:'Forecast',cmpO:'Observed',undo:'Undo',fixNow:'Fix spelling',fixing:'Fixing spelling…',fixed:'Spelling fixed.',fixNone:'No spelling mistakes found.',fixFail:'Could not check spelling.',links:'Open:',anyVar:'Not specified',cur_none:'No current',cur_weak:'Weak current',cur_medium:'Medium current',cur_strong:'Strong current',sea_calm:'Calm',sea_ripple:'Ripple',sea_swell:'Swell',sea_waves:'Waves',sea_storm:'Storm',
  visS:'vis',found:n=>n+(n===1?' entry':' entries'),fishN:n=>n+' fish',diveN:n=>n+(n===1?' dive':' dives'),upTo:'to',
@@ -2779,7 +2784,7 @@ const icv=(k,lab,v)=>'<span title="'+esc(lab)+'" style="white-space:nowrap"><spa
     acc:e.access?icv('acc',t('accessL2'),hl(t('acc_'+e.access))):'',
     depth:entryMaxDepth(e)!=null?'<span title="'+esc(t('maxDepth'))+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(t('maxDepth'))+'">'+ICON.depth+'</span>'+esc(t('maxU'))+' '+fmt(entryMaxDepth(e))+' m</span>':'',
     dives:e.dives!=null?icv('dives',t('divesN'),fmt(e.dives)):'',vis:e.vis!=null?iconVal('vis',e.vis):'',
-    temp:e.temp!=null||e.tempDeep!=null?icv('temp',t('tempSurf'),[e.temp!=null?fmt(e.temp)+' °C':'',e.tempDeep!=null?fmt(e.tempDeep)+' °C':''].filter(Boolean).join(' / ')):'',
+    temp:[e.temp!=null?'<span style="white-space:nowrap" title="'+esc(t('tempSurf'))+'"><span class="gi" role="img" aria-label="'+esc(t('tempSurf'))+'">'+ICON.temp+'<sub>s</sub></span>'+fmt(e.temp)+' °C</span>':'',e.tempDeep!=null?'<span style="white-space:nowrap" title="'+esc(t('tempDeep'))+'"><span class="gi" role="img" aria-label="'+esc(t('tempDeep'))+'">'+ICON.temp+'<sub>t</sub></span>'+fmt(e.tempDeep)+' °C</span>':''].filter(Boolean).join(' · '),
     thermo:e.thermo!=null?icv('thermo',t('thermo'),fmt(e.thermo)+' m'):'',tide:tideHtml(e),cur:currentHtml(e),
     wx:e.weather?'<span style="white-space:nowrap">'+hl(t('w_'+e.weather))+'</span>':'',
     sea:e.sea?icv('sea',t('sea'),hl(t('sea_'+e.sea))):'',
@@ -2800,7 +2805,7 @@ const icv=(k,lab,v)=>'<span title="'+esc(lab)+'" style="white-space:nowrap"><spa
       cond:(cond?'<div class="cond" data-b="cond">'+BH+cond+'</div>':''),
       catch:(catches?'<div class="catch" data-b="catch">'+BH+catches+'</div>':(k==='dive'?'<div class="cond" data-b="catch">'+BH+esc(t('noCatch'))+'</div>':'')),
       note:(e.notes?'<div class="note" data-b="note">'+BH+hl(e.notes)+'</div>':''),
-      gear:(e.gear||e.lastro!=null||e.colete!=null||(e.guns||[]).length?'<div class="gearL" data-b="gear">'+BH+[e.gear?'<span class="gl">'+icv('suit',t('suit'),hl(e.gear))+'</span>':'',e.lastro!=null?'<span class="gl"><span class="gi" role="img" aria-label="'+esc(t('lastro'))+'">'+ICON.cinto+'<sub>1</sub></span>'+fmt(e.lastro)+' kg</span>':'',e.colete!=null?'<span class="gl"><span class="gi" role="img" aria-label="'+esc(t('colete'))+'">'+ICON.colete+'<sub>2</sub></span>'+fmt(e.colete)+' kg</span>':''].filter(Boolean).join('')+(e.guns||[]).map((g,i,a)=>'<span class="gl gun-l"><span class="gi" role="img" aria-label="'+esc(t('gun'))+'">'+ICON.gun+(a.length>1?'<sub>'+(i+1)+'</sub>':'')+'</span>'+hl(g)+'</span>').join('')+'</div>':''),
+      gear:(e.gear||e.lastro!=null||e.colete!=null||(e.guns||[]).length?'<div class="gearL" data-b="gear">'+BH+[e.gear?'<span class="gl">'+icv('suit',t('suit'),hl(e.gear))+'</span>':'','<span class="gw">'+(e.lastro!=null?'<span class="gl"><span class="gi" role="img" aria-label="'+esc(t('lastro'))+'">'+ICON.cinto+'<sub>1</sub></span>'+fmt(e.lastro)+' kg</span>':'')+(e.colete!=null?'<span class="gl"><span class="gi" role="img" aria-label="'+esc(t('colete'))+'">'+ICON.colete+'<sub>2</sub></span>'+fmt(e.colete)+' kg</span>':'')+'</span>'].filter(x=>x&&x!=='<span class="gw"></span>').join('')+(e.guns||[]).map((g,i,a)=>'<span class="gl gun-l"><span class="gi" role="img" aria-label="'+esc(t('gun'))+'">'+ICON.gun+(a.length>1?'<sub>'+(i+1)+'</sub>':'')+'</span>'+'<span class="gt">'+hl(g)+'</span></span>').join('')+'</div>':''),
       tactic:(e.tactic?'<div class="note" data-b="tactic">'+BH+'<b class="nl">'+esc(t('tactic'))+':</b> '+hl(e.tactic)+'</div>':''),
       err:((e.errors||[]).length||e.errNote?'<div class="note" data-b="err">'+BH+'<b class="nl">'+esc(t('errS'))+':</b> '+[(e.errors||[]).filter(k=>ERRS.includes(k)).map(k=>esc(t('er_'+k))).join(', '),e.errNote?hl(e.errNote):''].filter(Boolean).join('. ')+'</div>':''),
       lesson:(e.lesson?'<div class="note" data-b="lesson">'+BH+'<b class="nl">'+esc(t('lesson'))+':</b> '+hl(e.lesson)+'</div>':''),
@@ -2812,7 +2817,7 @@ function render(dataChanged){
   if(dataChanged)fillFacets();
   updateFishBtn();
   const shown=sorted(entries.filter(matches)),cm=spotCoords();
-  const f=shown.reduce((a,e)=>a+catchCount(e),0),kg=shown.reduce((a,e)=>a+catchKg(e),0),dives=shown.filter(e=>kindOf(e)==='dive').length;
+  const f=shown.reduce((a,e)=>a+catchCount(e),0),kg=shown.reduce((a,e)=>a+catchKg(e),0),dives=shown.reduce((a,e)=>a+(kindOf(e)==='dive'&&+e.dives>0?+e.dives:0),0);
   {const a=[t('found')(shown.length),dives?t('diveN')(dives):''].filter(Boolean),b=[f?t('fishN')(f):'',kg?fmt(kg)+' '+t('catchKgS'):''].filter(Boolean);
    $('summary').innerHTML=entries.length?esc(a.join(' · '))+(b.length?'<span class="sum2"><span class="sum-s"> · </span>'+esc(b.join(' · '))+'</span>':''):''}
   $('exampleNotice').hidden=!entries.some(e=>e.example);
@@ -3975,7 +3980,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794497050';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794499018';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
