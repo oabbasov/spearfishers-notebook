@@ -1329,6 +1329,19 @@ html.dlgopen,html.dlgopen body{overflow:hidden;overscroll-behavior:none}
 
 .gi.gtm{margin-right:6px}
 .gi.gtm sub{right:0}
+
+#ckDelList.ck-ib{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 55%,transparent)}
+#ckReset{margin-left:auto}
+.ck-lbtn{flex-wrap:nowrap}
+img.fade{opacity:0;transition:opacity .28s ease}
+img.fade.ld{opacity:1}
+@keyframes shim{0%{background-position:-180px 0}100%{background-position:180px 0}}
+.shim{background-color:var(--sea-soft);background-image:linear-gradient(90deg,transparent,color-mix(in srgb,var(--ink) 8%,transparent),transparent);background-size:180px 100%;background-repeat:no-repeat;animation:shim 1.1s linear infinite}
+
+.so-pw .so-pics img{background-color:var(--sea-soft)}
+.sc-stage{position:relative}
+.sc-sw-abs{position:absolute;right:4px;bottom:4px;z-index:3;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.sp-photo img,.lib-th img{background-color:var(--sea-soft)}
 </style>
 </head>
 <body>
@@ -1617,14 +1630,14 @@ html.dlgopen,html.dlgopen body{overflow:hidden;overscroll-behavior:none}
 </dialog>
 <dialog id="scD" class="sheet sc-d"><div class="sheet-in">
   <div class="sheet-head"><h2 data-i="scTitle"></h2><button type="button" id="scClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
-  <div class="sc-stage"><button type="button" class="sc-arr l" id="scPrev" aria-label="‹"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="sc-wrap" id="scWrap"><canvas id="scCv" width="1080" height="1920"></canvas><p class="hint sc-busy" id="scBusy" hidden>…</p><span class="sc-n" id="scN"></span></div><button type="button" class="sc-arr r" id="scNext" aria-label="›"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  <div class="sc-stage"><button type="button" class="sc-sw sc-sw-abs" id="scBgSw" data-al="scBgL" aria-expanded="false"></button><button type="button" class="sc-arr l" id="scPrev" aria-label="‹"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="sc-wrap" id="scWrap"><canvas id="scCv" width="1080" height="1920"></canvas><p class="hint sc-busy" id="scBusy" hidden>…</p><span class="sc-n" id="scN"></span></div><button type="button" class="sc-arr r" id="scNext" aria-label="›"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  <div class="sc-row" id="scBgRow"><span class="sc-lab" data-i="scBgL"></span><div class="sc-bg"><button type="button" class="link" id="scBgR" data-i="scBgR"></button></div>
+    <div class="cwp" id="scCw" hidden><div class="cw-sl" id="cwS" data-al="scSat"><i></i></div><div class="cw-wh" id="cwW"><canvas id="cwC" width="240" height="240"></canvas><i id="cwDot"></i></div><div class="cw-sl" id="cwV" data-al="scBri"><i></i></div></div></div>
   <p class="hint sc-h2" id="scHint2" data-i="scHint2"></p>
   <div class="so-tabs" id="scFmt"><button type="button" data-v="story" data-i="scStory"></button><button type="button" data-v="post" data-i="scPost"></button></div>
   <div class="sc-row"><span class="sc-lab" data-i="scLocL"></span><div class="so-tabs" id="scLoc"><button type="button" data-v="zone" data-i="scZone"></button><button type="button" data-v="spot" data-i="scSpot"></button><button type="button" data-v="none" data-i="scNone"></button></div><div class="sc-chips" id="scNear"></div></div>
   <div class="sc-row" id="scWithL"><span class="sc-lab" data-i="scWithL"></span><input id="scWithIn" data-ph="scWithPh" data-al="scWithL" autocomplete="off" autocapitalize="off" spellcheck="false"><div class="sc-chips" id="scWithChips"></div></div>
   <div class="sc-row" id="scFishR"><span class="sc-lab" data-i="scFishL"></span><div class="sc-chips" id="scFish"></div></div>
-  <div class="sc-row"><span class="sc-lab" data-i="scBgL"></span><div class="sc-bg"><button type="button" class="sc-sw" id="scBgSw" data-al="scBgL" aria-expanded="false"></button><button type="button" class="link" id="scBgR" data-i="scBgR"></button></div>
-    <div class="cwp" id="scCw" hidden><div class="cw-sl" id="cwS" data-al="scSat"><i></i></div><div class="cw-wh" id="cwW"><canvas id="cwC" width="240" height="240"></canvas><i id="cwDot"></i></div><div class="cw-sl" id="cwV" data-al="scBri"><i></i></div></div></div>
   <div class="sc-row"><span class="sc-lab" data-i="scShowL"></span><div class="sc-chk" id="scChk"><label class="chk" id="scPhL"><input type="checkbox" id="scPh"><span data-i="scPhoto"></span></label></div></div>
   <div class="sc-btns"><button type="button" class="primary" id="scShare" data-i="share"></button><button type="button" id="scSaveB" data-i="scSaveB"></button></div>
   <p class="hint" data-i="scHint"></p>
@@ -3258,6 +3271,7 @@ async function wikiPhoto(lat){
   if(out&&!out.by)out.by='Wikipedia';
   wikiCache.set(q,out);return out;
 }
+document.addEventListener('pointerdown',ev=>{const it=ev.target.closest&&ev.target.closest('.catch-item,.lib-row');if(!it)return;const nm=it.dataset.fish;try{if(nm||it.dataset.lat){const lat=it.dataset.lat||latinOf(nm,it.dataset.sub||'');if(lat)speciesPhotos(lat).then(ps=>(ps||[]).slice(0,2).forEach(x=>{const i=new Image();i.src=x.src}))}}catch(_){}},{passive:true});
 function openSpecies(name,sub){
   const lat=latinOf(name,sub),label=subLabel(name,sub)||fishLabel(name),f=fishRow(name),L=legalOf(name,sub);
   const other=f?(sub?(subsOf(name).find(x=>x.id===sub)||{})[lang==='pt'?'en':'pt']:f[lang==='pt'?0:1]):'';
@@ -3379,7 +3393,7 @@ function ckDraw(){
   $('ckCount').textContent=n?done+' / '+n:'';
   $('ckSel').innerHTML=ls.map(l=>'<option value="'+esc(l.id)+'"'+(l.id===c.id?' selected':'')+'>'+esc(l.name||t('ckDefName'))+'</option>').join('');
   if(document.activeElement!==$('ckName'))$('ckName').value=c.name||'';
-  $('ckDelList').hidden=ls.length<2;$('ckDelList').textContent=t(ckDelArm?'ckDelSure':'ckDelL');
+  $('ckDelList').hidden=ls.length<2;$('ckDelList').classList.toggle('ck-ib',!ckDelArm);$('ckDelList').setAttribute('aria-label',t('ckDelL'));if(ckDelArm)$('ckDelList').textContent=t('ckDelSure');else $('ckDelList').innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M5.500 7l1 12.500a2 2 0 0 0 2 1.500h7a2 2 0 0 0 2-1.500l1-12.500M9 7V4.500h6V7"/></svg>';
   $('ckList').innerHTML=it.length?it.map(x=>ckRow(x,0)).join(''):'<li class="hint">'+esc(t('ckEmpty'))+'</li>';
   $('ckBase').hidden=!!it.length;$('ckReset').hidden=!it.length;$('ckReset').disabled=!done;
   const ed=$('ckList').querySelector('.ck-edit');if(ed){ed.focus();ed.select()}
@@ -3450,7 +3464,7 @@ $('ckSel').addEventListener('change',()=>{ckEditing=null;ckDelArm=false;ckAddTo=
 $('ckName').addEventListener('change',()=>{const v=$('ckName').value.trim();if(!v){$('ckName').value=ckCur().name||'';return}const c=ckCur();ckSaveDoc(ckLists().map(l=>l.id===c.id?{...l,name:v}:l),c.id)});
 $('ckName').addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();$('ckName').blur()}});
 const ckReId=a=>a.map(x=>({...x,id:ckId(),done:false,kids:x.kids?ckReId(x.kids):undefined}));
-$('ckNewList').addEventListener('click',()=>{const ls=ckLists(),id=ckId();ckSaveDoc(ls.concat([{id,name:t('ckNewName')+' '+(ls.length+1),items:[]}]),id);setTimeout(()=>{$('ckName').focus();$('ckName').select()},0)});
+$('ckNewList').addEventListener('click',()=>{const nm=$('ckName');try{nm.focus({preventScroll:true})}catch(_){nm.focus()}const ls=ckLists(),id=ckId();ckSaveDoc(ls.concat([{id,name:t('ckNewName')+' '+(ls.length+1),items:[]}]),id);setTimeout(()=>{$('ckName').focus();$('ckName').select()},0)});
 $('ckDupList').addEventListener('click',()=>{const ls=ckLists(),c=ckCur(),id=ckId();ckSaveDoc(ls.concat([{id,name:(c.name||t('ckDefName'))+' ('+t('ckCopy')+')',items:ckReId(c.items||[])}]),id);setTimeout(()=>{$('ckName').focus();$('ckName').select()},0)});
 let ckDelTimer=null;
 $('ckDelList').addEventListener('click',()=>{
@@ -3648,7 +3662,7 @@ function libPhotos(){
   if(libIO)libIO.disconnect();
   if(!('IntersectionObserver' in window))return;
   libIO=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target;libIO.unobserve(el);
-    thumbPhoto(el.dataset.lat).then(p=>{if(p&&el.isConnected)el.innerHTML='<img alt="" loading="lazy" src="'+esc(p.src)+'">'})}),{root:$('libUl').closest('.sheet-in'),rootMargin:'200px'});
+    el.classList.add('shim');thumbPhoto(el.dataset.lat).then(p=>{el.classList.remove('shim');if(p&&el.isConnected)el.innerHTML='<img class="fade" alt="" decoding="async" src="'+esc(p.src)+'">'})}),{root:$('libUl').closest('.sheet-in'),rootMargin:'900px'});
   document.querySelectorAll('#libUl .lib-th').forEach(el=>libIO.observe(el));
 }
 function spGallery(elId,lat,label){
@@ -4022,7 +4036,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794518031';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794524001';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -4043,6 +4057,8 @@ let shMe=null,shProf=null,shBusy=false,shAgain=false,shT=null;
 function shCfg(){return Object.assign({},SH_DEF,(shProf&&shProf.share)||{})}
 function shSoon(){if(!shMe||!shProf)return;clearTimeout(shT);shT=setTimeout(shSync,2500)}
 function shHash(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
+async function shTiny(b){const u=URL.createObjectURL(b);try{const im=await new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=u});const W=24,H=Math.max(1,Math.round(W*im.naturalHeight/im.naturalWidth));const c=document.createElement('canvas');c.width=W;c.height=Math.min(H,40);c.getContext('2d').drawImage(im,0,0,c.width,c.height);return c.toDataURL('image/jpeg',.6)}finally{URL.revokeObjectURL(u)}}
+async function shTinies(paths){const out=[];for(const pth of paths){try{const r=await sb.storage.from('photos').download(pth);out.push(r.error?'':await shTiny(r.data))}catch(_){out.push('')}}return out}
 async function shStrip(id){const{data,error}=await sb.storage.from('photos').download(id);if(error)throw error;
   const bm=await createImageBitmap(data);const s=Math.min(1,1280/Math.max(bm.width,bm.height));const cv=document.createElement('canvas');cv.width=Math.round(bm.width*s);cv.height=Math.round(bm.height*s);
   cv.getContext('2d').drawImage(bm,0,0,cv.width,cv.height);return await new Promise(r=>cv.toBlob(r,'image/jpeg',.85))}
@@ -4066,11 +4082,11 @@ async function shSync(){
     for(const [id,{p,e}] of want){
       const old=H.get(id)||null;const src=cfg.photo?(e.photos||[]).filter(x=>typeof x==='string'&&x.includes('/')).slice(0,8):[];
       p.ph=src.length?shHash(src.join('|')):'';
-      if(old&&old.ph===p.ph&&old.photos)p.photos=old.photos;
+      if(old&&old.ph===p.ph&&old.photos){p.photos=old.photos;p.tiny=old.tiny&&old.tiny.length===old.photos.length?old.tiny:await shTinies(old.photos)}
       else{if(old&&old.photos&&old.photos.length)await sb.storage.from('photos').remove(old.photos);
         const out=[];for(const s of src){try{const b=await shStrip(s);const path=shMe+'/share/'+id+'-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)+'.jpg';const r=await sb.storage.from('photos').upload(path,b,{contentType:'image/jpeg'});if(!r.error)out.push(path)}catch(_){}}
-        if(out.length)p.photos=out}
-      if(!p.photos)delete p.ph;
+        if(out.length){p.photos=out;p.tiny=await shTinies(out)}}
+      if(!p.photos){delete p.ph;delete p.tiny}
       if(old&&JSON.stringify(old)===JSON.stringify(p)&&(!hid||HH.get(id)===!!e.postOff))continue;
       await sb.from('shared_catches').upsert(Object.assign({user_id:shMe,entry_id:id,data:p,updated_at:new Date().toISOString()},hid?{hidden:!!e.postOff}:{}),{onConflict:'user_id,entry_id'})}
   }catch(e){console.warn('share sync',e)}
@@ -4129,7 +4145,7 @@ function soPost(r){const d=r.data||{},p=SO.cards.get(r.user_id)||{};const liked=
   const showC=r.open?coms:coms.slice(-2);
   return '<article class="so-post'+(r.hidden?' off':'')+'" data-o="'+esc(r.user_id)+'" data-e="'+esc(r.entry_id)+'">'+
     '<div class="so-hd"><button type="button" class="so-who" data-u="'+esc(r.user_id)+'">'+soAv(r.user_id,p)+'<span class="so-wt"><b>'+esc(soName(r.user_id,p))+'</b><small>'+esc(sub)+'</small></span></button>'+(r.user_id===shMe&&entries.some(x=>x.id===r.entry_id)?onBtn(!!r.hidden,'data-a="onoff"'):'')+'</div>'+
-    (pics.length?'<div class="so-pw"><div class="so-pics">'+pics.map((u,i)=>'<img src="'+esc(u.u)+'" alt="" loading="lazy" data-vi="'+i+'">').join('')+'</div>'+soDots(pics.length)+'</div>':'')+
+    (pics.length?'<div class="so-pw"><div class="so-pics">'+pics.map((u,i)=>{const tn=(d.tiny||[])[i];return '<img class="fade" src="'+esc(u.u)+'" alt="" decoding="async" '+(i?'loading="lazy" ':'')+'data-vi="'+i+'"'+(tn&&/^data:image\/jpeg;base64,/.test(tn)?' style="background:center/cover no-repeat url('+tn+')"':'')+'>'}).join('')+'</div>'+soDots(pics.length)+'</div>':'')+
     '<ul class="so-cs">'+(d.catches||[]).map(soCatch).join('')+'</ul>'+
     '<div class="so-act"><button type="button" class="so-like'+(liked?' on':'')+'" data-a="like" aria-pressed="'+liked+'" aria-label="'+esc(t('soLike'))+'">'+SO_I.heart+'<span>'+((r.likes||[]).length||'')+'</span></button>'+((r.user_id===shMe&&entries.some(x=>x.id===r.entry_id))||(d.with||[]).includes(shMe)?'<button type="button" class="so-sh" data-a="share" aria-label="'+esc(t('share'))+'"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6.5"/></svg></button>':'')+
     '</div>'+
@@ -4464,7 +4480,7 @@ function cwDraw(){const c=$('cwC'),x=c.getContext('2d'),N=c.width,R=N/2;
   $('cwS').firstChild.style.top=((1-CW.s)*100)+'%';$('cwV').firstChild.style.top=((1-CW.v)*100)+'%'}
 function cwApply(){SC.bg=hexOf(hsv2rgb(CW.h,CW.s,CW.v));$('scBgSw').style.background=SC.bg;$('scBgR').hidden=false;cwDraw();scQueue()}
 (function(){const sw=$('scBgSw'),pan=$('scCw');
-  sw.addEventListener('click',()=>{const open=pan.hidden;pan.hidden=!open;sw.setAttribute('aria-expanded',String(open));if(open){if(SC.bg){const m=SC.bg.match(/^#(..)(..)(..)$/);if(m)Object.assign(CW,rgb2hsv(parseInt(m[1],16),parseInt(m[2],16),parseInt(m[3],16)))}CW.dv=-1;cwDraw()}});
+  sw.addEventListener('click',()=>{const open=pan.hidden;pan.hidden=!open;$('scBgRow').hidden=!open;sw.setAttribute('aria-expanded',String(open));if(open){if(SC.bg){const m=SC.bg.match(/^#(..)(..)(..)$/);if(m)Object.assign(CW,rgb2hsv(parseInt(m[1],16),parseInt(m[2],16),parseInt(m[3],16)))}CW.dv=-1;cwDraw()}});
   const drag=(el,fn)=>{let on=false;el.addEventListener('pointerdown',ev=>{on=true;el.setPointerCapture(ev.pointerId);fn(ev);ev.preventDefault()});el.addEventListener('pointermove',ev=>{if(on)fn(ev)});const up=()=>{if(on){on=false;scSave()}};el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up)};
   drag($('cwW'),ev=>{const r=$('cwW').getBoundingClientRect(),dx=ev.clientX-r.left-r.width/2,dy=ev.clientY-r.top-r.height/2;let h=Math.atan2(dy,dx)*180/Math.PI;if(h<0)h+=360;CW.h=h;CW.s=Math.min(1,Math.hypot(dx,dy)/(r.width/2));cwApply()});
   const sl=(el,k)=>drag(el,ev=>{const r=el.getBoundingClientRect();CW[k]=Math.max(0,Math.min(1,1-(ev.clientY-r.top)/r.height));cwApply()});sl($('cwS'),'s');sl($('cwV'),'v');
@@ -4477,11 +4493,11 @@ function scUi(){document.querySelectorAll('#scFmt button').forEach(b=>b.classLis
   const nb=$('scNear');nb.hidden=SC.loc!=='zone';nb.innerHTML=scNear==null?'<span class="hint">…</span>':scNear.length?scNear.map(p=>'<button type="button" class="sc-chip'+(p.n===scNearSel?' on':'')+'" data-n="'+esc(p.n)+'">'+esc(p.n)+(p.d!=null?' <small>'+(p.d<1?Math.round(p.d*1000)+' m':p.d.toFixed(1).replace('.',locale().startsWith('pt')?',':'.')+' km')+'</small>':'')+'</button>').join(''):'<span class="hint">'+esc(t('scNoNear'))+'</span>';
   const fr=[...new Map((SO.fol||[]).filter(f=>f.status==='accepted'&&f.username).map(f=>[f.username,f])).keys()];const cur=new Set(scWith());
   $('scWithChips').innerHTML=fr.map(u=>'<button type="button" class="sc-chip'+(cur.has('@'+u)?' on':'')+'" data-u="'+esc(u)+'">@'+esc(u)+'</button>').join('');$('scWithL').hidden=!shMe}
-async function scOpen(e){scE=e;scPi=0;scImgs=[];scNear=null;scNearSel=null;scCrop=new Map();scSkip=new Set();$('scCw').hidden=true;$('scWithIn').value=(e.withU||[]).filter(u=>u!==(shProf&&shProf.username)).map(u=>'@'+u).join(' ');const d=$('scD');scUi();$('scBusy').hidden=false;if(!d.open){d.showModal();document.documentElement.classList.add('vopen')}
+async function scOpen(e){{const cv=$('scCv');cv.getContext('2d').clearRect(0,0,cv.width,cv.height);cv.style.visibility='hidden'}scE=e;scPi=0;scImgs=[];scNear=null;scNearSel=null;scCrop=new Map();scSkip=new Set();$('scCw').hidden=true;$('scBgRow').hidden=true;$('scWithIn').value=(e.withU||[]).filter(u=>u!==(shProf&&shProf.username)).map(u=>'@'+u).join(' ');const d=$('scD');scUi();$('scBusy').hidden=false;if(!d.open){d.showModal();document.documentElement.classList.add('vopen')}
   try{await Promise.all(['700 60px Unbounded','500 40px "Golos Text"','600 40px "Golos Text"','italic 400 32px "Golos Text"'].map(f=>document.fonts.load(f)))}catch(_){}
   if(shMe&&SO.social&&!SO.fol.length)soLoadFollows().then(()=>{if(scE===e)scUi()}).catch(()=>{});
   const [imgs,logo]=await Promise.all([Promise.all((e.photos||[]).slice(0,6).map(scPhoto)),scLogo?Promise.resolve(scLogo):scLogoMake(),...(e.catches||[]).filter(c=>c&&c.name).map(scFishImg)]);
-  if(scE!==e)return;scImgs=imgs.filter(Boolean);scLogo=logo;$('scBusy').hidden=true;scUi();scPaint();
+  if(scE!==e)return;scImgs=imgs.filter(Boolean);scLogo=logo;$('scBusy').hidden=true;$('scCv').style.visibility='';scUi();scPaint();
   scNearby(e).then(()=>{if(scE===e){scUi();scPaint()}})}
 async function scFile(){scPaint();const b=await new Promise(r=>$('scCv').toBlob(r,'image/jpeg',.92));return new File([b],'spearo-diary-'+(scE.date||'catch')+'.jpg',{type:'image/jpeg'})}
 function scDownload(f){const u=URL.createObjectURL(f);const a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
@@ -4692,6 +4708,11 @@ async function impFile(f){try{const name=f.name.toLowerCase();let r;
 $('eImport').addEventListener('click',()=>$('eImportF').click());
 $('eImportF').addEventListener('change',ev=>{const f=ev.target.files&&ev.target.files[0];ev.target.value='';if(f)impFile(f)});
 (function(){const d=$('dlg');if(!d)return;d.addEventListener('close',()=>document.documentElement.classList.remove('dlgopen'));const o=d.showModal.bind(d);d.showModal=function(){document.documentElement.classList.add('dlgopen');return o()}})();
+/* keep a focused field in view when the phone keyboard opens */
+(function(){const fix=ev=>{const el=ev.target;if(!el.matches||!el.matches('input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea'))return;if(!el.closest('dialog'))return;setTimeout(()=>{try{el.scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}},320)};
+  if(matchMedia('(pointer:coarse)').matches)document.addEventListener('focusin',fix)})();
+/* pictures fade in instead of popping */
+document.addEventListener('load',ev=>{const im=ev.target;if(im&&im.tagName==='IMG'&&im.classList.contains('fade'))im.classList.add('ld')},true);
 Object.assign(T.pt,{cfH:'Definições da caçada',cfHint:'Escolha os campos que aparecem no modo Compacto ao criar uma entrada. No modo Completo aparece tudo.',cfEntry:'Entrada',cfDep:'Profundidade do peixe',cfLen:'Comprimento do peixe',cfNote:'Nota sobre o peixe',cfTide:'Maré'});Object.assign(T.en,{cfH:'Entry settings',cfHint:'Choose the fields shown in Compact mode when you add an entry. Full mode shows everything.',cfEntry:'Entry',cfDep:'Fish depth',cfLen:'Fish length',cfNote:'Note about the fish',cfTide:'Tide'});
 Object.assign(T.pt,{modeC:'Compacto',modeF:'Completo',accessL2:'Entrada de',accC_boat:'Entrada de barco',accC_shore:'Entrada de costa'});Object.assign(T.en,{modeC:'Compact',modeF:'Full',accessL2:'Entry from',accC_boat:'From a boat',accC_shore:'From shore'});
 Object.assign(T.pt,{session:'Sessão'});Object.assign(T.en,{session:'Session'});
