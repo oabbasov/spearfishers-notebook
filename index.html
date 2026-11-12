@@ -1068,7 +1068,7 @@ html.app,html.app body{touch-action:manipulation}
 @media (max-width:560px){
 #spotHint{display:none}
 .catch-row>.fishbox:not(.cSub){grid-column:1/3;grid-row:1}
-.catch-row:has(>.cSub:empty)>.fishbox:not(.cSub){grid-column:1/5}
+.catch-row.nosub>.fishbox:not(.cSub){grid-column:1/5}
 .cSub{grid-column:3/5;grid-row:1}
 .cLabs{grid-row:2}
 .catch-row .cCount,.catch-row .cWeight,.catch-row .cDep,.catch-row .cLen{grid-row:3}
@@ -1090,7 +1090,7 @@ html.app,html.app body{touch-action:manipulation}
 .sp-it{height:36px;display:grid;place-items:center;scroll-snap-align:center;font-size:19px;font-variant-numeric:tabular-nums;color:var(--muted);cursor:pointer;user-select:none}
 .sp-it.on{color:var(--ink);font-weight:700}
 .sp-colon{position:relative;font-size:19px;font-weight:700}
-.esec .inner>*>label,.esec .inner>*>.lbl,.cf-quick>label,.cf-quick>.lbl{align-content:space-between}
+.esec .inner>*>label,.cf-quick>label{align-content:space-between}
 .count-row{display:flex;align-items:center;gap:8px}
 .count-row .count{flex:1;min-width:0}
 .arr-btn{flex:none;color:var(--muted);padding:4px}
@@ -1172,6 +1172,60 @@ body.arranging .count-row>.arr-sp{margin-top:-4px}
 
 button.onoff{color:var(--good)!important}
 button.onoff.off{color:var(--accent)!important}
+
+*{-webkit-tap-highlight-color:transparent}
+:focus:not(:focus-visible){outline:none}
+@media (hover:none){summary:focus,button:focus,[role=button]:focus{outline:none}}
+.seg.mini button.on{box-shadow:inset 0 0 0 1px var(--sea)}
+#srCard .more{margin-top:12px}
+@media (min-width:561px){.cSub:empty{display:block;border:1px solid var(--line);border-radius:8px;min-height:42px}}
+#allOn .all-t{color:inherit}
+body.arranging .count-row{flex-wrap:nowrap}
+body.arranging .count-row>.arr-sp{order:0;flex:none;display:inline-grid;margin-top:-5.5px;height:30px}
+@media (max-width:560px){.count-row{position:relative}body.arranging .count-row>.arr-sp{position:absolute;right:0;top:14px;margin:0}}
+.gearL{flex-wrap:wrap}
+.gearL .gl{display:inline-flex;align-items:center}
+.gearL .gun-l{flex:1 0 100%}
+.gi{position:relative;display:inline-flex;margin-right:6px}
+.gi sub{position:absolute;right:-5px;bottom:-4px;font-size:10px;font-weight:700;line-height:1;color:var(--ink)}
+.cbr{display:block;height:0}
+.cbr-x{display:none}
+body.arranging .cbr{height:10px;position:relative;border-top:1px dashed var(--accent);margin-top:4px}
+body.arranging .cbr-x{display:grid;place-items:center;position:absolute;right:0;top:-10px;width:18px;height:18px;min-height:0;padding:0;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:12px;line-height:1}
+.arr-line{position:fixed;height:3px;border-radius:2px;background:var(--accent);z-index:201;pointer-events:none}
+
+.sp-r input.bad{border-color:var(--danger)}
+.ap-pop{position:absolute;z-index:8;width:220px}
+.dd-box{position:relative;display:block}
+.dd-in{padding-right:34px;background-image:linear-gradient(45deg,transparent 50%,var(--sea) 50%),linear-gradient(135deg,var(--sea) 50%,transparent 50%);background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.dd-box>.fishpop button{font-size:15px}
+@media (pointer:fine){.catch-row input.cCount{-moz-appearance:auto;appearance:auto}.catch-row input.cCount::-webkit-inner-spin-button,.catch-row input.cCount::-webkit-outer-spin-button{-webkit-appearance:inner-spin-button;opacity:1;margin:0}}
+
+#feedFind{color:var(--sea)}
+.sea-l .wunit{all:unset;cursor:pointer;flex:none;font-size:11px;color:var(--sea);padding:1px 4px;border:1px solid var(--line);border-radius:6px;line-height:1.3}
+.wu-fix{position:fixed;top:0;left:0;width:auto;min-width:96px;z-index:60}
+.wu-fix button.on,.wu-w .fishpop button.on{color:var(--sea);font-weight:600}
+.lang-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wu-set{display:inline-flex;align-items:center;gap:8px;margin-left:auto;color:var(--muted);font-size:14px}
+.wu-w{position:relative;display:inline-block}
+.wu-b{min-height:0;padding:6px 26px 6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface) linear-gradient(45deg,transparent 50%,var(--sea) 50%) calc(100% - 14px) 50%/5px 5px no-repeat;color:var(--ink);font-weight:600}
+.wu-b{background-image:linear-gradient(45deg,transparent 50%,var(--sea) 50%),linear-gradient(135deg,var(--sea) 50%,transparent 50%);background-position:calc(100% - 15px) 50%,calc(100% - 10px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.wu-w .fishpop{width:auto;min-width:110px}
+.sc-bg{display:flex;align-items:center;gap:12px}
+.sc-sw{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);overflow:hidden;position:relative;cursor:pointer;flex:none}
+.sc-sw input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;padding:0;border:0}
+
+#entryForm .gearRow>label,#entryForm .gearRow>.lbl{align-content:start;align-self:start}
+.gi{margin-right:10px}
+.cq{position:relative;display:block;min-width:0}
+.cq>input{width:100%}
+.qst{display:none}
+@media (pointer:fine){.cq>input{padding-right:20px}.qst{display:flex;flex-direction:column;position:absolute;right:3px;top:3px;bottom:3px;width:16px}
+.qst button{flex:1;min-height:0;padding:0;border:0;background:none;color:var(--muted);font-size:8px;line-height:1;cursor:pointer;border-radius:3px}
+.qst button:hover{background:var(--sea-soft);color:var(--ink)}
+.catch-row input.cCount::-webkit-inner-spin-button,.catch-row input.cCount::-webkit-outer-spin-button{-webkit-appearance:none}.catch-row input.cCount{-moz-appearance:textfield}}
+.catch-row .cq{grid-column:1;grid-row:3}
+@media (min-width:561px){.catch-row .cq{grid-column:auto;grid-row:auto}}
 </style>
 </head>
 <body>
@@ -1315,7 +1369,7 @@ button.onoff.off{color:var(--accent)!important}
       <label class="fx" for="eTideOut"><span data-i="tideOut"></span><select id="eTideOut"></select></label>
       <span class="hint fx" id="tideHint" hidden data-i="tideAuto" style="grid-column:1/-1"></span>
     </div>
-    <div data-for="dive" class="cf-quick" id="cfQuick" hidden></div>
+    <div class="cf-quick" id="cfQuick" hidden></div>
     <div data-for="dive" class="lbl"><span data-i="moodQ"></span><div class="moods" id="eMood" role="group" data-al="moodQ"></div></div>
     <label for="eNotes"><span data-i="notes"></span><textarea id="eNotes" spellcheck="true"></textarea><span class="fix" id="fixBar" hidden><span id="fixMsg"></span><button type="button" class="link" id="fixUndo" data-i="undo" hidden></button><button type="button" class="link" id="fixBtn" data-i="fixNow"></button></span></label>
     <div class="lbl" id="photoBlock" hidden>
@@ -1353,7 +1407,8 @@ button.onoff.off{color:var(--accent)!important}
           <div class="lbl"><span><i data-ic="gun"></i><span data-i="gun"></span></span><div id="eGuns" class="guns"></div></div>
         </div>
         <div class="grid2">
-          <label for="eLastro"><span><i data-ic="lastro"></i><span data-i="lastro"></span></span><input id="eLastro" type="text" inputmode="decimal" autocomplete="off"></label>
+          <label for="eLastro"><span><i data-ic="cinto"></i><span data-i="lastro"></span></span><input id="eLastro" type="text" inputmode="decimal" autocomplete="off"></label>
+          <label for="eColete"><span><i data-ic="colete"></i><span data-i="colete"></span></span><input id="eColete" type="text" inputmode="decimal" autocomplete="off"></label>
         </div>
     </div></details>
     <details class="esec fx" id="eAnal" data-for="dive"><summary data-i="analH"></summary><div class="inner">
@@ -1386,10 +1441,11 @@ button.onoff.off{color:var(--accent)!important}
     <div class="sheet-head"><h2 data-i="settings"></h2><button type="button" id="setClose" class="x-close" data-al="close"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
     <section class="set-sec">
       <h3 data-i="setLang"></h3>
-      <div class="lang" role="group" aria-label="Language">
+      <div class="lang-row"><div class="lang" role="group" aria-label="Language">
         <button type="button" id="langPt" lang="pt">PT</button>
         <button type="button" id="langEn" lang="en">EN</button>
       </div>
+      <span class="wu-set"><span data-i="windU"></span><span class="wu-w" id="wuSetW"><button type="button" id="wuSet" class="wu-b" aria-haspopup="listbox"></button></span></span></div>
     </section>
     <section class="set-sec" id="setAccount" hidden>
       <h3 data-i="setAccount"></h3>
@@ -1462,6 +1518,7 @@ button.onoff.off{color:var(--accent)!important}
   <div class="so-tabs" id="scFmt"><button type="button" data-v="story" data-i="scStory"></button><button type="button" data-v="post" data-i="scPost"></button></div>
   <div class="sc-row"><span class="sc-lab" data-i="scLocL"></span><div class="so-tabs" id="scLoc"><button type="button" data-v="zone" data-i="scZone"></button><button type="button" data-v="spot" data-i="scSpot"></button><button type="button" data-v="none" data-i="scNone"></button></div><div class="sc-chips" id="scNear"></div></div>
   <div class="sc-row" id="scWithL"><span class="sc-lab" data-i="scWithL"></span><input id="scWithIn" data-ph="scWithPh" data-al="scWithL" autocomplete="off" autocapitalize="off" spellcheck="false"><div class="sc-chips" id="scWithChips"></div></div>
+  <div class="sc-row"><span class="sc-lab" data-i="scBgL"></span><div class="sc-bg"><label class="sc-sw" id="scBgSw"><input type="color" id="scBg" data-al="scBgL"></label><button type="button" class="link" id="scBgR" data-i="scBgR"></button></div></div>
   <div class="sc-row"><span class="sc-lab" data-i="scShowL"></span><div class="sc-chk" id="scChk"><label class="chk" id="scPhL"><input type="checkbox" id="scPh"><span data-i="scPhoto"></span></label></div></div>
   <div class="sc-btns"><button type="button" class="primary" id="scShare" data-i="share"></button><button type="button" id="scSaveB" data-i="scSaveB"></button></div>
   <p class="hint" data-i="scHint"></p>
@@ -1517,7 +1574,7 @@ pt:{quickPh:'@Sesimbra, robalo 2,3kg 12m 8:30-10:15',quickAl:'Registo rápido',a
  windyLabel:'Previsão no Windy:',windyEmpty:'Adicione coordenadas a um local para abrir a previsão no Windy.',windy:'Windy',edit:'Editar',
  date:'Data',coords:'Coordenadas',coordsPh:'38.4300, -9.1000',gpsHint:'Cole coordenadas, uma ligação do Google Maps ou do Windy.',gpsText:'Guardado como texto. O Maps e o Windy precisam de coordenadas.',gpsShort:'Ligação curta guardada para o Maps. O Windy precisa de coordenadas ou da ligação completa.',findMaps:'Visualizar no Google Maps',maps:'Maps',moodQ:'Como correu?',mood_good:'Bom mergulho',mood_ok:'Mergulho razoável',mood_bad:'Mau mergulho',qty:'Qtd',kg:'kg',addFish:'Adicionar outro peixe',notes:'Notas',conditions:'Condições, equipamento e etiquetas',addPhotos:'Adicionar fotos',
  depth:'Profund., m',maxDepth:'Prof. máx., m',whereL:'Caçado em',wh_hole:'Buraco',wh_water:'Água',wh_rock:'Rocha',wh_sand:'Areia',wh_weed:'Alga',mL:'m',spcN:n=>n+(n===1?' espécie':' espécies'),divesN:'Mergulhos',divesU:'mergulhos',maxU:'máx.',totL:'Total',cmL:'cm',vis:'Visibilid., m',temp:'Água, °C',wind:'Vento',gear:'Equipamento',tags:'Etiquetas, separadas por vírgulas',photos:'Fotos',cancel:'Cancelar',save:'Guardar',
- newEntry:'Nova entrada',editEntry:'Editar entrada',del:'Apagar',sure:'Apagar esta entrada?',
+ newEntry:'Nova caçada',editEntry:'Editar caçada',del:'Apagar',sure:'Apagar esta entrada?',
  dive:'Mergulho',spotT:'Local',note:'Nota',noCatch:'Sem captura',
  tide_rising:'Maré a encher',tide_high:'Maré cheia',tide_falling:'Maré a vazar',tide_low:'Maré vazia',tide_slack:'Estofo da maré',tideS_rising:'a encher',tideS_high:'cheia',tideS_falling:'a vazar',tideS_low:'vazia',tideS_slack:'estofo',timeIn:'Hora de entrada',timeOut:'Hora de saída',tideIn:'Maré à entrada',tideOut:'Maré à saída',variety:'Espécie',huntF:'Caçada',ckNav:'Checklist',rulesNav:'Regras',sizesNav:'Tamanhos e defeso',sizesTitle:'Tamanhos mínimos e defeso',anyF:'Qualquer',hunt_good:'Boa',hunt_ok:'Razoável',hunt_bad:'Fraca',ckTitle:'Checklist de material',ckHint:'A sua lista. Marque ao preparar o saco; desmarque tudo antes da próxima saída.',ckPh:'Acrescentar, ex.: arpão de reserva',ckEmpty:'Ainda sem itens. Acrescente os seus ou comece pela lista base.',ckBaseL:'Usar a lista base',ckResetL:'Desmarcar tudo para nova saída',rulesTitle:'Regras e espécies',spBanned:'Espécie protegida: é proibido apanhá-la na caça submarina no continente.',spMin:'Tamanho mínimo',spMantle:'(comprimento do manto)',spNoMin:'Sem tamanho mínimo na tabela oficial.',spDefeso:'Defeso',spNow:'em defeso agora',spLegalNote:'Portugal continental, verificado a 8 nov 2026. Detalhes em Tamanhos e defeso.',spImages:'Imagens Google',spLoading:'A carregar foto…',spPhotoBy:'Foto:',spNoPhoto:'Sem foto encontrada.',settings:'Definições',setAccount:'Conta',setLang:'Idioma',setData:'Os seus dados',setWind:'Unidades do vento',close:'Fechar',authIntro:'Inicie sessão para ter o seu caderno privado em todos os dispositivos.',signIn:'Entrar',signUp:'Criar conta',password:'Palavra-passe (pelo menos 6 caracteres)',signOut:'Sair',authBad:'Email ou palavra-passe errados.',forgot:'Esqueceu a palavra-passe?',forgotNeedEmail:'Escreva o seu email acima e carregue outra vez.',forgotSent:'Se existir uma conta com este email, vai receber uma ligação para criar uma nova palavra-passe. Veja também o spam.',forgotWait:'Espere um minuto antes de pedir outra ligação.',newPassIntro:'Escolha uma nova palavra-passe para a sua conta.',newPassT:'Nova palavra-passe (pelo menos 6 caracteres)',newPassGo:'Guardar palavra-passe',newPassOk:'Palavra-passe alterada.',newPassSame:'Use uma palavra-passe diferente da antiga.',chPass:'Mudar a palavra-passe',resetExpired:'Esta ligação expirou ou já foi usada. Peça uma nova e abra só o email mais recente.',authExists:'Já existe uma conta com este email. Entre em vez disso.',authConfirm:'Veja o seu email para confirmar a conta e depois entre.',authFail:'Não foi possível entrar. Verifique a ligação e tente de novo.',setup:'Este site ainda não está ligado à base de dados. Adicione o endereço e a chave do Supabase no início do index.html.',hist:'Versões anteriores',histNone:'Ainda não há versões anteriores.',restore:'Repor',restored:'Versão reposta',deletedL:'Entradas apagadas',delNone:'Não há entradas apagadas.',draftBack:'As alterações por guardar foram recuperadas.',dirL:'Corrente para',weather:'Tempo',w_sunny:'Sol',w_partly:'Pouco nublado',w_cloudy:'Nublado',w_fog:'Nevoeiro',w_drizzle:'Chuvisco',w_rain:'Chuva',w_storm:'Trovoada',shotsT:'Previsões das apps',shotsHint:'Adicione capturas de ecrã das apps para as comparar com o que observou.',addShot:'Adicionar',cmp:'Previsão vs observado',cmpF:'Previsão',cmpO:'Observado',undo:'Anular',fixNow:'Corrigir ortografia',fixing:'A corrigir a ortografia…',fixed:'Ortografia corrigida.',fixNone:'Não foram encontrados erros.',fixFail:'Não foi possível verificar a ortografia.',links:'Abrir:',anyVar:'Não especificado',cur_none:'Sem corrente',cur_weak:'Corrente fraca',cur_medium:'Corrente média',cur_strong:'Corrente forte',sea_calm:'Calmo',sea_ripple:'Encrespado',sea_swell:'Ondulação',sea_waves:'Ondas',sea_storm:'Tempestade',
  visS:'vis',found:n=>n+(n===1?' entrada':' entradas'),fishN:n=>n+(n===1?' peixe':' peixes'),diveN:n=>n+(n===1?' mergulho':' mergulhos'),upTo:'até',
@@ -1568,7 +1625,7 @@ const catchCount=e=>(e.catches||[]).reduce((s,c)=>s+(c.count||1),0);
 const catchKg=e=>(e.catches||[]).reduce((s,c)=>s+(c.weight||0),0);
 const entryMaxDepth=e=>{const v=[e.maxDepth,e.depth,...(e.catches||[]).map(c=>c.depth)].filter(x=>x!=null&&!isNaN(x));return v.length?Math.max(...v):null};
 function catchDet(c){const g=[],L=latinOf(c.name,c.sub);
-  const cw=[c.count>1?'×'+c.count:'',c.weight!=null?'<span class="kg">'+c.weight.toLocaleString(locale(),{maximumFractionDigits:3})+' '+t('catchKgS')+'</span>':''].filter(Boolean).join(' ');if(cw)g.push(cw);
+  const cw=[c.count>1?'×'+c.count:'',c.weight!=null?'<span class="kg">'+c.weight.toLocaleString(locale(),{maximumFractionDigits:3})+' '+t('catchKgS')+'</span>':''].filter(Boolean).join(' · ');if(cw)g.push(cw);
   if(c.len!=null)g.push('L '+fmt(c.len)+' cm');const g1=g.length;if(c.depth!=null)g.push('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>'+fmt(c.depth)+' m');
   const icT=k=>'<span class="cic" role="img" title="'+esc(t(k))+'" aria-label="'+esc(t(k))+'">'+ICON[k]+'</span>';if(whereOf(c).length)g.push(whereOf(c).map(w=>esc(t('wh_'+w))).join(' + '));if(methOf(c))g.push(esc(t('me_'+methOf(c))));
   const cgs=g.map(x=>'<span class="cg">'+x+'</span>'),dA=cgs.slice(0,g1).join(' · '),dB=g.length>g1?cgs.slice(g1).join(' · '):'';
@@ -1583,7 +1640,7 @@ const METHODS=['wait','indio','hole','fall'];
 const methOf=c=>METHODS.includes(c.method)?c.method:((Array.isArray(c.where)?c.where:[c.where]).includes('hole')?'hole':'');
 const WINDS=['none','light','moderate','fresh','strong','gale'],FEELS=['great','good','ok','tired','bad'],EQS=['easy','medium','hard','hardR','hardL'],ERRS=['miss','lost','snag','equal','gearp'];
 const windTxt=w=>!w?'':WINDS.includes(w)?t('wd_'+w):w;
-function apneaS(v){v=String(v||'').trim();if(!v)return undefined;let m=v.match(/^(\d+)\s*[:'m.,]\s*(\d{1,2})\s*s?"?$/);if(m)return +m[1]*60+(+m[2]);m=v.match(/^(\d+)\s*s?$/);return m?+m[1]:undefined}
+function apneaS(v){v=String(v||'').trim();if(!v)return undefined;let m=v.match(/^(\d+)\s*[:'m.,\s]\s*(\d{1,2})\s*s?"?$/);if(m)return +m[1]*60+(+m[2]);m=v.match(/^(\d+)\s*s?$/);return m?+m[1]:undefined}
 const apneaF=s=>s==null?'':Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 const NONFISH_O=new Set(['Octopoda','Sepiida','Myopsida','Oegopsida','Decapoda','Camarodonta','Pectinida','Mytilida','Ostreida']);
 function isFishC(c){const l=latinOf(c.name,c.sub);if(!l)return true;let r;try{r=LIB_X.find(x=>x[0]===l)}catch(_){};return !(r&&NONFISH_O.has(r[4]))}
@@ -1825,7 +1882,7 @@ function catchLabel(c){return subLabel(c.name,c.sub)||fishLabel(c.name)}
 const CL='M7 14a4 4 0 0 1-.5-8A5.500 5.500 0 0 1 17 6.500 3.800 3.800 0 0 1 17.500 14Z';
 const SVGI=d=>'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+d+'</svg>';
 const WICON={sunny:SVGI('<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.600 5.600 7 7M17 17l1.400 1.400M5.600 18.400 7 17M17 7l1.400-1.400"/>'),partly:SVGI('<path d="M8 3v1.500M3 8h1.500M4.500 4.500l1 1M12 5l-1 1"/><path d="M5.500 10a3.500 3.500 0 0 1 6-2.500"/><path d="M9 20a3.500 3.500 0 0 1-.4-7A5 5 0 0 1 18 12.500 3.700 3.700 0 0 1 18 20Z"/>'),cloudy:SVGI('<path d="M7 19a4.500 4.500 0 0 1-.5-9A5.800 5.800 0 0 1 17.500 9.500 4.800 4.800 0 0 1 18 19Z"/>'),fog:SVGI('<path d="'+CL+'"/><path d="M4 18h16M7 21.500h10"/>'),drizzle:SVGI('<path d="'+CL+'"/><path d="M8 18v.5M12 20v.5M16 18v.5"/>'),rain:SVGI('<path d="'+CL+'"/><path d="M8 17l-1 4M12.500 17l-1 4M17 17l-1 4"/>'),storm:SVGI('<path d="'+CL+'"/><path d="M12.500 15.500 10 19.500h4l-2.500 3.500"/>')};
-const ICON={acc:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.500 2.500 9 11c-.200 1.200-.900 2-2 2.600l-3 1.700c-1.300.800-.800 2.700.700 2.700h6.600c1.100 0 2.100-.500 2.800-1.400l2.400-3c.700-.900.300-2.200-.800-2.400L13 10.800l1-8.300"/><path d="M4 21.500h6"/></svg>',temp:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.6V5a2 2 0 0 0-4 0v9.6a4 4 0 1 0 4 0Z"/><path d="M12 10.5v6"/></svg>',thermo:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5c2-1.600 4-1.600 6 0s4 1.600 6 0 4-1.600 6 0M12 8.500v8M8.800 13.500 12 16.700l3.200-3.200M3 20.500h18"/></svg>',dives:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v13M3.5 13.5 7 17l3.5-3.5M17 20V7M13.5 10.5 17 7l3.5 3.5"/></svg>',cur:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h12M11 5l4 4-4 4M21 15H9M13 19l-4-4 4-4"/></svg>',sea:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9.5c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 3.5-2 5-1M2 15.5c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 3.5-2 5-1"/></svg>',cloud:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.5-8A5.5 5.5 0 0 1 17 9.2a3.9 3.9 0 0 1 .5 7.8z"/></svg>',wind:'<svg class="ic" viewBox="1.5 2.5 21 19" aria-hidden="true"><path d="M2.5 9.5h11a3 3 0 1 0-3-3M2.5 14.5h15a3 3 0 1 1-3 3"/></svg>',lastro:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.200"/><path d="M7.500 8.500h9l3.500 12H4z" fill="currentColor"/></svg>',neutral:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v5.5M9 5.5l3 3 3-3M12 21v-5.5M9 18.5l3-3 3 3M4 12h16"/></svg>',apnea:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V10M10 2.5h4M18.5 6.5 20 5"/></svg>',feel:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-9-9.2C1.8 7.6 4 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3 0 5.2 3.1 4 6.3-2 4.8-9 9.2-9 9.2z"/></svg>',equal:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9a5 5 0 0 1 10 0c0 3-2.4 4-3.1 6-.6 1.8-1.6 3.5-3.9 3.5-1.6 0-2.8-1.1-3-2.5"/><path d="M10 9.5a2 2 0 0 1 4 0c0 1.2-1 1.6-1.5 2.4"/></svg>',boat:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15h18l-2.5 4.5h-13z"/><path d="M12 15V4l6 8.5h-6"/></svg>',shore:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 18.5c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.5 5-1"/><path d="M3 14.5h6l3.5-6 3.5 3 2.5-1.5 2.5 4.5"/></svg>',suit:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2.5h4l.8 2 3 1.3 1.7 7.7-2 .5-1.8-5.300.3 3.800.8 9h-3L12 13l-.8 8.500h-3l.8-9 .3-3.800L7.500 14l-2-.5L7.200 5.800l3-1.300z"/></svg>',gun:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M12 2.500v18"/><path d="M10 5 12 2.500 14 5"/><path d="M3.500 11.500C6 7.500 18 7.500 20.500 11.500"/><path d="M3.500 11.500 12 15.500l8.500-4"/><path d="M10.500 18.500h3"/></g></svg>',wh_water:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 6 0M3 12c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 6 0M3 17c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 6 0"/></svg>',wh_rock:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19.5 6 12l4.5-4 5 1.5 3 4 2.5 6z"/><path d="M10.5 8 12 13l3.5-3.5"/></svg>',wh_sand:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 17c3-2.5 6-2.5 9.5 0s6.5 2.5 9.5 0"/><path d="M6 12.5h.01M10 10.5h.01M14 12h.01M18 10h.01M8 7.5h.01M16 6.5h.01" stroke-width="2.8"/></svg>',wh_weed:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21c-.5-5 3-7 0-11.5M12.5 21c0-6-2.5-8 .5-15M17 21c.5-5-3-7.5 0-12"/></svg>',me_wait:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10M7 21h10M8 3c0 5 8 6 8 9s-8 4-8 9M16 3c0 5-8 6-8 9s8 4 8 9"/></svg>',me_indio:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="8" cy="9" rx="2.4" ry="4"/><ellipse cx="16" cy="15" rx="2.4" ry="4"/><path d="M7 15.5v2M17 6.5v2"/></svg>',me_hole:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20c0-8 4-13 9-13s9 5 9 13"/><path d="M8 20c0-4 1.8-6.5 4-6.5s4 2.5 4 6.5"/><path d="M2 20h20"/></svg>',me_fall:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5c7 0 11 4 11 10.5v4M13.5 15l3.5 3.5 3.5-3.5"/><path d="M3 21h18"/></svg>',depth:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v13M6.5 10.5 12 16l5.5-5.5M4 21h16"/></svg>',vis:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>',time:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>',tide:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 3.500-2 5-1M2 16c2.500-2.500 5-2.500 7.500 0s5 2.500 7.500 0 3.500-2 5-1"/></svg>'};
+const ICON={cinto:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.800" r="2"/><path d="M7.500 8h9l3.500 12.500H4z"/><path d="M11 13.200l1.300-1.200v6"/></svg>',colete:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.800" r="2"/><path d="M7.500 8h9l3.500 12.500H4z"/><path d="M10.400 13.200a1.700 1.700 0 1 1 2.900 1.300L10.400 18h3.400"/></svg>',acc:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.500 2.500 10.200 12.800c.400.900.300 1.900-.200 2.700l-.600 1c-.700 1.200.200 2.700 1.600 2.700h1.700c1 0 1.900-.500 2.500-1.300l4.600-6.300c.700-1-.100-2.400-1.300-2.300l-3 .300c-.800.100-1.600-.400-1.900-1.100L9.300 2.500"/><circle cx="20.300" cy="6.600" r=".9"/><circle cx="18.600" cy="5.300" r=".8"/><circle cx="16.900" cy="4.600" r=".75"/><circle cx="15.300" cy="4.400" r=".7"/></svg>',temp:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.6V5a2 2 0 0 0-4 0v9.6a4 4 0 1 0 4 0Z"/><path d="M12 10.5v6"/></svg>',thermo:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5c2-1.600 4-1.600 6 0s4 1.600 6 0 4-1.600 6 0M12 8.500v8M8.800 13.500 12 16.700l3.200-3.200M3 20.500h18"/></svg>',dives:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v13M3.5 13.5 7 17l3.5-3.5M17 20V7M13.5 10.5 17 7l3.5 3.5"/></svg>',cur:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h12M11 5l4 4-4 4M21 15H9M13 19l-4-4 4-4"/></svg>',sea:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9.5c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 3.5-2 5-1M2 15.5c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 3.5-2 5-1"/></svg>',cloud:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.5-8A5.5 5.5 0 0 1 17 9.2a3.9 3.9 0 0 1 .5 7.8z"/></svg>',wind:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.800 19.600A2 2 0 1 0 14 16H2.500M17.500 8a2.500 2.500 0 1 1 2 4H2.500M9.800 4.400A2 2 0 1 1 11 8H2.500"/></svg>',lastro:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.200"/><path d="M7.500 8.500h9l3.500 12H4z" fill="currentColor"/></svg>',neutral:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v5.5M9 5.5l3 3 3-3M12 21v-5.5M9 18.5l3-3 3 3M4 12h16"/></svg>',apnea:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V10M10 2.5h4M18.5 6.5 20 5"/></svg>',feel:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-9-9.2C1.8 7.6 4 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3 0 5.2 3.1 4 6.3-2 4.8-9 9.2-9 9.2z"/></svg>',equal:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9a5 5 0 0 1 10 0c0 3-2.4 4-3.1 6-.6 1.8-1.6 3.5-3.9 3.5-1.6 0-2.8-1.1-3-2.5"/><path d="M10 9.5a2 2 0 0 1 4 0c0 1.2-1 1.6-1.5 2.4"/></svg>',boat:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15h18l-2.5 4.5h-13z"/><path d="M12 15V4l6 8.5h-6"/></svg>',shore:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 18.5c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.5 5-1"/><path d="M3 14.5h6l3.5-6 3.5 3 2.5-1.5 2.5 4.5"/></svg>',suit:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2.5h4l.8 2 3 1.3 1.7 7.7-2 .5-1.8-5.300.3 3.800.8 9h-3L12 13l-.8 8.500h-3l.8-9 .3-3.800L7.500 14l-2-.5L7.200 5.800l3-1.300z"/></svg>',gun:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M12 2.500v18"/><path d="M10 5 12 2.500 14 5"/><path d="M3.500 11.500C6 7.500 18 7.500 20.500 11.500"/><path d="M3.500 11.500 12 15.500l8.500-4"/><path d="M10.500 18.500h3"/></g></svg>',wh_water:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 6 0M3 12c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 6 0M3 17c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 6 0"/></svg>',wh_rock:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19.5 6 12l4.5-4 5 1.5 3 4 2.5 6z"/><path d="M10.5 8 12 13l3.5-3.5"/></svg>',wh_sand:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 17c3-2.5 6-2.5 9.5 0s6.5 2.5 9.5 0"/><path d="M6 12.5h.01M10 10.5h.01M14 12h.01M18 10h.01M8 7.5h.01M16 6.5h.01" stroke-width="2.8"/></svg>',wh_weed:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21c-.5-5 3-7 0-11.5M12.5 21c0-6-2.5-8 .5-15M17 21c.5-5-3-7.5 0-12"/></svg>',me_wait:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10M7 21h10M8 3c0 5 8 6 8 9s-8 4-8 9M16 3c0 5-8 6-8 9s8 4 8 9"/></svg>',me_indio:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="8" cy="9" rx="2.4" ry="4"/><ellipse cx="16" cy="15" rx="2.4" ry="4"/><path d="M7 15.5v2M17 6.5v2"/></svg>',me_hole:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20c0-8 4-13 9-13s9 5 9 13"/><path d="M8 20c0-4 1.8-6.5 4-6.5s4 2.5 4 6.5"/><path d="M2 20h20"/></svg>',me_fall:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5c7 0 11 4 11 10.5v4M13.5 15l3.5 3.5 3.5-3.5"/><path d="M3 21h18"/></svg>',depth:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v13M6.5 10.5 12 16l5.5-5.5M4 21h16"/></svg>',vis:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>',time:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>',tide:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 3.500-2 5-1M2 16c2.500-2.500 5-2.500 7.500 0s5 2.500 7.500 0 3.500-2 5-1"/></svg>'};
 function iconVal(k,v){return '<span title="'+esc(t(k))+'" style="white-space:nowrap"><span role="img" aria-label="'+esc(t(k))+'">'+ICON[k]+'</span>'+fmt(v)+' m</span>'}
 
 /* Tides: Instituto Hidrográfico, Tabela de Marés 2026. Each main port uses its own IH harmonic constants (M2 S2 K1 O1) and mean level;
@@ -2232,6 +2289,7 @@ function fillSelect(sel,items,any){
   sel.innerHTML=(any!=null?'<option value="">'+esc(any)+'</option>':'')+items.map(i=>'<option value="'+esc(i[0])+'">'+esc(i[1])+'</option>').join('');
   if([...sel.options].some(o=>o.value===v))sel.value=v;
 }
+function unitPh(){document.querySelectorAll('#entryForm label>span [data-i],#entryForm label>span[data-i]').forEach(sp=>{const lab=sp.closest('label'),inp=lab&&lab.querySelector('input:not([type=checkbox]):not([type=radio])');if(!inp)return;const m=sp.textContent.match(/^(.*?),\s*(m|°C|kg|min:s|cm)$/);if(!m)return;sp.textContent=m[1];inp.placeholder=m[2]})}
 function applyLang(){
   document.documentElement.lang=lang;
   document.querySelectorAll('[data-i]').forEach(el=>{el.textContent=t(el.dataset.i)});
@@ -2327,9 +2385,18 @@ function wxColor(k,inner){
 function wxIcon(k,x,y,sz){const inner=wxColor(k,(WICON[k]||'').replace(/^<svg[^>]*>|<\/svg>$/g,''));return '<svg x="'+(x-sz/2)+'" y="'+y+'" width="'+sz+'" height="'+sz+'" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="fw">'+inner+'</svg>'}
 const arrow=(x,y,from,cls,s)=>'<g transform="translate('+x.toFixed(1)+' '+y.toFixed(1)+') rotate('+((from+180)%360)+') scale('+(s||1)+')"><path d="M0 -6.5L4 4 0 1.8-4 4Z" class="'+cls+'"/></g>';
 const dir16=d=>{const L=lang==='pt'?['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSO','SO','OSO','O','ONO','NO','NNO']:['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];return L[Math.round(((d%360)+360)%360/22.5)%16]};
-let seaFirst=true,wUnit='kn';try{wUnit=localStorage.getItem('sn-wunit')||'kn'}catch(e){}
+let seaFirst=true,wUnit='ms';try{wUnit=localStorage.getItem('sn-wunit')||'ms'}catch(e){}
 const WU={kn:{f:v=>v,l:'kn',step:10},kmh:{f:v=>v*1.852,l:'km/h',step:20},ms:{f:v=>v*.514444,l:'m/s',step:5},bft:{f:v=>[1,4,7,11,17,22,28,34,41,48,56,64].filter(x=>v>=x).length,l:'Bft',step:2}};
 const wc=v=>v==null?null:WU[wUnit].f(v);
+function wuSet(v){if(!WU[v])return;wUnit=v;try{localStorage.setItem('sn-wunit',v)}catch(e){}try{drawForecast()}catch(_){}wuSetDraw()}
+function wuSetDraw(){const b=document.getElementById('wuSet');if(b)b.textContent=WU[wUnit].l}
+let wuFix=null;function wuClose(){if(wuFix){wuFix.remove();wuFix=null}}
+function wuPopFixed(btn){if(wuFix){wuClose();return}const el=document.createElement('div');el.className='fishpop wu-fix';el.setAttribute('role','listbox');
+  el.innerHTML=Object.entries(WU).map(([u,o])=>'<button type="button" role="option" data-u="'+u+'"'+(u===wUnit?' class="on" aria-selected="true"':'')+'><span>'+esc(o.l)+'</span></button>').join('');
+  document.body.appendChild(el);wuFix=el;const r=btn.getBoundingClientRect();el.style.left=Math.max(8,Math.min(r.left,innerWidth-el.offsetWidth-8))+'px';el.style.top=(r.bottom+4)+'px';
+  el.addEventListener('click',ev=>{const b=ev.target.closest('[data-u]');if(b){wuClose();wuSet(b.dataset.u)}});
+  setTimeout(()=>document.addEventListener('pointerdown',function f(ev){if(!ev.target.closest('.wu-fix')){wuClose();document.removeEventListener('pointerdown',f,true)}},true),0)}
+addEventListener('scroll',wuClose,{passive:true});
 /* Underwater visibility: a rough estimate, not a measurement. Swell of the last 1-2 days, rain of the last 3 days,
    wind blowing towards the coast (taken as the direction the waves come from) and, near Cascais, the tide. */
 function clarity(t,wm,mm,near,farT){
@@ -2429,7 +2496,7 @@ function drawForecast(){
   const STK={windA:t('sWindA').split('|'),waveA:t('sWaveA').split('|'),clar:t('sClarS').split('|'),tide:[t('nTide')+' m',LT.name||'']};
   const nol=(()=>{try{return localStorage.getItem('sn-fc-nol')==='1'}catch(e){return false}})(),FK=1.2;
   const gi1=R.findIndex(r=>r[0]==='g1');
-  const left='<div class="sea-l" style="height:'+HT+'px;zoom:'+FK+'">'+R.map(([k,h],ri)=>'<div style="height:'+h+'px" class="sl-'+k+(k==='g1'?' uw0':ri>gi1&&gi1>=0?' uw':'')+'"'+(k==='tide'?' title="'+esc(LT.name||'')+'"':'')+'>'+(k==='day'?'<button type="button" class="sea-tg" aria-expanded="'+!nol+'" title="'+esc(t(nol?'fcColShow':'fcColHide'))+'" aria-label="'+esc(t(nol?'fcColShow':'fcColHide'))+'">'+(nol?'›':'‹')+'</button>':'')+(STK[k]?STK[k].map((x,j)=>'<span class="stk stk'+j+'">'+esc(x)+'</span>').join(''):L[k]?(k==='sun'?'<span><span class="lsun">'+esc(t('sSun'))+'</span> · '+esc(t('nMoon'))+'</span>':esc(L[k])):'')+(k==='wind'?'<select class="wunit" aria-label="'+esc(t('fcWindT'))+'">'+Object.entries(WU).map(([u,o])=>'<option value="'+u+'"'+(u===wUnit?' selected':'')+'>'+o.l+'</option>').join('')+'</select>':'')+'</div>').join('')+'</div>';
+  const left='<div class="sea-l" style="height:'+HT+'px;zoom:'+FK+'">'+R.map(([k,h],ri)=>'<div style="height:'+h+'px" class="sl-'+k+(k==='g1'?' uw0':ri>gi1&&gi1>=0?' uw':'')+'"'+(k==='tide'?' title="'+esc(LT.name||'')+'"':'')+'>'+(k==='day'?'<button type="button" class="sea-tg" aria-expanded="'+!nol+'" title="'+esc(t(nol?'fcColShow':'fcColHide'))+'" aria-label="'+esc(t(nol?'fcColShow':'fcColHide'))+'">'+(nol?'›':'‹')+'</button>':'')+(STK[k]?STK[k].map((x,j)=>'<span class="stk stk'+j+'">'+esc(x)+'</span>').join(''):L[k]?(k==='sun'?'<span><span class="lsun">'+esc(t('sSun'))+'</span> · '+esc(t('nMoon'))+'</span>':esc(L[k])):'')+(k==='wind'?'<button type="button" class="wunit" aria-haspopup="listbox" aria-label="'+esc(t('fcWindT'))+'">'+esc(WU[wUnit].l)+'</button>':'')+'</div>').join('')+'</div>';
   const keep=seaFirst?null:(box.querySelector('.sea-r')||{}).scrollLeft;
   box.innerHTML='<div class="sea'+(nol?' nol':'')+'">'+left+'<div class="sea-r"><svg width="'+(W*FK)+'" height="'+(HT*FK)+'" viewBox="0 0 '+W+' '+HT+'">'+g+'</svg></div></div>';
   const r=box.querySelector('.sea-r');r.scrollLeft=keep!=null?keep:Math.max(0,(nx-CW*2)*FK);seaFirst=false;
@@ -2439,7 +2506,7 @@ function drawForecast(){
   sv.addEventListener('pointermove',ev=>{if(ev.pointerType!=='mouse'||!matchMedia('(hover:hover)').matches){cur.setAttribute('visibility','hidden');col.setAttribute('visibility','hidden');return}const b=sv.getBoundingClientRect(),x=(ev.clientX-b.left)/FK,i=Math.max(0,Math.min(NH-1,Math.floor(x/CW)));cur.setAttribute('x1',x);cur.setAttribute('x2',x);col.setAttribute('x',i*CW);cur.setAttribute('visibility','visible');col.setAttribute('visibility','visible')});
   sv.addEventListener('pointerleave',()=>{cur.setAttribute('visibility','hidden');col.setAttribute('visibility','hidden')});
   box.querySelector('.sea-l').addEventListener('click',ev=>{if(ev.target.closest('select'))return;if(!ev.target.closest('.sea-tg')&&!matchMedia('(max-width:700px)').matches)return;try{localStorage.setItem('sn-fc-nol',nol?'0':'1')}catch(e){}drawForecast()});
-  box.querySelector('.wunit').addEventListener('change',ev=>{wUnit=ev.target.value;try{localStorage.setItem('sn-wunit',wUnit)}catch(e){}drawForecast()});
+  box.querySelector('.wunit').addEventListener('click',ev=>{ev.stopPropagation();wuPopFixed(ev.currentTarget)});
   // summary line
   const cw=near(wm,Math.round(nowMs/36e5)*36e5)||{},cm=near(mm,Math.round(nowMs/36e5)*36e5)||{},st=ltState(nowMs),nxt=ltEx(nowMs,nowMs+864e5).filter(e=>e.t>nowMs)[0];
   const ni=(cls,lab,val,sub)=>val?'<span class="ni ni-'+cls+'"><span class="nl">'+esc(lab)+'</span><b>'+val+'</b>'+(sub?'<span class="ns">'+sub+'</span>':'')+'</span>':'';
@@ -2467,6 +2534,26 @@ function autoTide(){
 function sessDur(){const a=$('eIn').value,b=$('eOut').value,d=duration(a,b);const x=$('eSessTxt');x.textContent=(a||'--:--')+' → '+(b||'--:--')+(d?'  ·  '+d:'');x.className=a||b?'':'ph'}
 let sessChain=false;
 (function(){const btn=$('eSessBtn');const pop=document.createElement('div');pop.className='dp sp';pop.id='sessPop';pop.setAttribute('role','dialog');pop.hidden=true;btn.after(pop);
+  if(matchMedia('(pointer:fine)').matches){
+    const p2=n=>String(n).padStart(2,'0');
+    pop.innerHTML='<div class="sp-r"><label><span data-i="timeIn"></span><input type="text" id="spIn" placeholder="hh:mm" autocomplete="off" inputmode="numeric"></label><span class="sp-a" aria-hidden="true">→</span><label><span data-i="timeOut"></span><input type="text" id="spOut" placeholder="hh:mm" autocomplete="off" inputmode="numeric"></label></div><div class="sp-f"><span id="spDur" class="sp-d"></span><button type="button" class="link" data-x="clear"></button><button type="button" class="primary" data-x="ok">OK</button></div>';
+    const a=$('spIn'),b=$('spOut');
+    const pt=v=>{v=String(v||'').trim();if(!v)return'';const m=v.match(/^(\d{1,2})\s*[:.,h\s]\s*(\d{1,2})$/)||v.match(/^(\d{1,2})(\d{2})$/)||v.match(/^(\d{1,2})$/);if(!m)return null;const h=+m[1],mi=m[2]!=null?+m[2]:0;return h>23||mi>59?null:p2(h)+':'+p2(mi)};
+    const dur=()=>{const x=pt(a.value),y=pt(b.value),dd=x&&y?duration(x,y):'';$('spDur').textContent=dd?t('session')+': '+dd:''};
+    const norm=i=>{const v=pt(i.value);i.classList.toggle('bad',v===null);if(v!=null)i.value=v};
+    const put=(id,v)=>{if($(id).value===v)return;$(id).value=v;$(id).dispatchEvent(new Event('input',{bubbles:true}));$(id).dispatchEvent(new Event('change',{bubbles:true}))};
+    const close=()=>{pop.hidden=true;btn.setAttribute('aria-expanded','false')};
+    const ok=()=>{norm(a);norm(b);if(a.classList.contains('bad')||b.classList.contains('bad'))return;put('eIn',a.value);put('eOut',b.value);close();btn.focus()};
+    [a,b].forEach(i=>{i.addEventListener('input',()=>{i.classList.remove('bad');dur()});i.addEventListener('blur',()=>{norm(i);dur()})});
+    a.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();norm(a);b.focus();b.select()}});
+    b.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();ok()}});
+    pop.addEventListener('click',ev=>{const x=ev.target.closest('button');if(!x)return;if(x.dataset.x==='clear'){a.value='';b.value='';put('eIn','');put('eOut','');close();btn.focus()}else if(x.dataset.x==='ok')ok()});
+    btn.addEventListener('click',()=>{if(!pop.hidden){close();return}pop.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));pop.querySelector('[data-x=clear]').textContent=t('tpClear');
+      a.value=$('eIn').value||'';b.value=$('eOut').value||'';a.classList.remove('bad');b.classList.remove('bad');dur();pop.hidden=false;btn.setAttribute('aria-expanded','true');a.focus();a.select()});
+    pop.addEventListener('keydown',ev=>{if(ev.key==='Escape'){ev.preventDefault();ev.stopPropagation();close();btn.focus()}});
+    document.addEventListener('pointerdown',ev=>{if(!pop.hidden&&!ev.target.closest('#sessPop')&&!ev.target.closest('#eSessBtn'))close()},true);
+    $('dlg').addEventListener('close',close);return}
+  pop.addEventListener('touchmove',ev=>{if(!ev.target.closest('.sp-col'))ev.preventDefault()},{passive:false});
   const p2=n=>String(n).padStart(2,'0'),IH=36,items=n=>'<div class="sp-pad"></div>'+[...Array(n)].map((_,i)=>'<div class="sp-it" data-v="'+i+'">'+p2(i)+'</div>').join('')+'<div class="sp-pad"></div>';
   pop.innerHTML='<div class="sp-tabs"><button type="button" data-k="eIn"><small data-i="timeIn"></small><b></b></button><span class="sp-a" aria-hidden="true">→</span><button type="button" data-k="eOut"><small data-i="timeOut"></small><b></b></button></div><div class="sp-wheel"><div class="sp-band" aria-hidden="true"></div><div class="sp-col" data-p="h">'+items(24)+'</div><span class="sp-colon">:</span><div class="sp-col" data-p="m">'+items(60)+'</div></div><div class="sp-f"><span id="spDur" class="sp-d"></span><button type="button" class="link" data-x="clear"></button><button type="button" class="primary" data-x="ok"></button></div>';
   const H=pop.querySelector('[data-p=h]'),M=pop.querySelector('[data-p=m]'),val={eIn:'',eOut:''};let act='eIn',quiet=false,st=null;
@@ -2498,7 +2585,7 @@ const CF=[
  {h:'cfEntry',keys:[['gps','eGps','coords'],['acc','eAccess','accessL2'],['tide','eTideIn','cfTide']]},
  {h:'climH',sec:'eMore',keys:[['vis','eVis'],['temp','eTemp'],['tdeep','eTempDeep'],['thermo','eThermo'],['cur','eCurrent'],['dir','eDir'],['sea','eSea'],['wx','eWeather'],['wind','eWind']]},
  {h:'physH',sec:'ePhys',keys:[['depth','eDepth'],['dives','eDives'],['neutral','eNeutral'],['apnea','eApnea'],['feel','eFeel'],['equal','eEq']]},
- {h:'equipH',sec:'eEquip',keys:[['suit','eGear'],['lastro','eLastro'],['gun','eGuns','gun']]},
+ {h:'equipH',sec:'eEquip',keys:[['suit','eGear'],['lastro','eLastro'],['colete','eColete'],['gun','eGuns','gun']]},
  {h:'analH',sec:'eAnal',keys:[['tactic','eTactic'],['err','eErrNote'],['lesson','eLesson']]},
  {h:'shotsT',sec:'shotBlock',keys:[['shots','shotBlock','shotsT']]}];
 const CF_DEF=['vis','temp','depth','len','apnea'];
@@ -2535,7 +2622,10 @@ $('tideCard').addEventListener('toggle',()=>{try{localStorage.setItem('sn-tide',
 try{if(localStorage.getItem('sn-tide')==='0')$('tideCard').open=false}catch(e){}
 let tideRZ=null;addEventListener('resize',()=>{clearTimeout(tideRZ);tideRZ=setTimeout(()=>{drawTides();drawForecast()},150)});
 setInterval(()=>{drawTides();drawForecast()},60000);
-function setLang(l){lang=l;try{localStorage.setItem('sn-lang',l)}catch(e){}applyLang();if(!$('authView').hidden)showAuth()}
+setTimeout(unitPh,0);
+document.getElementById('wuSet').addEventListener('click',ev=>{const w=$('wuSetW');if(pop&&pop.box===w){closePop();return}openPop(w,Object.entries(WU).map(([u,o])=>({v:u,label:o.l,noIcon:true})),v=>{closePop();wuSet(v)},true)});
+wuSetDraw();
+function setLang(l){lang=l;try{localStorage.setItem('sn-lang',l)}catch(e){}applyLang();unitPh();if(!$('authView').hidden)showAuth()}
 $('gearBtn').addEventListener('click',()=>{$('settings').showModal()});
 $('setClose').addEventListener('click',()=>$('settings').close());
 $('settings').addEventListener('click',ev=>{if(ev.target===$('settings'))$('settings').close()});
@@ -2603,7 +2693,7 @@ function compareHtml(e){
   const shots=e.shots||[];if(!shots.length)return'';
   const groups=APPS.map(([k,l])=>{const a=shots.filter(x=>x.app===k);return a.length?'<div class="cmp-app">'+l+'<div class="cmp-imgs">'+a.map(x=>'<a href="'+esc(blob(x.id))+'" data-id="'+esc(x.id)+'" target="_blank" rel="noopener"><img loading="lazy" alt="'+l+'" src="'+esc(tblob(x.id))+'"></a>').join('')+'</div></div>':''}).join('');
   const[a,b]=tidesOf(e);
-  const rows=[e.timeIn?ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):''):'',e.weather?WICON[e.weather]+esc(t('w_'+e.weather)):'',e.wind?esc(t('wind'))+': '+esc(e.wind):'',e.sea?esc(t('sea'))+': '+esc(t('sea_'+e.sea)):'',(e.current||e.currentDir)?currentHtml(e):'',a?tideHtml(e):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null?esc(t('temp'))+': '+fmt(e.temp):'',e.notes?esc(e.notes):''].filter(Boolean);
+  const rows=[e.timeIn?ICON.time+esc(e.timeIn)+(e.timeOut?'–'+esc(e.timeOut):''):'',e.weather?WICON[e.weather]+esc(t('w_'+e.weather)):'',e.wind?esc(t('wind'))+': '+esc(windTxt(e.wind).replace(/\s*\(.*\)\s*$/,'')):'',e.sea?esc(t('sea'))+': '+esc(t('sea_'+e.sea)):'',(e.current||e.currentDir)?currentHtml(e):'',a?tideHtml(e):'',e.vis!=null?iconVal('vis',e.vis):'',e.temp!=null?esc(t('temp'))+': '+fmt(e.temp):''].filter(Boolean);
   return '<details class="compare" data-b="cmp" data-cmp="'+esc(e.id)+'"'+(openCmp.has(e.id)?' open':'')+'><summary>'+BH+esc(t('cmp'))+' ('+shots.length+')</summary><div class="cmp"><div><h4>'+esc(t('cmpF'))+'</h4>'+groups+'</div><div><h4>'+esc(t('cmpO'))+'</h4><ul>'+rows.map(x=>'<li>'+x+'</li>').join('')+'</ul></div></div></details>';
 }
 function tideHtml(e){
@@ -2614,7 +2704,7 @@ function tideHtml(e){
 const BH='<span class="bh" aria-hidden="true"></span>';
 const C_DEF={c:['wx','sea','wind','tide','acc','time','vis','temp','thermo','depth','dives','feel','equal','cur','apnea','lastro','neutral','gps','tags'],b:['cond','gear','catch','note','photos','tactic','err','lesson','cmp']};
 let cOrd=(()=>{try{return JSON.parse(localStorage.getItem('sn-cord')||'{}')||{}}catch(_){return{}}})();
-function cardOrd(x){const a=(cOrd[x]||[]).filter(k=>C_DEF[x].includes(k)||(x==='b'&&/^sp\d+$/.test(k)));return a.concat(C_DEF[x].filter(k=>!a.includes(k)))}
+function cardOrd(x){const a=(cOrd[x]||[]).filter(k=>C_DEF[x].includes(k)||(x==='b'&&/^sp\d+$/.test(k))||(x==='c'&&/^br\d+$/.test(k)));return a.concat(C_DEF[x].filter(k=>!a.includes(k)))}
 function entryHtml(e,cm){
   const k=kindOf(e),title=e.spot||e.title||'';
   const catches=speciesOf(e).length?(e.catches||[]).map(c=>{const w=catchWarn(c.name,c.sub,e.date);return '<span class="catch-item'+(w?' warn':'')+'" role="button" tabindex="0" data-fish="'+esc(c.name)+'" data-sub="'+esc(c.sub||'')+'">'+(d=>'<span class="cl1">'+fishSvg(c.name,c.sub)+'<b>'+hl(catchLabel(c))+'</b>'+(d[0].includes('<span class="cone">')?d[0].replace('<span class="cone">',cwHtml(w)+'<span class="cone">'):d[0]+cwHtml(w))+'</span>'+d[1])(catchDet(c))+'</span>'}).join(''):'';
@@ -2628,10 +2718,10 @@ const icv=(k,lab,v)=>'<span title="'+esc(lab)+'" style="white-space:nowrap"><spa
     wx:e.weather?'<span style="white-space:nowrap">'+hl(t('w_'+e.weather))+'</span>':'',
     sea:e.sea?icv('sea',t('sea'),hl(t('sea_'+e.sea))):'',
     wind:e.wind?icv('wind',t('wind'),hl(windTxt(e.wind).replace(/\s*\(.*\)\s*$/,''))):'',
-    lastro:e.lastro!=null?icv('lastro',t('lastro'),fmt(e.lastro)+' kg'):'',neutral:e.neutral!=null?icv('neutral',t('neutral'),fmt(e.neutral)+' m'):'',
+    lastro:(e.lastro!=null||e.colete!=null)?icv('lastro',t('lastroT'),fmt((+e.lastro||0)+(+e.colete||0))+' kg'):'',neutral:e.neutral!=null?icv('neutral',t('neutral'),fmt(e.neutral)+' m'):'',
     apnea:e.apnea!=null?icv('apnea',t('apnea'),apneaF(e.apnea)):'',feel:e.feel?icv('feel',t('feel'),hl(t('fe_'+e.feel))):'',equal:e.equal?icv('equal',t('equal'),hl(t('eq_'+e.equal))):'',
     gps:e.gps&&!parseCoords(e.gps)&&!isUrl(e.gps)?hl(e.gps):'',tags:(e.tags||[]).map(x=>'<span class="tg">#'+hl(String(x).replace(/^#+/,''))+'</span>').join(' ')};
-  const cond=cardOrd('c').filter(k=>CI[k]).map(k=>'<span class="ci" data-c="'+k+'">'+CI[k]+'</span>').join(' · ');
+  const cond=(()=>{let o='',any=false,lastBr=true;cardOrd('c').forEach(k=>{if(/^br\d+$/.test(k)){if(any&&!lastBr){o+='<span class="cbr" data-c="'+k+'"><button type="button" class="cbr-x" data-brx="'+k+'" aria-label="×">×</button></span>';lastBr=true}return}if(!CI[k])return;o+=(any&&!lastBr?' · ':'')+'<span class="ci" data-c="'+k+'">'+CI[k]+'</span>';any=true;lastBr=false});return o})();
   const c=coordsOf(e,cm),mh=mapsHref(e,c);
   return '<article class="entry'+(e.id===freshId?' fresh':'')+'"><div class="head">'
     +(title?'<h3>'+(mh?'<a class="spot-link" href="'+esc(mh)+'" target="_blank" rel="noopener" title="'+esc(t('maps'))+'">'+hl(title)+'</a>':hl(title))+'</h3>':'')
@@ -2639,12 +2729,12 @@ const icv=(k,lab,v)=>'<span title="'+esc(lab)+'" style="white-space:nowrap"><spa
     +'<span class="date">'+esc(fmtDate(e.date))+(k!=='dive'?' · '+esc(typeLabel(k)):'')+'</span>'
     +(e.example?'<span class="ex">'+esc(t('example'))+'</span>':'')
     +'<span class="acts">'+(((e.catches||[]).length>1||catchCount(e)>1||duration(e.timeIn,e.timeOut))?'<span class="ctot">'+esc(t('totL'))+': '+[((e.catches||[]).length>1||catchCount(e)>1)?esc(t((e.catches||[]).every(isFishC)?'fishN':'spcN')(catchCount(e)))+(catchKg(e)?' · '+fmt(catchKg(e))+' kg':''):'',duration(e.timeIn,e.timeOut)?'<span class="tdur" title="'+esc(t('session'))+'">'+ICON.time+esc(duration(e.timeIn,e.timeOut))+'</span>':''].filter(Boolean).join(' · ')+'</span>':'')+(c?'<a class="ico" href="'+esc(windyUrl(c))+'" target="_blank" rel="noopener" title="Windy" aria-label="Windy"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 12h15.5a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 16h7"/></svg></a>':'')
-    +(canOnOff(e)?onBtn(!!e.postOff,'data-onoff="'+esc(e.id)+'"'):'')+(((e.catches||[]).length||(e.photos||[]).length)&&!e.example?'<button type="button" class="link ico" data-share="'+esc(e.id)+'" title="'+esc(t('share'))+'" aria-label="'+esc(t('share'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6.5"/></svg></button>':'')+(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
+    +(canOnOff(e)?onBtn(!!(e.postOff||e.noShare),'data-onoff="'+esc(e.id)+'"'):'')+(((e.catches||[]).length||(e.photos||[]).length)&&!e.example?'<button type="button" class="link ico" data-share="'+esc(e.id)+'" title="'+esc(t('share'))+'" aria-label="'+esc(t('share'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6.5"/></svg></button>':'')+(store&&!readOnly?'<button type="button" class="link ico" data-edit="'+esc(e.id)+'" title="'+esc(t('edit'))+'" aria-label="'+esc(t('edit'))+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="M13.5 6.5l4 4"/></svg></button>':'')+'</span></div>'
     +(B=>cardOrd('b').map(k=>/^sp\d+$/.test(k)?'<div class="csp" data-b="'+k+'" style="height:'+((cOrd.h||{})[k]||24)+'px">'+BH+'<button type="button" class="csp-x" data-spx="'+k+'" aria-label="×">×</button><span class="csp-r" data-spr="'+k+'"></span></div>':(B[k]||'')).join(''))({
       cond:(cond?'<div class="cond" data-b="cond">'+BH+cond+'</div>':''),
       catch:(catches?'<div class="catch" data-b="catch">'+BH+catches+'</div>':(k==='dive'?'<div class="cond" data-b="catch">'+BH+esc(t('noCatch'))+'</div>':'')),
       note:(e.notes?'<div class="note" data-b="note">'+BH+hl(e.notes)+'</div>':''),
-      gear:(e.gear||(e.guns||[]).length?'<div class="gearL" data-b="gear">'+BH+[e.gear?icv('suit',t('suit'),hl(e.gear)):'',(e.guns||[]).length?icv('gun',t('gun'),hl(e.guns.join(', '))):''].filter(Boolean).join('<span class="gsep"></span>')+'</div>':''),
+      gear:(e.gear||e.lastro!=null||e.colete!=null||(e.guns||[]).length?'<div class="gearL" data-b="gear">'+BH+[e.gear?'<span class="gl">'+icv('suit',t('suit'),hl(e.gear))+'</span>':'',e.lastro!=null?'<span class="gl">'+icv('cinto',t('lastro'),fmt(e.lastro)+' kg')+'</span>':'',e.colete!=null?'<span class="gl">'+icv('colete',t('colete'),fmt(e.colete)+' kg')+'</span>':''].filter(Boolean).join('')+(e.guns||[]).map((g,i,a)=>'<span class="gl gun-l"><span class="gi" role="img" aria-label="'+esc(t('gun'))+'">'+ICON.gun+(a.length>1?'<sub>'+(i+1)+'</sub>':'')+'</span>'+hl(g)+'</span>').join('')+'</div>':''),
       tactic:(e.tactic?'<div class="note" data-b="tactic">'+BH+'<b class="nl">'+esc(t('tactic'))+':</b> '+hl(e.tactic)+'</div>':''),
       err:((e.errors||[]).length||e.errNote?'<div class="note" data-b="err">'+BH+'<b class="nl">'+esc(t('errS'))+':</b> '+[(e.errors||[]).filter(k=>ERRS.includes(k)).map(k=>esc(t('er_'+k))).join(', '),e.errNote?hl(e.errNote):''].filter(Boolean).join('. ')+'</div>':''),
       lesson:(e.lesson?'<div class="note" data-b="lesson">'+BH+'<b class="nl">'+esc(t('lesson'))+':</b> '+hl(e.lesson)+'</div>':''),
@@ -2708,7 +2798,7 @@ $('moreBtn').addEventListener('click',()=>{const m=$('more');m.hidden=!m.hidden;
 /* Full form */
 function catchRow(c){
   const d=document.createElement('div');d.className='catch-row';
-  d.innerHTML='<div class="fishbox"><span class="cIcon"></span><input class="cName" autocomplete="off" role="combobox" aria-expanded="false"></div><div class="cSub fishbox"></div><input class="cCount" type="number" min="1" step="1" inputmode="numeric"><input class="cDep" type="text" inputmode="decimal" autocomplete="off"><input class="cLen" type="text" inputmode="decimal" autocomplete="off"><input class="cWeight" type="text" inputmode="decimal" autocomplete="off"><button type="button">×</button><div class="cLabs" aria-hidden="true"><span>'+esc(t('qty'))+'</span><span>kg</span><span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>m</span><span>L, cm</span></div><div class="cWhere" data-cf="where" role="group"><span class="cwL">'+esc(t('whereL'))+'</span>'+WHERE.map(k=>'<button type="button" data-w="'+k+'" aria-pressed="false" title="'+esc(t('wh_'+k))+'">'+esc(t('wh_'+k))+'</button>').join('')+'</div><div class="cWhere cMeth" data-cf="meth" role="group"><span class="cwL">'+esc(t('methL'))+'</span>'+METHODS.map(k=>'<button type="button" data-m="'+k+'" aria-pressed="false" title="'+esc(t('me_'+k))+'">'+esc(t('me_'+k))+'</button>').join('')+'</div><input class="cNote" data-cf="cnote" autocomplete="off" maxlength="300">';
+  d.innerHTML='<div class="fishbox"><span class="cIcon"></span><input class="cName" autocomplete="off" role="combobox" aria-expanded="false"></div><div class="cSub fishbox"></div><span class="cq"><input class="cCount" type="number" min="1" step="1" inputmode="numeric"><span class="qst" aria-hidden="true"><button type="button" tabindex="-1" data-q="1">▲</button><button type="button" tabindex="-1" data-q="-1">▼</button></span></span><input class="cDep" type="text" inputmode="decimal" autocomplete="off"><input class="cLen" type="text" inputmode="decimal" autocomplete="off"><input class="cWeight" type="text" inputmode="decimal" autocomplete="off"><button type="button">×</button><div class="cLabs" aria-hidden="true"><span>'+esc(t('qty'))+'</span><span>kg</span><span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>m</span><span>L, cm</span></div><div class="cWhere" data-cf="where" role="group"><span class="cwL">'+esc(t('whereL'))+'</span>'+WHERE.map(k=>'<button type="button" data-w="'+k+'" aria-pressed="false" title="'+esc(t('wh_'+k))+'">'+esc(t('wh_'+k))+'</button>').join('')+'</div><div class="cWhere cMeth" data-cf="meth" role="group"><span class="cwL">'+esc(t('methL'))+'</span>'+METHODS.map(k=>'<button type="button" data-m="'+k+'" aria-pressed="false" title="'+esc(t('me_'+k))+'">'+esc(t('me_'+k))+'</button>').join('')+'</div><input class="cNote" data-cf="cnote" autocomplete="off" maxlength="300">';
   d.querySelector('.cName').setAttribute('aria-label',t('fish'));d.querySelector('.cCount').setAttribute('aria-label',t('qty'));d.querySelector('.cLen').setAttribute('aria-label',t('cmL'));d.querySelector('.cDep').setAttribute('aria-label',t('depth'));d.querySelector('.cDep').placeholder='⌖ m';d.querySelector('.cLen').placeholder='L cm';d.querySelector('.cWeight').setAttribute('aria-label',t('kg'));
   d.querySelector('.cName').value=c?fishLabel(c.name):'';d.querySelector('.cCount').value=c&&c.count||'';d.querySelector('.cLen').value=c&&c.len!=null?decS(c.len):'';{const sw=a=>{d.dataset.where=a.join(',');d.querySelectorAll('.cWhere button').forEach(b=>{const on=a.includes(b.dataset.w);b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})};sw(c?whereOf(c):[]);d.querySelector('.cWhere').addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;const a=d.dataset.where?d.dataset.where.split(','):[],w=b.dataset.w;sw(a.includes(w)?a.filter(x=>x!==w):WHERE.filter(x=>x===w||a.includes(x)))})}d.querySelector('.cDep').value=c&&c.depth!=null?decS(c.depth):'';d.querySelector('.cWeight').value=c&&c.weight!=null?decS(c.weight):'';
   {const sm=m=>{d.dataset.method=m||'';d.querySelectorAll('.cMeth button').forEach(b=>{const on=b.dataset.m===m;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})};sm(c?methOf(c):'');d.querySelector('.cMeth').addEventListener('click',ev=>{const b=ev.target.closest('button');if(b)sm(d.dataset.method===b.dataset.m?'':b.dataset.m)})}
@@ -2721,7 +2811,7 @@ function catchRow(c){
     if(!list.some(x=>x.id===d.dataset.sub))d.dataset.sub='';
     d.querySelector('.cIcon').innerHTML=fishSvg(inp.value,d.dataset.sub);
     {const w=catchWarn(inp.value.trim(),d.dataset.sub,$('eDate').value);d.classList.toggle('warn',!!w);let el=d.querySelector('.cWarn');if(w){if(!el){el=document.createElement('div');el.className='cWarn';el.setAttribute('role','status');d.appendChild(el)}el.textContent='⚠ '+w.text}else if(el)el.remove()}
-    if(!list.length){subW.innerHTML='';return}
+    if(!list.length){subW.innerHTML='';d.classList.add('nosub');return}d.classList.remove('nosub');
     if(!subW.firstChild){subW.innerHTML='<button type="button" aria-haspopup="listbox"></button>';subW.firstChild.addEventListener('click',()=>{
       if(pop&&pop.box===subW){closePop();return}
       const items=[{v:'',label:t('anyVar'),noIcon:true}].concat(subsOf(inp.value).map(x=>({v:x.id,label:x[lang],lat:latinOf(inp.value,x.id),icon:fishSvg(inp.value,x.id)})));
@@ -2849,8 +2939,8 @@ function openForm(e,id){
   $('dlgTitle').textContent=t(id?'editEntry':'newEntry');$('eDelete').hidden=!id;$('eHist').hidden=!id;$('eHist').open=false;$('eHistList').innerHTML='';$('eDelete').textContent=t('del');
   const set=(i,v)=>{$(i).value=v==null?'':v};
   set('eDate',x.date||today());set('eSpot',x.spot);set('eGps',x.gps);set('eDepth',decS(x.maxDepth!=null?x.maxDepth:x.depth));set('eDives',x.dives);set('eVis',decS(x.vis));set('eTemp',decS(x.temp));
-  set('eIn',x.timeIn);set('eOut',x.timeOut);setTimeout(sessDur,0);set('eTideIn',tidesOf(x)[0]);set('eTideOut',tidesOf(x)[1]);set('eCurrent',x.current);set('eDir',x.currentDir);set('eWeather',x.weather);set('eSea',x.sea);set('eWind',x.wind);set('eGear',x.gear);set('eNotes',x.notes);set('eTags',(x.tags||[]).join(', '));$('eNoShare').checked=!!x.noShare;$('eNoShareL').hidden=!shMe;
-  windOpt(x.wind);set('eWind',x.wind);set('eTempDeep',decS(x.tempDeep));set('eThermo',decS(x.thermo));set('eLastro',decS(x.lastro));set('eNeutral',decS(x.neutral));set('eApnea',apneaF(x.apnea));set('eFeel',x.feel);set('eEq',x.equal);set('eTactic',x.tactic);set('eErrNote',x.errNote);set('eLesson',x.lesson);
+  set('eIn',x.timeIn);set('eOut',x.timeOut);setTimeout(sessDur,0);$('eNoShare').checked=!!(x.noShare||x.postOff);set('eTideIn',tidesOf(x)[0]);set('eTideOut',tidesOf(x)[1]);set('eCurrent',x.current);set('eDir',x.currentDir);set('eWeather',x.weather);set('eSea',x.sea);set('eWind',x.wind);set('eGear',x.gear);set('eNotes',x.notes);set('eTags',(x.tags||[]).join(', '));$('eNoShare').checked=!!x.noShare;$('eNoShareL').hidden=!shMe;
+  windOpt(x.wind);set('eWind',x.wind);set('eTempDeep',decS(x.tempDeep));set('eThermo',decS(x.thermo));set('eLastro',decS(x.lastro));set('eColete',decS(x.colete));set('eNeutral',decS(x.neutral));set('eApnea',apneaF(x.apnea));set('eFeel',x.feel);set('eEq',x.equal);set('eTactic',x.tactic);set('eErrNote',x.errNote);set('eLesson',x.lesson);
   form.access=x.access||'';drawAccess();form.errs=[];{const ol=(x.errors||[]).filter(k=>ERRS.includes(k)).map(k=>t('er_'+k)).join(', ');if(ol)$('eErrNote').value=[ol,x.errNote].filter(Boolean).join('. ')}drawGuns(x.guns&&x.guns.length?x.guns:['']);
   $('eCatches').innerHTML='';(x.catches&&x.catches.length?x.catches:[null]).forEach(catchRow);
   document.querySelectorAll('#entryForm details.esec').forEach(d=>d.open=false);cfApply();setType('dive');drawPhotos();drawShots();drawMoods();gpsHint();spotHint();$('ePhotoInput').value='';
@@ -2893,9 +2983,9 @@ function readForm(){
     depth:num(v('eDepth')),maxDepth:undefined,dives:num(v('eDives')),vis:num(v('eVis')),temp:num(v('eTemp')),
     timeIn:v('eIn'),timeOut:v('eOut'),tideIn:v('eTideIn'),tideOut:v('eTideOut'),tide:'',
     current:v('eCurrent'),currentDir:v('eDir'),weather:v('eWeather'),shots:form.shots,sea:v('eSea'),wind:v('eWind'),gear:v('eGear'),
-    guns:uniq([...$('eGuns').querySelectorAll('input')].map(i=>i.value.trim())),tempDeep:num(v('eTempDeep')),thermo:num(v('eThermo')),lastro:num(v('eLastro')),neutral:num(v('eNeutral')),apnea:apneaS(v('eApnea')),feel:v('eFeel')||undefined,equal:v('eEq')||undefined,access:form.access||undefined,
+    guns:uniq([...$('eGuns').querySelectorAll('input')].map(i=>i.value.trim())),tempDeep:num(v('eTempDeep')),thermo:num(v('eThermo')),lastro:num(v('eLastro')),colete:num(v('eColete')),neutral:num(v('eNeutral')),apnea:apneaS(v('eApnea')),feel:v('eFeel')||undefined,equal:v('eEq')||undefined,access:form.access||undefined,
     tactic:v('eTactic')||undefined,errors:form.errs.length?form.errs.slice():undefined,errNote:v('eErrNote')||undefined,lesson:v('eLesson')||undefined,
-    notes:v('eNotes'),noShare:$('eNoShare').checked||undefined,tags:uniq(v('eTags').split(',')),photos:form.photos,createdAt:(form.original&&form.original.createdAt)||Date.now()};
+    notes:v('eNotes'),noShare:undefined,postOff:$('eNoShare').checked||undefined,tags:uniq(v('eTags').split(',')),photos:form.photos,createdAt:(form.original&&form.original.createdAt)||Date.now()};
 }
 /* Unsaved typing survives a page reload */
 const DK='sn-draft';let draftTimer=null,draftChecked=false;
@@ -3817,7 +3907,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794438314';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794478523';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3907,8 +3997,8 @@ function soDotsSet(pw,i){const dr=pw.querySelector('.so-dr');if(!dr)return;const
 const ON_I='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18.500h10.500a4 4 0 0 0 .600-7.950A5.500 5.500 0 0 0 7.400 9.200 4.700 4.700 0 0 0 7 18.500z"/></svg>';
 const OFF_I='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18.500h10.500a4 4 0 0 0 .600-7.950A5.500 5.500 0 0 0 7.400 9.200 4.700 4.700 0 0 0 7 18.500z"/><path d="M3.500 3.500l17 17"/></svg>';
 function onBtn(off,attr){return '<button type="button" class="link ico onoff'+(off?' off':'')+'" '+attr+' aria-pressed="'+(!off)+'" title="'+esc(t(off?'postOffS':'postOnS'))+'" aria-label="'+esc(t(off?'postOffS':'postOnS'))+'">'+(off?OFF_I:ON_I)+'</button>'}
-async function postSet(id,off){const ok=await saveEntry(id,{postOff:off||null});if(ok){toast(t(off?'postOffT':'postOnT'));shSoon()}return ok}
-function canOnOff(e){try{return !!(SO.social&&shProf&&shCfg().on&&!e.example&&!e.noShare&&(e.catches||[]).some(c=>c&&c.name))}catch(_){return false}}
+async function postSet(id,off){const ok=await saveEntry(id,{postOff:off||null,noShare:null});if(ok){toast(t(off?'postOffT':'postOnT'));shSoon()}return ok}
+function canOnOff(e){try{return !!(SO.social&&shProf&&shCfg().on&&!e.example&&(e.catches||[]).some(c=>c&&c.name))}catch(_){return false}}
 function soPost(r){const d=r.data||{},p=SO.cards.get(r.user_id)||{};const liked=(r.likes||[]).some(l=>l.user_id===shMe);const coms=r.coms||[];
   const sub=[p.username?'@'+p.username:'',d.region,soDate(d.date)].filter(Boolean).join(' · ');
   const pics=(d.photos||[]).map(x=>SO.urls.get(x)).filter(Boolean);
@@ -4112,7 +4202,7 @@ Object.assign(T.en,{socNav:'Friends',soFeed:'Feed',soFind:'Search',soMe:'Profile
 const SC_OPTS=[['w','scWeight'],['l','scLen'],['dt','scDate'],['md','maxU'],['dv','scDives'],['wt','°C'],['cu','scCur']];
 const SC=Object.assign({fmt:'story',loc:'zone',photo:true,o:{w:1,l:1,dt:1,md:1,vi:1,wt:1}},(()=>{try{const v=JSON.parse(localStorage.getItem('sn-sc')||'{}');return v&&v.o?v:{}}catch(e){return{}}})());
 let scE=null,scImgs=[],scPi=0,scFish=new Map(),scRaf=0,scLogo=null,scNear=null,scNearSel=null,scCrop=new Map();
-function scSave(){try{localStorage.setItem('sn-sc',JSON.stringify({fmt:SC.fmt,loc:SC.loc,photo:SC.photo,o:SC.o}))}catch(e){}}
+function scSave(){try{localStorage.setItem('sn-sc',JSON.stringify({fmt:SC.fmt,loc:SC.loc,photo:SC.photo,o:SC.o,bg:SC.bg||''}))}catch(e){}}
 function scLoadImg(src){return new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src})}
 async function scFishImg(c){const m=fishSvg(c.name,c.sub).match(/#f-([^"]+)/);const k=m&&m[1];if(!k)return null;if(scFish.has(k))return scFish.get(k);
   const sym=document.getElementById('f-'+k);if(!sym)return null;
@@ -4181,11 +4271,11 @@ function scPaint(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920
   if(im){const c=scCur(),iw=im.naturalWidth,ih=im.naturalHeight,f0=Math.min(W/iw,H/ih),c0=Math.max(W/iw,H/ih);c.z=Math.max(1,Math.min(c.z,6*c0/f0));
     const s=f0*c.z,w=iw*s,h=ih*s;
     c.cx=w>=W?Math.min(w/2,Math.max(W-w/2,c.cx)):Math.min(W-w/2,Math.max(w/2,c.cx));c.cy=h>=H?Math.min(h/2,Math.max(H-h/2,c.cy)):Math.min(H-h/2,Math.max(h/2,c.cy));
-    if(w<W-1||h<H-1){x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';const b=im._blur,bs=Math.max(W/b.width,H/b.height)*1.15;x.drawImage(b,(W-b.width*bs)/2,(H-b.height*bs)/2,b.width*bs,b.height*bs);x.fillStyle='rgba(4,20,26,.38)';x.fillRect(0,0,W,H)}
+    if((w<W-1||h<H-1)&&SC.bg){x.fillStyle=SC.bg;x.fillRect(0,0,W,H)}else if(w<W-1||h<H-1){x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';const b=im._blur,bs=Math.max(W/b.width,H/b.height)*1.15;x.drawImage(b,(W-b.width*bs)/2,(H-b.height*bs)/2,b.width*bs,b.height*bs);x.fillStyle='rgba(4,20,26,.38)';x.fillRect(0,0,W,H)}
     x.drawImage(im,c.cx-w/2,c.cy-h/2,w,h)}
-  else{const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1E8BD6');g.addColorStop(.45,'#0C6878');g.addColorStop(1,'#06202A');x.fillStyle=g;x.fillRect(0,0,W,H);
+  else{if(SC.bg){x.fillStyle=SC.bg}else{const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1E8BD6');g.addColorStop(.45,'#0C6878');g.addColorStop(1,'#06202A');x.fillStyle=g}x.fillRect(0,0,W,H);
     const f=cs[0]&&scFish.get((fishSvg(cs[0].name,cs[0].sub).match(/#f-([^"]+)/)||[])[1]);if(f){const fw=W*.78,fh=fw*36/64;x.save();x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=40;x.shadowOffsetY=18;x.drawImage(f,(W-fw)/2,H*(story?.36:.3)-fh/2,fw,fh);x.restore()}}
-  let g=x.createLinearGradient(0,H*.36,0,H);g.addColorStop(0,'rgba(4,20,26,0)');g.addColorStop(.45,'rgba(4,20,26,.62)');g.addColorStop(1,'rgba(4,20,26,.93)');x.fillStyle=g;x.fillRect(0,H*.36,W,H*.64);
+  let g=x.createLinearGradient(0,H*.36,0,H);g.addColorStop(0,'rgba(4,20,26,0)');g.addColorStop(.45,'rgba(4,20,26,.62)');g.addColorStop(1,'rgba(4,20,26,.93)');if(im||!SC.bg){x.fillStyle=g;x.fillRect(0,H*.36,W,H*.64)}
   const P=76;
   // logo: the site title with its diver, on a soft dark glow so it reads on any photo
   const L=scLogo,tw=story?416:368;
@@ -4215,8 +4305,10 @@ function scPaint(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920
     const lat=latinOf(c.name,c.sub);if(lat){x.font='italic 400 31px '+B;x.fillStyle='#BFD8DA';x.fillText(scFit(x,lat,avail),tx,tp+96)}
     y-=RH}}
 function scQueue(){if(scRaf)return;scRaf=requestAnimationFrame(()=>{scRaf=0;scPaint()})}
+(function(){const c=document.getElementById('scBg');c.addEventListener('input',()=>{SC.bg=c.value;$('scBgSw').style.background=c.value;$('scBgR').hidden=false;scQueue()});c.addEventListener('change',()=>{SC.bg=c.value;scSave();scQueue()});
+  document.getElementById('scBgR').addEventListener('click',()=>{SC.bg='';scSave();scUi();scQueue()})})();
 function scUi(){document.querySelectorAll('#scFmt button').forEach(b=>b.classList.toggle('on',b.dataset.v===SC.fmt));document.querySelectorAll('#scLoc button').forEach(b=>b.classList.toggle('on',b.dataset.v===SC.loc));
-  $('scPh').checked=SC.photo;SC_OPTS.forEach(([k])=>{const i=$('scO_'+k);if(i)i.checked=!!SC.o[k]});
+  $('scPh').checked=SC.photo;$('scBg').value=SC.bg||'#0c6878';$('scBgSw').style.background=SC.bg||'linear-gradient(#1E8BD6,#0C6878 45%,#06202A)';$('scBgR').hidden=!SC.bg;SC_OPTS.forEach(([k])=>{const i=$('scO_'+k);if(i)i.checked=!!SC.o[k]});
   $('scPhL').hidden=!scImgs.length;const hasP=SC.photo&&scImgs.length;const many=hasP&&scImgs.length>1;$('scPrev').hidden=$('scNext').hidden=!many;$('scN').hidden=!many;$('scN').textContent=(scPi+1)+'/'+scImgs.length;
   $('scHint2').hidden=!hasP;$('scWrap').classList.toggle('post',SC.fmt==='post');$('scWrap').classList.toggle('drag',!!hasP);
   const nb=$('scNear');nb.hidden=SC.loc!=='zone';nb.innerHTML=scNear==null?'<span class="hint">…</span>':scNear.length?scNear.map(p=>'<button type="button" class="sc-chip'+(p.n===scNearSel?' on':'')+'" data-n="'+esc(p.n)+'">'+esc(p.n)+(p.d!=null?' <small>'+(p.d<1?Math.round(p.d*1000)+' m':p.d.toFixed(1).replace('.',locale().startsWith('pt')?',':'.')+' km')+'</small>':'')+'</button>').join(''):'<span class="hint">'+esc(t('scNoNear'))+'</span>';
@@ -4233,7 +4325,7 @@ function scDownload(f){const u=URL.createObjectURL(f);const a=document.createEle
 (function(){const d=$('scD');if(!d)return;
   $('scChk').insertAdjacentHTML('beforeend',SC_OPTS.map(([k,l])=>'<label class="chk"><input type="checkbox" id="scO_'+k+'">'+(k==='md'?'<span class="sc-ic">'+ICON.depth+'<span data-i="maxU"></span></span>':k==='wt'?'<span>°C</span>':'<span data-i="'+l+'"></span>')+'</label>').join(''));
   $('scClose').addEventListener('click',()=>d.close());
-  $('list').addEventListener('click',ev=>{const o=ev.target.closest('[data-onoff]');if(o){const e=entries.find(x=>x.id===o.dataset.onoff);if(e)postSet(e.id,!e.postOff);return}});
+  $('list').addEventListener('click',ev=>{const o=ev.target.closest('[data-onoff]');if(o){const e=entries.find(x=>x.id===o.dataset.onoff);if(e)postSet(e.id,!(e.postOff||e.noShare));return}});
   $('list').addEventListener('click',ev=>{const b=ev.target.closest('[data-share]');if(!b)return;const e=entries.find(x=>x.id===b.dataset.share);if(e)scOpen(e)});
   const re=()=>{scSave();scUi();scQueue()};
   $('scFmt').addEventListener('click',ev=>{const b=ev.target.closest('button');if(b){SC.fmt=b.dataset.v;re()}});
@@ -4266,8 +4358,8 @@ function scDownload(f){const u=URL.createObjectURL(f);const a=document.createEle
 Object.assign(T.pt,{share:'Partilhar',scTitle:'Partilhar imagem',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Local',scZone:'Perto de',scSpot:'Pesqueiro',scNone:'Esconder',scPhoto:'Foto',scWeight:'Peso',scLen:'Comprimento',scDepth:'Profund. do peixe',scWhere:'Caçado em',scDate:'Data',scTime:'Hora',scMaxD:'Prof. máx.',scDives:'Mergulhos',scVis:'Visibilidade',scWater:'Temp. da água',scWaterS:'Água',scTide:'Maré',scTideS:'Maré',scSea:'Mar',scWeather:'Tempo',scWind:'Vento',scCur:'Corrente',scGear:'Equipamento',scShowL:'Mostrar',scWithL:'Com amigos',scWithPh:'@username',scWithT:'com',scFill:'Preencher',scWhole:'Foto inteira',scHint2:'Toque na foto: inteira ou a preencher. Arraste para mover, dois dedos para zoom.',scNoNear:'Sem localidades por perto: use «Pesqueiro» ou esconda.',scSaveB:'Guardar imagem',scHint:'No telemóvel: em «Partilhar» escolha Instagram; em «Guardar imagem» toque em «Guardar imagem» no menu e a foto vai para a galeria. Os nomes por perto vêm do OpenStreetMap.',scMore:'mais',shVis:'Visib.'});
 Object.assign(T.en,{share:'Share',scTitle:'Share image',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Place',scZone:'Near',scSpot:'Spot',scNone:'Hide',scPhoto:'Photo',scWeight:'Weight',scLen:'Length',scDepth:'Fish depth',scWhere:'Caught in',scDate:'Date',scTime:'Time',scMaxD:'Max depth',scDives:'Dives',scVis:'Visibility',scWater:'Water temp.',scWaterS:'Water',scTide:'Tide',scTideS:'Tide',scSea:'Sea',scWeather:'Weather',scWind:'Wind',scCur:'Current',scGear:'Gear',scShowL:'Show',scWithL:'With friends',scWithPh:'@username',scWithT:'with',scFill:'Fill',scWhole:'Whole photo',scHint2:'Tap the photo: whole or fill. Drag to move, pinch to zoom.',scNoNear:'No places nearby: use “Spot” or hide it.',scSaveB:'Save image',scHint:'On your phone: in “Share” pick Instagram; in “Save image” tap “Save Image” in the menu and it goes to your photos. Nearby names come from OpenStreetMap.',scMore:'more',shVis:'Vis.'});
 Object.assign(T.pt,{soAllPosts:'Ver todas as publicações',soProfH:'Definições de perfil e privacidade',soPause:'Pausar a partilha: ninguém vê as minhas capturas',soPauseH:'Para fechar o acesso a todos sem remover ninguém. Os seguidores continuam na lista; quando desligar, voltam a ver tudo como antes.',soPausedOn:'Tudo em pausa: ninguém vê as capturas',soPausedOff:'Partilha retomada.'});
-Object.assign(T.pt,{soMe:'Eu',soMeEmpty:'Ainda não tem publicações. Ligue «Partilhar as minhas capturas» nas definições.',postOnS:'Publicação visível — tocar para esconder',postOffS:'Publicação escondida — tocar para mostrar',postOnT:'Publicação visível',postOffT:'Publicação escondida',allOnS:'Publicações visíveis — tocar para esconder todas',allOffS:'Todas as publicações escondidas — tocar para mostrar'});
-Object.assign(T.en,{soMe:'Me',soMeEmpty:'No posts yet. Turn on «Share my catches» in Settings.',postOnS:'Post visible — tap to hide',postOffS:'Post hidden — tap to show',postOnT:'Post visible',postOffT:'Post hidden',allOnS:'Posts visible — tap to hide all',allOffS:'All posts hidden — tap to show'});
+Object.assign(T.pt,{windU:'Vento',scBgL:'Fundo',scBgR:'Padrão',soMe:'Eu',soMeEmpty:'Ainda não tem publicações. Ligue «Partilhar as minhas capturas» nas definições.',postOnS:'Publicação visível — tocar para esconder',postOffS:'Publicação escondida — tocar para mostrar',postOnT:'Publicação visível',postOffT:'Publicação escondida',allOnS:'Publicações visíveis — tocar para esconder todas',allOffS:'Todas as publicações escondidas — tocar para mostrar'});
+Object.assign(T.en,{windU:'Wind',scBgL:'Background',scBgR:'Default',soMe:'Me',soMeEmpty:'No posts yet. Turn on «Share my catches» in Settings.',postOnS:'Post visible — tap to hide',postOffS:'Post hidden — tap to show',postOnT:'Post visible',postOffT:'Post hidden',allOnS:'Posts visible — tap to hide all',allOffS:'All posts hidden — tap to show'});
 Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy settings',soPause:'Pause sharing: nobody sees my catches',soPauseH:'Closes access to everyone without removing anybody. Your followers stay on the list; when you turn this off they see everything again.',soPausedOn:'All paused: nobody sees your catches',soPausedOff:'Sharing resumed.'});
 /* ===== Card layout: unlock, then drag details and blocks; every card follows ===== */
 (function(){
@@ -4281,25 +4373,36 @@ Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy sett
   const saveO=()=>{try{localStorage.setItem('sn-cord',JSON.stringify(cOrd))}catch(_){}};
   $('arrSp').addEventListener('click',()=>{const full=cardOrd('b');let n=1;while(full.includes('sp'+n))n++;cOrd.b=['sp'+n].concat(full);saveO();render(false)});
   L.addEventListener('click',ev=>{if(!on||!ev.target.closest('.entry'))return;ev.preventDefault();ev.stopPropagation();
+    const bx=ev.target.closest('[data-brx]');if(bx){cOrd.c=cardOrd('c').filter(k=>k!==bx.dataset.brx);saveO();render(false);return}
     const x=ev.target.closest('[data-spx]');if(x){cOrd.b=cardOrd('b').filter(k=>k!==x.dataset.spx);if(cOrd.h)delete cOrd.h[x.dataset.spx];saveO();render(false)}},true);
   let rz=null;
   L.addEventListener('pointerdown',ev=>{if(!on)return;const h=ev.target.closest('[data-spr]');if(!h)return;ev.preventDefault();ev.stopPropagation();const k=h.dataset.spr,box=h.parentElement;rz={k,y:ev.clientY,h0:box.offsetHeight}},true);
   document.addEventListener('pointermove',ev=>{if(!rz)return;ev.preventDefault();const hh=Math.max(6,Math.min(400,Math.round(rz.h0+ev.clientY-rz.y)));rz.cur=hh;document.querySelectorAll('.csp[data-b="'+rz.k+'"]').forEach(x=>x.style.height=hh+'px')},{passive:false});
   const rzEnd=()=>{if(!rz)return;if(rz.cur){cOrd.h=cOrd.h||{};cOrd.h[rz.k]=rz.cur;saveO()}rz=null};
   document.addEventListener('pointerup',rzEnd);document.addEventListener('pointercancel',rzEnd);
-  let d=null;
+  let d=null;const ln=document.createElement('div');ln.className='arr-line';ln.hidden=true;document.body.appendChild(ln);
   const sibs=(card,kind)=>kind==='c'?[...card.querySelectorAll('.cond [data-c]')]:[...card.children].filter(n=>n.dataset&&n.dataset.b);
   L.addEventListener('pointerdown',ev=>{if(!on||ev.button>0)return;const h=ev.target.closest('.entry [data-c],.entry .bh');if(!h)return;
     const kind=h.classList.contains('bh')?'b':'c',el=kind==='b'?h.closest('[data-b]'):h,card=el.closest('.entry');if(!card)return;
     ev.preventDefault();const r=el.getBoundingClientRect();const g=el.cloneNode(true);g.classList.add('arr-ghost');g.style.width=r.width+'px';g.style.left=r.left+'px';g.style.top=r.top+'px';document.body.appendChild(g);
     el.classList.add('arr-src');d={kind,el,card,g,dx:ev.clientX-r.left,dy:ev.clientY-r.top,tgt:null,after:false}});
+  const rowsOf=card=>{const cs=[...card.querySelectorAll('.cond .ci[data-c]')].filter(c=>!d||c!==d.el);const rows=[];cs.forEach(c=>{const r=c.getBoundingClientRect();let row=rows.find(x=>Math.abs(x.mid-(r.top+r.height/2))<r.height/2);if(!row){row={mid:r.top+r.height/2,top:r.top,bot:r.bottom,last:c};rows.push(row)}else{row.top=Math.min(row.top,r.top);row.bot=Math.max(row.bot,r.bottom);row.last=c}});return rows.sort((a,b)=>a.top-b.top)};
   document.addEventListener('pointermove',ev=>{if(!d)return;ev.preventDefault();d.g.style.left=(ev.clientX-d.dx)+'px';d.g.style.top=(ev.clientY-d.dy)+'px';
+    d.nl=null;ln.hidden=true;
+    if(d.kind==='c'){const rows=rowsOf(d.card),cr=d.card.querySelector('.cond').getBoundingClientRect();
+      for(let i=0;i<rows.length;i++){const b=i<rows.length-1?(rows[i].bot+rows[i+1].top)/2:rows[i].bot+4;if(Math.abs(ev.clientY-b)<=5&&ev.clientX>=cr.left-20&&ev.clientX<=cr.right+20){d.nl=rows[i].last;ln.style.left=cr.left+'px';ln.style.width=cr.width+'px';ln.style.top=(b-1)+'px';ln.hidden=false;break}}
+      if(d.nl){if(d.tgt)d.tgt.classList.remove('arr-a','arr-b');d.tgt=null;return}}
     let best=null,bd=1e9,after=false;
-    sibs(d.card,d.kind).forEach(x=>{if(x===d.el)return;const r=x.getBoundingClientRect();
+    sibs(d.card,d.kind).forEach(x=>{if(x===d.el||x.classList.contains('cbr'))return;const r=x.getBoundingClientRect();
       const dy=ev.clientY<r.top?r.top-ev.clientY:ev.clientY>r.bottom?ev.clientY-r.bottom:0,dx=ev.clientX<r.left?r.left-ev.clientX:ev.clientX>r.right?ev.clientX-r.right:0;
       const dist=d.kind==='b'?dy:dy*3+dx;if(dist<bd){bd=dist;best=x;after=d.kind==='b'?ev.clientY>r.top+r.height/2:ev.clientX>r.left+r.width/2}});
     if(d.tgt&&d.tgt!==best)d.tgt.classList.remove('arr-a','arr-b');d.tgt=best;d.after=after;if(best){best.classList.toggle('arr-a',after);best.classList.toggle('arr-b',!after)}},{passive:false});
-  const end=()=>{if(!d)return;const x=d;d=null;x.g.remove();x.el.classList.remove('arr-src');if(!x.tgt)return;x.tgt.classList.remove('arr-a','arr-b');
+  const nb=n=>{const all=cardOrd('c');const out=[];let i=1;while(out.length<n){if(!all.includes('br'+i))out.push('br'+i);i++}return out};
+  const end=()=>{if(!d)return;const x=d;d=null;x.g.remove();x.el.classList.remove('arr-src');ln.hidden=true;
+    if(x.kind==='c'&&x.nl){const k=x.el.dataset.c;let keys=sibs(x.card,'c').map(n=>n.dataset.c).filter(z=>z!==k);const at=keys.indexOf(x.nl.dataset.c)+1;const [b1,b2]=nb(2);keys.splice(at,0,b1,k,b2);
+      const full=cardOrd('c'),inCard=new Set(keys);const first=full.findIndex(z=>inCard.has(z));const rest=full.filter(z=>!inCard.has(z));const pos=first<0?rest.length:full.slice(0,first).filter(z=>!inCard.has(z)).length;rest.splice(pos,0,...keys);cOrd.c=rest;
+      try{localStorage.setItem('sn-cord',JSON.stringify(cOrd))}catch(_){}render(false);return}
+    if(!x.tgt)return;x.tgt.classList.remove('arr-a','arr-b');
     const at=x.kind;let keys=sibs(x.card,at).map(n=>n.dataset[at]);const k=x.el.dataset[at];keys=keys.filter(z=>z!==k);keys.splice(keys.indexOf(x.tgt.dataset[at])+(x.after?1:0),0,k);
     const full=cardOrd(at),inCard=new Set(keys);let j=0;cOrd[at]=full.map(z=>inCard.has(z)?keys[j++]:z);
     try{localStorage.setItem('sn-cord',JSON.stringify(cOrd))}catch(_){}render(false)};
@@ -4311,13 +4414,50 @@ function cg2Fix(root){(root||document).querySelectorAll('.cg2s').forEach(sp=>{co
   const it=sp.closest('.catch-item'),pv=sp.previousElementSibling||(it&&it.querySelector('.cl1')),b=nx.getBoundingClientRect(),a=(pv||sp).getBoundingClientRect();if(b.top>=a.bottom-2)sp.style.display='none'})}
 (function(){let q=0;const run=()=>{cancelAnimationFrame(q);q=requestAnimationFrame(()=>cg2Fix())};
   try{new MutationObserver(run).observe($('list'),{childList:true,subtree:true})}catch(_){}addEventListener('resize',run);run()})();
-Object.assign(T.pt,{cfH:'Definições de entrada',cfHint:'Escolha os campos que aparecem no modo Compacto ao criar uma entrada. No modo Completo aparece tudo.',cfEntry:'Entrada',cfDep:'Profundidade do peixe',cfLen:'Comprimento do peixe',cfNote:'Nota sobre o peixe',cfTide:'Maré'});Object.assign(T.en,{cfH:'Entry settings',cfHint:'Choose the fields shown in Compact mode when you add an entry. Full mode shows everything.',cfEntry:'Entry',cfDep:'Fish depth',cfLen:'Fish length',cfNote:'Note about the fish',cfTide:'Tide'});
+/* ===== Max breath-hold: wheel on a phone, typed on a computer (":" "." "," or space) ===== */
+(function(){const inp=$('eApnea');if(!inp)return;inp.placeholder='min:s';
+  if(!matchMedia('(pointer:coarse)').matches){inp.addEventListener('blur',()=>{const v=apneaS(inp.value);if(v!=null)inp.value=apneaF(v)});return}
+  inp.readOnly=true;inp.setAttribute('inputmode','none');
+  const p2=n=>String(n).padStart(2,'0'),IH=36,items=n=>'<div class="sp-pad"></div>'+[...Array(n)].map((_,i)=>'<div class="sp-it" data-v="'+i+'">'+(n===60?p2(i):i)+'</div>').join('')+'<div class="sp-pad"></div>';
+  const pop=document.createElement('div');pop.className='dp sp ap-pop';pop.hidden=true;
+  pop.innerHTML='<div class="sp-wheel"><div class="sp-band" aria-hidden="true"></div><div class="sp-col" data-p="m">'+items(10)+'</div><span class="sp-colon">:</span><div class="sp-col" data-p="s">'+items(60)+'</div></div><div class="sp-f"><span class="sp-d"></span><button type="button" class="link" data-x="clear"></button><button type="button" class="primary" data-x="ok">OK</button></div>';
+  const M=pop.querySelector('[data-p=m]'),S=pop.querySelector('[data-p=s]');let quiet=false,st=null;
+  const idx=(c,n)=>Math.max(0,Math.min(n-1,Math.round(c.scrollTop/IH)));
+  const mark=()=>[[M,10],[S,60]].forEach(([c,n])=>{const i=idx(c,n);c.querySelectorAll('.sp-it').forEach((x,j)=>x.classList.toggle('on',j===i))});
+  const put=v=>{inp.value=v;inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}))};
+  const commit=()=>put(idx(M,10)+':'+p2(idx(S,60)));
+  [M,S].forEach(c=>{c.addEventListener('scroll',()=>{mark();if(quiet)return;clearTimeout(st);st=setTimeout(commit,140)},{passive:true});
+    c.addEventListener('click',ev=>{const it=ev.target.closest('.sp-it');if(it)c.scrollTo({top:+it.dataset.v*IH,behavior:'smooth'})})});
+  pop.addEventListener('touchmove',ev=>{if(!ev.target.closest('.sp-col'))ev.preventDefault()},{passive:false});
+  const close=()=>{pop.hidden=true};
+  pop.addEventListener('click',ev=>{ev.stopPropagation();const x=ev.target.closest('button');if(!x)return;if(x.dataset.x==='clear'){put('');close()}else if(x.dataset.x==='ok'){clearTimeout(st);commit();close()}});
+  const open=()=>{const lab=inp.closest('label');if(!lab)return;const par=lab.parentElement;if(getComputedStyle(par).position==='static')par.style.position='relative';lab.after(pop);
+    pop.hidden=false;pop.style.left=Math.max(0,Math.min(lab.offsetLeft,par.clientWidth-pop.offsetWidth))+'px';pop.style.top=(lab.offsetTop+lab.offsetHeight+4)+'px';pop.querySelector('[data-x=clear]').textContent=t('tpClear');setTimeout(()=>pop.scrollIntoView({block:'nearest',behavior:'smooth'}),0);
+    const v=apneaS(inp.value)??90;quiet=true;M.scrollTop=Math.min(9,Math.floor(v/60))*IH;S.scrollTop=(v%60)*IH;mark();setTimeout(()=>{quiet=false},150)};
+  let op0=0;inp.addEventListener('click',ev=>{ev.preventDefault();if(Date.now()-op0<500)return;pop.hidden?open():close()});
+  inp.addEventListener('focus',()=>{if(pop.hidden){open();op0=Date.now()}});
+  document.addEventListener('pointerdown',ev=>{if(!pop.hidden&&!ev.target.closest('.ap-pop')&&ev.target!==inp)close()},true);
+  $('dlg').addEventListener('close',close)})();
+/* ===== Spot: our own drop-down list ===== */
+(function(){const inp=$('eSpot');if(!inp)return;inp.removeAttribute('list');inp.setAttribute('autocomplete','off');
+  const w=document.createElement('span');w.className='dd-box';inp.before(w);w.appendChild(inp);inp.classList.add('dd-in');
+  const opts=()=>[...new Set([...$('spotList').options].map(o=>o.value).filter(Boolean))];
+  const show=all=>{const q=inp.value.trim().toLowerCase();let l=opts();if(!all&&q)l=l.filter(x=>x.toLowerCase().includes(q));l=l.slice(0,80);
+    if(!l.length){if(pop&&pop.box===w)closePop();return}
+    openPop(w,l.map(x=>({v:x,label:x,noIcon:true})),v=>{inp.value=v;closePop();inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}))})};
+  inp.addEventListener('focus',()=>show(true));
+  inp.addEventListener('click',()=>{if(!pop||pop.box!==w)show(true)});
+  inp.addEventListener('input',ev=>{if(ev.isTrusted)show(false)});
+  inp.addEventListener('keydown',popKeys);
+  inp.addEventListener('blur',()=>setTimeout(()=>{if(pop&&pop.box===w)closePop()},180))})();
+document.getElementById('entryForm').addEventListener('click',ev=>{const b=ev.target.closest('[data-q]');if(!b)return;ev.preventDefault();const i=b.closest('.cq').querySelector('input');const v=Math.max(1,(parseInt(i.value,10)||0)+(+b.dataset.q));i.value=v;i.dispatchEvent(new Event('input',{bubbles:true}));i.dispatchEvent(new Event('change',{bubbles:true}))});
+Object.assign(T.pt,{cfH:'Definições da caçada',cfHint:'Escolha os campos que aparecem no modo Compacto ao criar uma entrada. No modo Completo aparece tudo.',cfEntry:'Entrada',cfDep:'Profundidade do peixe',cfLen:'Comprimento do peixe',cfNote:'Nota sobre o peixe',cfTide:'Maré'});Object.assign(T.en,{cfH:'Entry settings',cfHint:'Choose the fields shown in Compact mode when you add an entry. Full mode shows everything.',cfEntry:'Entry',cfDep:'Fish depth',cfLen:'Fish length',cfNote:'Note about the fish',cfTide:'Tide'});
 Object.assign(T.pt,{modeC:'Compacto',modeF:'Completo',accessL2:'Entrada de',accC_boat:'Entrada de barco',accC_shore:'Entrada de costa'});Object.assign(T.en,{modeC:'Compact',modeF:'Full',accessL2:'Entry from',accC_boat:'From a boat',accC_shore:'From shore'});
 Object.assign(T.pt,{session:'Sessão'});Object.assign(T.en,{session:'Session'});
 Object.assign(T.pt,{climH:'Condições climáticas',physH:'Condições físicas',equipH:'Equipamento',analH:'Análise da caçada',errPh2:'Tiros falhados, peixe que escapou, linha presa, compensação, equipamento…'});
 Object.assign(T.en,{climH:'Weather and water',physH:'Physical condition',equipH:'Gear',analH:'Dive review',errPh2:'Missed shots, fish that got away, snagged line, equalising, gear…'});
-Object.assign(T.pt,{acc_boat:'Barco',acc_shore:'Costa',accessL:'Acesso',tempSurf:'Água à superf., °C',tempDeep:'Água sob a termoclina, °C',thermo:'Termoclina, m',thermoS:'termoclina',lastro:'Lastro, kg',lastroS:'lastro',neutral:'Flutuabilidade neutra, m',neutralS:'neutra',apnea:'Apneia máx., min:s',apneaS:'apneia máx.',feel:'Estado físico',equal:'Compensação',equalS:'compensação',suit:'Fato',gun:'Arma',addGun:'Acrescentar arma',tactic:'Tática',tacticPh:'Como caçou: zona, profundidade, aproximação…',errL:'Erros e incidentes',errS:'Incidentes',errPh:'Detalhes (opcional)',lesson:'Conclusão para o futuro',lessonPh:'O que fazer diferente da próxima vez',methL:'Técnica',cNotePh:'Nota sobre este peixe',wd_none:'Sem vento',wd_light:'Fraco (até 10 km/h)',wd_moderate:'Moderado (10–20 km/h)',wd_fresh:'Fresco (20–30 km/h)',wd_strong:'Forte (30–40 km/h)',wd_gale:'Muito forte (> 40 km/h)',fe_great:'Excelente',fe_good:'Bom',fe_ok:'Normal',fe_tired:'Cansado',fe_bad:'Mal',eq_easy:'Fácil',eq_medium:'Média',eq_hard:'Difícil',eq_hardR:'Difícil, ouvido direito',eq_hardL:'Difícil, ouvido esquerdo',er_miss:'Tiros falhados',er_lost:'Peixe escapou',er_snag:'Linha presa no fundo',er_equal:'Problemas de compensação',er_gearp:'Problema de equipamento',me_wait:'Espera',me_indio:'À Índio',me_hole:'Buraco',me_fall:'Caída',wh_water:'Coluna de água',wh_rock:'Rocha',wh_sand:'Areia',wh_weed:'Alga'});
-Object.assign(T.en,{acc_boat:'Boat',acc_shore:'Shore',accessL:'Access',tempSurf:'Surface water, °C',tempDeep:'Water below thermocline, °C',thermo:'Thermocline, m',thermoS:'thermocline',lastro:'Weights, kg',lastroS:'weights',neutral:'Neutral buoyancy, m',neutralS:'neutral',apnea:'Max breath-hold, min:s',apneaS:'max breath-hold',feel:'How I felt',equal:'Equalising',equalS:'equalising',suit:'Wetsuit',gun:'Speargun',addGun:'Add a speargun',tactic:'Tactics',tacticPh:'How you hunted: area, depth, approach…',errL:'Mistakes and incidents',errS:'Incidents',errPh:'Details (optional)',lesson:'Lesson for next time',lessonPh:'What to do differently next time',methL:'Technique',cNotePh:'Note about this fish',wd_none:'No wind',wd_light:'Light (up to 10 km/h)',wd_moderate:'Moderate (10–20 km/h)',wd_fresh:'Fresh (20–30 km/h)',wd_strong:'Strong (30–40 km/h)',wd_gale:'Very strong (> 40 km/h)',fe_great:'Excellent',fe_good:'Good',fe_ok:'Normal',fe_tired:'Tired',fe_bad:'Unwell',eq_easy:'Easy',eq_medium:'Medium',eq_hard:'Hard',eq_hardR:'Hard, right ear',eq_hardL:'Hard, left ear',er_miss:'Missed shots',er_lost:'Fish got away',er_snag:'Line snagged on the bottom',er_equal:'Equalising problems',er_gearp:'Gear problem',me_wait:'Ambush (espera)',me_indio:'Stalking (índio)',me_hole:'Hole',me_fall:'Drop (caída)',wh_water:'Water column',wh_rock:'Rock',wh_sand:'Sand',wh_weed:'Weed'});
+Object.assign(T.pt,{acc_boat:'Barco',acc_shore:'Costa',accessL:'Acesso',tempSurf:'Água à superf., °C',tempDeep:'Água sob a termoclina, °C',thermo:'Termoclina, m',thermoS:'termoclina',lastro:'Cinto, kg',colete:'Colete, kg',lastroT:'Lastro',lastroS:'lastro',neutral:'Flutuabilidade neutra, m',neutralS:'neutra',apnea:'Apneia máx., min:s',apneaS:'apneia máx.',feel:'Estado físico',equal:'Compensação',equalS:'compensação',suit:'Fato',gun:'Arma',addGun:'Acrescentar arma',tactic:'Tática',tacticPh:'Como caçou: zona, profundidade, aproximação…',errL:'Erros e incidentes',errS:'Incidentes',errPh:'Detalhes (opcional)',lesson:'Conclusão para o futuro',lessonPh:'O que fazer diferente da próxima vez',methL:'Técnica',cNotePh:'Nota sobre este peixe',wd_none:'Sem vento',wd_light:'Fraco (até 10 km/h)',wd_moderate:'Moderado (10–20 km/h)',wd_fresh:'Fresco (20–30 km/h)',wd_strong:'Forte (30–40 km/h)',wd_gale:'Muito forte (> 40 km/h)',fe_great:'Excelente',fe_good:'Bom',fe_ok:'Normal',fe_tired:'Cansado',fe_bad:'Mal',eq_easy:'Fácil',eq_medium:'Média',eq_hard:'Difícil',eq_hardR:'Difícil, ouvido direito',eq_hardL:'Difícil, ouvido esquerdo',er_miss:'Tiros falhados',er_lost:'Peixe escapou',er_snag:'Linha presa no fundo',er_equal:'Problemas de compensação',er_gearp:'Problema de equipamento',me_wait:'Espera',me_indio:'À Índio',me_hole:'Buraco',me_fall:'Caída',wh_water:'Coluna de água',wh_rock:'Rocha',wh_sand:'Areia',wh_weed:'Alga'});
+Object.assign(T.en,{acc_boat:'Boat',acc_shore:'Shore',accessL:'Access',tempSurf:'Surface water, °C',tempDeep:'Water below thermocline, °C',thermo:'Thermocline, m',thermoS:'thermocline',lastro:'Belt, kg',colete:'Vest, kg',lastroT:'Weights',lastroS:'weights',neutral:'Neutral buoyancy, m',neutralS:'neutral',apnea:'Max breath-hold, min:s',apneaS:'max breath-hold',feel:'How I felt',equal:'Equalising',equalS:'equalising',suit:'Wetsuit',gun:'Speargun',addGun:'Add a speargun',tactic:'Tactics',tacticPh:'How you hunted: area, depth, approach…',errL:'Mistakes and incidents',errS:'Incidents',errPh:'Details (optional)',lesson:'Lesson for next time',lessonPh:'What to do differently next time',methL:'Technique',cNotePh:'Note about this fish',wd_none:'No wind',wd_light:'Light (up to 10 km/h)',wd_moderate:'Moderate (10–20 km/h)',wd_fresh:'Fresh (20–30 km/h)',wd_strong:'Strong (30–40 km/h)',wd_gale:'Very strong (> 40 km/h)',fe_great:'Excellent',fe_good:'Good',fe_ok:'Normal',fe_tired:'Tired',fe_bad:'Unwell',eq_easy:'Easy',eq_medium:'Medium',eq_hard:'Hard',eq_hardR:'Hard, right ear',eq_hardL:'Hard, left ear',er_miss:'Missed shots',er_lost:'Fish got away',er_snag:'Line snagged on the bottom',er_equal:'Equalising problems',er_gearp:'Gear problem',me_wait:'Ambush (espera)',me_indio:'Stalking (índio)',me_hole:'Hole',me_fall:'Drop (caída)',wh_water:'Water column',wh_rock:'Rock',wh_sand:'Sand',wh_weed:'Weed'});
 if('serviceWorker' in navigator&&location.protocol==='https:'&&!DEMO)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 boot();
 })();
