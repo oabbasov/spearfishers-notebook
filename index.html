@@ -57,8 +57,8 @@ header{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .set-sec{display:grid;gap:8px}
 .sc-d{width:min(440px,calc(100vw - 24px))}
 .sc-d .sheet-in{gap:12px;max-height:calc(100dvh - 26px);overflow-y:auto}
-.sc-wrap{position:relative;line-height:0;height:min(48dvh,440px);aspect-ratio:9/16;max-width:calc(100% - 88px)}
-.sc-wrap.post{aspect-ratio:4/5;height:min(40dvh,360px)}
+.sc-wrap{position:relative;line-height:0;width:min(calc(100% - 88px),calc(48dvh * 9 / 16),247px);aspect-ratio:9/16;height:auto}
+.sc-wrap.post{aspect-ratio:4/5;width:min(calc(100% - 88px),calc(40dvh * 4 / 5),288px)}
 .sc-wrap canvas{width:100%;height:100%;border-radius:10px;background:var(--sea-soft);box-shadow:0 4px 18px rgba(4,20,26,.25)}
 .sc-busy{position:absolute;inset:0;display:grid;place-items:center;line-height:1}
 .sc-stage{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0}
@@ -1226,6 +1226,36 @@ body.arranging .cbr-x{display:grid;place-items:center;position:absolute;right:0;
 .catch-row input.cCount::-webkit-inner-spin-button,.catch-row input.cCount::-webkit-outer-spin-button{-webkit-appearance:none}.catch-row input.cCount{-moz-appearance:textfield}}
 .catch-row .cq{grid-column:1;grid-row:3}
 @media (min-width:561px){.catch-row .cq{grid-column:auto;grid-row:auto}}
+
+.so-tt .so-uw{gap:2px}
+.so-tt .so-uw>span{position:static;font-size:14px}
+.so-tt .so-uw input.so-user{padding-left:3px;margin-left:0}
+
+.av-d .sheet-in{display:grid;gap:12px;justify-items:center}
+.av-d .sheet-head{justify-self:stretch}
+.av-stage{position:relative;width:min(280px,80vw);aspect-ratio:1;touch-action:none;cursor:grab;border-radius:14px;overflow:hidden}
+.av-stage canvas{width:100%;height:100%;display:block}
+.av-ring{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at center,transparent 69.5%,rgba(4,20,26,.62) 70%);box-shadow:inset 0 0 0 0 transparent}
+.av-ring::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 2px rgba(255,255,255,.85)}
+.av-h{margin:0;text-align:center}
+#avZ{width:min(280px,80vw)}
+.av-btns{display:flex;gap:10px;justify-content:flex-end;justify-self:stretch}
+
+.sc-d .sheet-in{overscroll-behavior:contain}
+.sc-sw{width:34px;height:34px;min-height:0;padding:0;border-radius:50%;border:2px solid var(--line);flex:none;cursor:pointer}
+.cwp{flex:1 0 100%;display:flex;align-items:center;justify-content:center;gap:18px;padding:10px 0 4px;touch-action:none}
+.cwp[hidden]{display:none}
+.cw-wh{position:relative;width:min(220px,56vw);aspect-ratio:1;touch-action:none;cursor:crosshair}
+.cw-wh canvas{width:100%;height:100%;display:block;border-radius:50%}
+#cwDot{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.5);pointer-events:none}
+.cw-sl{position:relative;width:22px;height:min(220px,56vw);border-radius:11px;touch-action:none;cursor:ns-resize;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+.cw-sl i{position:absolute;left:-4px;right:-4px;height:8px;margin-top:-4px;border-radius:4px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.5);pointer-events:none}
+.sc-bg{flex-wrap:wrap}
+
+.so-act .so-sh{all:unset;cursor:pointer;display:inline-grid;place-items:center;padding:4px;color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.so-act .so-sh{display:none}}
+#feedMe{position:relative}
+#feedMe.dot::after{content:"";position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--surface)}
 </style>
 </head>
 <body>
@@ -1518,10 +1548,19 @@ body.arranging .cbr-x{display:grid;place-items:center;position:absolute;right:0;
   <div class="so-tabs" id="scFmt"><button type="button" data-v="story" data-i="scStory"></button><button type="button" data-v="post" data-i="scPost"></button></div>
   <div class="sc-row"><span class="sc-lab" data-i="scLocL"></span><div class="so-tabs" id="scLoc"><button type="button" data-v="zone" data-i="scZone"></button><button type="button" data-v="spot" data-i="scSpot"></button><button type="button" data-v="none" data-i="scNone"></button></div><div class="sc-chips" id="scNear"></div></div>
   <div class="sc-row" id="scWithL"><span class="sc-lab" data-i="scWithL"></span><input id="scWithIn" data-ph="scWithPh" data-al="scWithL" autocomplete="off" autocapitalize="off" spellcheck="false"><div class="sc-chips" id="scWithChips"></div></div>
-  <div class="sc-row"><span class="sc-lab" data-i="scBgL"></span><div class="sc-bg"><label class="sc-sw" id="scBgSw"><input type="color" id="scBg" data-al="scBgL"></label><button type="button" class="link" id="scBgR" data-i="scBgR"></button></div></div>
+  <div class="sc-row" id="scFishR"><span class="sc-lab" data-i="scFishL"></span><div class="sc-chips" id="scFish"></div></div>
+  <div class="sc-row"><span class="sc-lab" data-i="scBgL"></span><div class="sc-bg"><button type="button" class="sc-sw" id="scBgSw" data-al="scBgL" aria-expanded="false"></button><button type="button" class="link" id="scBgR" data-i="scBgR"></button></div>
+    <div class="cwp" id="scCw" hidden><div class="cw-sl" id="cwS" data-al="scSat"><i></i></div><div class="cw-wh" id="cwW"><canvas id="cwC" width="240" height="240"></canvas><i id="cwDot"></i></div><div class="cw-sl" id="cwV" data-al="scBri"><i></i></div></div></div>
   <div class="sc-row"><span class="sc-lab" data-i="scShowL"></span><div class="sc-chk" id="scChk"><label class="chk" id="scPhL"><input type="checkbox" id="scPh"><span data-i="scPhoto"></span></label></div></div>
   <div class="sc-btns"><button type="button" class="primary" id="scShare" data-i="share"></button><button type="button" id="scSaveB" data-i="scSaveB"></button></div>
   <p class="hint" data-i="scHint"></p>
+</div></dialog>
+<dialog id="avD" class="sheet av-d"><div class="sheet-in">
+  <div class="sheet-head"><h2 data-i="avT"></h2></div>
+  <div class="av-stage" id="avStage"><canvas id="avCv" width="560" height="560"></canvas><div class="av-ring" aria-hidden="true"></div></div>
+  <p class="hint av-h" data-i="avHint"></p>
+  <input type="range" id="avZ" min="1" max="4" step="0.01" value="1" data-al="avZoom">
+  <div class="av-btns"><button type="button" id="avNo" data-i="avNo"></button><button type="button" class="primary" id="avOk" data-i="avOk"></button></div>
 </div></dialog>
 <dialog id="soc" class="so-page"><div class="so-pg" id="soPg">
   <div class="so-pgh"><button type="button" class="so-bk" data-a="back" data-al="soBack"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><h2 id="socT"></h2><span></span></div>
@@ -3907,7 +3946,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794478523';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794493182';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -3936,6 +3975,7 @@ function shPayload(e,cfg,spotMap){
   const d={v:1,date:cfg.date==='exact'?e.date:String(e.date||'').slice(0,7),catches:cs.map(c=>{const o={name:c.name,count:c.count||1};if(c.sub)o.sub=c.sub;
     if(cfg.weight&&c.weight!=null)o.weight=c.weight;if(cfg.len&&c.len!=null)o.len=c.len;if(cfg.depth&&c.depth!=null)o.depth=c.depth;return o})};
   if(cfg.region){const r=shRegion(coordsOf(e,spotMap));if(r)d.region=r}
+  if((e.withId||[]).length){d.with=e.withId;d.withU=e.withU}
   return d}
 let SH_HID=null;async function shHid(){if(SH_HID!=null)return SH_HID;try{const r=await sb.from('shared_catches').select('hidden,published_at').limit(1);SH_HID=!r.error}catch(_){SH_HID=false}return SH_HID}
 async function shSync(){
@@ -3998,6 +4038,14 @@ const ON_I='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="
 const OFF_I='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18.500h10.500a4 4 0 0 0 .600-7.950A5.500 5.500 0 0 0 7.400 9.200 4.700 4.700 0 0 0 7 18.500z"/><path d="M3.500 3.500l17 17"/></svg>';
 function onBtn(off,attr){return '<button type="button" class="link ico onoff'+(off?' off':'')+'" '+attr+' aria-pressed="'+(!off)+'" title="'+esc(t(off?'postOffS':'postOnS'))+'" aria-label="'+esc(t(off?'postOffS':'postOnS'))+'">'+(off?OFF_I:ON_I)+'</button>'}
 async function postSet(id,off){const ok=await saveEntry(id,{postOff:off||null,noShare:null});if(ok){toast(t(off?'postOffT':'postOnT'));shSoon()}return ok}
+function soShare(key){const r=SO.posts.get(key);if(!r)return;const own=r.user_id===shMe&&entries.find(x=>x.id===r.entry_id);if(own){scOpen(own);return}
+  const d=r.data||{},p=SO.cards.get(r.user_id)||{},dt=String(d.date||'');
+  scOpen({id:'p:'+r.user_id+':'+r.entry_id,date:dt.length===7?dt+'-01':dt,monthOnly:dt.length===7,catches:d.catches||[],photos:d.photos||[],spot:d.region||'',byU:p.username||soName(r.user_id,p),withU:d.withU||[]})}
+async function soTagged(){try{const hid=await shHid();const{data,error}=await sb.from('shared_catches').select('user_id,entry_id,data,caught,updated_at'+(hid?',hidden,published_at':'')).filter('data->with','cs',JSON.stringify([shMe])).limit(200);return error?[]:(data||[]).filter(r=>r.user_id!==shMe)}catch(_){return[]}}
+async function soTagCheck(){const rows=await soTagged();let seen=[];try{seen=JSON.parse(localStorage.getItem('sn-tag-seen')||'[]')}catch(_){}
+  const nw=rows.filter(r=>!seen.includes(r.user_id+'|'+r.entry_id));$('feedMe').classList.toggle('dot',nw.length>0);
+  if(nw.length){await soCards([...new Set(nw.map(r=>r.user_id))]).catch(()=>{});const who=[...new Set(nw.map(r=>{const p=SO.cards.get(r.user_id)||{};return p.username?'@'+p.username:soName(r.user_id,p)}))].join(', ');toast(t('soTagNew')(who))}}
+function soTagSeen(rows){try{const s=new Set(JSON.parse(localStorage.getItem('sn-tag-seen')||'[]'));rows.forEach(r=>s.add(r.user_id+'|'+r.entry_id));localStorage.setItem('sn-tag-seen',JSON.stringify([...s]))}catch(_){}$('feedMe').classList.remove('dot')}
 function canOnOff(e){try{return !!(SO.social&&shProf&&shCfg().on&&!e.example&&(e.catches||[]).some(c=>c&&c.name))}catch(_){return false}}
 function soPost(r){const d=r.data||{},p=SO.cards.get(r.user_id)||{};const liked=(r.likes||[]).some(l=>l.user_id===shMe);const coms=r.coms||[];
   const sub=[p.username?'@'+p.username:'',d.region,soDate(d.date)].filter(Boolean).join(' · ');
@@ -4007,7 +4055,7 @@ function soPost(r){const d=r.data||{},p=SO.cards.get(r.user_id)||{};const liked=
     '<div class="so-hd"><button type="button" class="so-who" data-u="'+esc(r.user_id)+'">'+soAv(r.user_id,p)+'<span class="so-wt"><b>'+esc(soName(r.user_id,p))+'</b><small>'+esc(sub)+'</small></span></button>'+(r.user_id===shMe&&entries.some(x=>x.id===r.entry_id)?onBtn(!!r.hidden,'data-a="onoff"'):'')+'</div>'+
     (pics.length?'<div class="so-pw"><div class="so-pics">'+pics.map((u,i)=>'<img src="'+esc(u.u)+'" alt="" loading="lazy" data-vi="'+i+'">').join('')+'</div>'+soDots(pics.length)+'</div>':'')+
     '<ul class="so-cs">'+(d.catches||[]).map(soCatch).join('')+'</ul>'+
-    '<div class="so-act"><button type="button" class="so-like'+(liked?' on':'')+'" data-a="like" aria-pressed="'+liked+'" aria-label="'+esc(t('soLike'))+'">'+SO_I.heart+'<span>'+((r.likes||[]).length||'')+'</span></button>'+
+    '<div class="so-act"><button type="button" class="so-like'+(liked?' on':'')+'" data-a="like" aria-pressed="'+liked+'" aria-label="'+esc(t('soLike'))+'">'+SO_I.heart+'<span>'+((r.likes||[]).length||'')+'</span></button>'+((r.user_id===shMe&&entries.some(x=>x.id===r.entry_id))||(d.with||[]).includes(shMe)?'<button type="button" class="so-sh" data-a="share" aria-label="'+esc(t('share'))+'"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3.5"/><path d="M7.5 8 12 3.5 16.5 8"/><path d="M5 12.5V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6.5"/></svg></button>':'')+
     '</div>'+
     '<div class="so-coms">'+(!r.open&&coms.length>2?'<button type="button" class="link so-all" data-a="all">'+esc(t('soAllComs')(coms.length))+'</button>':'')+
     showC.map(c=>'<div class="so-c" data-id="'+esc(c.id)+'"><b data-u="'+esc(c.user_id)+'">'+esc(soName(c.user_id))+'</b> <span>'+esc(c.body)+'</span>'+((c.user_id===shMe||r.user_id===shMe)?'<button type="button" class="so-cx" data-a="cdel" aria-label="'+esc(t('soDelC'))+'">×</button>':'')+'</div>').join('')+
@@ -4030,8 +4078,9 @@ function soFindToggle(on){const f=$('so_find');on=on==null?f.hidden:on;f.hidden=
 function soSettings(){soPageClose(true);$('setProfD').open=true;const st=$('settings');if(!st.open)st.showModal();soMe();setTimeout(()=>$('setProfile').scrollIntoView({block:'start'}),30)}
 function soEmpty(){return '<div class="so-empty"><p>'+esc(t(soFollowing().length?'soFeedNone':'soFeedEmpty'))+'</p>'+(shCfg().on&&shProf.username?'':'<p class="hint">'+esc(t('soShareOff'))+'</p><button type="button" data-go="me">'+esc(t('soOpenProf'))+'</button>')+'<button type="button" class="primary" data-go="find">'+esc(t('soGoFind'))+'</button></div>'}
 async function soRows(off,n,mine){const hid=await shHid();if(mine){const{data,error}=await sb.from('shared_catches').select('user_id,entry_id,data,caught,updated_at'+(hid?',hidden,published_at':'')).eq('user_id',shMe).limit(1000);if(error)throw error;
-    const E=new Map(entries.map(e=>[e.id,(e.date||'')+' '+(e.timeIn||'')]));const k=r=>E.get(r.entry_id)||String(r.caught||'');
-    const rows=(data||[]).sort((a,b)=>k(b).localeCompare(k(a))||String(b.published_at||b.updated_at||'').localeCompare(String(a.published_at||a.updated_at||''))).slice(off,off+n);await soDecorate(rows);return rows}
+    const tg=await soTagged();soTagSeen(tg);const all=(data||[]).concat(tg);
+    const E=new Map(entries.map(e=>[e.id,(e.date||'')+' '+(e.timeIn||'')]));const k=r=>(r.user_id===shMe&&E.get(r.entry_id))||String((r.data&&r.data.date)||r.caught||'');
+    const rows=all.sort((a,b)=>k(b).localeCompare(k(a))||String(b.published_at||b.updated_at||'').localeCompare(String(a.published_at||a.updated_at||''))).slice(off,off+n);await soDecorate(rows);return rows}
   const ids=soFollowing();if(!ids.length)return[];
   let q=sb.from('shared_catches').select('user_id,entry_id,data,caught,updated_at'+(hid?',hidden,published_at':'')).in('user_id',ids);q=hid?q.order('published_at',{ascending:false}):q.order('updated_at',{ascending:false});
   const{data,error}=await q.range(off,off+n-1);
@@ -4103,9 +4152,28 @@ async function allOnLoad(){if(SO.pause==null){try{const r=await sb.from('profile
 async function pauseSet(v){const{error}=await sb.from('profiles').update({paused:v,updated_at:new Date().toISOString()}).eq('user_id',shMe);if(error){toast(t('frErr'));return false}SO.pause=v;const c=$('soPause');if(c)c.checked=v;allOnDraw();toast(t(v?'soPausedOn':'soPausedOff'));return true}
 async function soMeLoad(){if(!SO.social||!shProf)return;soMe();if(SO.pause==null){try{const r=await sb.from('profiles').select('paused').eq('user_id',shMe).maybeSingle();SO.pause=r.error?false:!!(r.data&&r.data.paused);SO.pauseOk=!r.error}catch(_){SO.pauseOk=false}}
   $('soPauseL').hidden=$('soPauseH').hidden=!SO.pauseOk;$('soPause').checked=!!SO.pause;await Promise.all([soLoadFollows(),soLoadAct()]);await soAvLoad([shMe,...SO.fol.map(f=>f.id)]);soMe()}
-async function soAvUpload(file){if(!file)return;try{const im=await scLoadImg(URL.createObjectURL(file));if(!im)throw 0;const S=480,cv=document.createElement('canvas');cv.width=cv.height=S;
-    const m=Math.min(im.naturalWidth,im.naturalHeight);cv.getContext('2d').drawImage(im,(im.naturalWidth-m)/2,(im.naturalHeight-m)/2,m,m,0,0,S,S);
-    const b=await new Promise(r=>cv.toBlob(r,'image/jpeg',.86));const path=shMe+'/share/avatar.jpg';
+const AV={im:null,z:1,cx:0,cy:0};
+function avBase(){return 560/Math.min(AV.im.naturalWidth,AV.im.naturalHeight)}
+function avClamp(){const s=avBase()*AV.z,h=280/s,W=AV.im.naturalWidth,H=AV.im.naturalHeight;AV.cx=Math.min(W-h,Math.max(h,AV.cx));AV.cy=Math.min(H-h,Math.max(h,AV.cy))}
+function avPaint(cv,N){const x=cv.getContext('2d'),s=avBase()*AV.z*N/560;x.fillStyle='#0c2a33';x.fillRect(0,0,N,N);x.imageSmoothingQuality='high';x.drawImage(AV.im,N/2-AV.cx*s,N/2-AV.cy*s,AV.im.naturalWidth*s,AV.im.naturalHeight*s)}
+function avCrop(file){return new Promise(async res=>{const im=await scLoadImg(URL.createObjectURL(file));if(!im){res(null);return}
+  Object.assign(AV,{im,z:1,cx:im.naturalWidth/2,cy:im.naturalHeight/2});$('avZ').value=1;const d=$('avD'),cv=$('avCv');avPaint(cv,560);d.showModal();document.documentElement.classList.add('vopen');
+  const done=v=>{d.close();document.documentElement.classList.remove('vopen');res(v)};
+  $('avNo').onclick=()=>done(null);
+  $('avOk').onclick=async()=>{const o=document.createElement('canvas');o.width=o.height=480;avPaint(o,480);done(await new Promise(r=>o.toBlob(r,'image/jpeg',.88)))};
+  d.oncancel=ev=>{ev.preventDefault();done(null)}})}
+(function(){const cv=$('avCv'),st=$('avStage'),P=new Map();let pd=0,pz=1;
+  const k=()=>560/st.getBoundingClientRect().width;
+  const zoomTo=z=>{AV.z=Math.max(1,Math.min(4,z));$('avZ').value=AV.z;avClamp();avPaint(cv,560)};
+  st.addEventListener('pointerdown',ev=>{if(!AV.im)return;st.setPointerCapture(ev.pointerId);P.set(ev.pointerId,[ev.clientX,ev.clientY]);if(P.size===2){const[a,b]=[...P.values()];pd=Math.hypot(a[0]-b[0],a[1]-b[1]);pz=AV.z}});
+  st.addEventListener('pointermove',ev=>{if(!P.has(ev.pointerId))return;const o=P.get(ev.pointerId),n=[ev.clientX,ev.clientY];P.set(ev.pointerId,n);
+    if(P.size===2){const[a,b]=[...P.values()];const dd=Math.hypot(a[0]-b[0],a[1]-b[1]);if(pd)zoomTo(pz*dd/pd);return}
+    const s=avBase()*AV.z;AV.cx-=(n[0]-o[0])*k()/s;AV.cy-=(n[1]-o[1])*k()/s;avClamp();avPaint(cv,560)});
+  const up=ev=>{P.delete(ev.pointerId);pd=0};st.addEventListener('pointerup',up);st.addEventListener('pointercancel',up);
+  st.addEventListener('wheel',ev=>{ev.preventDefault();zoomTo(AV.z*(ev.deltaY<0?1.08:1/1.08))},{passive:false});
+  $('avZ').addEventListener('input',ev=>zoomTo(+ev.target.value))})();
+async function soAvUpload(file){if(!file)return;try{
+    const b=await avCrop(file);if(!b)return;const path=shMe+'/share/avatar.jpg';
     await sb.storage.from('photos').remove([path]);const{error}=await sb.storage.from('photos').upload(path,b,{contentType:'image/jpeg',upsert:true});if(error)throw error;
     SO.av.set(shMe,URL.createObjectURL(b));soMe()}catch(e){toast(t('frErr'))}}
 async function soFollowClick(b){const id=b.dataset.f,st=b.dataset.st;
@@ -4148,7 +4216,7 @@ async function frStart(user){
     let data=r.data;if(!data&&!r.error){const n=await sb.from('profiles').insert({user_id:shMe}).select(SO.social?'name,share,username,discoverable,private':'name,share').single();data=n.data}
     shProf=data||null}catch(e){shProf=null}
   if(!shProf)return;$('setProfile').hidden=false;
-  if(!SO.social){$('soSetup').hidden=false;$('soMeBody').hidden=true}else{$('feedCard').hidden=false;render(false);allOnLoad();try{if(localStorage.getItem('sn-feed-open')!=='0')$('feedCard').open=true}catch(_){$('feedCard').open=true}}
+  if(!SO.social){$('soSetup').hidden=false;$('soMeBody').hidden=true}else{$('feedCard').hidden=false;render(false);allOnLoad();soTagCheck();try{if(localStorage.getItem('sn-feed-open')!=='0')$('feedCard').open=true}catch(_){$('feedCard').open=true}}
   shSoon();if(SO.social){soLoadFollows();soLoadAct()}
   try{if(/[?&]amigo=/.test(location.search))history.replaceState(null,'',location.pathname)}catch(e){}}
 (function(){const d=$('soc');if(!d)return;
@@ -4187,6 +4255,7 @@ async function frStart(user){
       if(a==='more'){b.remove();soFeedMore();return}
       if(a==='feedall'){soFeedPage();return}
       if(a==='like')return soLike(key);
+      if(a==='share')return soShare(key);
       if(a==='onoff'){const r=SO.posts.get(key);if(!r)return;const off=!r.hidden;r.hidden=off;if(!SH_HID&&off){art.remove()}else soRedraw(key);postSet(r.entry_id,off);return}
       if(a==='all'){const r=SO.posts.get(key);if(r){r.open=true;soRedraw(key)}return}
       if(a==='cdel')return soDelC(key,b.closest('.so-c').dataset.id)}
@@ -4199,7 +4268,7 @@ Object.assign(T.en,{socNav:'Friends',soFeed:'Feed',soFind:'Search',soMe:'Profile
   frIntro:'Your followers only see the catches you share, with the fields you choose. They never see coordinates, spot names, notes or times.',frName:'Display name',frOn:'Share my catches',frShow:'Show',frO_photo:'Photos',frO_weight:'Weight',frO_len:'Length',frO_depth:'Depth',frO_where:'Caught in',frO_region:'Area (e.g. Ericeira, Cascais)',frO_dateExact:'Exact date (otherwise month and year only)',frAccept:'Accept',frDecline:'Decline',frSure:'Are you sure?',frNoName:'No name',frErr:"Couldn't do that. Try again.",noShareL:"Don't share this entry with friends"});
 
 /* ===== Share an entry as an image (Instagram story or post) ===== */
-const SC_OPTS=[['w','scWeight'],['l','scLen'],['dt','scDate'],['md','maxU'],['dv','scDives'],['wt','°C'],['cu','scCur']];
+const SC_OPTS=[['w','scWeight'],['l','scLen'],['tot','scTot'],['dt','scDate'],['md','maxU'],['dv','scDives'],['ap','scApnea'],['gn','scGun'],['wt','°C'],['cu','scCur']];let scSkip=new Set();
 const SC=Object.assign({fmt:'story',loc:'zone',photo:true,o:{w:1,l:1,dt:1,md:1,vi:1,wt:1}},(()=>{try{const v=JSON.parse(localStorage.getItem('sn-sc')||'{}');return v&&v.o?v:{}}catch(e){return{}}})());
 let scE=null,scImgs=[],scPi=0,scFish=new Map(),scRaf=0,scLogo=null,scNear=null,scNearSel=null,scCrop=new Map();
 function scSave(){try{localStorage.setItem('sn-sc',JSON.stringify({fmt:SC.fmt,loc:SC.loc,photo:SC.photo,o:SC.o,bg:SC.bg||''}))}catch(e){}}
@@ -4249,24 +4318,25 @@ async function scNearby(e){let c=scCoords(e);if(!c&&e.spot)c=await scGeo(e.spot)
   scNearSel=(pick&&scNear.some(x=>x.n===pick))?pick:(scNear[0]&&scNear[0].n)||null}
 function scWith(){return String($('scWithIn').value||'').split(/[\s,;]+/).map(s=>s.replace(/^@+/,'').toLowerCase().replace(/[^a-z0-9._]/g,'')).filter(Boolean).map(s=>'@'+s)}
 function scMeta(e){const o=SC.o,a=[],b=[];
-  if(o.dt)a.push({t:fmtDate(e.date)});const L=scLocText(e);if(L)a.push({t:L});
+  if(o.dt)a.push({t:e.monthOnly?new Date(e.date+'T12:00').toLocaleDateString(locale(),{month:'long',year:'numeric'}):fmtDate(e.date)});const L=scLocText(e);if(L)a.push({t:L});
   const md=entryMaxDepth(e);if(o.md&&md!=null)b.push({i:'depth',t:t('maxU')+' '+fmt(md)+' m'});if(o.dv&&e.dives!=null)b.push({t:fmt(e.dives)+' '+t('divesU')});
-  if(o.wt&&e.temp!=null)b.push({t:fmt(e.temp)+' °C'});if(o.cu&&e.current)b.push({t:t('cur_'+e.current)});
+  if(o.ap&&e.apnea!=null)b.push({i:'apnea',t:apneaF(e.apnea)});if(o.wt&&e.temp!=null)b.push({t:fmt(e.temp)+' °C'});if(o.cu&&e.current)b.push({t:t('cur_'+e.current)});
+  if(o.gn&&(e.guns||[]).length)b.push({i:'gun',t:e.guns.join(', ')});
   return [a,b]}
 function scCur(){const im=SC.photo?scImgs[scPi]:null;if(!im)return null;const k=scPi+'|'+SC.fmt;
   if(!scCrop.has(k)){const W=1080,H=SC.fmt==='story'?1920:1350;const f0=Math.min(W/im.naturalWidth,H/im.naturalHeight),c0=Math.max(W/im.naturalWidth,H/im.naturalHeight);scCrop.set(k,{z:c0/f0,cx:W/2,cy:H/2})}
   return scCrop.get(k)}
-const SC_IW=40,SC_SEP='  ·  ';
+const SC_IW=40,SC_SEP='  ·  ',SC_IC={depth:'M12 3v13M6.5 10.5 12 16l5.5-5.5M4 21h16',apnea:'M12 21a7.500 7.500 0 1 0 0-15 7.500 7.500 0 0 0 0 15zM12 9.500v4l2.500 1.500M10 2.500h4M12 2.500v3.500',gun:'M12 2.500v18M10 5 12 2.500 14 5M3.500 11.500C6 7.500 18 7.500 20.500 11.500M3.500 11.500 12 15.500l8.500-4M10.500 18.500h3'};
 function scItemW(x,it){return x.measureText(it.t).width+(it.i?SC_IW+4:0)}
 function scWrapLines(x,items,max,maxL){const out=[];let cur=[],w=0;const sw=x.measureText(SC_SEP).width;items.forEach(it=>{const iw=scItemW(x,it);if(cur.length&&w+sw+iw>max){out.push(cur);cur=[it];w=iw}else{w+=(cur.length?sw:0)+iw;cur.push(it)}});if(cur.length)out.push(cur);return out.slice(0,maxL)}
 function scDrawLine(x,line,X,Y,col){let px=X;line.forEach((it,j)=>{if(j){x.fillText(SC_SEP,px,Y);px+=x.measureText(SC_SEP).width}
-  if(it.i==='depth'){const s=SC_IW/24;x.save();x.translate(px,Y-SC_IW*.82);x.scale(s,s);x.strokeStyle=col;x.lineWidth=2.2;x.lineCap='round';x.lineJoin='round';x.stroke(new Path2D('M12 3v13M6.5 10.5 12 16l5.5-5.5M4 21h16'));x.restore();px+=SC_IW+4}
+  if(it.i){const s=SC_IW/24;x.save();x.translate(px,Y-SC_IW*.82);x.scale(s,s);x.strokeStyle=col;x.lineWidth=2.2;x.lineCap='round';x.lineJoin='round';if(it.i==='gun'){x.translate(12,12);x.rotate(Math.PI/4);x.translate(-12,-12)}x.stroke(new Path2D(SC_IC[it.i]));x.restore();px+=SC_IW+4}
   x.fillText(it.t,px,Y);px+=x.measureText(it.t).width})}
 function scFit(x,s,w){if(x.measureText(s).width<=w)return s;while(s.length>1&&x.measureText(s+'…').width>w)s=s.slice(0,-1);return s.trimEnd()+'…'}
 function scPaint(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920:1350,story=SC.fmt==='story';
   const cv=$('scCv');if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H}const x=cv.getContext('2d');x.clearRect(0,0,W,H);x.textAlign='left';
   const D='Unbounded,"Arial Black",sans-serif',B='"Golos Text",system-ui,sans-serif';
-  const cs=(e.catches||[]).filter(c=>c&&c.name);
+  const cs=(e.catches||[]).filter(c=>c&&c.name).filter((c,i)=>!scSkip.has(i));
   const im=SC.photo?scImgs[scPi]:null;
   if(im){const c=scCur(),iw=im.naturalWidth,ih=im.naturalHeight,f0=Math.min(W/iw,H/ih),c0=Math.max(W/iw,H/ih);c.z=Math.max(1,Math.min(c.z,6*c0/f0));
     const s=f0*c.z,w=iw*s,h=ih*s;
@@ -4279,7 +4349,7 @@ function scPaint(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920
   const P=76;
   // logo: the site title with its diver, on a soft dark glow so it reads on any photo
   const L=scLogo,tw=story?416:368;
-  if(L){const k=tw/L.w,lift=-.95*L.f,old=(story?250:150)+lift*(story?520:460)/L.w,top=old/2-lift*k;
+  if(L){const k=tw/L.w,lift=-.95*L.f,old=(story?250:150)+lift*(story?520:460)/L.w,top0=old/2-lift*k,ic=top0+L.it*k,top=ic/2-L.it*k;
     const ox=P-L.sx*k,oy=top;x.save();x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=10;x.shadowOffsetY=2;
     x.font=L.wt+' '+(L.f*k)+'px '+L.fam;x.fillStyle='#FFFFFF';x.fillText('Spearo',ox+L.sx*k,oy+L.base*k);x.fillStyle='#57C4D1';x.fillText('Diary',ox+L.dx*k,oy+L.base*k);
     if(L.img)x.drawImage(L.img,ox+L.il*k,oy+L.it*k,L.iw*k,L.ih*k);x.restore()}
@@ -4290,8 +4360,10 @@ function scPaint(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920
   const [ma,mb]=scMeta(e);x.font='500 34px '+B;x.fillStyle='#E3F0EF';
   const lines=scWrapLines(x,ma,W-2*P,2).concat(scWrapLines(x,mb,W-2*P,2));
   lines.reverse().forEach(l=>{scDrawLine(x,l,P,y,'#E3F0EF');y-=50});
+  if(e.byU){x.font='600 36px '+B;x.fillStyle='#FFD9BF';x.fillText(scFit(x,t('scBy')+' @'+e.byU,W-2*P),P,y);y-=52}
   const wi=scWith();if(wi.length){y-=4;x.font='600 36px '+B;x.fillStyle='#57C4D1';x.fillText(scFit(x,t('scWithT')+' '+wi.join(', '),W-2*P),P,y);y-=52}
   y-=22;
+  if(SC.o.tot){const kg=cs.reduce((a,c)=>a+(+c.weight||0),0);if(kg){x.font='700 42px '+B;x.fillStyle='#FFD9BF';x.fillText(t('totL')+': '+kg.toLocaleString(locale(),{maximumFractionDigits:3})+' kg',P,y);y-=64}}
   const show=cs.slice(0,story?5:4),more=cs.length-show.length;
   if(more>0){x.font='600 34px '+B;x.fillStyle='#BFD8DA';x.fillText('+'+more+' '+t('scMore'),P,y);y-=60}
   const RH=cs.length>3?118:132,FW=150,FH=FW*36/64;
@@ -4305,16 +4377,31 @@ function scPaint(){const e=scE;if(!e)return;const W=1080,H=SC.fmt==='story'?1920
     const lat=latinOf(c.name,c.sub);if(lat){x.font='italic 400 31px '+B;x.fillStyle='#BFD8DA';x.fillText(scFit(x,lat,avail),tx,tp+96)}
     y-=RH}}
 function scQueue(){if(scRaf)return;scRaf=requestAnimationFrame(()=>{scRaf=0;scPaint()})}
-(function(){const c=document.getElementById('scBg');c.addEventListener('input',()=>{SC.bg=c.value;$('scBgSw').style.background=c.value;$('scBgR').hidden=false;scQueue()});c.addEventListener('change',()=>{SC.bg=c.value;scSave();scQueue()});
-  document.getElementById('scBgR').addEventListener('click',()=>{SC.bg='';scSave();scUi();scQueue()})})();
+const CW={h:190,s:.85,v:.47,dv:-1};
+function hsv2rgb(h,s,v){const f=n=>{const k=(n+h/60)%6;return v-v*s*Math.max(0,Math.min(k,4-k,1))};return[f(5),f(3),f(1)].map(z=>Math.round(z*255))}
+function rgb2hsv(r,g,b){r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;let h=0;if(d){h=mx===r?((g-b)/d)%6:mx===g?(b-r)/d+2:(r-g)/d+4;h*=60;if(h<0)h+=360}return{h,s:mx?d/mx:0,v:mx}}
+const hexOf=a=>'#'+a.map(z=>z.toString(16).padStart(2,'0')).join('');
+function cwDraw(){const c=$('cwC'),x=c.getContext('2d'),N=c.width,R=N/2;
+  if(CW.dv!==CW.v){const img=x.createImageData(N,N),D=img.data;for(let j=0;j<N;j++)for(let i=0;i<N;i++){const dx=i-R+.5,dy=j-R+.5,r=Math.hypot(dx,dy)/R,o=(j*N+i)*4;if(r>1)continue;let h=Math.atan2(dy,dx)*180/Math.PI;if(h<0)h+=360;const q=hsv2rgb(h,r,CW.v);D[o]=q[0];D[o+1]=q[1];D[o+2]=q[2];D[o+3]=r>.98?Math.round((1-r)/.02*255):255}x.putImageData(img,0,0);CW.dv=CW.v}
+  const a=CW.h*Math.PI/180,dot=$('cwDot');dot.style.left=(50+Math.cos(a)*CW.s*50)+'%';dot.style.top=(50+Math.sin(a)*CW.s*50)+'%';dot.style.background=hexOf(hsv2rgb(CW.h,CW.s,CW.v));
+  $('cwS').style.background='linear-gradient('+hexOf(hsv2rgb(CW.h,1,CW.v))+','+hexOf(hsv2rgb(CW.h,0,CW.v))+')';$('cwV').style.background='linear-gradient('+hexOf(hsv2rgb(CW.h,CW.s,1))+',#000)';
+  $('cwS').firstChild.style.top=((1-CW.s)*100)+'%';$('cwV').firstChild.style.top=((1-CW.v)*100)+'%'}
+function cwApply(){SC.bg=hexOf(hsv2rgb(CW.h,CW.s,CW.v));$('scBgSw').style.background=SC.bg;$('scBgR').hidden=false;cwDraw();scQueue()}
+(function(){const sw=$('scBgSw'),pan=$('scCw');
+  sw.addEventListener('click',()=>{const open=pan.hidden;pan.hidden=!open;sw.setAttribute('aria-expanded',String(open));if(open){if(SC.bg){const m=SC.bg.match(/^#(..)(..)(..)$/);if(m)Object.assign(CW,rgb2hsv(parseInt(m[1],16),parseInt(m[2],16),parseInt(m[3],16)))}CW.dv=-1;cwDraw()}});
+  const drag=(el,fn)=>{let on=false;el.addEventListener('pointerdown',ev=>{on=true;el.setPointerCapture(ev.pointerId);fn(ev);ev.preventDefault()});el.addEventListener('pointermove',ev=>{if(on)fn(ev)});const up=()=>{if(on){on=false;scSave()}};el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up)};
+  drag($('cwW'),ev=>{const r=$('cwW').getBoundingClientRect(),dx=ev.clientX-r.left-r.width/2,dy=ev.clientY-r.top-r.height/2;let h=Math.atan2(dy,dx)*180/Math.PI;if(h<0)h+=360;CW.h=h;CW.s=Math.min(1,Math.hypot(dx,dy)/(r.width/2));cwApply()});
+  const sl=(el,k)=>drag(el,ev=>{const r=el.getBoundingClientRect();CW[k]=Math.max(0,Math.min(1,1-(ev.clientY-r.top)/r.height));cwApply()});sl($('cwS'),'s');sl($('cwV'),'v');
+  $('scBgR').addEventListener('click',()=>{SC.bg='';scSave();scUi();scQueue()})})();
 function scUi(){document.querySelectorAll('#scFmt button').forEach(b=>b.classList.toggle('on',b.dataset.v===SC.fmt));document.querySelectorAll('#scLoc button').forEach(b=>b.classList.toggle('on',b.dataset.v===SC.loc));
-  $('scPh').checked=SC.photo;$('scBg').value=SC.bg||'#0c6878';$('scBgSw').style.background=SC.bg||'linear-gradient(#1E8BD6,#0C6878 45%,#06202A)';$('scBgR').hidden=!SC.bg;SC_OPTS.forEach(([k])=>{const i=$('scO_'+k);if(i)i.checked=!!SC.o[k]});
+  {const all=scE?(scE.catches||[]).filter(c=>c&&c.name):[];$('scFishR').hidden=all.length<2;$('scFish').innerHTML=all.map((c,i)=>'<button type="button" class="sc-chip'+(scSkip.has(i)?'':' on')+'" data-i="'+i+'">'+esc(catchLabel(c))+((c.count||1)>1?' ×'+c.count:'')+'</button>').join('')}
+  $('scPh').checked=SC.photo;$('scBgSw').style.background=SC.bg||'linear-gradient(#1E8BD6,#0C6878 45%,#06202A)';$('scBgR').hidden=!SC.bg;SC_OPTS.forEach(([k])=>{const i=$('scO_'+k);if(i)i.checked=!!SC.o[k]});
   $('scPhL').hidden=!scImgs.length;const hasP=SC.photo&&scImgs.length;const many=hasP&&scImgs.length>1;$('scPrev').hidden=$('scNext').hidden=!many;$('scN').hidden=!many;$('scN').textContent=(scPi+1)+'/'+scImgs.length;
   $('scHint2').hidden=!hasP;$('scWrap').classList.toggle('post',SC.fmt==='post');$('scWrap').classList.toggle('drag',!!hasP);
   const nb=$('scNear');nb.hidden=SC.loc!=='zone';nb.innerHTML=scNear==null?'<span class="hint">…</span>':scNear.length?scNear.map(p=>'<button type="button" class="sc-chip'+(p.n===scNearSel?' on':'')+'" data-n="'+esc(p.n)+'">'+esc(p.n)+(p.d!=null?' <small>'+(p.d<1?Math.round(p.d*1000)+' m':p.d.toFixed(1).replace('.',locale().startsWith('pt')?',':'.')+' km')+'</small>':'')+'</button>').join(''):'<span class="hint">'+esc(t('scNoNear'))+'</span>';
   const fr=[...new Map((SO.fol||[]).filter(f=>f.status==='accepted'&&f.username).map(f=>[f.username,f])).keys()];const cur=new Set(scWith());
   $('scWithChips').innerHTML=fr.map(u=>'<button type="button" class="sc-chip'+(cur.has('@'+u)?' on':'')+'" data-u="'+esc(u)+'">@'+esc(u)+'</button>').join('');$('scWithL').hidden=!shMe}
-async function scOpen(e){scE=e;scPi=0;scImgs=[];scNear=null;scNearSel=null;scCrop=new Map();$('scWithIn').value='';const d=$('scD');scUi();$('scBusy').hidden=false;if(!d.open)d.showModal();
+async function scOpen(e){scE=e;scPi=0;scImgs=[];scNear=null;scNearSel=null;scCrop=new Map();scSkip=new Set();$('scCw').hidden=true;$('scWithIn').value=(e.withU||[]).filter(u=>u!==(shProf&&shProf.username)).map(u=>'@'+u).join(' ');const d=$('scD');scUi();$('scBusy').hidden=false;if(!d.open){d.showModal();document.documentElement.classList.add('vopen')}
   try{await Promise.all(['700 60px Unbounded','500 40px "Golos Text"','600 40px "Golos Text"','italic 400 32px "Golos Text"'].map(f=>document.fonts.load(f)))}catch(_){}
   if(shMe&&SO.social&&!SO.fol.length)soLoadFollows().then(()=>{if(scE===e)scUi()}).catch(()=>{});
   const [imgs,logo]=await Promise.all([Promise.all((e.photos||[]).slice(0,6).map(scPhoto)),scLogo?Promise.resolve(scLogo):scLogoMake(),...(e.catches||[]).filter(c=>c&&c.name).map(scFishImg)]);
@@ -4324,7 +4411,8 @@ async function scFile(){scPaint();const b=await new Promise(r=>$('scCv').toBlob(
 function scDownload(f){const u=URL.createObjectURL(f);const a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
 (function(){const d=$('scD');if(!d)return;
   $('scChk').insertAdjacentHTML('beforeend',SC_OPTS.map(([k,l])=>'<label class="chk"><input type="checkbox" id="scO_'+k+'">'+(k==='md'?'<span class="sc-ic">'+ICON.depth+'<span data-i="maxU"></span></span>':k==='wt'?'<span>°C</span>':'<span data-i="'+l+'"></span>')+'</label>').join(''));
-  $('scClose').addEventListener('click',()=>d.close());
+  $('scClose').addEventListener('click',()=>d.close());d.addEventListener('close',()=>document.documentElement.classList.remove('vopen'));
+  $('scFish').addEventListener('click',ev=>{const b=ev.target.closest('[data-i]');if(!b)return;const i=+b.dataset.i;scSkip.has(i)?scSkip.delete(i):scSkip.add(i);scUi();scQueue()});
   $('list').addEventListener('click',ev=>{const o=ev.target.closest('[data-onoff]');if(o){const e=entries.find(x=>x.id===o.dataset.onoff);if(e)postSet(e.id,!(e.postOff||e.noShare));return}});
   $('list').addEventListener('click',ev=>{const b=ev.target.closest('[data-share]');if(!b)return;const e=entries.find(x=>x.id===b.dataset.share);if(e)scOpen(e)});
   const re=()=>{scSave();scUi();scQueue()};
@@ -4352,14 +4440,16 @@ function scDownload(f){const u=URL.createObjectURL(f);const a=document.createEle
   const up=ev=>{const was=ptr.has(ev.pointerId);ptr.delete(ev.pointerId);if(was&&tap&&!ptr.size&&ev.type==='pointerup'&&Date.now()-tap.t<400)scToggle();if(!ptr.size)tap=null};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
   cv.addEventListener('wheel',ev=>{const c=scCur();if(!c)return;ev.preventDefault();zoomAt(c,Math.exp(-ev.deltaY/400),toCv(ev.clientX,ev.clientY));scQueue()},{passive:false});
   ['gesturestart','gesturechange'].forEach(n=>cv.addEventListener(n,ev=>ev.preventDefault()));
-  $('scShare').addEventListener('click',async()=>{try{const f=await scFile();if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]})}catch(err){if(err&&err.name!=='AbortError')scDownload(f)}}else scDownload(f)}catch(e){toast(t('frErr'))}});
-  $('scSaveB').addEventListener('click',async()=>{try{const f=await scFile();const mob=matchMedia('(pointer:coarse)').matches;if(mob&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]})}catch(err){}}else scDownload(f)}catch(e){toast(t('frErr'))}});
+  const scTags=()=>{const e=scE;if(!e||!entries.some(x=>x.id===e.id))return;const u=scWith().map(h=>h.slice(1));const M=new Map((SO.fol||[]).filter(f=>f.username).map(f=>[f.username,f.id]));const ids=u.map(x=>M.get(x)).filter(Boolean);
+    if(JSON.stringify(u)!==JSON.stringify(e.withU||[]))saveEntry(e.id,{withU:u.length?u:null,withId:ids.length?ids:null}).then(ok=>{if(ok)shSoon()})};
+  $('scShare').addEventListener('click',async()=>{try{const f=await scFile();scTags();if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});toast(t('scDone'))}catch(err){if(err&&err.name!=='AbortError')scDownload(f)}}else{scDownload(f);toast(t('scDl'))}}catch(e){toast(t('frErr'))}});
+  $('scSaveB').addEventListener('click',async()=>{try{const f=await scFile();scTags();const mob=matchMedia('(pointer:coarse)').matches;if(mob&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});toast(t('scSavedT'))}catch(err){}}else{scDownload(f);toast(t('scDl'))}}catch(e){toast(t('frErr'))}});
 })();
 Object.assign(T.pt,{share:'Partilhar',scTitle:'Partilhar imagem',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Local',scZone:'Perto de',scSpot:'Pesqueiro',scNone:'Esconder',scPhoto:'Foto',scWeight:'Peso',scLen:'Comprimento',scDepth:'Profund. do peixe',scWhere:'Caçado em',scDate:'Data',scTime:'Hora',scMaxD:'Prof. máx.',scDives:'Mergulhos',scVis:'Visibilidade',scWater:'Temp. da água',scWaterS:'Água',scTide:'Maré',scTideS:'Maré',scSea:'Mar',scWeather:'Tempo',scWind:'Vento',scCur:'Corrente',scGear:'Equipamento',scShowL:'Mostrar',scWithL:'Com amigos',scWithPh:'@username',scWithT:'com',scFill:'Preencher',scWhole:'Foto inteira',scHint2:'Toque na foto: inteira ou a preencher. Arraste para mover, dois dedos para zoom.',scNoNear:'Sem localidades por perto: use «Pesqueiro» ou esconda.',scSaveB:'Guardar imagem',scHint:'No telemóvel: em «Partilhar» escolha Instagram; em «Guardar imagem» toque em «Guardar imagem» no menu e a foto vai para a galeria. Os nomes por perto vêm do OpenStreetMap.',scMore:'mais',shVis:'Visib.'});
 Object.assign(T.en,{share:'Share',scTitle:'Share image',scStory:'Story 9:16',scPost:'Post 4:5',scLocL:'Place',scZone:'Near',scSpot:'Spot',scNone:'Hide',scPhoto:'Photo',scWeight:'Weight',scLen:'Length',scDepth:'Fish depth',scWhere:'Caught in',scDate:'Date',scTime:'Time',scMaxD:'Max depth',scDives:'Dives',scVis:'Visibility',scWater:'Water temp.',scWaterS:'Water',scTide:'Tide',scTideS:'Tide',scSea:'Sea',scWeather:'Weather',scWind:'Wind',scCur:'Current',scGear:'Gear',scShowL:'Show',scWithL:'With friends',scWithPh:'@username',scWithT:'with',scFill:'Fill',scWhole:'Whole photo',scHint2:'Tap the photo: whole or fill. Drag to move, pinch to zoom.',scNoNear:'No places nearby: use “Spot” or hide it.',scSaveB:'Save image',scHint:'On your phone: in “Share” pick Instagram; in “Save image” tap “Save Image” in the menu and it goes to your photos. Nearby names come from OpenStreetMap.',scMore:'more',shVis:'Vis.'});
 Object.assign(T.pt,{soAllPosts:'Ver todas as publicações',soProfH:'Definições de perfil e privacidade',soPause:'Pausar a partilha: ninguém vê as minhas capturas',soPauseH:'Para fechar o acesso a todos sem remover ninguém. Os seguidores continuam na lista; quando desligar, voltam a ver tudo como antes.',soPausedOn:'Tudo em pausa: ninguém vê as capturas',soPausedOff:'Partilha retomada.'});
-Object.assign(T.pt,{windU:'Vento',scBgL:'Fundo',scBgR:'Padrão',soMe:'Eu',soMeEmpty:'Ainda não tem publicações. Ligue «Partilhar as minhas capturas» nas definições.',postOnS:'Publicação visível — tocar para esconder',postOffS:'Publicação escondida — tocar para mostrar',postOnT:'Publicação visível',postOffT:'Publicação escondida',allOnS:'Publicações visíveis — tocar para esconder todas',allOffS:'Todas as publicações escondidas — tocar para mostrar'});
-Object.assign(T.en,{windU:'Wind',scBgL:'Background',scBgR:'Default',soMe:'Me',soMeEmpty:'No posts yet. Turn on «Share my catches» in Settings.',postOnS:'Post visible — tap to hide',postOffS:'Post hidden — tap to show',postOnT:'Post visible',postOffT:'Post hidden',allOnS:'Posts visible — tap to hide all',allOffS:'All posts hidden — tap to show'});
+Object.assign(T.pt,{avT:'Foto de perfil',avHint:'Arraste para mover, aperte ou use a barra para aproximar.',avNo:'Cancelar',avOk:'Guardar',scTot:'Peso total',scApnea:'Apneia',scGun:'Arma',scFishL:'Peixes',scSat:'Saturação',scBri:'Brilho',scBy:'Publicação de',scDone:'Partilhado ✓',scSavedT:'Imagem guardada ✓',scDl:'Imagem descarregada ✓',soTagNew:w=>w+' marcou-o numa publicação. Veja em «Eu».',windU:'Vento',scBgL:'Fundo',scBgR:'Padrão',soMe:'Eu',soMeEmpty:'Ainda não tem publicações. Ligue «Partilhar as minhas capturas» nas definições.',postOnS:'Publicação visível — tocar para esconder',postOffS:'Publicação escondida — tocar para mostrar',postOnT:'Publicação visível',postOffT:'Publicação escondida',allOnS:'Publicações visíveis — tocar para esconder todas',allOffS:'Todas as publicações escondidas — tocar para mostrar'});
+Object.assign(T.en,{avT:'Profile photo',avHint:'Drag to move, pinch or use the slider to zoom.',avNo:'Cancel',avOk:'Save',scTot:'Total weight',scApnea:'Breath-hold',scGun:'Gun',scFishL:'Fish',scSat:'Saturation',scBri:'Brightness',scBy:'Post by',scDone:'Shared ✓',scSavedT:'Image saved ✓',scDl:'Image downloaded ✓',soTagNew:w=>w+' tagged you in a post. See it in «Me».',windU:'Wind',scBgL:'Background',scBgR:'Default',soMe:'Me',soMeEmpty:'No posts yet. Turn on «Share my catches» in Settings.',postOnS:'Post visible — tap to hide',postOffS:'Post hidden — tap to show',postOnT:'Post visible',postOffT:'Post hidden',allOnS:'Posts visible — tap to hide all',allOffS:'All posts hidden — tap to show'});
 Object.assign(T.en,{soAllPosts:'See all posts',soProfH:'Profile and privacy settings',soPause:'Pause sharing: nobody sees my catches',soPauseH:'Closes access to everyone without removing anybody. Your followers stay on the list; when you turn this off they see everything again.',soPausedOn:'All paused: nobody sees your catches',soPausedOff:'Sharing resumed.'});
 /* ===== Card layout: unlock, then drag details and blocks; every card follows ===== */
 (function(){
