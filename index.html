@@ -3661,14 +3661,12 @@ Object.assign(T.en,{cwBan:'Protected species: spearfishing it is forbidden',cwBa
 /* ===== Photos v3: iNaturalist first (real fish, never range maps), Wikipedia only if it is not a map; genus photo as last resort ===== */
 const mapLike=u=>/map|distrib|range|mapa|area|carte|karte|verbreit|\.svg/i.test(u||'');
 const isSp=q=>/^[A-Z][a-z]+ [a-z]+$/.test(q);
-let libTiny={};try{libTiny=JSON.parse(localStorage.getItem('sn-libtiny')||'{}')||{}}catch(_){}
-let libTinyT=null;function libTinyFrom(lat,im){{try{const W=20,H=Math.max(1,Math.min(30,Math.round(W*im.naturalHeight/im.naturalWidth)));const c=document.createElement('canvas');c.width=W;c.height=H;c.getContext('2d').drawImage(im,0,0,W,H);libTiny[lat]=c.toDataURL('image/jpeg',.6);clearTimeout(libTinyT);libTinyT=setTimeout(()=>{try{localStorage.setItem('sn-libtiny',JSON.stringify(libTiny))}catch(_){}},800)}catch(_){}}}
 function libPhotos(){
   if(libIO)libIO.disconnect();
   if(!('IntersectionObserver' in window))return;
   libIO=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target;libIO.unobserve(el);
-    if(!el.style.backgroundImage)el.classList.add('shim');thumbPhoto(el.dataset.lat).then(p=>{el.classList.remove('shim');if(p&&el.isConnected){const im=new Image();im.className='fade';im.alt='';im.decoding='async';const lat=el.dataset.lat;if(!libTiny[lat]){im.crossOrigin='anonymous';im.onerror=()=>{if(im.crossOrigin){im.onerror=null;im.removeAttribute('crossorigin');im.src=p.src}}}im.onload=()=>{im.classList.add('ld');if(!libTiny[lat]&&im.crossOrigin)libTinyFrom(lat,im)};im.src=p.src;el.innerHTML='';el.appendChild(im)}})}),{root:$('libUl').closest('.sheet-in'),rootMargin:'300px'});
-  document.querySelectorAll('#libUl .lib-th').forEach(el=>{const tn=libTiny[el.dataset.lat];if(tn)el.style.background='center/cover no-repeat url('+tn+')';libIO.observe(el)});
+    thumbPhoto(el.dataset.lat).then(p=>{if(p&&el.isConnected)el.innerHTML='<img alt="" loading="lazy" src="'+esc(p.src)+'">'})}),{root:$('libUl').closest('.sheet-in'),rootMargin:'200px'});
+  document.querySelectorAll('#libUl .lib-th').forEach(el=>libIO.observe(el));
 }
 function spGallery(elId,lat,label){
   speciesPhotos(lat).then(ps=>{const el=$(elId);if(!el)return;
@@ -4041,7 +4039,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794525223';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794525430';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
