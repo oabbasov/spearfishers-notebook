@@ -1345,6 +1345,9 @@ img.fade.ld{opacity:1}
 
 .ck-q{color:var(--danger);font-weight:800;font-size:19px;line-height:1}
 .lib-th{background-color:var(--sea-soft)}
+
+dialog{overscroll-behavior:contain}
+dialog .sheet-in,#dlg form{overscroll-behavior:contain}
 </style>
 </head>
 <body>
@@ -4039,7 +4042,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794525430';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794608288';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -4710,7 +4713,11 @@ async function impFile(f){try{const name=f.name.toLowerCase();let r;
   catch(e){toast(t('impErr'))}}
 $('eImport').addEventListener('click',()=>$('eImportF').click());
 $('eImportF').addEventListener('change',ev=>{const f=ev.target.files&&ev.target.files[0];ev.target.value='';if(f)impFile(f)});
-(function(){const d=$('dlg');if(!d)return;d.addEventListener('close',()=>document.documentElement.classList.remove('dlgopen'));const o=d.showModal.bind(d);d.showModal=function(){document.documentElement.classList.add('dlgopen');return o()}})();
+/* phone: while any window is open, the page behind it is pinned so only the window scrolls */
+(function(){if(!matchMedia('(pointer:coarse)').matches)return;let y=0,n=0;const B=document.body;
+  const lock=()=>{if(n++)return;y=scrollY;B.style.position='fixed';B.style.top=(-y)+'px';B.style.left='0';B.style.right='0';B.style.width='100%';document.documentElement.classList.add('dlgopen')};
+  const unlock=()=>{if(!n||--n)return;B.style.position='';B.style.top='';B.style.left='';B.style.right='';B.style.width='';document.documentElement.classList.remove('dlgopen');scrollTo(0,y)};
+  const sm=HTMLDialogElement.prototype.showModal;HTMLDialogElement.prototype.showModal=function(){const was=this.open;const r=sm.apply(this,arguments);if(!was&&!this._lk){this._lk=1;lock();this.addEventListener('close',()=>{if(this._lk){this._lk=0;unlock()}},{once:true})}return r}})();
 /* keep a focused field in view when the phone keyboard opens */
 (function(){const fix=ev=>{const el=ev.target;if(!el.matches||!el.matches('input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea'))return;if(!el.closest('dialog'))return;setTimeout(()=>{try{el.scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}},320)};
   if(matchMedia('(pointer:coarse)').matches)document.addEventListener('focusin',fix)})();
