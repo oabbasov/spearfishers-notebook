@@ -4042,7 +4042,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794608487';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794608768';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -4658,7 +4658,7 @@ function lostPlace(){const f=$('entryForm');if(!f)return;const full=!f.classList
 /* ===== Import from a dive computer: .FIT (Garmin, Suunto…), UDDF (Shearwater, Mares, Cressi via their apps or Subsurface), Subsurface XML ===== */
 const FIT_EPOCH=631065600;
 function fitParse(buf){const v=new DataView(buf),hs=v.getUint8(0),ds=v.getUint32(4,true);if(String.fromCharCode(v.getUint8(8),v.getUint8(9),v.getUint8(10),v.getUint8(11))!=='.FIT')throw new Error('fit');
-  const end=Math.min(buf.byteLength,hs+ds),defs={},out={rec:[],sum:[],ses:[]};let o=hs,lastTs=0;
+  const end=Math.min(buf.byteLength,hs+ds),defs={},out={rec:[],sum:[],ses:[],act:[],dpos:[]};let o=hs,lastTs=0;
   const rd=(t,sz,le)=>{const b=t&0x1F;try{switch(b){case 0:case 2:case 10:case 13:return sz===1?v.getUint8(o):null;case 1:return sz===1?v.getInt8(o):null;case 3:return sz===2?v.getInt16(o,le):null;case 4:case 11:return sz===2?v.getUint16(o,le):null;case 5:return sz===4?v.getInt32(o,le):null;case 6:case 12:return sz===4?v.getUint32(o,le):null;case 8:return sz===4?v.getFloat32(o,le):null;case 9:return sz===8?v.getFloat64(o,le):null;default:return null}}catch(_){return null}};
   const inval={0:0xFF,1:0x7F,2:0xFF,3:0x7FFF,4:0xFFFF,5:0x7FFFFFFF,6:0xFFFFFFFF,10:0,11:0,12:0};
   while(o<end){const h=v.getUint8(o++);
@@ -4667,16 +4667,20 @@ function fitParse(buf){const v=new DataView(buf),hs=v.getUint8(0),ds=v.getUint32
       let dsz=0;if(dev){const nd=v.getUint8(o++);for(let i=0;i<nd;i++){dsz+=v.getUint8(o+1);o+=3}}defs[lt]={g,le,f,dsz};continue}
     const d=defs[h&0x0F];if(!d)break;const m=rdMsg(d);if(m[253]!=null)lastTs=m[253];take(d.g,m)}
   function rdMsg(d){const m={};d.f.forEach(([num,sz,bt])=>{const x=rd(bt,sz,d.le);const b=bt&0x1F;if(x!=null&&!(b in inval&&x===inval[b]))m[num]=x;o+=sz});o+=d.dsz;return m}
-  function take(g,m){if(g===20)out.rec.push(m);else if(g===268)out.sum.push(m);else if(g===18)out.ses.push(m)}
+  function take(g,m){if(g===20)out.rec.push(m);else if(g===268)out.sum.push(m);else if(g===18)out.ses.push(m);else if(g===34)out.act.push(m);else if(g===329)out.dpos.push(m)}
   const sc=180/2147483648,dives=[];let cur=null,temps=[],gps=null;
-  out.rec.forEach(r=>{const ts=r[253]!=null?(r[253]+FIT_EPOCH)*1000:null;if(r[13]!=null&&r[92]!=null&&r[92]>500)temps.push(r[13]);if(!gps&&r[0]!=null&&r[1]!=null)gps=[r[0]*sc,r[1]*sc];
+  out.rec.forEach(r=>{const ts=r[253]!=null?(r[253]+FIT_EPOCH)*1000:null;if(r[13]!=null&&r[92]!=null&&r[92]>=2000)temps.push(r[13]);if(!gps&&r[0]!=null&&r[1]!=null)gps=[r[0]*sc,r[1]*sc];
     const dp=r[92]!=null?r[92]/1000:null;if(dp==null||ts==null)return;
     if(!cur&&dp>=1){cur={s:ts,e:ts,max:dp}}else if(cur){if(dp<0.5){cur.e=ts;dives.push(cur);cur=null}else{cur.e=ts;cur.max=Math.max(cur.max,dp)}}});
   if(cur)dives.push(cur);
+  for(let i=dives.length-1;i>=0;i--)if(dives[i].max<1.5||dives[i].e-dives[i].s<5000)dives.splice(i,1);
   const allTs=out.rec.map(r=>r[253]).filter(x=>x!=null).map(x=>(x+FIT_EPOCH)*1000);
   if(!dives.length&&out.sum.length){out.sum.forEach(m=>{if(m[3]!=null)dives.push({s:null,e:null,max:m[3]/1000,dur:m[11]!=null?m[11]/1000:null})})}
+  {const p=out.dpos.find(m=>m[0]!=null&&m[1]!=null);if(p)gps=[p[0]*sc,p[1]*sc]}
   if(!gps&&out.ses.length&&out.ses[0][3]!=null&&out.ses[0][4]!=null)gps=[out.ses[0][3]*sc,out.ses[0][4]*sc];
-  return {dives:dives.map(x=>({s:x.s,e:x.e,max:x.max,dur:x.dur!=null?x.dur:(x.e-x.s)/1000})),start:allTs.length?Math.min(...allTs):null,end:allTs.length?Math.max(...allTs):null,temps,gps}}
+  /* the watch stores its local clock offset, so times show as they were where the dive happened */
+  const ac=out.act.find(m=>m[5]!=null&&m[253]!=null),off=ac?(ac[5]-ac[253])*1000:null,p2=n=>String(n).padStart(2,'0'),dy=ms=>{const d=new Date(ms);return d.getUTCFullYear()+'-'+p2(d.getUTCMonth()+1)+'-'+p2(d.getUTCDate())};
+  return {dives:dives.map(x=>{const o={s:x.s,e:x.e,max:x.max,dur:x.dur!=null?x.dur:(x.e-x.s)/1000};if(off!=null&&x.s!=null){o.s+=off;o.e+=off;o.local=true;o.day=dy(o.s)}return o}),start:allTs.length?Math.min(...allTs)+(off||0):null,end:allTs.length?Math.max(...allTs)+(off||0):null,temps,gps}}
 function xmlNum(t){const m=String(t||'').replace(',','.').match(/-?\d+(\.\d+)?/);return m?+m[0]:null}
 function mmss(t){t=String(t||'').trim();const m=t.match(/^(\d+):(\d{1,2})/);if(m)return +m[1]*60+ +m[2];const n=xmlNum(t);return n==null?null:/min/.test(t)?n*60:n}
 function localMs(dateStr){const m=String(dateStr||'').match(/(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2}))?/);return m?{d:m[1]+'-'+m[2]+'-'+m[3],ms:Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5],+(m[6]||0))}:null}
