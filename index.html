@@ -1547,7 +1547,7 @@ dialog .sheet-in,#dlg form{overscroll-behavior:contain}
     <datalist id="spotList"></datalist><datalist id="gearList"></datalist><datalist id="gunList"></datalist>
     <div class="foot">
       <button type="button" class="danger ico-b" id="eDelete" data-al="del" hidden></button>
-      <button type="button" class="ico-b imp-b" id="eImport" data-al="impH"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.500" y="6.500" width="11" height="11" rx="3"/><path d="M9 6.500l.7-3h4.600l.7 3M9 17.500l.7 3h4.600l.7-3M12 9.500V12l1.700 1.100"/></svg><span data-i="impL"></span></button><input type="file" id="eImportF" accept=".fit,.FIT,.uddf,.UDDF,.xml,.XML,.ssrf" hidden>
+      <button type="button" class="ico-b imp-b" id="eImport" data-al="impH"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.500" y="6.500" width="11" height="11" rx="3"/><path d="M9 6.500l.7-3h4.600l.7 3M9 17.500l.7 3h4.600l.7-3M12 9.500V12l1.700 1.100"/></svg><span data-i="impL"></span></button><input type="file" id="eImportF" hidden>
       <div>
         <button type="button" class="ico-b" id="eCancel" data-al="cancel"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
         <button type="submit" class="primary ico-b" id="eSave" data-al="save"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.500 12.500 9.500 17.500 19.500 6.500"/></svg></button>
@@ -4042,7 +4042,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794608288';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794608487';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -4701,7 +4701,7 @@ function impSummary(r,wantDay){const p2=n=>String(n).padStart(2,'0');
   const t=(r.temps||[]).filter(x=>x>-5&&x<40);const tMax=t.length?Math.max(...t):null,tMin=t.length?Math.min(...t):null;
   return {day,tIn:hm(st,loc),tOut:hm(en,loc),n:dv.length,max:dv.length?Math.max(...dv.map(x=>x.max||0)):null,ap:dv.length?Math.max(...dv.map(x=>x.dur||0)):null,tMax,tMin,gps:r.gps}}
 async function impFile(f){try{const name=f.name.toLowerCase();let r;
-    if(/\.fit$/.test(name))r=fitParse(await f.arrayBuffer());else r=xmlParse(await f.text());
+    const buf=await f.arrayBuffer(),hd=new Uint8Array(buf.slice(8,12));if(/\.fit$/.test(name)||String.fromCharCode(...hd)==='.FIT')r=fitParse(buf);else r=xmlParse(new TextDecoder().decode(buf));
     const S=impSummary(r,$('eDate').value);if(!S.n&&!S.tIn){toast(t('impNone'));return}
     const put=(id,v)=>{const el=$(id);if(!el||v==null||v==='')return;el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}))};
     if(S.day)put('eDate',S.day);put('eIn',S.tIn);put('eOut',S.tOut);if(S.n)put('eDives',String(S.n));
