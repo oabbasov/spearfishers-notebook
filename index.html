@@ -688,7 +688,14 @@ header h1{position:relative;padding-top:1.07em}
 .dlk{font-size:.75rem;color:var(--muted);display:flex;gap:6px;align-items:center;margin-top:4px}.dlk i{display:inline-block;width:10px;height:10px;border-radius:2px}.dlk .k1{background:var(--sea)}.dlk .k2{background:var(--accent)}
 .dlmap{font-size:.75rem;color:var(--sea)}
 .dltw{overflow-x:auto}.dlt{border-collapse:collapse;font-size:.78rem;width:100%;white-space:nowrap}.dlt th,.dlt td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right}.dlt th{color:var(--muted);font-weight:600}.dlt td:first-child,.dlt th:first-child{text-align:left}
-.dlc:last-child{grid-column:1/-1}
+.dlc.dlwide{grid-column:1/-1}
+.dls .dgM{stroke:var(--muted);stroke-opacity:.55;stroke-width:.8}.dls .dgm{stroke:var(--line);stroke-opacity:.55;stroke-width:.5}
+.dls .dyM{fill:var(--ink);font-weight:700;font-size:10.5px}.dls .dym{fill:var(--muted);fill-opacity:.6;font-size:8px}
+.dls .du{font-size:9px;fill:var(--muted);font-weight:600;text-anchor:start}
+.dls .dmx{fill:var(--accent);stroke:var(--surface);stroke-width:1.3;cursor:pointer}.dls .dmx:hover{stroke:var(--ink);stroke-width:1.6}
+.dlg{-webkit-user-select:none;user-select:none}.dlc{-webkit-touch-callout:none}.dlc.dldrag{opacity:.55;outline:2px dashed var(--sea);outline-offset:2px;cursor:grabbing}
+.dlnote{font-size:.8rem;color:var(--muted);margin-top:10px!important}
+
 .dlc{cursor:pointer;transition:border-color .15s}.dlc:hover{border-color:var(--sea)}.dlc:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
 .dlz{margin-left:auto;color:var(--muted);flex:none}
 .dls .dhit{fill:transparent}.dls .dch{stroke:var(--muted);stroke-width:.8;stroke-dasharray:3 3;pointer-events:none}.dls .dcp{fill:var(--sea);stroke:var(--surface);stroke-width:1.5;pointer-events:none}
@@ -4081,7 +4088,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794610125';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794611954';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -4779,7 +4786,7 @@ Object.assign(T.pt,{dlBtn:'Gráficos do relógio',dlHas:n=>'Dados do relógio: '
     'Tempo debaixo de água a somar-se ao longo da sessão. Partes planas são descansos ou deslocações; degraus íngremes são séries de mergulhos.',
     'Cada ponto é um mergulho: a profundidade máxima e a pulsação mais baixa. Mostra se nos mergulhos mais fundos o coração abranda mais.',
     'Todos os mergulhos com os valores principais.'],
-  dlBack:'Todos os gráficos',dlAll:'Todos os mergulhos',dlZone:'Zona',dlTip:'Passe o rato ou toque no gráfico para ver valores',dlDive:'Mergulho',
+  dlBack:'Todos os gráficos',dlNote:'Valores de profundidade abaixo de 0,45 m são ignorados (ruído do sensor à superfície).',dlAx:{dep:'Profundidade, m',dur:'Duração, min:s',rest:'Descanso, min',ratio:'Descanso ÷ mergulho, ×',hang:'No fundo, min:s',spd:'Velocidade, m/s',hr:'FC, bpm',hrmin:'FC mínima, bpm',temp:'Temperatura, °C',dive:'Mergulho nº',clock:'Hora',sec:'Segundos desde o início do mergulho',under:'Debaixo de água, min',time:'Tempo, min:s'},dlAll:'Todos os mergulhos',dlZone:'Zona',dlTip:'Passe o rato ou toque no gráfico para ver valores',dlDive:'Mergulho',
   dlU:{min:'min',s:'s',m:'m',bpm:'bpm',ms:'m/s'},dlDesc:'descida',dlAsc:'subida',dlRule:'regra 2×',dlDepth:'Profundidade',dlHR:'FC',dlTemp:'Temperatura',dlDur:'Duração',dlRest:'Descanso',dlHang:'No fundo',dlRatio:'Rácio',dlUnder:'Debaixo de água',
   dlCols:['#','Início','Máx.','Duração','Fundo','Desc.','Sub.','FC','Temp.','Descanso'],
   dlI:{n:(n,d)=>n+' mergulhos em '+d,pct:p=>p+' % do tempo debaixo de água',deep:(k,m,h)=>'Mais fundo: #'+k+' com '+m+' m às '+h,avg:v=>'Média: '+v,max:(k,v)=>'Máximo: #'+k+' com '+v,min:(k,v)=>'Mínimo: #'+k+' com '+v,tot:v=>'Total: '+v,
@@ -4806,7 +4813,7 @@ Object.assign(T.en,{dlBtn:'Watch charts',dlHas:n=>'Watch data: '+n+' dives',
     'Underwater time adding up over the session. Flat parts are rests or moves; steep steps are series of dives.',
     'Each dot is a dive: max depth and lowest heart rate. Shows whether the heart slows more on deeper dives.',
     'All dives with their main values.'],
-  dlBack:'All charts',dlAll:'All dives',dlZone:'Area',dlTip:'Hover or tap the chart to see values',dlDive:'Dive',
+  dlBack:'All charts',dlNote:'Depth readings under 0.45 m are ignored (sensor noise at the surface).',dlAx:{dep:'Depth, m',dur:'Duration, min:s',rest:'Rest, min',ratio:'Rest ÷ dive, ×',hang:'Bottom, min:s',spd:'Speed, m/s',hr:'HR, bpm',hrmin:'Lowest HR, bpm',temp:'Temperature, °C',dive:'Dive no.',clock:'Time of day',sec:'Seconds since the dive started',under:'Underwater, min',time:'Time, min:s'},dlAll:'All dives',dlZone:'Area',dlTip:'Hover or tap the chart to see values',dlDive:'Dive',
   dlU:{min:'min',s:'s',m:'m',bpm:'bpm',ms:'m/s'},dlDesc:'descent',dlAsc:'ascent',dlRule:'2× rule',dlDepth:'Depth',dlHR:'HR',dlTemp:'Temperature',dlDur:'Duration',dlRest:'Rest',dlHang:'Bottom',dlRatio:'Ratio',dlUnder:'Underwater',
   dlCols:['#','Start','Max','Time','Bottom','Desc.','Asc.','HR','Temp','Rest'],
   dlI:{n:(n,d)=>n+' dives in '+d,pct:p=>p+' % of the time underwater',deep:(k,m,h)=>'Deepest: #'+k+' at '+m+' m, '+h,avg:v=>'Average: '+v,max:(k,v)=>'Max: #'+k+' with '+v,min:(k,v)=>'Min: #'+k+' with '+v,tot:v=>'Total: '+v,
@@ -4833,42 +4840,48 @@ function fitLog(rec,dives,dpos,ses,off){
 let DLW=340,DLH=190,DLREG=[],DLCUR=null,DLBIG=false;const DLP={l:34,r:12,t:10,b:24};
 const dlA=s=>esc(String(s)).replace(/"/g,'&quot;');
 function dlNice(a,b,n){if(!(b>a)){b=a+1}const st=(b-a)/(n||4),p=Math.pow(10,Math.floor(Math.log10(st))),m=st/p,s=(m<1.5?1:m<3?2:m<7?5:10)*p,o=[];for(let v=Math.ceil(a/s-1e-9)*s;v<=b+1e-9;v+=s)o.push(+v.toFixed(6));return o}
-function dlFrame(x0,x1,y0,y1,o){o=o||{};const W=DLW,H=o.h||DLH,P=DLP,iw=W-P.l-P.r,ih=H-P.t-P.b,k=DLBIG?2:1;
+function dlFrame(x0,x1,y0,y1,o){o=o||{};const W=DLW,H=o.h||DLH,P={l:38,r:12,t:o.yu?22:10,b:o.noX?8:(o.xu?38:24)},iw=W-P.l-P.r,ih=H-P.t-P.b,k=DLBIG?2:1,dep=o.depth&&DLBIG;
   const sx=v=>P.l+(x1===x0?iw/2:(v-x0)/(x1-x0)*iw),sy=v=>o.inv?P.t+(v-y0)/(y1-y0||1)*ih:P.t+ih-(v-y0)/(y1-y0||1)*ih;
-  let g='';(o.yt||dlNice(y0,y1,4*k)).forEach(v=>{if(v<y0-1e-9||v>y1+1e-9)return;const y=sy(v);g+='<line x1="'+P.l+'" x2="'+(W-P.r)+'" y1="'+y+'" y2="'+y+'" class="dg"/><text x="'+(P.l-4)+'" y="'+(y+3.5)+'" class="dy">'+(o.yf?o.yf(v):fmt(v))+'</text>'});
-  if(o.xl)o.xl.forEach(([v,l])=>{g+='<text x="'+sx(v)+'" y="'+(H-8)+'" class="dx">'+l+'</text>'});
-  else (o.xt||dlNice(x0,x1,5*k)).forEach(v=>{if(v<x0-1e-9||v>x1+1e-9)return;g+='<text x="'+sx(v)+'" y="'+(H-8)+'" class="dx">'+(o.xf?o.xf(v):fmt(v))+'</text>'});
+  let g='',yt=o.yt||dlNice(y0,y1,4*k);const ppm=ih/((y1-y0)||1);if(dep){const st=y1-y0>45?2:1;yt=[];for(let v=Math.ceil(y0);v<=y1+1e-9;v+=st)yt.push(v)}
+  yt.forEach(v=>{if(v<y0-1e-9||v>y1+1e-9)return;const y=sy(v),M=!dep||v%5===0;g+='<line x1="'+P.l+'" x2="'+(W-P.r)+'" y1="'+y+'" y2="'+y+'" class="dg'+(dep?(M?' dgM':' dgm'):'')+'"/>'+(M||ppm>=11?'<text x="'+(P.l-4)+'" y="'+(y+3.5)+'" class="dy'+(dep?(M?' dyM':' dym'):'')+'">'+(o.yf?o.yf(v):fmt(v))+'</text>':'')});
+  if(o.yu)g+='<text x="2" y="'+(P.t-9)+'" class="du">'+esc(o.yu)+'</text>';
+  if(!o.noX){const ty=P.t+ih+15;if(o.xl)o.xl.forEach(([v,l])=>{g+='<text x="'+sx(v)+'" y="'+ty+'" class="dx">'+l+'</text>'});
+    else (o.xt||dlNice(x0,x1,5*k)).forEach(v=>{if(v<x0-1e-9||v>x1+1e-9)return;g+='<text x="'+sx(v)+'" y="'+ty+'" class="dx">'+(o.xf?o.xf(v):fmt(v))+'</text>'});
+    if(o.xu)g+='<text x="'+(P.l+iw/2)+'" y="'+(H-5)+'" class="du" style="text-anchor:middle">'+esc(o.xu)+'</text>'}
   return {sx,sy,W,H,P,iw,ih,g,x0,x1,y0,y1,inv:o.inv}}
 function dlSvg(F,body,extra,reg){let a='';if(reg){reg.F={x0:F.x0,x1:F.x1,y0:F.y0,y1:F.y1,P:F.P,iw:F.iw,ih:F.ih,W:F.W,H:F.H,inv:F.inv};DLREG.push(reg);a=' data-r="'+(DLREG.length-1)+'"';
     extra=(extra||'')+'<line class="dch" x1="0" x2="0" y1="'+F.P.t+'" y2="'+(F.P.t+F.ih)+'" visibility="hidden"/><g class="dcd"></g><rect x="'+F.P.l+'" y="'+F.P.t+'" width="'+F.iw+'" height="'+F.ih+'" class="dhit"/>'}
   return '<svg viewBox="0 0 '+F.W+' '+F.H+'" class="dls'+(reg?' dlL':'')+'" role="img"'+a+'>'+F.g+body+(extra||'')+'</svg>'}
 function dlBars(vals,o){o=o||{};const n=vals.length,mx=o.max!=null?o.max:Math.max(...vals.map(v=>Array.isArray(v)?Math.max(...v.filter(x=>x!=null)):v||0),0)*1.1||1;
-  const F=dlFrame(0.5,n+0.5,o.min||0,mx,{xl:vals.map((v,i)=>[i+1,(n>16&&i%2&&!DLBIG)?'':String(i+1)]),yf:o.yf});const bw=Math.min(DLBIG?40:22,F.iw/n*0.7);let b='';
-  const tf=o.tf||(v=>fmt(v)),nm=o.names||[''],lab=(i,j,u)=>t('dlDive')+' #'+(i+1)+(o.tipX?' · '+o.tipX(i):'')+'\n'+(nm[j]?nm[j]+': ':(o.yn?o.yn+': ':''))+tf(u);
-  vals.forEach((v,i)=>{const x=F.sx(i+1);if(Array.isArray(v)){const k=v.length,w=bw/k;v.forEach((u,j)=>{if(u==null)return;const y=F.sy(u);b+='<rect x="'+(x-bw/2+j*w)+'" y="'+y+'" width="'+(w-1)+'" height="'+Math.max(0,F.sy(o.min||0)-y)+'" class="'+(o.cls||['b1','b2'])[j]+'" rx="1.5" data-t="'+dlA(lab(i,j,u)+(o.tipMore?'\n'+o.tipMore(i):''))+'"/>'})}
-    else if(v!=null){const y=F.sy(v);b+='<rect x="'+(x-bw/2)+'" y="'+y+'" width="'+bw+'" height="'+Math.max(0,F.sy(o.min||0)-y)+'" class="'+(o.hi&&o.hi(i)?'b2':'b1')+'" rx="1.5" data-t="'+dlA(lab(i,0,v)+(o.tipMore?'\n'+o.tipMore(i):''))+'"/>';if(DLBIG)b+='<text x="'+x+'" y="'+(y-4)+'" class="dx dv">'+tf(v)+'</text>'}});
+  const F=dlFrame(0.5,n+0.5,o.min||0,mx,{xl:vals.map((v,i)=>[i+1,(n>16&&i%2&&!DLBIG)?'':String(i+1)]),yf:o.yf,inv:o.inv,depth:o.depth,yu:o.yu,xu:t('dlAx').dive});const bw=Math.min(DLBIG?40:22,F.iw/n*0.7);let b='';
+  const tf=o.tf||(v=>fmt(v)),nm=o.names||[''],lab=(i,j,u)=>t('dlDive')+' #'+(i+1)+(o.tipX?' · '+o.tipX(i):'')+'\n'+(nm[j]?nm[j]+': ':(o.yn?o.yn+': ':''))+tf(u),base=F.sy(o.min||0);
+  const rc=(x,w,u,cls,tip)=>{const y=F.sy(u);return '<rect x="'+x+'" y="'+Math.min(y,base)+'" width="'+w+'" height="'+Math.abs(base-y)+'" class="'+cls+'" rx="1.5" data-t="'+dlA(tip)+'"/>'};
+  vals.forEach((v,i)=>{const x=F.sx(i+1);if(Array.isArray(v)){const k=v.length,w=bw/k;v.forEach((u,j)=>{if(u==null)return;b+=rc(x-bw/2+j*w,w-1,u,(o.cls||['b1','b2'])[j],lab(i,j,u)+(o.tipMore?'\n'+o.tipMore(i):''))})}
+    else if(v!=null){b+=rc(x-bw/2,bw,v,o.hi&&o.hi(i)?'b2':'b1',lab(i,0,v)+(o.tipMore?'\n'+o.tipMore(i):''));if(DLBIG){const y=F.sy(v);b+='<text x="'+x+'" y="'+(o.inv?y+11:y-4)+'" class="dx dv">'+tf(v)+'</text>'}}});
   if(o.ref!=null){const y=F.sy(o.ref);b+='<line x1="'+F.P.l+'" x2="'+(F.W-F.P.r)+'" y1="'+y+'" y2="'+y+'" class="dref"/><text x="'+(F.W-F.P.r)+'" y="'+(y+11)+'" class="dy" style="fill:var(--accent)">'+esc(o.refL||'')+'</text>'}
   return dlSvg(F,b)}
 function dlScatter(pts,o){o=o||{};if(!pts.length)return '';const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);let x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
   const px=(x1-x0)*0.08||1,py=(y1-y0)*0.1||1;x0-=px;x1+=px;y0=o.y0!=null?o.y0:y0-py;y1+=py;if(o.x0!=null)x0=o.x0;
-  const F=dlFrame(x0,x1,y0,y1,{inv:o.inv,yf:o.yf,xf:o.xf});let b='';const xf=o.xf||(v=>fmt(v)),yf=o.yf||(v=>fmt(v));
+  const F=dlFrame(x0,x1,y0,y1,{inv:o.inv,yf:o.yf,xf:o.xf,depth:o.depth,yu:o.yu,xu:o.xu});let b='';const xf=o.xf||(v=>fmt(v)),yf=o.yf||(v=>fmt(v));
   pts.forEach(p=>{const tip=(p[2]!=null?t('dlDive')+' #'+p[2]+'\n':'')+(o.xn||'')+': '+(o.xtf||xf)(p[0])+'\n'+(o.yn||'')+': '+(o.ytf||yf)(p[1])+(p[4]?'\n'+p[4]:'');
     b+='<circle cx="'+F.sx(p[0])+'" cy="'+F.sy(p[1])+'" r="'+((o.r||4)*(DLBIG?1.4:1))+'" class="'+(p[3]||'d1')+'" data-t="'+dlA(tip)+'"/>';if(p[2]!=null&&o.lab)b+='<text x="'+(F.sx(p[0])+7)+'" y="'+(F.sy(p[1])-6)+'" class="dn">'+p[2]+'</text>'});
   if(o.fit&&pts.length>2){const n=pts.length,mx=xs.reduce((a,b)=>a+b,0)/n,my=ys.reduce((a,b)=>a+b,0)/n,sxy=pts.reduce((a,p)=>a+(p[0]-mx)*(p[1]-my),0),sxx=pts.reduce((a,p)=>a+(p[0]-mx)**2,0);if(sxx>0){const k=sxy/sxx,c=my-k*mx,a=Math.min(...xs),z=Math.max(...xs);b='<line x1="'+F.sx(a)+'" x2="'+F.sx(z)+'" y1="'+F.sy(k*a+c)+'" y2="'+F.sy(k*z+c)+'" class="dfit"/>'+b}}
-  return dlSvg(F,b,'<text x="'+(F.W-F.P.r)+'" y="'+(F.H-F.P.b-4)+'" class="dy dax">'+esc(o.xn||'')+' →</text><text x="'+(F.P.l+4)+'" y="'+(o.inv?F.H-F.P.b-4:F.P.t+10)+'" class="dy dax" style="text-anchor:start">'+(o.inv?'↓ ':'↑ ')+esc(o.yn||'')+'</text>')}
+  return dlSvg(F,b)}
 function dlLine(series,o){o=o||{};let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;series.forEach(s=>s.pts.forEach(p=>{if(p[1]==null)return;x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])}));
   if(!isFinite(x0))return '';if(o.y0!=null)y0=o.y0;else y0-=(y1-y0)*0.08||1;y1+=(y1-y0)*0.06||1;
-  const F=dlFrame(x0,x1,y0,y1,{inv:o.inv,xf:o.xf,yf:o.yf});let b='';
+  const F=dlFrame(x0,x1,y0,y1,{inv:o.inv,xf:o.xf,yf:o.yf,depth:o.depth,yu:o.yu,xu:o.xu,noX:o.noX});let b='';
   series.forEach(s=>{let d='',pen=false;s.pts.forEach(p=>{if(p[1]==null){pen=false;return}d+=(pen?'L':'M')+F.sx(p[0]).toFixed(1)+' '+F.sy(p[1]).toFixed(1);pen=true});
     if(s.area){const a=s.pts.filter(p=>p[1]!=null);if(a.length)b+='<path d="M'+F.sx(a[0][0]).toFixed(1)+' '+F.sy(y0)+d.replace(/^M/,'L')+'L'+F.sx(a[a.length-1][0]).toFixed(1)+' '+F.sy(y0)+'Z" class="da"/>'}
     b+='<path d="'+d+'" class="'+(s.cls||'l1')+'"'+(s.col?' style="stroke:'+s.col+'"':'')+'/>'});
+  if(o.marks)o.marks.forEach(m=>{b+='<circle cx="'+F.sx(m[0])+'" cy="'+F.sy(m[1])+'" r="'+(DLBIG?5:3.6)+'" class="dmx" data-t="'+dlA(m[2])+'"/>'+(DLBIG&&m[3]?'<text x="'+F.sx(m[0])+'" y="'+(F.sy(m[1])+15)+'" class="dx dn">'+m[3]+'</text>':'')});
+  if(o.noReg)return dlSvg(F,b);
   return dlSvg(F,b,'',{kind:'line',series:series.map(s=>({pts:s.pts,name:s.name||'',col:s.col,cls:s.cls,vf:s.vf||(v=>fmt(v))})),xf:o.tipX||o.xf||(v=>fmt(v)),extra:o.tipExtra})}
 const dlMs=s=>{s=Math.round(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 const dlHm=s=>{s=Math.round(s);const h=Math.floor(s/3600),m=Math.round((s%3600)/60);return h?h+' h '+String(m).padStart(2,'0')+' min':m+' min'};
 function dlCorr(P){const n=P.length;if(n<3)return null;const mx=P.reduce((a,p)=>a+p[0],0)/n,my=P.reduce((a,p)=>a+p[1],0)/n;let a=0,b=0,c=0;P.forEach(p=>{a+=(p[0]-mx)*(p[1]-my);b+=(p[0]-mx)**2;c+=(p[1]-my)**2});return b&&c?a/Math.sqrt(b*c):null}
 function dlCorrTxt(P){const r=dlCorr(P);if(r==null)return null;const I=t('dlI'),a=Math.abs(r);return I.corr(fmt(Math.round(r*100)/100),I.w[a<0.3?0:a<0.6?1:2])}
 /* every chart is a function, so the same chart can be drawn small in the grid or large on its own */
-function dlBuild(L){const D=L.dv||[],n=D.length,u=t('dlU'),I=t('dlI'),T0=L.t0,tm=s=>{const d=new Date(T0+s*1000);return String(d.getUTCHours()).padStart(2,'0')+':'+String(d.getUTCMinutes()).padStart(2,'0')};
+function dlBuild(L0){const cl=v=>v!=null&&v<4.5?0:v,L={...L0,d:(L0.d||[]).map(cl),dv:(L0.dv||[]).map(x=>({...x,p:(x.p||[]).map(cl)}))},A=t('dlAx');const D=L.dv||[],n=D.length,u=t('dlU'),I=t('dlI'),T0=L.t0,tm=s=>{const d=new Date(T0+s*1000);return String(d.getUTCHours()).padStart(2,'0')+':'+String(d.getUTCMinutes()).padStart(2,'0')};
   const tms=s=>tm(s)+':'+String(new Date(T0+s*1000).getUTCSeconds()).padStart(2,'0');
   const under=D.reduce((a,x)=>a+x.dur,0),span=(L.d.length*L.dt)||1,hrs=L.h.filter(v=>v!=null),hue=i=>'hsl('+Math.round(200-160*i/Math.max(1,n-1))+' 70% 50%)';
   const arg=f=>D.reduce((a,x,i)=>f(x)!=null&&(a<0||f(x)>f(D[a]))?i:a,-1),argMin=f=>D.reduce((a,x,i)=>f(x)!=null&&(a<0||f(x)<f(D[a]))?i:a,-1);
@@ -4877,31 +4890,31 @@ function dlBuild(L){const D=L.dv||[],n=D.length,u=t('dlU'),I=t('dlI'),T0=L.t0,tm
   const tipX=i=>tm(D[i].s);
   const sessTip=v=>{const s=v*60,k=dvAt(Math.round(s));return tms(s)+(k>=0?' · '+t('dlDive')+' #'+(k+1):'')};
   const C=[
-    {f:()=>dlLine([{pts:L.d.map((v,i)=>[i*L.dt/60,v==null?null:v/10]),area:true,cls:'l1',name:t('dlDepth'),vf:v=>r1(v)+' m'}].concat(hrs.length&&DLBIG?[]:[]),{inv:true,y0:0,xf:xmin,yf:v=>fmt(v),tipX:sessTip}),
+    {dep:1,f:()=>dlLine([{pts:L.d.map((v,i)=>[i*L.dt/60,v==null?null:v/10]),area:true,cls:'l1'}],{inv:true,y0:0,noX:true,noReg:true,depth:true,yu:A.dep,marks:D.map((x,i)=>{const j=x.p.indexOf(Math.max(...x.p));return [(x.s+j)/60,x.max,t('dlDive')+' #'+(i+1)+'\n'+tms(x.s+j)+'\n'+t('dlDepth')+': '+fmt(x.max)+' m',i+1]})}),
      i:()=>[I.n(n,dlHm(span)),I.pct(Math.round(under/span*100)),deep>=0?I.deep(deep+1,fmt(D[deep].max),tm(D[deep].s)):null]},
-    {f:()=>hrs.length?dlLine([{pts:L.h.map((v,i)=>[i*L.dt/60,v]),cls:'l2',name:t('dlHR'),vf:v=>Math.round(v)+' '+u.bpm}],{xf:xmin,tipX:sessTip}):'',
+    {f:()=>hrs.length?dlLine([{pts:L.h.map((v,i)=>[i*L.dt/60,v]),cls:'l2',name:t('dlHR'),vf:v=>Math.round(v)+' '+u.bpm}],{xf:xmin,tipX:sessTip,yu:A.hr,xu:A.clock}):'',
      i:()=>{if(!hrs.length)return [];const dv=[],sf=[];L.h.forEach((v,i)=>{if(v==null)return;(dvAt(i*L.dt)>=0?dv:sf).push(v)});const m=a=>a.length?Math.round(a.reduce((p,q)=>p+q,0)/a.length)+' '+u.bpm:'—';return [I.avg(m(hrs)),I.hrDive(m(dv),m(sf)),'Min '+Math.min(...hrs)+' · Max '+Math.max(...hrs)+' '+u.bpm]}},
-    {f:()=>dlBars(D.map(x=>x.max),{hi:i=>i===deep,tf:v=>fmt(v)+' m',yn:t('dlDepth'),tipX,tipMore:i=>t('dlDur')+': '+dlMs(D[i].dur)}),
+    {dep:1,f:()=>dlBars(D.map(x=>x.max),{inv:true,depth:true,yu:A.dep,hi:i=>i===deep,tf:v=>fmt(v)+' m',yn:t('dlDepth'),tipX,tipMore:i=>t('dlDur')+': '+dlMs(D[i].dur)}),
      i:()=>{const h=half(x=>x.max),s=argMin(x=>x.max);return [I.avg(r1(avg(x=>x.max))+' m'),I.max(deep+1,fmt(D[deep].max)+' m'),I.min(s+1,fmt(D[s].max)+' m'),n>3?I.trend(r1(h[0])+' m',r1(h[1])+' m'):null]}},
-    {f:()=>dlBars(D.map(x=>x.dur),{yf:dlMs,tf:dlMs,yn:t('dlDur'),tipX,tipMore:i=>t('dlDepth')+': '+fmt(D[i].max)+' m'}),
+    {f:()=>dlBars(D.map(x=>x.dur),{yu:A.dur,yf:dlMs,tf:dlMs,yn:t('dlDur'),tipX,tipMore:i=>t('dlDepth')+': '+fmt(D[i].max)+' m'}),
      i:()=>{const k=arg(x=>x.dur),h=half(x=>x.dur);return [I.avg(dlMs(avg(x=>x.dur))),I.max(k+1,dlMs(D[k].dur)),I.tot(dlMs(under)),n>3?I.trend(dlMs(h[0]),dlMs(h[1])):null]}},
-    {f:()=>dlBars(D.map(x=>x.surf!=null?x.surf/60:null),{tf:v=>dlMs(v*60),yn:t('dlRest'),tipX,tipMore:i=>t('dlDur')+': '+dlMs(D[i].dur)}),
+    {f:()=>dlBars(D.map(x=>x.surf!=null?x.surf/60:null),{yu:A.rest,tf:v=>dlMs(v*60),yn:t('dlRest'),tipX,tipMore:i=>t('dlDur')+': '+dlMs(D[i].dur)}),
      i:()=>{const k=arg(x=>x.surf),v=D.map(x=>x.surf).filter(x=>x!=null).sort((a,b)=>a-b),med=v.length?v[Math.floor(v.length/2)]:null;return [I.avg(dlMs(avg(x=>x.surf)||0)),med!=null?'Mediana / median: '+dlMs(med):null,k>=0?I.max(k+1,dlMs(D[k].surf)):null]}},
-    {f:()=>dlBars(D.map(x=>x.surf!=null&&x.dur?Math.round(x.surf/x.dur*10)/10:null),{ref:2,refL:t('dlRule'),hi:i=>D[i].surf!=null&&D[i].surf/D[i].dur<2,tf:v=>r1(v)+'×',yn:t('dlRatio'),tipX,tipMore:i=>t('dlDur')+' '+dlMs(D[i].dur)+' · '+t('dlRest')+' '+(D[i].surf!=null?dlMs(D[i].surf):'—')}),
+    {f:()=>dlBars(D.map(x=>x.surf!=null&&x.dur?Math.round(x.surf/x.dur*10)/10:null),{yu:A.ratio,ref:2,refL:t('dlRule'),hi:i=>D[i].surf!=null&&D[i].surf/D[i].dur<2,tf:v=>r1(v)+'×',yn:t('dlRatio'),tipX,tipMore:i=>t('dlDur')+' '+dlMs(D[i].dur)+' · '+t('dlRest')+' '+(D[i].surf!=null?dlMs(D[i].surf):'—')}),
      i:()=>{const b=D.filter(x=>x.surf!=null&&x.surf/x.dur<2).length,k=argMin(x=>x.surf!=null&&x.dur?x.surf/x.dur:null);return [I.below(b),k>=0?I.min(k+1,r1(D[k].surf/D[k].dur)+'×'):null]}},
-    {f:()=>dlBars(D.map(x=>x.hang),{yf:dlMs,tf:dlMs,yn:t('dlHang'),tipX,tipMore:i=>t('dlDur')+': '+dlMs(D[i].dur)+' · '+Math.round(D[i].hang/D[i].dur*100)+' %'}),
+    {f:()=>dlBars(D.map(x=>x.hang),{yu:A.hang,yf:dlMs,tf:dlMs,yn:t('dlHang'),tipX,tipMore:i=>t('dlDur')+': '+dlMs(D[i].dur)+' · '+Math.round(D[i].hang/D[i].dur*100)+' %'}),
      i:()=>{const k=arg(x=>x.hang),h=D.reduce((a,x)=>a+x.hang,0);return [I.avg(dlMs(avg(x=>x.hang))),I.max(k+1,dlMs(D[k].hang)),I.share(Math.round(h/(under||1)*100))]}},
-    {f:()=>dlBars(D.map(x=>[x.dr,x.ar]),{tf:v=>fmt(v)+' '+u.ms,names:[t('dlDesc'),t('dlAsc')],tipX,tipMore:i=>t('dlDepth')+': '+fmt(D[i].max)+' m'})+'<div class="dlk"><i class="k1"></i>'+esc(t('dlDesc'))+' <i class="k2"></i>'+esc(t('dlAsc'))+'</div>',
+    {f:()=>dlBars(D.map(x=>[x.dr,x.ar]),{yu:A.spd,tf:v=>fmt(v)+' '+u.ms,names:[t('dlDesc'),t('dlAsc')],tipX,tipMore:i=>t('dlDepth')+': '+fmt(D[i].max)+' m'})+'<div class="dlk"><i class="k1"></i>'+esc(t('dlDesc'))+' <i class="k2"></i>'+esc(t('dlAsc'))+'</div>',
      i:()=>[t('dlDesc')+': '+r1(avg(x=>x.dr)||0)+' '+u.ms+' · '+t('dlAsc')+': '+r1(avg(x=>x.ar)||0)+' '+u.ms,I.fastUp(D.filter(x=>x.ar>1).length)]},
-    {f:()=>dlLine(D.map((x,i)=>({pts:x.p.map((v,j)=>[j,v/10]),cls:'l3',col:hue(i),name:'#'+(i+1),vf:v=>r1(v)+' m'})),{inv:true,y0:0,xf:v=>v+'s',tipX:v=>Math.round(v)+' s'}),
+    {dep:1,f:()=>dlLine(D.map((x,i)=>({pts:x.p.map((v,j)=>[j,v/10]),cls:'l3',col:hue(i),name:'#'+(i+1),vf:v=>r1(v)+' m'})),{inv:true,y0:0,depth:true,yu:A.dep,xu:A.sec,xf:v=>v+'',tipX:v=>Math.round(v)+' s'}),
      i:()=>{const k=arg(x=>x.dur),w=arg(x=>x.hang/x.dur);return [I.deep(deep+1,fmt(D[deep].max),tm(D[deep].s)),I.max(k+1,dlMs(D[k].dur)),w>=0?t('dlHang')+': #'+(w+1)+' '+Math.round(D[w].hang/D[w].dur*100)+' %':null]}},
-    {f:()=>D.some(x=>x.hn!=null)?dlBars(D.map(x=>[x.hn,x.hx]),{min:Math.max(0,Math.min(...D.map(x=>x.hn).filter(v=>v!=null))-15),tf:v=>v+' '+u.bpm,names:['min','max'],tipX,tipMore:i=>t('dlDepth')+': '+fmt(D[i].max)+' m'})+'<div class="dlk"><i class="k1"></i>min <i class="k2"></i>max</div>':'',
+    {f:()=>D.some(x=>x.hn!=null)?dlBars(D.map(x=>[x.hn,x.hx]),{yu:A.hr,min:Math.max(0,Math.min(...D.map(x=>x.hn).filter(v=>v!=null))-15),tf:v=>v+' '+u.bpm,names:['min','max'],tipX,tipMore:i=>t('dlDepth')+': '+fmt(D[i].max)+' m'})+'<div class="dlk"><i class="k1"></i>min <i class="k2"></i>max</div>':'',
      i:()=>{const k=argMin(x=>x.hn),d=arg(x=>x.hx!=null&&x.hn!=null?x.hx-x.hn:null);return [k>=0?I.min(k+1,D[k].hn+' '+u.bpm):null,d>=0?I.hrDrop(d+1,D[d].hx-D[d].hn):null]}},
-    {f:()=>{const pts=[];D.forEach((x,i)=>x.p.forEach((v,j)=>{const tt=x.tp[j];if(tt!=null&&v>=10&&j%3===0)pts.push([tt,v/10,i+1])}));return pts.length>3?dlScatter(pts,{inv:true,y0:0,r:2.2,yf:v=>fmt(v),xf:v=>fmt(v)+'°',xn:t('dlTemp'),yn:t('dlDepth'),ytf:v=>r1(v)+' m',xtf:v=>fmt(v)+' °C'}):''},
+    {dep:1,f:()=>{const pts=[];D.forEach((x,i)=>x.p.forEach((v,j)=>{const tt=x.tp[j];if(tt!=null&&v>=10&&j%3===0)pts.push([tt,v/10,i+1])}));return pts.length>3?dlScatter(pts,{inv:true,y0:0,r:2.2,depth:true,yu:A.dep,xu:A.temp,yf:v=>fmt(v),xf:v=>fmt(v)+'°',xn:t('dlTemp'),yn:t('dlDepth'),ytf:v=>r1(v)+' m',xtf:v=>fmt(v)+' °C'}):''},
      i:()=>{const tt=[];D.forEach(x=>x.p.forEach((v,j)=>{if(x.tp[j]!=null&&v>=10)tt.push([x.tp[j],v/10])}));if(!tt.length)return [];const a=Math.max(...tt.map(p=>p[0])),b=Math.min(...tt.map(p=>p[0]));if(a-b<1)return [I.noThermo+' ('+a+' °C)'];const c=tt.filter(p=>p[0]===b).map(p=>p[1]);return [I.thermo(a+' °C',b+' °C'),'≥ '+r1(Math.min(...c))+' m → '+b+' °C']}},
-    {f:()=>dlScatter(D.map((x,i)=>[x.dur,x.max,i+1,null,tm(x.s)]),{inv:true,y0:0,lab:true,fit:DLBIG,xf:dlMs,xn:t('dlDur'),yn:t('dlDepth'),ytf:v=>fmt(v)+' m'}),
+    {dep:1,f:()=>dlScatter(D.map((x,i)=>[x.dur,x.max,i+1,null,tm(x.s)]),{inv:true,y0:0,depth:true,yu:A.dep,xu:A.dur,lab:true,fit:DLBIG,xf:dlMs,xn:t('dlDur'),yn:t('dlDepth'),ytf:v=>fmt(v)+' m'}),
      i:()=>[dlCorrTxt(D.map(x=>[x.dur,x.max]))]},
-    {f:()=>dlScatter(D.filter(x=>x.surf!=null).map(x=>[x.dur,x.surf/60,D.indexOf(x)+1,null,tm(x.s)]),{lab:true,y0:0,x0:0,fit:DLBIG,xf:dlMs,xn:t('dlDur'),yn:t('dlRest'),ytf:v=>dlMs(v*60)}),
+    {f:()=>dlScatter(D.filter(x=>x.surf!=null).map(x=>[x.dur,x.surf/60,D.indexOf(x)+1,null,tm(x.s)]),{lab:true,y0:0,x0:0,fit:DLBIG,xf:dlMs,yu:A.rest,xu:A.dur,xn:t('dlDur'),yn:t('dlRest'),ytf:v=>dlMs(v*60)}),
      i:()=>[dlCorrTxt(D.filter(x=>x.surf!=null).map(x=>[x.dur,x.surf]))]},
     {f:()=>{const g=D.filter(x=>x.lat!=null);if(g.length<2)return '';const dist=(a,b)=>Math.hypot((a.lng-b.lng)*111320*Math.cos(a.lat*Math.PI/180),(a.lat-b.lat)*111320);
       const Z=[];g.forEach(a=>{const z=Z.find(z=>dist(z[0],a)<300);z?z.push(a):Z.push([a])});const mxD=Math.max(...g.map(x=>x.max));
@@ -4917,26 +4930,33 @@ function dlBuild(L){const D=L.dv||[],n=D.length,u=t('dlU'),I=t('dlI'),T0=L.t0,tm
       return '<div class="dlmaps">'+panel(g,t('dlAll'))+Z.map((z,i)=>panel(z,t('dlZone')+' '+(i+1)+' · #'+z.map(x=>D.indexOf(x)+1).join(', #'))).join('')+'</div>'},
      i:()=>{const g=D.filter(x=>x.lat!=null);if(g.length<2)return [];const dist=(a,b)=>{const k=111320,dx=(a.lng-b.lng)*k*Math.cos(a.lat*Math.PI/180),dy=(a.lat-b.lat)*k;return Math.hypot(dx,dy)};let m=0;g.forEach(a=>g.forEach(b=>m=Math.max(m,dist(a,b))));
        const Z=[];g.forEach(a=>{const z=Z.find(z=>dist(z[0],a)<300);z?z.push(a):Z.push([a])});return [I.span(m>=1000?r1(m/1000)+' km':Math.round(m)+' m'),I.zones(Z.length)]}},
-    {f:()=>{const bk=[];D.forEach(x=>x.p.forEach(v=>{const i=Math.floor(v/50);bk[i]=(bk[i]||0)+1}));for(let i=0;i<bk.length;i++)bk[i]=bk[i]||0;const tot=bk.reduce((a,b)=>a+b,0)||1;
-      const mx=Math.max(...bk,1),rh=DLBIG?30:20,H=Math.max(80,bk.length*rh+20),W=DLW;let b='';bk.forEach((v,i)=>{const y=8+i*rh,w=(W-130)*v/mx;b+='<text x="62" y="'+(y+rh*0.6)+'" class="dy">'+(i*5)+'–'+(i*5+5)+' m</text><rect x="68" y="'+y+'" width="'+Math.max(0,w)+'" height="'+(rh-5)+'" class="b1" rx="2" data-t="'+dlA((i*5)+'–'+(i*5+5)+' m\n'+dlMs(v)+' · '+Math.round(v/tot*100)+' %')+'"/><text x="'+(72+w)+'" y="'+(y+rh*0.6)+'" class="dy" style="text-anchor:start">'+dlMs(v)+(DLBIG?' · '+Math.round(v/tot*100)+' %':'')+'</text>'});
+    {dep:1,f:()=>{const bs=DLBIG?1:5,bk=[];D.forEach(x=>x.p.forEach(v=>{const i=Math.floor(v/(bs*10));bk[i]=(bk[i]||0)+1}));for(let i=0;i<bk.length;i++)bk[i]=bk[i]||0;const tot=bk.reduce((a,b)=>a+b,0)||1;
+      const mx=Math.max(...bk,1),rh=DLBIG?22:20,top=24,H=Math.max(80,bk.length*rh+top+6),W=DLW;let b='<text x="2" y="13" class="du">'+esc(A.dep)+'</text><text x="'+(W-2)+'" y="13" class="du" style="text-anchor:end">'+esc(A.time)+'</text>';
+      bk.forEach((v,i)=>{const y=top+i*rh,w=(W-140)*v/mx,lo=i*bs,hi=lo+bs,M=!DLBIG||lo%5===0;b+=(DLBIG?'<line x1="68" x2="'+(W-4)+'" y1="'+y+'" y2="'+y+'" class="dg'+(M?' dgM':' dgm')+'"/>':'')+'<text x="62" y="'+(y+rh*0.62)+'" class="dy'+(DLBIG?(M?' dyM':' dym'):'')+'">'+lo+'–'+hi+' m</text><rect x="68" y="'+(y+2)+'" width="'+Math.max(0,w)+'" height="'+(rh-5)+'" class="b1" rx="2" data-t="'+dlA(lo+'–'+hi+' m\n'+dlMs(v)+' · '+Math.round(v/tot*100)+' %')+'"/><text x="'+(72+w)+'" y="'+(y+rh*0.62)+'" class="dy" style="text-anchor:start">'+(v?dlMs(v)+(DLBIG?' · '+Math.round(v/tot*100)+' %':''):'')+'</text>'});
       return '<svg viewBox="0 0 '+W+' '+H+'" class="dls" role="img">'+b+'</svg>'},
      i:()=>{const bk=[];D.forEach(x=>x.p.forEach(v=>{const i=Math.floor(v/50);bk[i]=(bk[i]||0)+1}));let k=0;bk.forEach((v,i)=>{if((v||0)>(bk[k]||0))k=i});return [I.band((k*5)+'–'+(k*5+5)+' m',dlMs(bk[k]||0))]}},
-    {f:()=>{let acc=0;const pts=[[0,0]];D.forEach(x=>{pts.push([x.s/60,acc/60]);acc+=x.dur;pts.push([(x.s+x.dur)/60,acc/60])});pts.push([span/60,acc/60]);return dlLine([{pts,cls:'l1',area:true,name:t('dlUnder'),vf:v=>dlMs(v*60)}],{y0:0,xf:xmin,yf:v=>fmt(Math.round(v*10)/10),tipX:sessTip})},
+    {f:()=>{let acc=0;const pts=[[0,0]];D.forEach(x=>{pts.push([x.s/60,acc/60]);acc+=x.dur;pts.push([(x.s+x.dur)/60,acc/60])});pts.push([span/60,acc/60]);return dlLine([{pts,cls:'l1',area:true,name:t('dlUnder'),vf:v=>dlMs(v*60)}],{y0:0,yu:A.under,xu:A.clock,xf:xmin,yf:v=>fmt(Math.round(v*10)/10),tipX:sessTip})},
      i:()=>[I.tot(dlMs(under)),I.rate(dlMs(under/(span/3600)))]},
-    {f:()=>D.some(x=>x.hn!=null)?dlScatter(D.filter(x=>x.hn!=null).map(x=>[x.max,x.hn,D.indexOf(x)+1,null,tm(x.s)]),{lab:true,x0:0,fit:DLBIG,xf:v=>fmt(v)+' m',xn:t('dlDepth'),yn:t('dlHR'),ytf:v=>v+' '+u.bpm}):'',
-     i:()=>[dlCorrTxt(D.filter(x=>x.hn!=null).map(x=>[x.max,x.hn]))]},
+    {dep:1,f:()=>D.some(x=>x.hn!=null)?dlScatter(D.filter(x=>x.hn!=null).map(x=>[x.hn,x.max,D.indexOf(x)+1,null,tm(x.s)]),{lab:true,inv:true,y0:0,depth:true,fit:DLBIG,yu:A.dep,xu:A.hrmin,xn:t('dlHR'),yn:t('dlDepth'),xtf:v=>v+' '+u.bpm,ytf:v=>fmt(v)+' m'}):'',
+     i:()=>[dlCorrTxt(D.filter(x=>x.hn!=null).map(x=>[x.hn,x.max]))]},
     {f:()=>{const c=t('dlCols');return '<div class="dltw"><table class="dlt"><thead><tr>'+c.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr></thead><tbody>'+D.map((x,i)=>'<tr'+(i===deep?' class="dlhi"':'')+'><td>'+(i+1)+'</td><td>'+tm(x.s)+'</td><td>'+fmt(x.max)+' m</td><td>'+dlMs(x.dur)+'</td><td>'+dlMs(x.hang)+'</td><td>'+(x.dr!=null?fmt(x.dr):'—')+'</td><td>'+(x.ar!=null?fmt(x.ar):'—')+'</td><td>'+(x.hn!=null?x.hn+'–'+x.hx:'—')+'</td><td>'+(x.tb!=null?x.tb+'°':'—')+'</td><td>'+(x.surf!=null?dlMs(x.surf):'—')+'</td></tr>').join('')+'</tbody></table></div>'},i:()=>[]}];
   const st=[[n,''],[fmt(Math.max(...D.map(x=>x.max)))+' m',''],[dlMs(Math.max(...D.map(x=>x.dur))),''],[dlMs(under),Math.round(under/span*100)+'%'],[L.dist!=null?(L.dist>=1000?fmt(Math.round(L.dist/100)/10)+' km':L.dist+' m'):'—',''],[hrs.length?Math.round(hrs.reduce((a,b)=>a+b,0)/hrs.length)+' '+u.bpm:'—','']];
   return {C,st}}
+/* chart order is the viewer's own; numbers follow the position */
+const DLOK='sn-dlord';
+function dlOrd(){let a=[];try{a=JSON.parse(localStorage.getItem(DLOK)||'[]')}catch(_){}a=(Array.isArray(a)?a:[]).filter((v,i,x)=>Number.isInteger(v)&&v>=0&&v<18&&x.indexOf(v)===i);for(let i=0;i<18;i++)if(!a.includes(i))a.splice(Math.min(i,a.length),0,i);return a}
+function dlOrdSave(a){try{localStorage.setItem(DLOK,JSON.stringify(a))}catch(_){}}
+const DLZ='<svg class="dlz" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6"/></svg>';
 function dlogHtml(L){DLREG=[];DLW=340;DLH=190;DLBIG=false;const B=dlBuild(L);
-  let h='<div class="dlst">'+B.st.map((s,i)=>'<div><b>'+esc(String(s[0]))+'</b><span>'+esc(t('dlS')[i])+(s[1]?' · '+s[1]:'')+'</span></div>').join('')+'</div><div class="dlg">';
-  h+=B.C.map((c,i)=>{const body=c.f();return body?'<figure class="dlc" data-k="'+i+'" tabindex="0" role="button"><figcaption><span class="dln">'+(i+1)+'</span>'+esc(t('dlT')[i])+'<svg class="dlz" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6"/></svg></figcaption>'+body+'</figure>':''}).join('')+'</div>';return h}
-function dlOne(L,k){DLREG=[];const big=innerWidth>=700;DLW=big?680:340;DLH=big?340:230;DLBIG=true;const B=dlBuild(L),c=B.C[k],ins=(c.i()||[]).filter(Boolean),avail=B.C.map((c,i)=>i).filter(i=>{DLREG=[];return i===k||!!B.C[i].f()});DLREG=[];
+  let h='<div class="dlst">'+B.st.map((s,i)=>'<div><b>'+esc(String(s[0]))+'</b><span>'+esc(t('dlS')[i])+(s[1]?' · '+s[1]:'')+'</span></div>').join('')+'</div><div class="dlg">';let n=0;
+  h+=dlOrd().map(i=>{const body=B.C[i].f();return body?'<figure class="dlc'+(i===17?' dlwide':'')+'" data-k="'+i+'" tabindex="0" role="button"><figcaption><span class="dln">'+(++n)+'</span>'+esc(t('dlT')[i])+DLZ+'</figcaption>'+body+'</figure>':''}).join('')+'</div>';return h}
+function dlOne(L,k){DLREG=[];const big=innerWidth>=700;DLW=big?680:340;DLH=big?360:250;DLBIG=true;const B=dlBuild(L),c=B.C[k],ins=(c.i()||[]).filter(Boolean);
+  const avail=dlOrd().filter(i=>{DLREG=[];return i===k||!!B.C[i].f()});DLREG=[];
   const body=c.f(),j=avail.indexOf(k),pv=avail[j-1],nx=avail[j+1];
-  const arr=(i,d)=>'<button type="button" class="dlnav" '+(i==null?'disabled':'data-go="'+i+'"')+' aria-label="'+(d<0?'‹':'›')+'"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+(d<0?'M15 6l-6 6 6 6':'M9 6l6 6-6 6')+'"/></svg></button>';
-  return '<div class="dl1h"><button type="button" class="dlback" data-back="1"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>'+esc(t('dlBack'))+'</button><span class="dl1n">'+arr(pv,-1)+'<b>'+(k+1)+' / 18</b>'+arr(nx,1)+'</span></div>'+
-    '<h3 class="dl1t"><span class="dln">'+(k+1)+'</span>'+esc(t('dlT')[k])+'</h3><div class="dl1c">'+body+'</div>'+(k<17?'<p class="dl1hint">'+esc(t('dlTip'))+'</p>':'')+
-    '<div class="dl1x"><p>'+esc(t('dlX')[k])+'</p>'+(ins.length?'<ul>'+ins.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul>':'')+'</div>'}
+  const arr=(i,d)=>'<button type="button" class="dlnav" '+(i==null?'disabled':'data-go="'+i+'"')+' data-d="'+d+'" aria-label="'+(d<0?'‹':'›')+'"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+(d<0?'M15 6l-6 6 6 6':'M9 6l6 6-6 6')+'"/></svg></button>';
+  return '<div class="dl1h"><button type="button" class="dlback" data-back="1"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>'+esc(t('dlBack'))+'</button><span class="dl1n">'+arr(pv,-1)+'<b>'+(j+1)+' / '+avail.length+'</b>'+arr(nx,1)+'</span></div>'+
+    '<h3 class="dl1t"><span class="dln">'+(j+1)+'</span>'+esc(t('dlT')[k])+'</h3><div class="dl1c">'+body+'</div>'+(k<17?'<p class="dl1hint">'+esc(t('dlTip'))+'</p>':'')+
+    '<div class="dl1x"><p>'+esc(t('dlX')[k])+'</p>'+(ins.length?'<ul>'+ins.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul>':'')+(c.dep?'<p class="dlnote">'+esc(t('dlNote'))+'</p>':'')+'</div>'}
 function dlShow(k){const b=$('dlogBody');b.innerHTML=k==null?dlogHtml(DLCUR):dlOne(DLCUR,k);b.dataset.k=k==null?'':k;$('dlogD').querySelector('.sheet-in').scrollTop=0;try{$('dlogD').scrollTop=0}catch(_){}}
 function dlogOpen(e){if(!e||!e.dlog)return;DLCUR=e.dlog;$('dlogTitle').textContent=[e.spot,e.date?fmtDate(e.date):''].filter(Boolean).join(' · ');try{dlShow(null)}catch(err){$('dlogBody').textContent=String(err)}$('dlogD').showModal()}
 $('dlogClose').addEventListener('click',()=>$('dlogD').close());
@@ -4944,7 +4964,7 @@ $('dlogClose').addEventListener('click',()=>$('dlogD').close());
 (function(){const tip=document.createElement('div');tip.className='dltip';tip.hidden=true;$('dlogD').appendChild(tip);const body=$('dlogBody');let lastSvg=null;
   const place=(x,y,txt)=>{tip.innerHTML=txt.split('\n').map((l,i)=>i?'<span>'+esc(l)+'</span>':'<b>'+esc(l)+'</b>').join('');tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+14,T=y+14;if(L+r.width>innerWidth-8)L=x-r.width-14;if(T+r.height>innerHeight-8)T=y-r.height-14;tip.style.left=Math.max(8,L)+'px';tip.style.top=Math.max(8,T)+'px'};
   const clear=()=>{tip.hidden=true;if(lastSvg){const l=lastSvg.querySelector('.dch');if(l)l.setAttribute('visibility','hidden');const g=lastSvg.querySelector('.dcd');if(g)g.innerHTML='';lastSvg=null}};
-  const move=ev=>{const el=ev.target.closest&&ev.target.closest('[data-t]');if(el&&body.contains(el)){if(lastSvg&&lastSvg!==el.closest('svg'))clear();place(ev.clientX,ev.clientY,el.dataset.t);return}
+  const move=ev=>{if(dr&&dr.on)return;const el=ev.target.closest&&ev.target.closest('[data-t]');if(el&&body.contains(el)){if(lastSvg&&lastSvg!==el.closest('svg'))clear();place(ev.clientX,ev.clientY,el.dataset.t);return}
     const svg=ev.target.closest&&ev.target.closest('svg.dlL');if(!svg){clear();return}const R=DLREG[+svg.dataset.r];if(!R){clear();return}
     const m=svg.getScreenCTM();if(!m)return;const p=new DOMPoint(ev.clientX,ev.clientY).matrixTransform(m.inverse()),F=R.F;
     const xv=F.x0+(Math.min(Math.max(p.x,F.P.l),F.P.l+F.iw)-F.P.l)/F.iw*(F.x1-F.x0);const sx=v=>F.P.l+(v-F.x0)/(F.x1-F.x0)*F.iw,sy=v=>F.inv?F.P.t+(v-F.y0)/(F.y1-F.y0||1)*F.ih:F.P.t+F.ih-(v-F.y0)/(F.y1-F.y0||1)*F.ih;
@@ -4955,10 +4975,24 @@ $('dlogClose').addEventListener('click',()=>$('dlogD').close());
     const l=svg.querySelector('.dch');l.setAttribute('x1',sx(xv));l.setAttribute('x2',sx(xv));l.setAttribute('visibility','visible');svg.querySelector('.dcd').innerHTML=dots;lastSvg=svg;
     place(ev.clientX,ev.clientY,R.xf(xv)+(lines.length?'\n'+lines.join('\n'):''))};
   body.addEventListener('pointermove',move);body.addEventListener('pointerdown',ev=>{if(body.dataset.k!=='')move(ev)});body.addEventListener('pointerleave',ev=>{if(ev.pointerType==='mouse')clear()});document.addEventListener('pointerdown',ev=>{if(!ev.target.closest||!ev.target.closest('#dlogBody svg'))clear()},true);$('dlogD').addEventListener('scroll',clear,true);
-  body.addEventListener('click',ev=>{const g=ev.target.closest('[data-go]');if(g){clear();dlShow(+g.dataset.go);return}if(ev.target.closest('[data-back]')){clear();dlShow(null);return}
+  let dr=null,noClick=0;const scroller=()=>[$('dlogD').querySelector('.sheet-in'),$('dlogD')].find(e=>e&&e.scrollHeight>e.clientHeight+2);
+  const startDrag=()=>{dr.on=true;dr.f.classList.add('dldrag');clear();try{navigator.vibrate&&navigator.vibrate(12)}catch(_){}};
+  const endDrag=()=>{if(!dr)return;clearTimeout(dr.tm);cancelAnimationFrame(dr.raf);if(dr.on){dr.f.classList.remove('dldrag');const shown=[...body.querySelectorAll('figure.dlc[data-k]')].map(f=>+f.dataset.k),old=dlOrd(),out=[];let q=0;old.forEach(k=>{out.push(shown.includes(k)?shown[q++]:k)});dlOrdSave(out);
+      body.querySelectorAll('figure.dlc .dln').forEach((n,i)=>n.textContent=i+1);noClick=Date.now()}dr=null};
+  body.addEventListener('pointerdown',ev=>{if(body.dataset.k!==''||ev.button>0)return;const f=ev.target.closest('figure.dlc[data-k]');if(!f||ev.target.closest('a'))return;
+    dr={f,x:ev.clientX,y:ev.clientY,id:ev.pointerId,on:false,touch:ev.pointerType!=='mouse',cy:ev.clientY};if(dr.touch)dr.tm=setTimeout(()=>{if(dr&&!dr.on)startDrag()},380)});
+  const auto=()=>{if(!dr||!dr.on)return;const sc=scroller(),y=dr.cy;if(sc){if(y<70)sc.scrollTop-=10;else if(y>innerHeight-70)sc.scrollTop+=10}dr.raf=requestAnimationFrame(auto)};
+  document.addEventListener('pointermove',ev=>{if(!dr||ev.pointerId!==dr.id)return;const dx=ev.clientX-dr.x,dy=ev.clientY-dr.y;dr.cy=ev.clientY;
+    if(!dr.on){if(dr.touch){if(Math.hypot(dx,dy)>8){clearTimeout(dr.tm);dr=null}return}if(Math.hypot(dx,dy)<6)return;startDrag();auto()}
+    if(!dr.raf)auto();ev.preventDefault();const el=document.elementFromPoint(ev.clientX,ev.clientY),o=el&&el.closest&&el.closest('figure.dlc[data-k]');
+    if(o&&o!==dr.f&&o.parentNode===dr.f.parentNode){const after=!!(dr.f.compareDocumentPosition(o)&Node.DOCUMENT_POSITION_FOLLOWING);o.parentNode.insertBefore(dr.f,after?o.nextSibling:o)}},{passive:false});
+  document.addEventListener('pointerup',endDrag);document.addEventListener('pointercancel',endDrag);
+  body.addEventListener('touchmove',ev=>{if(dr&&dr.on)ev.preventDefault()},{passive:false});
+  body.addEventListener('contextmenu',ev=>{if(ev.target.closest('figure.dlc'))ev.preventDefault()});
+  body.addEventListener('click',ev=>{if(Date.now()-noClick<400){ev.preventDefault();return}const g=ev.target.closest('[data-go]');if(g){clear();dlShow(+g.dataset.go);return}if(ev.target.closest('[data-back]')){clear();dlShow(null);return}
     if(ev.target.closest('a'))return;const f=ev.target.closest('figure.dlc[data-k]');if(f){clear();dlShow(+f.dataset.k)}});
   body.addEventListener('keydown',ev=>{const f=ev.target.closest('figure.dlc[data-k]');if(f&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();dlShow(+f.dataset.k)}});
-  $('dlogD').addEventListener('keydown',ev=>{if(body.dataset.k==='')return;if(ev.key==='ArrowRight'||ev.key==='ArrowLeft'){const b=body.querySelectorAll('[data-go]');const go=[...b].find(x=>(ev.key==='ArrowRight')===(x.querySelector('path').getAttribute('d').startsWith('M9')));if(go){clear();dlShow(+go.dataset.go)}}});
+  $('dlogD').addEventListener('keydown',ev=>{if(body.dataset.k==='')return;if(ev.key==='ArrowRight'||ev.key==='ArrowLeft'){const go=body.querySelector('[data-go][data-d="'+(ev.key==='ArrowRight'?1:-1)+'"]');if(go){clear();dlShow(+go.dataset.go)}}});
   $('dlogD').addEventListener('close',()=>{clear();DLCUR=null})})();
 function dlogChip(){const b=$('eDlogX');if(!b)return;const L=form.dlog;b.hidden=!L;if(L){const s=t('dlHas')((L.dv||[]).length)+' — '+t('dlBtn');b.title=s;b.setAttribute('aria-label',s);b.querySelector('sub').textContent=(L.dv||[]).length}}
 $('eDlogX').addEventListener('click',()=>{if(form.dlog)dlogOpen({dlog:form.dlog,spot:$('eSpot').value.trim(),date:$('eDate').value})});
