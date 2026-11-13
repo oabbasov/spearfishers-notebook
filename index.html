@@ -694,6 +694,8 @@ header h1{position:relative;padding-top:1.07em}
 .dls .du{font-size:9px;fill:var(--muted);font-weight:600;text-anchor:start}
 .dls .dmx{fill:var(--accent);stroke:var(--surface);stroke-width:1.3;cursor:pointer}.dls .dmx:hover{stroke:var(--ink);stroke-width:1.6}
 .dlg{-webkit-user-select:none;user-select:none}.dlc{-webkit-touch-callout:none}.dlc.dldrag{opacity:.55;outline:2px dashed var(--sea);outline-offset:2px;cursor:grabbing}
+.dls .dov{fill:var(--accent);stroke:var(--surface);stroke-width:1.2}.dls .d2{fill:var(--accent)}
+.dlov{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--muted);margin:0 0 10px;flex-wrap:wrap}.dlov select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:100%}
 .dlnote{font-size:.8rem;color:var(--muted);margin-top:10px!important}
 
 .dlc{cursor:pointer;transition:border-color .15s}.dlc:hover{border-color:var(--sea)}.dlc:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
@@ -4088,7 +4090,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794611954';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794612236';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -4767,7 +4769,7 @@ $('eImportF').addEventListener('change',ev=>{const f=ev.target.files&&ev.target.
 /* dive computer log: compact per-dive data kept with the entry, drawn as charts */
 Object.assign(T.pt,{dlBtn:'Gráficos do relógio',dlHas:n=>'Dados do relógio: '+n+' mergulhos',
   dlS:['Mergulhos','Máx.','Mais longo','Debaixo de água','Nadado','FC média'],
-  dlT:['Perfil da sessão','Frequência cardíaca na sessão','Profundidade máx. por mergulho','Duração de cada mergulho','Descanso à superfície depois de cada mergulho','Rácio descanso / mergulho','Tempo no fundo (espera)','Velocidade de descida e subida','Perfis sobrepostos','FC por mergulho (mín.–máx.)','Temperatura vs profundidade','Profundidade vs duração','Duração vs descanso seguinte','Mapa dos mergulhos','Tempo por faixa de profundidade','Tempo acumulado debaixo de água','FC mínima vs profundidade','Tabela de mergulhos'],
+  dlT:['Perfil da sessão','Frequência cardíaca','Profundidade máx. por mergulho','Duração de cada mergulho','Descanso à superfície depois de cada mergulho','Rácio descanso / mergulho','Tempo no fundo (espera)','Velocidade de descida e subida','Perfis sobrepostos','FC por mergulho (mín.–máx.)','Temperatura vs profundidade','Profundidade vs duração','Duração vs descanso seguinte','Mapa dos mergulhos','Tempo por faixa de profundidade','Tempo acumulado debaixo de água','FC mínima vs profundidade','Tabela de mergulhos'],
   dlX:['Profundidade ao longo de toda a sessão, do primeiro ao último registo do relógio. Cada pico para baixo é um mergulho; as linhas retas no zero são tempo à superfície (a respirar, a nadar ou a mudar de pesqueiro).',
     'Pulsação medida no pulso durante toda a sessão. Durante a apneia o coração abranda (reflexo de mergulho); à superfície volta a subir. Picos muito altos e longos costumam ser falhas do sensor ou natação rápida.',
     'A profundidade máxima de cada mergulho, pela ordem em que foram feitos. A barra laranja é o mais fundo. Ajuda a ver se foi descendo aos poucos (aquecimento) ou se variou com o fundo.',
@@ -4786,7 +4788,7 @@ Object.assign(T.pt,{dlBtn:'Gráficos do relógio',dlHas:n=>'Dados do relógio: '
     'Tempo debaixo de água a somar-se ao longo da sessão. Partes planas são descansos ou deslocações; degraus íngremes são séries de mergulhos.',
     'Cada ponto é um mergulho: a profundidade máxima e a pulsação mais baixa. Mostra se nos mergulhos mais fundos o coração abranda mais.',
     'Todos os mergulhos com os valores principais.'],
-  dlBack:'Todos os gráficos',dlNote:'Valores de profundidade abaixo de 0,45 m são ignorados (ruído do sensor à superfície).',dlAx:{dep:'Profundidade, m',dur:'Duração, min:s',rest:'Descanso, min',ratio:'Descanso ÷ mergulho, ×',hang:'No fundo, min:s',spd:'Velocidade, m/s',hr:'FC, bpm',hrmin:'FC mínima, bpm',temp:'Temperatura, °C',dive:'Mergulho nº',clock:'Hora',sec:'Segundos desde o início do mergulho',under:'Debaixo de água, min',time:'Tempo, min:s'},dlAll:'Todos os mergulhos',dlZone:'Zona',dlTip:'Passe o rato ou toque no gráfico para ver valores',dlDive:'Mergulho',
+  dlBack:'Todos os gráficos',dlNote:'Valores de profundidade abaixo de 0,45 m são ignorados (ruído do sensor à superfície).',dlOv:'Sobrepor com',dlNone:'— nenhum —',dlAx:{diveMax:'Mergulho nº (no ponto mais fundo)',dep:'Profundidade, m',dur:'Duração, min:s',rest:'Descanso, min',ratio:'Descanso ÷ mergulho, ×',hang:'No fundo, min:s',spd:'Velocidade, m/s',hr:'FC, bpm',hrmin:'FC mínima, bpm',temp:'Temperatura, °C',dive:'Mergulho nº',clock:'Hora',sec:'Segundos desde o início do mergulho',under:'Debaixo de água, min',time:'Tempo, min:s'},dlAll:'Todos os mergulhos',dlZone:'Zona',dlTip:'Passe o rato ou toque no gráfico para ver valores',dlDive:'Mergulho',
   dlU:{min:'min',s:'s',m:'m',bpm:'bpm',ms:'m/s'},dlDesc:'descida',dlAsc:'subida',dlRule:'regra 2×',dlDepth:'Profundidade',dlHR:'FC',dlTemp:'Temperatura',dlDur:'Duração',dlRest:'Descanso',dlHang:'No fundo',dlRatio:'Rácio',dlUnder:'Debaixo de água',
   dlCols:['#','Início','Máx.','Duração','Fundo','Desc.','Sub.','FC','Temp.','Descanso'],
   dlI:{n:(n,d)=>n+' mergulhos em '+d,pct:p=>p+' % do tempo debaixo de água',deep:(k,m,h)=>'Mais fundo: #'+k+' com '+m+' m às '+h,avg:v=>'Média: '+v,max:(k,v)=>'Máximo: #'+k+' com '+v,min:(k,v)=>'Mínimo: #'+k+' com '+v,tot:v=>'Total: '+v,
@@ -4794,7 +4796,7 @@ Object.assign(T.pt,{dlBtn:'Gráficos do relógio',dlHas:n=>'Dados do relógio: '
     fastUp:n=>n?n+' subidas acima de 1 m/s (subir devagar nos últimos metros é mais seguro)':'Todas as subidas abaixo de 1 m/s',corr:(r,w)=>'Correlação: '+r+' ('+w+')',w:['fraca','moderada','forte'],span:m=>'Distância entre os pontos mais afastados: '+m,zones:n=>n>1?n+' zonas diferentes (a mais de 300 m umas das outras)':'Todos os mergulhos na mesma zona',band:(b,v)=>'Mais tempo entre '+b+': '+v,rate:v=>'Ritmo: '+v+' debaixo de água por hora',thermo:(a,b)=>'Mais quente '+a+' · mais frio '+b,noThermo:'Sem diferença de temperatura notável',hrDrop:(k,v)=>'Maior descida de FC num mergulho: #'+k+' ('+v+' bpm)'}});
 Object.assign(T.en,{dlBtn:'Watch charts',dlHas:n=>'Watch data: '+n+' dives',
   dlS:['Dives','Max','Longest','Underwater','Swum','Avg HR'],
-  dlT:['Session profile','Heart rate over the session','Max depth per dive','Duration of each dive','Surface rest after each dive','Rest / dive ratio','Bottom time (waiting)','Descent and ascent speed','All dive profiles overlaid','Heart rate per dive (min–max)','Temperature vs depth','Depth vs duration','Duration vs next rest','Dive map','Time per depth band','Cumulative time underwater','Lowest HR vs depth','Dive table'],
+  dlT:['Session profile','Heart rate','Max depth per dive','Duration of each dive','Surface rest after each dive','Rest / dive ratio','Bottom time (waiting)','Descent and ascent speed','All dive profiles overlaid','Heart rate per dive (min–max)','Temperature vs depth','Depth vs duration','Duration vs next rest','Dive map','Time per depth band','Cumulative time underwater','Lowest HR vs depth','Dive table'],
   dlX:['Depth over the whole session, from the watch\'s first to last record. Each spike down is a dive; flat lines at zero are surface time (breathing, swimming or moving spots).',
     'Wrist heart rate over the session. During apnea the heart slows (dive reflex); at the surface it rises again. Very high, long peaks are usually sensor glitches or fast swimming.',
     'Max depth of each dive in the order they were made. The orange bar is the deepest. Shows whether you went deeper gradually (warm-up) or followed the bottom.',
@@ -4813,7 +4815,7 @@ Object.assign(T.en,{dlBtn:'Watch charts',dlHas:n=>'Watch data: '+n+' dives',
     'Underwater time adding up over the session. Flat parts are rests or moves; steep steps are series of dives.',
     'Each dot is a dive: max depth and lowest heart rate. Shows whether the heart slows more on deeper dives.',
     'All dives with their main values.'],
-  dlBack:'All charts',dlNote:'Depth readings under 0.45 m are ignored (sensor noise at the surface).',dlAx:{dep:'Depth, m',dur:'Duration, min:s',rest:'Rest, min',ratio:'Rest ÷ dive, ×',hang:'Bottom, min:s',spd:'Speed, m/s',hr:'HR, bpm',hrmin:'Lowest HR, bpm',temp:'Temperature, °C',dive:'Dive no.',clock:'Time of day',sec:'Seconds since the dive started',under:'Underwater, min',time:'Time, min:s'},dlAll:'All dives',dlZone:'Area',dlTip:'Hover or tap the chart to see values',dlDive:'Dive',
+  dlBack:'All charts',dlNote:'Depth readings under 0.45 m are ignored (sensor noise at the surface).',dlOv:'Overlay with',dlNone:'— none —',dlAx:{diveMax:'Dive no. (at its deepest point)',dep:'Depth, m',dur:'Duration, min:s',rest:'Rest, min',ratio:'Rest ÷ dive, ×',hang:'Bottom, min:s',spd:'Speed, m/s',hr:'HR, bpm',hrmin:'Lowest HR, bpm',temp:'Temperature, °C',dive:'Dive no.',clock:'Time of day',sec:'Seconds since the dive started',under:'Underwater, min',time:'Time, min:s'},dlAll:'All dives',dlZone:'Area',dlTip:'Hover or tap the chart to see values',dlDive:'Dive',
   dlU:{min:'min',s:'s',m:'m',bpm:'bpm',ms:'m/s'},dlDesc:'descent',dlAsc:'ascent',dlRule:'2× rule',dlDepth:'Depth',dlHR:'HR',dlTemp:'Temperature',dlDur:'Duration',dlRest:'Rest',dlHang:'Bottom',dlRatio:'Ratio',dlUnder:'Underwater',
   dlCols:['#','Start','Max','Time','Bottom','Desc.','Asc.','HR','Temp','Rest'],
   dlI:{n:(n,d)=>n+' dives in '+d,pct:p=>p+' % of the time underwater',deep:(k,m,h)=>'Deepest: #'+k+' at '+m+' m, '+h,avg:v=>'Average: '+v,max:(k,v)=>'Max: #'+k+' with '+v,min:(k,v)=>'Min: #'+k+' with '+v,tot:v=>'Total: '+v,
@@ -4840,24 +4842,28 @@ function fitLog(rec,dives,dpos,ses,off){
 let DLW=340,DLH=190,DLREG=[],DLCUR=null,DLBIG=false;const DLP={l:34,r:12,t:10,b:24};
 const dlA=s=>esc(String(s)).replace(/"/g,'&quot;');
 function dlNice(a,b,n){if(!(b>a)){b=a+1}const st=(b-a)/(n||4),p=Math.pow(10,Math.floor(Math.log10(st))),m=st/p,s=(m<1.5?1:m<3?2:m<7?5:10)*p,o=[];for(let v=Math.ceil(a/s-1e-9)*s;v<=b+1e-9;v+=s)o.push(+v.toFixed(6));return o}
-function dlFrame(x0,x1,y0,y1,o){o=o||{};const W=DLW,H=o.h||DLH,P={l:38,r:12,t:o.yu?22:10,b:o.noX?8:(o.xu?38:24)},iw=W-P.l-P.r,ih=H-P.t-P.b,k=DLBIG?2:1,dep=o.depth&&DLBIG;
+function dlFrame(x0,x1,y0,y1,o){o=o||{};const W=DLW,H=o.h||DLH,P={l:38,r:o.y2?40:12,t:(o.yu||o.y2)?22:10,b:o.noX?8:(o.xu?38:24)},iw=W-P.l-P.r,ih=H-P.t-P.b,k=DLBIG?2:1,dep=o.depth&&DLBIG;
   const sx=v=>P.l+(x1===x0?iw/2:(v-x0)/(x1-x0)*iw),sy=v=>o.inv?P.t+(v-y0)/(y1-y0||1)*ih:P.t+ih-(v-y0)/(y1-y0||1)*ih;
   let g='',yt=o.yt||dlNice(y0,y1,4*k);const ppm=ih/((y1-y0)||1);if(dep){const st=y1-y0>45?2:1;yt=[];for(let v=Math.ceil(y0);v<=y1+1e-9;v+=st)yt.push(v)}
   yt.forEach(v=>{if(v<y0-1e-9||v>y1+1e-9)return;const y=sy(v),M=!dep||v%5===0;g+='<line x1="'+P.l+'" x2="'+(W-P.r)+'" y1="'+y+'" y2="'+y+'" class="dg'+(dep?(M?' dgM':' dgm'):'')+'"/>'+(M||ppm>=11?'<text x="'+(P.l-4)+'" y="'+(y+3.5)+'" class="dy'+(dep?(M?' dyM':' dym'):'')+'">'+(o.yf?o.yf(v):fmt(v))+'</text>':'')});
   if(o.yu)g+='<text x="2" y="'+(P.t-9)+'" class="du">'+esc(o.yu)+'</text>';
+  let sy2=null;if(o.y2){const Y=o.y2;sy2=v=>Y.inv?P.t+(v-Y.y0)/(Y.y1-Y.y0||1)*ih:P.t+ih-(v-Y.y0)/(Y.y1-Y.y0||1)*ih;dlNice(Y.y0,Y.y1,4*k).forEach(v=>{if(v<Y.y0-1e-9||v>Y.y1+1e-9)return;g+='<text x="'+(W-P.r+4)+'" y="'+(sy2(v)+3.5)+'" class="dy d2" style="text-anchor:start">'+(Y.yf?Y.yf(v):fmt(v))+'</text>'});if(Y.yu)g+='<text x="'+(W-2)+'" y="'+(P.t-9)+'" class="du d2" style="text-anchor:end">'+esc(Y.yu)+'</text>'}
   if(!o.noX){const ty=P.t+ih+15;if(o.xl)o.xl.forEach(([v,l])=>{g+='<text x="'+sx(v)+'" y="'+ty+'" class="dx">'+l+'</text>'});
     else (o.xt||dlNice(x0,x1,5*k)).forEach(v=>{if(v<x0-1e-9||v>x1+1e-9)return;g+='<text x="'+sx(v)+'" y="'+ty+'" class="dx">'+(o.xf?o.xf(v):fmt(v))+'</text>'});
     if(o.xu)g+='<text x="'+(P.l+iw/2)+'" y="'+(H-5)+'" class="du" style="text-anchor:middle">'+esc(o.xu)+'</text>'}
-  return {sx,sy,W,H,P,iw,ih,g,x0,x1,y0,y1,inv:o.inv}}
-function dlSvg(F,body,extra,reg){let a='';if(reg){reg.F={x0:F.x0,x1:F.x1,y0:F.y0,y1:F.y1,P:F.P,iw:F.iw,ih:F.ih,W:F.W,H:F.H,inv:F.inv};DLREG.push(reg);a=' data-r="'+(DLREG.length-1)+'"';
+  return {sx,sy,sy2,y2:o.y2,W,H,P,iw,ih,g,x0,x1,y0,y1,inv:o.inv}}
+function dlSvg(F,body,extra,reg){let a='';if(reg){reg.F={x0:F.x0,x1:F.x1,y0:F.y0,y1:F.y1,P:F.P,iw:F.iw,ih:F.ih,W:F.W,H:F.H,inv:F.inv,y2:F.y2?{y0:F.y2.y0,y1:F.y2.y1,inv:F.y2.inv}:null};DLREG.push(reg);a=' data-r="'+(DLREG.length-1)+'"';
     extra=(extra||'')+'<line class="dch" x1="0" x2="0" y1="'+F.P.t+'" y2="'+(F.P.t+F.ih)+'" visibility="hidden"/><g class="dcd"></g><rect x="'+F.P.l+'" y="'+F.P.t+'" width="'+F.iw+'" height="'+F.ih+'" class="dhit"/>'}
   return '<svg viewBox="0 0 '+F.W+' '+F.H+'" class="dls'+(reg?' dlL':'')+'" role="img"'+a+'>'+F.g+body+(extra||'')+'</svg>'}
 function dlBars(vals,o){o=o||{};const n=vals.length,mx=o.max!=null?o.max:Math.max(...vals.map(v=>Array.isArray(v)?Math.max(...v.filter(x=>x!=null)):v||0),0)*1.1||1;
-  const F=dlFrame(0.5,n+0.5,o.min||0,mx,{xl:vals.map((v,i)=>[i+1,(n>16&&i%2&&!DLBIG)?'':String(i+1)]),yf:o.yf,inv:o.inv,depth:o.depth,yu:o.yu,xu:t('dlAx').dive});const bw=Math.min(DLBIG?40:22,F.iw/n*0.7);let b='';
-  const tf=o.tf||(v=>fmt(v)),nm=o.names||[''],lab=(i,j,u)=>t('dlDive')+' #'+(i+1)+(o.tipX?' · '+o.tipX(i):'')+'\n'+(nm[j]?nm[j]+': ':(o.yn?o.yn+': ':''))+tf(u),base=F.sy(o.min||0);
+  const V2=o.ov?o.ov.vals:null,v2=V2?V2.filter(v=>v!=null):[],Y2=V2?{y0:o.ov.y0!=null?o.ov.y0:0,y1:(Math.max(...v2,0)*1.1)||1,inv:o.ov.inv,yu:o.ov.yu,yf:o.ov.yf}:null;
+  const F=dlFrame(0.5,n+0.5,o.min||0,mx,{xl:vals.map((v,i)=>[i+1,(n>16&&i%2&&!DLBIG)?'':String(i+1)]),yf:o.yf,inv:o.inv,depth:o.depth&&!V2,yu:o.yu,xu:t('dlAx').dive,y2:Y2});const bw=Math.min(DLBIG?40:22,F.iw/n*0.7);let b='';
+  const tf=o.tf||(v=>fmt(v)),nm=o.names||[''],ovl=i=>V2&&V2[i]!=null?'\n'+o.ov.name+': '+o.ov.tf(V2[i]):'',lab=(i,j,u)=>t('dlDive')+' #'+(i+1)+(o.tipX?' · '+o.tipX(i):'')+'\n'+(nm[j]?nm[j]+': ':(o.yn?o.yn+': ':''))+tf(u)+ovl(i),base=F.sy(o.min||0);
   const rc=(x,w,u,cls,tip)=>{const y=F.sy(u);return '<rect x="'+x+'" y="'+Math.min(y,base)+'" width="'+w+'" height="'+Math.abs(base-y)+'" class="'+cls+'" rx="1.5" data-t="'+dlA(tip)+'"/>'};
   vals.forEach((v,i)=>{const x=F.sx(i+1);if(Array.isArray(v)){const k=v.length,w=bw/k;v.forEach((u,j)=>{if(u==null)return;b+=rc(x-bw/2+j*w,w-1,u,(o.cls||['b1','b2'])[j],lab(i,j,u)+(o.tipMore?'\n'+o.tipMore(i):''))})}
     else if(v!=null){b+=rc(x-bw/2,bw,v,o.hi&&o.hi(i)?'b2':'b1',lab(i,0,v)+(o.tipMore?'\n'+o.tipMore(i):''));if(DLBIG){const y=F.sy(v);b+='<text x="'+x+'" y="'+(o.inv?y+11:y-4)+'" class="dx dv">'+tf(v)+'</text>'}}});
+  if(V2){let d='';V2.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+F.sx(i+1).toFixed(1)+' '+F.sy2(v).toFixed(1)});b+='<path d="'+d+'" class="l3" style="stroke:var(--accent)"/>';
+    V2.forEach((v,i)=>{if(v==null)return;b+='<circle cx="'+F.sx(i+1)+'" cy="'+F.sy2(v)+'" r="'+(DLBIG?5:3.5)+'" class="dov" data-t="'+dlA(t('dlDive')+' #'+(i+1)+(o.tipX?' · '+o.tipX(i):'')+'\n'+o.ov.name+': '+o.ov.tf(v)+(vals[i]!=null&&!Array.isArray(vals[i])?'\n'+(o.yn||'')+': '+tf(vals[i]):''))+'"/>'})}
   if(o.ref!=null){const y=F.sy(o.ref);b+='<line x1="'+F.P.l+'" x2="'+(F.W-F.P.r)+'" y1="'+y+'" y2="'+y+'" class="dref"/><text x="'+(F.W-F.P.r)+'" y="'+(y+11)+'" class="dy" style="fill:var(--accent)">'+esc(o.refL||'')+'</text>'}
   return dlSvg(F,b)}
 function dlScatter(pts,o){o=o||{};if(!pts.length)return '';const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);let x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
@@ -4867,15 +4873,16 @@ function dlScatter(pts,o){o=o||{};if(!pts.length)return '';const xs=pts.map(p=>p
     b+='<circle cx="'+F.sx(p[0])+'" cy="'+F.sy(p[1])+'" r="'+((o.r||4)*(DLBIG?1.4:1))+'" class="'+(p[3]||'d1')+'" data-t="'+dlA(tip)+'"/>';if(p[2]!=null&&o.lab)b+='<text x="'+(F.sx(p[0])+7)+'" y="'+(F.sy(p[1])-6)+'" class="dn">'+p[2]+'</text>'});
   if(o.fit&&pts.length>2){const n=pts.length,mx=xs.reduce((a,b)=>a+b,0)/n,my=ys.reduce((a,b)=>a+b,0)/n,sxy=pts.reduce((a,p)=>a+(p[0]-mx)*(p[1]-my),0),sxx=pts.reduce((a,p)=>a+(p[0]-mx)**2,0);if(sxx>0){const k=sxy/sxx,c=my-k*mx,a=Math.min(...xs),z=Math.max(...xs);b='<line x1="'+F.sx(a)+'" x2="'+F.sx(z)+'" y1="'+F.sy(k*a+c)+'" y2="'+F.sy(k*z+c)+'" class="dfit"/>'+b}}
   return dlSvg(F,b)}
-function dlLine(series,o){o=o||{};let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;series.forEach(s=>s.pts.forEach(p=>{if(p[1]==null)return;x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])}));
-  if(!isFinite(x0))return '';if(o.y0!=null)y0=o.y0;else y0-=(y1-y0)*0.08||1;y1+=(y1-y0)*0.06||1;
-  const F=dlFrame(x0,x1,y0,y1,{inv:o.inv,xf:o.xf,yf:o.yf,depth:o.depth,yu:o.yu,xu:o.xu,noX:o.noX});let b='';
-  series.forEach(s=>{let d='',pen=false;s.pts.forEach(p=>{if(p[1]==null){pen=false;return}d+=(pen?'L':'M')+F.sx(p[0]).toFixed(1)+' '+F.sy(p[1]).toFixed(1);pen=true});
-    if(s.area){const a=s.pts.filter(p=>p[1]!=null);if(a.length)b+='<path d="M'+F.sx(a[0][0]).toFixed(1)+' '+F.sy(y0)+d.replace(/^M/,'L')+'L'+F.sx(a[a.length-1][0]).toFixed(1)+' '+F.sy(y0)+'Z" class="da"/>'}
+function dlLine(series,o){o=o||{};const rng=(ss,f0)=>{let a=Infinity,b=-Infinity,c=Infinity,d=-Infinity;ss.forEach(s=>s.pts.forEach(p=>{if(p[1]==null)return;a=Math.min(a,p[0]);b=Math.max(b,p[0]);c=Math.min(c,p[1]);d=Math.max(d,p[1])}));if(!isFinite(a))return null;if(f0!=null)c=f0;else c-=(d-c)*0.08||1;d+=(d-c)*0.06||1;return [a,b,c,d]};
+  const S1=series.filter(s=>s.ax!==2),S2=series.filter(s=>s.ax===2),r1=rng(S1,o.y0),r2=S2.length?rng(S2,o.y20):null;if(!r1)return '';
+  const x0=Math.min(r1[0],r2?r2[0]:Infinity),x1=Math.max(r1[1],r2?r2[1]:-Infinity),y0=r1[2];
+  const F=dlFrame(x0,x1,r1[2],r1[3],{inv:o.inv,xf:o.xf,yf:o.yf,depth:o.depth,yu:o.yu,xu:o.xu,noX:o.noX,xl:o.xl,y2:r2?{y0:r2[2],y1:r2[3],inv:o.inv2,yu:o.yu2,yf:o.yf2}:null});let b='';
+  series.forEach(s=>{const Y=s.ax===2?F.sy2:F.sy,base=s.ax===2?r2[2]:y0;let d='',pen=false;s.pts.forEach(p=>{if(p[1]==null){pen=false;return}d+=(pen?'L':'M')+F.sx(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1);pen=true});
+    if(s.area){const a=s.pts.filter(p=>p[1]!=null);if(a.length)b+='<path d="M'+F.sx(a[0][0]).toFixed(1)+' '+Y(base)+d.replace(/^M/,'L')+'L'+F.sx(a[a.length-1][0]).toFixed(1)+' '+Y(base)+'Z" class="da"/>'}
     b+='<path d="'+d+'" class="'+(s.cls||'l1')+'"'+(s.col?' style="stroke:'+s.col+'"':'')+'/>'});
   if(o.marks)o.marks.forEach(m=>{b+='<circle cx="'+F.sx(m[0])+'" cy="'+F.sy(m[1])+'" r="'+(DLBIG?5:3.6)+'" class="dmx" data-t="'+dlA(m[2])+'"/>'+(DLBIG&&m[3]?'<text x="'+F.sx(m[0])+'" y="'+(F.sy(m[1])+15)+'" class="dx dn">'+m[3]+'</text>':'')});
   if(o.noReg)return dlSvg(F,b);
-  return dlSvg(F,b,'',{kind:'line',series:series.map(s=>({pts:s.pts,name:s.name||'',col:s.col,cls:s.cls,vf:s.vf||(v=>fmt(v))})),xf:o.tipX||o.xf||(v=>fmt(v)),extra:o.tipExtra})}
+  return dlSvg(F,b,'',{kind:'line',series:series.map(s=>({pts:s.pts,ax:s.ax||1,name:s.name||'',col:s.col,cls:s.cls,vf:s.vf||(v=>fmt(v))})),xf:o.tipX||o.xf||(v=>fmt(v)),snap:o.snap,snapTip:o.snapTip})}
 const dlMs=s=>{s=Math.round(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 const dlHm=s=>{s=Math.round(s);const h=Math.floor(s/3600),m=Math.round((s%3600)/60);return h?h+' h '+String(m).padStart(2,'0')+' min':m+' min'};
 function dlCorr(P){const n=P.length;if(n<3)return null;const mx=P.reduce((a,p)=>a+p[0],0)/n,my=P.reduce((a,p)=>a+p[1],0)/n;let a=0,b=0,c=0;P.forEach(p=>{a+=(p[0]-mx)*(p[1]-my);b+=(p[0]-mx)**2;c+=(p[1]-my)**2});return b&&c?a/Math.sqrt(b*c):null}
@@ -4888,11 +4895,12 @@ function dlBuild(L0){const cl=v=>v!=null&&v<4.5?0:v,L={...L0,d:(L0.d||[]).map(cl
   const avg=f=>{const v=D.map(f).filter(x=>x!=null);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null},half=f=>{const h=Math.ceil(n/2),a=D.slice(0,h).map(f).filter(x=>x!=null),b=D.slice(h).map(f).filter(x=>x!=null),m=v=>v.length?v.reduce((p,q)=>p+q,0)/v.length:null;return [m(a),m(b)]};
   const deep=arg(x=>x.max),xmin=v=>tm(v*60),r1=v=>fmt(Math.round(v*10)/10),dvAt=s=>D.findIndex(x=>s>=x.s&&s<=x.s+x.dur);
   const tipX=i=>tm(D[i].s);
+  const mxT=D.map(x=>(x.s+Math.max(0,x.p.indexOf(Math.max(...x.p))))/60),xlD=mxT.map((v,i)=>[v,(n>20&&i%2&&!DLBIG)?'':String(i+1)]),snapHead=i=>t('dlDive')+' #'+(i+1)+' · '+tms(mxT[i]*60),snapTip=i=>snapHead(i)+'\n'+t('dlDepth')+': '+fmt(D[i].max)+' m';
   const sessTip=v=>{const s=v*60,k=dvAt(Math.round(s));return tms(s)+(k>=0?' · '+t('dlDive')+' #'+(k+1):'')};
   const C=[
     {dep:1,f:()=>dlLine([{pts:L.d.map((v,i)=>[i*L.dt/60,v==null?null:v/10]),area:true,cls:'l1'}],{inv:true,y0:0,noX:true,noReg:true,depth:true,yu:A.dep,marks:D.map((x,i)=>{const j=x.p.indexOf(Math.max(...x.p));return [(x.s+j)/60,x.max,t('dlDive')+' #'+(i+1)+'\n'+tms(x.s+j)+'\n'+t('dlDepth')+': '+fmt(x.max)+' m',i+1]})}),
      i:()=>[I.n(n,dlHm(span)),I.pct(Math.round(under/span*100)),deep>=0?I.deep(deep+1,fmt(D[deep].max),tm(D[deep].s)):null]},
-    {f:()=>hrs.length?dlLine([{pts:L.h.map((v,i)=>[i*L.dt/60,v]),cls:'l2',name:t('dlHR'),vf:v=>Math.round(v)+' '+u.bpm}],{xf:xmin,tipX:sessTip,yu:A.hr,xu:A.clock}):'',
+    {f:()=>hrs.length?dlLine([{pts:L.h.map((v,i)=>[i*L.dt/60,v]),cls:'l2',name:t('dlHR'),vf:v=>Math.round(v)+' '+u.bpm}],{xl:xlD,snap:mxT,snapTip,yu:A.hr,xu:A.diveMax}):'',
      i:()=>{if(!hrs.length)return [];const dv=[],sf=[];L.h.forEach((v,i)=>{if(v==null)return;(dvAt(i*L.dt)>=0?dv:sf).push(v)});const m=a=>a.length?Math.round(a.reduce((p,q)=>p+q,0)/a.length)+' '+u.bpm:'—';return [I.avg(m(hrs)),I.hrDive(m(dv),m(sf)),'Min '+Math.min(...hrs)+' · Max '+Math.max(...hrs)+' '+u.bpm]}},
     {dep:1,f:()=>dlBars(D.map(x=>x.max),{inv:true,depth:true,yu:A.dep,hi:i=>i===deep,tf:v=>fmt(v)+' m',yn:t('dlDepth'),tipX,tipMore:i=>t('dlDur')+': '+dlMs(D[i].dur)}),
      i:()=>{const h=half(x=>x.max),s=argMin(x=>x.max);return [I.avg(r1(avg(x=>x.max))+' m'),I.max(deep+1,fmt(D[deep].max)+' m'),I.min(s+1,fmt(D[s].max)+' m'),n>3?I.trend(r1(h[0])+' m',r1(h[1])+' m'):null]}},
@@ -4940,23 +4948,46 @@ function dlBuild(L0){const cl=v=>v!=null&&v<4.5?0:v,L={...L0,d:(L0.d||[]).map(cl
     {dep:1,f:()=>D.some(x=>x.hn!=null)?dlScatter(D.filter(x=>x.hn!=null).map(x=>[x.hn,x.max,D.indexOf(x)+1,null,tm(x.s)]),{lab:true,inv:true,y0:0,depth:true,fit:DLBIG,yu:A.dep,xu:A.hrmin,xn:t('dlHR'),yn:t('dlDepth'),xtf:v=>v+' '+u.bpm,ytf:v=>fmt(v)+' m'}):'',
      i:()=>[dlCorrTxt(D.filter(x=>x.hn!=null).map(x=>[x.hn,x.max]))]},
     {f:()=>{const c=t('dlCols');return '<div class="dltw"><table class="dlt"><thead><tr>'+c.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr></thead><tbody>'+D.map((x,i)=>'<tr'+(i===deep?' class="dlhi"':'')+'><td>'+(i+1)+'</td><td>'+tm(x.s)+'</td><td>'+fmt(x.max)+' m</td><td>'+dlMs(x.dur)+'</td><td>'+dlMs(x.hang)+'</td><td>'+(x.dr!=null?fmt(x.dr):'—')+'</td><td>'+(x.ar!=null?fmt(x.ar):'—')+'</td><td>'+(x.hn!=null?x.hn+'–'+x.hx:'—')+'</td><td>'+(x.tb!=null?x.tb+'°':'—')+'</td><td>'+(x.surf!=null?dlMs(x.surf):'—')+'</td></tr>').join('')+'</tbody></table></div>'},i:()=>[]}];
+  const cum=()=>{let acc=0;const pts=[[0,0]];D.forEach(x=>{pts.push([x.s/60,acc/60]);acc+=x.dur;pts.push([(x.s+x.dur)/60,acc/60])});pts.push([span/60,acc/60]);return pts};
+  C[0].ov={x:'s',name:t('dlDepth'),yu:A.dep,inv:true,y0:0,area:true,pts:()=>L.d.map((v,i)=>[i*L.dt/60,v==null?null:v/10]),vf:v=>r1(v)+' m'};
+  if(hrs.length)C[1].ov={x:'s',name:t('dlHR'),yu:A.hr,pts:()=>L.h.map((v,i)=>[i*L.dt/60,v]),vf:v=>Math.round(v)+' '+u.bpm};
+  C[15].ov={x:'s',name:t('dlUnder'),yu:A.under,y0:0,pts:cum,vf:v=>dlMs(v*60)};
+  C[2].ov={x:'d',name:t('dlDepth'),yu:A.dep,inv:true,vals:D.map(x=>x.max),tf:v=>fmt(v)+' m'};
+  C[3].ov={x:'d',name:t('dlDur'),yu:A.dur,vals:D.map(x=>x.dur),tf:dlMs,yf:dlMs};
+  C[4].ov={x:'d',name:t('dlRest'),yu:A.rest,vals:D.map(x=>x.surf!=null?x.surf/60:null),tf:v=>dlMs(v*60)};
+  C[5].ov={x:'d',name:t('dlRatio'),yu:A.ratio,vals:D.map(x=>x.surf!=null&&x.dur?Math.round(x.surf/x.dur*10)/10:null),tf:v=>r1(v)+'×'};
+  C[6].ov={x:'d',name:t('dlHang'),yu:A.hang,vals:D.map(x=>x.hang),tf:dlMs,yf:dlMs};
+  if(D.some(x=>x.hn!=null)){const lo=Math.min(...D.map(x=>x.hn).filter(v=>v!=null));C[9].ov={x:'d',name:t('dlHR')+' min',yu:A.hrmin,vals:D.map(x=>x.hn),tf:v=>v+' '+u.bpm,y0:Math.max(0,lo-10)}}
   const st=[[n,''],[fmt(Math.max(...D.map(x=>x.max)))+' m',''],[dlMs(Math.max(...D.map(x=>x.dur))),''],[dlMs(under),Math.round(under/span*100)+'%'],[L.dist!=null?(L.dist>=1000?fmt(Math.round(L.dist/100)/10)+' km':L.dist+' m'):'—',''],[hrs.length?Math.round(hrs.reduce((a,b)=>a+b,0)/hrs.length)+' '+u.bpm:'—','']];
-  return {C,st}}
+  return {C,st,xlD,mxT,snapTip,snapHead,tipX}}
 /* chart order is the viewer's own; numbers follow the position */
 const DLOK='sn-dlord';
 function dlOrd(){let a=[];try{a=JSON.parse(localStorage.getItem(DLOK)||'[]')}catch(_){}a=(Array.isArray(a)?a:[]).filter((v,i,x)=>Number.isInteger(v)&&v>=0&&v<18&&x.indexOf(v)===i);for(let i=0;i<18;i++)if(!a.includes(i))a.splice(Math.min(i,a.length),0,i);return a}
 function dlOrdSave(a){try{localStorage.setItem(DLOK,JSON.stringify(a))}catch(_){}}
+/* overlay: one chart drawn on top of another that shares its horizontal axis */
+const DLOVK='sn-dlov';
+function dlOvAll(){try{const o=JSON.parse(localStorage.getItem(DLOVK)||'{}');return o&&typeof o==='object'?o:{}}catch(_){return {}}}
+function dlOvGet(B,k){const j=dlOvAll()[k];if(j==null)return null;const a=B.C[k]&&B.C[k].ov,b=B.C[j]&&B.C[j].ov;return a&&b&&a.x===b.x&&j!==k?+j:null}
+function dlOvSet(k,j){const o=dlOvAll();if(j==null)delete o[k];else o[k]=j;try{localStorage.setItem(DLOVK,JSON.stringify(o))}catch(_){}}
+function dlKey(a,b){return '<div class="dlk"><i class="k1"></i>'+esc(a)+' <i class="k2"></i>'+esc(b)+'</div>'}
+function dlCombo(B,k,j){const a=B.C[k].ov,b=B.C[j].ov;
+  if(a.x==='s')return dlLine([{pts:a.pts(),area:a.area,cls:'l1',name:a.name,vf:a.vf},{pts:b.pts(),ax:2,cls:'l3',col:'var(--accent)',name:b.name,vf:b.vf}],{inv:a.inv,y0:a.y0,depth:a.inv,inv2:b.inv,y20:b.y0,yu:a.yu,yu2:b.yu,xl:B.xlD,snap:B.mxT,snapTip:(a.inv||b.inv)?B.snapHead:B.snapTip,xu:t('dlAx').diveMax})+dlKey(a.name,b.name);
+  return dlBars(a.vals,{inv:a.inv,depth:a.inv,yu:a.yu,yf:a.yf,min:a.y0,tf:a.tf,yn:a.name,tipX:B.tipX,ov:b})+dlKey(a.name,b.name)}
+function dlBody(B,k){const j=dlOvGet(B,k);return j!=null?dlCombo(B,k,j):B.C[k].f()}
+function dlTitle(B,k){const j=dlOvGet(B,k);return t('dlT')[k]+(j!=null?' + '+t('dlT')[j]:'')}
 const DLZ='<svg class="dlz" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6"/></svg>';
 function dlogHtml(L){DLREG=[];DLW=340;DLH=190;DLBIG=false;const B=dlBuild(L);
   let h='<div class="dlst">'+B.st.map((s,i)=>'<div><b>'+esc(String(s[0]))+'</b><span>'+esc(t('dlS')[i])+(s[1]?' · '+s[1]:'')+'</span></div>').join('')+'</div><div class="dlg">';let n=0;
-  h+=dlOrd().map(i=>{const body=B.C[i].f();return body?'<figure class="dlc'+(i===17?' dlwide':'')+'" data-k="'+i+'" tabindex="0" role="button"><figcaption><span class="dln">'+(++n)+'</span>'+esc(t('dlT')[i])+DLZ+'</figcaption>'+body+'</figure>':''}).join('')+'</div>';return h}
-function dlOne(L,k){DLREG=[];const big=innerWidth>=700;DLW=big?680:340;DLH=big?360:250;DLBIG=true;const B=dlBuild(L),c=B.C[k],ins=(c.i()||[]).filter(Boolean);
+  h+=dlOrd().map(i=>{const body=dlBody(B,i);return body?'<figure class="dlc'+(i===17?' dlwide':'')+'" data-k="'+i+'" tabindex="0" role="button"><figcaption><span class="dln">'+(++n)+'</span>'+esc(dlTitle(B,i))+DLZ+'</figcaption>'+body+'</figure>':''}).join('')+'</div>';return h}
+function dlOne(L,k){DLREG=[];const big=innerWidth>=700;DLW=big?680:340;DLH=big?360:250;DLBIG=true;const B=dlBuild(L),c=B.C[k],oj=dlOvGet(B,k),ins=(c.i()||[]).concat(oj!=null?B.C[oj].i()||[]:[]).filter(Boolean);
   const avail=dlOrd().filter(i=>{DLREG=[];return i===k||!!B.C[i].f()});DLREG=[];
-  const body=c.f(),j=avail.indexOf(k),pv=avail[j-1],nx=avail[j+1];
+  const body=dlBody(B,k),j=avail.indexOf(k),pv=avail[j-1],nx=avail[j+1];
+  const comp=c.ov?avail.filter(i=>i!==k&&B.C[i].ov&&B.C[i].ov.x===c.ov.x):[];
+  const sel=comp.length?'<label class="dlov">'+esc(t('dlOv'))+'<select data-ov="'+k+'"><option value="">'+esc(t('dlNone'))+'</option>'+comp.map(i=>'<option value="'+i+'"'+(oj===i?' selected':'')+'>'+esc(t('dlT')[i])+'</option>').join('')+'</select></label>':'';
   const arr=(i,d)=>'<button type="button" class="dlnav" '+(i==null?'disabled':'data-go="'+i+'"')+' data-d="'+d+'" aria-label="'+(d<0?'‹':'›')+'"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+(d<0?'M15 6l-6 6 6 6':'M9 6l6 6-6 6')+'"/></svg></button>';
   return '<div class="dl1h"><button type="button" class="dlback" data-back="1"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>'+esc(t('dlBack'))+'</button><span class="dl1n">'+arr(pv,-1)+'<b>'+(j+1)+' / '+avail.length+'</b>'+arr(nx,1)+'</span></div>'+
-    '<h3 class="dl1t"><span class="dln">'+(j+1)+'</span>'+esc(t('dlT')[k])+'</h3><div class="dl1c">'+body+'</div>'+(k<17?'<p class="dl1hint">'+esc(t('dlTip'))+'</p>':'')+
-    '<div class="dl1x"><p>'+esc(t('dlX')[k])+'</p>'+(ins.length?'<ul>'+ins.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul>':'')+(c.dep?'<p class="dlnote">'+esc(t('dlNote'))+'</p>':'')+'</div>'}
+    '<h3 class="dl1t"><span class="dln">'+(j+1)+'</span>'+esc(dlTitle(B,k))+'</h3>'+sel+'<div class="dl1c">'+body+'</div>'+(k<17?'<p class="dl1hint">'+esc(t('dlTip'))+'</p>':'')+
+    '<div class="dl1x"><p>'+esc(t('dlX')[k])+'</p>'+(oj!=null?'<p>'+esc(t('dlX')[oj])+'</p>':'')+(ins.length?'<ul>'+ins.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul>':'')+((c.dep||(oj!=null&&B.C[oj].dep))?'<p class="dlnote">'+esc(t('dlNote'))+'</p>':'')+'</div>'}
 function dlShow(k){const b=$('dlogBody');b.innerHTML=k==null?dlogHtml(DLCUR):dlOne(DLCUR,k);b.dataset.k=k==null?'':k;$('dlogD').querySelector('.sheet-in').scrollTop=0;try{$('dlogD').scrollTop=0}catch(_){}}
 function dlogOpen(e){if(!e||!e.dlog)return;DLCUR=e.dlog;$('dlogTitle').textContent=[e.spot,e.date?fmtDate(e.date):''].filter(Boolean).join(' · ');try{dlShow(null)}catch(err){$('dlogBody').textContent=String(err)}$('dlogD').showModal()}
 $('dlogClose').addEventListener('click',()=>$('dlogD').close());
@@ -4967,13 +4998,14 @@ $('dlogClose').addEventListener('click',()=>$('dlogD').close());
   const move=ev=>{if(dr&&dr.on)return;const el=ev.target.closest&&ev.target.closest('[data-t]');if(el&&body.contains(el)){if(lastSvg&&lastSvg!==el.closest('svg'))clear();place(ev.clientX,ev.clientY,el.dataset.t);return}
     const svg=ev.target.closest&&ev.target.closest('svg.dlL');if(!svg){clear();return}const R=DLREG[+svg.dataset.r];if(!R){clear();return}
     const m=svg.getScreenCTM();if(!m)return;const p=new DOMPoint(ev.clientX,ev.clientY).matrixTransform(m.inverse()),F=R.F;
-    const xv=F.x0+(Math.min(Math.max(p.x,F.P.l),F.P.l+F.iw)-F.P.l)/F.iw*(F.x1-F.x0);const sx=v=>F.P.l+(v-F.x0)/(F.x1-F.x0)*F.iw,sy=v=>F.inv?F.P.t+(v-F.y0)/(F.y1-F.y0||1)*F.ih:F.P.t+F.ih-(v-F.y0)/(F.y1-F.y0||1)*F.ih;
+    let xv=F.x0+(Math.min(Math.max(p.x,F.P.l),F.P.l+F.iw)-F.P.l)/F.iw*(F.x1-F.x0);const sx=v=>F.P.l+(v-F.x0)/(F.x1-F.x0)*F.iw,sy1=v=>F.inv?F.P.t+(v-F.y0)/(F.y1-F.y0||1)*F.ih:F.P.t+F.ih-(v-F.y0)/(F.y1-F.y0||1)*F.ih,Y2=F.y2,sy2=v=>Y2.inv?F.P.t+(v-Y2.y0)/(Y2.y1-Y2.y0||1)*F.ih:F.P.t+F.ih-(v-Y2.y0)/(Y2.y1-Y2.y0||1)*F.ih;
+    let si=-1;if(R.snap&&R.snap.length){R.snap.forEach((v,i)=>{if(si<0||Math.abs(v-xv)<Math.abs(R.snap[si]-xv))si=i});xv=R.snap[si]}
     let lines=[],dots='',best=null;
     R.series.forEach(s=>{let lo=0,hi=s.pts.length-1;if(hi<0)return;while(hi-lo>1){const md=(lo+hi)>>1;if(s.pts[md][0]<xv)lo=md;else hi=md}const q=Math.abs(s.pts[lo][0]-xv)<=Math.abs(s.pts[hi][0]-xv)?s.pts[lo]:s.pts[hi];
-      if(q[1]==null||Math.abs(q[0]-xv)>(F.x1-F.x0)*0.03)return;best=best==null?q[0]:best;lines.push((s.name?s.name+': ':'')+s.vf(q[1]));dots+='<circle cx="'+sx(q[0])+'" cy="'+sy(q[1])+'" r="3.5" class="dcp"'+(s.col?' style="fill:'+s.col+'"':'')+'/>'});
+      if(q[1]==null||(si<0&&Math.abs(q[0]-xv)>(F.x1-F.x0)*0.03))return;best=best==null?q[0]:best;const sy=s.ax===2&&Y2?sy2:sy1;lines.push((s.name?s.name+': ':'')+s.vf(q[1]));dots+='<circle cx="'+sx(si>=0?xv:q[0])+'" cy="'+sy(q[1])+'" r="3.5" class="dcp"'+(s.col?' style="fill:'+s.col+'"':'')+'/>'});
     if(lines.length>8)lines=lines.slice(0,8).concat(['…']);
     const l=svg.querySelector('.dch');l.setAttribute('x1',sx(xv));l.setAttribute('x2',sx(xv));l.setAttribute('visibility','visible');svg.querySelector('.dcd').innerHTML=dots;lastSvg=svg;
-    place(ev.clientX,ev.clientY,R.xf(xv)+(lines.length?'\n'+lines.join('\n'):''))};
+    place(ev.clientX,ev.clientY,(si>=0&&R.snapTip?R.snapTip(si):R.xf(xv))+(lines.length?'\n'+lines.join('\n'):''))};
   body.addEventListener('pointermove',move);body.addEventListener('pointerdown',ev=>{if(body.dataset.k!=='')move(ev)});body.addEventListener('pointerleave',ev=>{if(ev.pointerType==='mouse')clear()});document.addEventListener('pointerdown',ev=>{if(!ev.target.closest||!ev.target.closest('#dlogBody svg'))clear()},true);$('dlogD').addEventListener('scroll',clear,true);
   let dr=null,noClick=0;const scroller=()=>[$('dlogD').querySelector('.sheet-in'),$('dlogD')].find(e=>e&&e.scrollHeight>e.clientHeight+2);
   const startDrag=()=>{dr.on=true;dr.f.classList.add('dldrag');clear();try{navigator.vibrate&&navigator.vibrate(12)}catch(_){}};
@@ -4991,6 +5023,7 @@ $('dlogClose').addEventListener('click',()=>$('dlogD').close());
   body.addEventListener('contextmenu',ev=>{if(ev.target.closest('figure.dlc'))ev.preventDefault()});
   body.addEventListener('click',ev=>{if(Date.now()-noClick<400){ev.preventDefault();return}const g=ev.target.closest('[data-go]');if(g){clear();dlShow(+g.dataset.go);return}if(ev.target.closest('[data-back]')){clear();dlShow(null);return}
     if(ev.target.closest('a'))return;const f=ev.target.closest('figure.dlc[data-k]');if(f){clear();dlShow(+f.dataset.k)}});
+  body.addEventListener('change',ev=>{const sl=ev.target.closest&&ev.target.closest('select[data-ov]');if(!sl)return;const k=+sl.dataset.ov;dlOvSet(k,sl.value===''?null:+sl.value);clear();dlShow(k)});
   body.addEventListener('keydown',ev=>{const f=ev.target.closest('figure.dlc[data-k]');if(f&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();dlShow(+f.dataset.k)}});
   $('dlogD').addEventListener('keydown',ev=>{if(body.dataset.k==='')return;if(ev.key==='ArrowRight'||ev.key==='ArrowLeft'){const go=body.querySelector('[data-go][data-d="'+(ev.key==='ArrowRight'?1:-1)+'"]');if(go){clear();dlShow(+go.dataset.go)}}});
   $('dlogD').addEventListener('close',()=>{clear();DLCUR=null})})();
