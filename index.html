@@ -713,6 +713,10 @@ header h1{position:relative;padding-top:1.07em}
 .dlog-d .sheet-in{row-gap:12px}.dlog-d .dlst{margin-top:0}
 /* charts window stays pinned to the top, so switching charts of different heights doesn't make it jump */
 .dlog-d{margin-top:12px!important;margin-bottom:auto!important}@media (max-width:700px){.dlog-d{margin-top:4px!important}}
+/* date lines up with the numbered circles; swipe animation */
+#dlogTitle{padding-left:9px!important}.dlog-d .dl1h,.dlog-d .dl1t,.dlog-d .dlov,.dlog-d .dl1x{padding-left:9px!important;padding-right:9px!important}.dlog-d .dlback{margin-left:-4px}
+@keyframes dlsr{from{transform:translateX(36px);opacity:.2}to{transform:none;opacity:1}}@keyframes dlsl{from{transform:translateX(-36px);opacity:.2}to{transform:none;opacity:1}}
+#dlogBody.dlsr{animation:dlsr .22s ease-out}#dlogBody.dlsl{animation:dlsl .22s ease-out}
 .dlnote{font-size:.8rem;color:var(--muted);margin-top:10px!important}
 
 .dlc{cursor:pointer;transition:border-color .15s}.dlc:hover{border-color:var(--sea)}.dlc:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
@@ -1418,6 +1422,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:max(0px,calc(env(sa
 /* phones: windows start right under the status band and use the full height */
 @media (max-width:700px){dialog:not(#viewer):not(.so-page){top:max(0px,calc(env(safe-area-inset-top,0px) - 6px));bottom:env(safe-area-inset-bottom,0px);max-height:calc(100dvh - max(0px,calc(env(safe-area-inset-top,0px) - 6px)) - env(safe-area-inset-bottom,0px) - 8px)}
   dialog:not(#viewer):not(.so-page) .sheet-in{max-height:calc(100dvh - max(0px,calc(env(safe-area-inset-top,0px) - 6px)) - env(safe-area-inset-bottom,0px) - 10px)}}
+
+/* folded forecast strip */
+.fcs{cursor:pointer;margin:2px 2px 4px;padding:2px 0 4px;--fcsw:1;-webkit-tap-highlight-color:transparent}
+.fcs-d{display:grid;margin-right:30px;text-align:center;line-height:1.15;margin-bottom:6px}
+.fcs-d span{display:flex;flex-direction:column;color:var(--muted);opacity:.75}.fcs-d span.on{color:var(--ink);opacity:1}
+.fcs-d b{font-size:11px;font-weight:700;letter-spacing:.04em}.fcs-d i{font-style:normal;font-size:14px;font-weight:600}
+.fcs-rows{position:relative;display:flex;flex-direction:column;gap:5px}
+.fcs-r{display:flex;align-items:center;gap:8px}.fcs-b{flex:1;height:12px;border-radius:6px}.fcs-i{flex:none;width:22px;color:var(--muted);display:grid;place-items:center}
+.fcs-now{position:absolute;top:-3px;bottom:-3px;width:16px;margin-left:-8px;border:2px solid var(--surface);border-radius:6px;box-shadow:0 0 0 1.5px var(--ink);pointer-events:none;left:0}
+.fcs-rows{--fcsw:1}
 </style>
 </head>
 <body>
@@ -1475,6 +1489,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:max(0px,calc(env(sa
     <div id="fcBox"></div>
     <details class="fc-info" id="fcInfo"><summary data-i="fcInfo"></summary><p class="hint"><span data-i="fcNote"></span> <span id="fcTideNote"></span> <span data-i="fcData"></span> <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a></p></details>
   </details>
+  <div class="fcs" id="fcStrip" hidden role="button" tabindex="0"></div>
   <form class="capture" id="quickForm" autocomplete="off">
     <div class="capture-row">
       <input id="quick" data-ph="quickPh" data-al="quickAl">
@@ -2451,7 +2466,7 @@ $('newPassForm').addEventListener('submit',async ev=>{
 $('signOut').addEventListener('click',async()=>{await sb.auth.signOut();location.reload()});
 let started=false;
 function startApp(user){
-  if(started||recovering)return;started=true;setTimeout(()=>{fcFillSelect();if($('fcCard').open)fcLoad()},300);
+  if(started||recovering)return;started=true;setTimeout(()=>{fcFillSelect();fcLoad()},300);
   $('authView').hidden=true;$('appView').hidden=false;
   $('who').textContent=user.email||'';$('setAccount').hidden=false;
   store=sbStore(user.id);assets=sbAssets(user.id);downloads=fileDownloads;
@@ -2462,14 +2477,14 @@ function startApp(user){
 async function boot(){
   document.querySelectorAll('[data-ic]').forEach(el=>{el.outerHTML=ICON[el.dataset.ic]});
   applyLang();sampler=null;$('fixBar').hidden=true;
-  if(DEMO){store=demoStore();loaded=true;showMode('demoMode');store.sub(onData);setTimeout(()=>{fcFillSelect();if($('fcCard').open)fcLoad()},300);downloads=fileDownloads;$('exportCsv').hidden=false;return}
+  if(DEMO){store=demoStore();loaded=true;showMode('demoMode');store.sub(onData);setTimeout(()=>{fcFillSelect();fcLoad()},300);downloads=fileDownloads;$('exportCsv').hidden=false;return}
   if(CFG.supabaseUrl&&CFG.supabaseAnonKey&&!window.supabase){
     for(const u of['https://unpkg.com/@supabase/supabase-js@2.110.1/dist/umd/supabase.js','https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js']){
       await new Promise(ok=>{const sc=document.createElement('script');sc.src=u;sc.onload=ok;sc.onerror=ok;document.head.append(sc)});if(window.supabase)break;
     }
   }
   if(!CFG.supabaseUrl||!CFG.supabaseAnonKey||!window.supabase){
-    store=localStore();loaded=true;showMode('setup');store.sub(onData);setTimeout(()=>{fcFillSelect();if($('fcCard').open)fcLoad()},300);downloads=fileDownloads;$('exportCsv').hidden=false;$('backupBtn').hidden=false;return;
+    store=localStore();loaded=true;showMode('setup');store.sub(onData);setTimeout(()=>{fcFillSelect();fcLoad()},300);downloads=fileDownloads;$('exportCsv').hidden=false;$('backupBtn').hidden=false;return;
   }
   const u0=location.hash+'&'+location.search;let resetAsked=0;try{resetAsked=+localStorage.getItem('sn-reset')||0}catch(e){}
   recovering=/type=recovery/.test(u0)||(/[?&]code=/.test(location.search)&&Date.now()-resetAsked<36e5*2);
@@ -2538,13 +2553,13 @@ function fcFillSelect(){
 }
 async function fcGet(url){const r=await fetch(url);if(!r.ok)throw new Error('http '+r.status);return r.json()}
 async function fcLoad(force){
-  fcSpot=fcPick();const key='sn-fc4-'+fcSpot.lat.toFixed(3)+','+fcSpot.lon.toFixed(3);
+  fcSpot=fcPick();const key='sn-fc5-'+fcSpot.lat.toFixed(3)+','+fcSpot.lon.toFixed(3);
   if(!force){try{const c=JSON.parse(localStorage.getItem(key)||'null');if(c&&Date.now()-c.at<36e5){fcData=c;fcErr='';drawForecast();return}}catch(e){}}
   fcLoading=true;drawForecast();
   const ll='latitude='+fcSpot.lat.toFixed(4)+'&longitude='+fcSpot.lon.toFixed(4);
   try{
-    const w=await fcGet('https://api.open-meteo.com/v1/forecast?'+ll+'&hourly=weather_code,cloud_cover,precipitation,visibility,temperature_2m,wind_speed_10m,wind_gusts_10m,wind_direction_10m&wind_speed_unit=kn&timeformat=unixtime&timezone=GMT&forecast_days=4&past_days=3');
-    const mq='&hourly=wave_height,wave_period,wave_direction,swell_wave_height,swell_wave_period,swell_wave_direction,sea_surface_temperature,sea_level_height_msl&timeformat=unixtime&timezone=GMT&forecast_days=4&past_days=3';
+    const w=await fcGet('https://api.open-meteo.com/v1/forecast?'+ll+'&hourly=weather_code,cloud_cover,precipitation,visibility,temperature_2m,wind_speed_10m,wind_gusts_10m,wind_direction_10m&wind_speed_unit=kn&timeformat=unixtime&timezone=GMT&forecast_days=7&past_days=3');
+    const mq='&hourly=wave_height,wave_period,wave_direction,swell_wave_height,swell_wave_period,swell_wave_direction,sea_surface_temperature,sea_level_height_msl&timeformat=unixtime&timezone=GMT&forecast_days=7&past_days=3';
     let m=await fcGet('https://marine-api.open-meteo.com/v1/marine?'+ll+mq);
     const empty=x=>!x||!x.hourly||!(x.hourly.wave_height||[]).some(v=>v!=null);
     if(empty(m))m=await fcGet('https://marine-api.open-meteo.com/v1/marine?latitude='+fcSpot.lat.toFixed(4)+'&longitude='+(fcSpot.lon-.08).toFixed(4)+mq);
@@ -2635,7 +2650,32 @@ function moonSvg(x,y,r,p){
 }
 const moonName=p=>p<.03||p>.97?'mNew':p<.22?'mWaxC':p<.28?'mFirst':p<.47?'mWaxG':p<.53?'mFull':p<.72?'mWanG':p<.78?'mLast':'mWanC';
 function fcStep(){try{return localStorage.getItem('sn-fc-step')==='3'?3:1}catch(e){return 1}}
+
+/* folded "Mar e tempo": a Windy-style week strip — days on top, wind colours, then wave colours */
+const FCS_W=[[0,'#3f63c8'],[4,'#4fb0e2'],[8,'#5cc9c0'],[11,'#3ccf4e'],[15,'#9bdc26'],[19,'#f0e11d'],[24,'#f3a31b'],[29,'#ec5528'],[35,'#d23173'],[45,'#8a3fc7']];
+const FCS_V=[[0,'#3f63c8'],[.4,'#4fb0e2'],[.8,'#5cc9c0'],[1.2,'#3ccf4e'],[1.7,'#9bdc26'],[2.3,'#f0e11d'],[3,'#f3a31b'],[4,'#ec5528'],[5.5,'#d23173'],[8,'#8a3fc7']];
+function fcsCol(sc,v){if(v==null)return null;if(v<=sc[0][0])return sc[0][1];for(let i=1;i<sc.length;i++)if(v<=sc[i][0]){const[a,ca]=sc[i-1],[b,cb]=sc[i],f=(v-a)/(b-a),h=x=>parseInt(x,16),c=k=>Math.round(h(ca.substr(k,2))*(1-f)+h(cb.substr(k,2))*f);return 'rgb('+c(1)+','+c(3)+','+c(5)+')'}return sc[sc.length-1][1]}
+function fcStrip(){const el=$('fcStrip'),card=$('fcCard');if(!el||!card)return;const D=fcData;
+  if(card.open||!D||!D.w||!D.w.time){el.hidden=true;return}
+  const nowMs=Date.now(),p=lisbonParts(nowMs),t0=nowMs-((p.hour*60+p.minute)*60+p.second)*1000-nowMs%1000;
+  const ser=(h,k)=>{const m=new Map();if(h&&h.time)h.time.forEach((s,i)=>{if(h[k]&&h[k][i]!=null)m.set(s*1000,h[k][i])});return m};
+  const W=ser(D.w,'wind_speed_10m'),G=ser(D.w,'wind_gusts_10m'),V=ser(D.m,'wave_height');
+  const last=m=>Math.max(t0,...[...m.keys()]),end=Math.max(last(W),last(V)),nd=Math.max(1,Math.min(7,Math.ceil((end-t0+36e5)/864e5))),T1=t0+nd*864e5,span=T1-t0;
+  const NA='rgba(128,142,156,.45)';
+  const grad=(m,sc)=>{const st=[];for(let t=t0;t<T1;t+=36e5){const c=fcsCol(sc,m.get(t))||NA,a=((t-t0)/span*100).toFixed(2),b=((t+36e5-t0)/span*100).toFixed(2);st.push(c+' '+a+'%',c+' '+b+'%')}return 'linear-gradient(90deg,'+st.join(',')+')'};
+  const wd=new Intl.DateTimeFormat(locale(),{timeZone:TZ,weekday:'short'}),dn=new Intl.DateTimeFormat(locale(),{timeZone:TZ,day:'numeric'});
+  let days='';for(let d=0;d<nd;d++){const mid=new Date(t0+d*864e5+432e5);days+='<span class="'+(d<2?'on':'')+'"><b>'+esc(wd.format(mid).replace('.','').slice(0,3).toUpperCase())+'</b><i>'+esc(dn.format(mid))+'</i></span>'}
+  const nowX=((nowMs-t0)/span*100);
+  const IW='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 8h10a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h7"/></svg>';
+  const IV='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><path d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/></svg>';
+  const wmax=Math.max(0,...[...G.values()].filter((_,i)=>true)),vmax=Math.max(0,...[...V.values()]);
+  const hdr=(t('fcsWind')||'')+' · '+(t('fcsWave')||'');
+  el.innerHTML='<div class="fcs-d" style="grid-template-columns:repeat('+nd+',1fr)">'+days+'</div><div class="fcs-rows"><div class="fcs-r"><div class="fcs-b" style="background:'+grad(W,FCS_W)+'"></div><span class="fcs-i" title="'+esc(t('fcsWind'))+'">'+IW+'</span></div><div class="fcs-r"><div class="fcs-b" style="background:'+grad(V,FCS_V)+'"></div><span class="fcs-i" title="'+esc(t('fcsWave'))+'">'+IV+'</span></div>'+(nowX>=0&&nowX<=100?'<i class="fcs-now" style="left:calc((100% - 30px) * '+(nowX/100).toFixed(4)+')"></i>':'')+'</div>';
+  el.title=hdr;el.setAttribute('aria-label',hdr);el.hidden=false}
+(function(){const el=$('fcStrip');if(!el)return;const op=()=>{const c=$('fcCard');c.open=true};el.addEventListener('click',op);el.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();op()}})})();
+Object.assign(T.pt,{fcsWind:'Vento',fcsWave:'Ondas'});Object.assign(T.en,{fcsWind:'Wind',fcsWave:'Waves'});
 function drawForecast(){
+  try{fcStrip()}catch(e){}
   const card=$('fcCard');if(!card||!card.open)return;
   const box=$('fcBox'),nowEl=$('fcNow'),nowMs=Date.now(),p=lisbonParts(nowMs),t0=nowMs-((p.hour*60+p.minute)*60+p.second)*1000-nowMs%1000;
   const ST=fcStep(),HALF=ST*18e5,NH=72/ST,CW=32,W=NH*CW,cx=i=>i*CW+CW/2,XT=t=>(t-t0)/(36e5*ST)*CW+CW/2;
@@ -4114,7 +4154,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794663293';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794672521';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -5095,6 +5135,10 @@ $('dlogClose').addEventListener('click',()=>$('dlogD').close());
   body.addEventListener('contextmenu',ev=>{if(ev.target.closest('figure.dlc'))ev.preventDefault()});
   body.addEventListener('click',ev=>{if(Date.now()-noClick<400){ev.preventDefault();return}const g=ev.target.closest('[data-go]');if(g){clear();dlShow(+g.dataset.go);return}if(ev.target.closest('[data-back]')){clear();dlShow(null);return}
     if(ev.target.closest('a'))return;const f=ev.target.closest('figure.dlc[data-k]');if(f){clear();dlShow(+f.dataset.k)}});
+  /* swipe left / right in the single-chart view to go to the next / previous chart (on the plot itself only a quick flick counts, so slow drags still read values) */
+  let sw=null;body.addEventListener('touchstart',ev=>{if(body.dataset.k===''||ev.touches.length!==1){sw=null;return}const p=ev.touches[0];sw={x:p.clientX,y:p.clientY,t:Date.now(),plot:!!ev.target.closest('.dl1c svg')}},{passive:true});
+  body.addEventListener('touchend',ev=>{if(!sw)return;const s=sw;sw=null;const p=ev.changedTouches[0],dx=p.clientX-s.x,dy=p.clientY-s.y;if(Math.abs(dx)<60||Math.abs(dy)>Math.abs(dx)*0.6)return;if(s.plot&&Date.now()-s.t>350)return;
+    const dir=dx<0?1:-1,go=body.querySelector('[data-go][data-d="'+dir+'"]');if(!go)return;clear();dlShow(+go.dataset.go);body.classList.remove('dlsl','dlsr');void body.offsetWidth;body.classList.add(dir>0?'dlsr':'dlsl')},{passive:true});
   body.addEventListener('change',ev=>{const sl=ev.target.closest&&ev.target.closest('select[data-ov]');if(!sl)return;const k=+sl.dataset.ov;dlOvSet(k,sl.value===''?null:+sl.value);clear();dlShow(k)});
   body.addEventListener('keydown',ev=>{const f=ev.target.closest('figure.dlc[data-k]');if(f&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();dlShow(+f.dataset.k)}});
   $('dlogD').addEventListener('keydown',ev=>{if(body.dataset.k==='')return;if(ev.key==='ArrowRight'||ev.key==='ArrowLeft'){const go=body.querySelector('[data-go][data-d="'+(ev.key==='ArrowRight'?1:-1)+'"]');if(go){clear();dlShow(+go.dataset.go)}}});
