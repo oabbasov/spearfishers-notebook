@@ -708,6 +708,8 @@ header h1{position:relative;padding-top:1.07em}
 .dlog-d .dlst{gap:6px}
 .dlog-d.sheet-wide{max-width:calc(100vw - 8px)}
 @media (max-width:600px){.dlog-d.sheet-wide{width:calc(100vw - 8px)!important;margin-left:auto!important;margin-right:auto!important}.dlog-d .sheet-in{padding:10px 6px}.dlog-d .dl1h,.dlog-d .dl1t,.dlog-d .dlov,.dlog-d .dl1x{padding:0 6px}}
+@media (orientation:landscape) and (max-height:600px){.dlog-d.sheet-wide{max-height:calc(100dvh - 8px)}.dlog-d .sheet-in{padding:6px 10px;gap:6px;max-height:calc(100dvh - 10px)}.dlog-d .sheet-head h2{font-size:1rem}
+  .dlog-d .dl1h{margin-bottom:2px}.dlog-d .dlnav{width:28px;height:28px}.dlog-d .dl1t{font-size:.95rem;margin:0 0 4px}.dlog-d .dlov{margin:0 0 4px;flex-wrap:nowrap;white-space:nowrap}.dlog-d .dlov select{padding:3px 6px}.dlog-d .dl1c{padding:2px}}
 .dlnote{font-size:.8rem;color:var(--muted);margin-top:10px!important}
 
 .dlc{cursor:pointer;transition:border-color .15s}.dlc:hover{border-color:var(--sea)}.dlc:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
@@ -4102,7 +4104,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794651412';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794653080';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -4885,7 +4887,7 @@ function fitLog(rec,dives,dpos,ses,off){
   return {v:1,src:'fit',t0:t0+(off||0),dt,d,h,tp,dist:s0[9]!=null?Math.round(s0[9]/100):null,dv}}
 
 /* tiny SVG chart kit — colours come from the page tokens so both themes work; DLREG keeps what the hover needs */
-let DLW=340,DLH=190,DLREG=[],DLCUR=null,DLBIG=false;const DLP={l:34,r:12,t:10,b:24};
+let DLHF=0,DLW=340,DLH=190,DLREG=[],DLCUR=null,DLBIG=false;const DLP={l:34,r:12,t:10,b:24};
 const dlA=s=>esc(String(s)).replace(/"/g,'&quot;');
 function dlNice(a,b,n){if(!(b>a)){b=a+1}const st=(b-a)/(n||4),p=Math.pow(10,Math.floor(Math.log10(st))),m=st/p,s=(m<1.5?1:m<3?2:m<7?5:10)*p,o=[];for(let v=Math.ceil(a/s-1e-9)*s;v<=b+1e-9;v+=s)o.push(+v.toFixed(6));return o}
 function dlFrame(x0,x1,y0,y1,o){o=o||{};const W=DLW,H=o.h||DLH,P={l:30,r:o.y2?34:6,t:(o.yu||o.y2)?22:10,b:o.noX?8:(o.xu?38:24)},iw=W-P.l-P.r,ih=H-P.t-P.b,k=DLBIG?2:1,dep=o.depth&&DLBIG;
@@ -4905,13 +4907,17 @@ function dlSvg(F,body,extra,reg){let a='';if(reg){reg.F={x0:F.x0,x1:F.x1,y0:F.y0
   return '<svg viewBox="0 0 '+F.W+' '+F.H+'" class="dls'+(reg?' dlL':'')+'" role="img"'+a+'>'+F.g+body+(extra||'')+'</svg>'}
 function dlBars(vals,o){o=o||{};const n=vals.length,mx=o.max!=null?o.max:Math.max(...vals.map(v=>Array.isArray(v)?Math.max(...v.filter(x=>x!=null)):v||0),0)*1.1||1;
   const V2=o.ov?o.ov.vals:null,v2=V2?V2.filter(v=>v!=null):[],Y2=V2?{y0:o.ov.y0!=null?o.ov.y0:0,y1:(Math.max(...v2,0)*1.1)||1,inv:o.ov.inv,yu:o.ov.yu,yf:o.ov.yf}:null;
-  const F=dlFrame(0.5,n+0.5,o.min||0,mx,{xl:vals.map((v,i)=>[i+1,(n>16&&i%2&&!DLBIG)?'':String(i+1)]),yf:o.yf,inv:o.inv,depth:o.depth,yu:o.yu,xu:t('dlAx').dive,y2:Y2});const bw=Math.min(DLBIG?40:22,F.iw/n*0.7);let b='';
+  /* value labels that would collide side by side are turned 90°, with room made for them */
+  let rot=false,mxx=mx;if(DLBIG){const tf0=o.tf||(v=>fmt(v)),labs=[];vals.forEach((v,i)=>{if(Array.isArray(v)){if(o.pairLab){const l=o.pairLab(i);if(l)labs.push(l)}}else if(v!=null)labs.push(tf0(v))});
+    const cw=Math.max(0,...labs.map(l=>String(l).length))*4.9+4,slot=(DLW-30-(Y2?34:6))/n;if(labs.length&&cw>slot*0.96){rot=true;const ih=DLH-22-38;mxx=mx/Math.max(0.45,1-(cw+8)/ih)}}
+  const vlab=(x,y,txt,down)=>rot?'<text x="'+(x+3)+'" y="'+(down?y+4:y-4)+'" transform="rotate(-90 '+(x+3)+' '+(down?y+4:y-4)+')" class="dx dv" style="text-anchor:'+(down?'end':'start')+'">'+txt+'</text>':'<text x="'+x+'" y="'+(down?y+11:y-4)+'" class="dx dv">'+txt+'</text>';
+  const F=dlFrame(0.5,n+0.5,o.min||0,mxx,{xl:vals.map((v,i)=>[i+1,(n>16&&i%2&&!DLBIG)?'':String(i+1)]),yf:o.yf,inv:o.inv,depth:o.depth,yu:o.yu,xu:t('dlAx').dive,y2:Y2});const bw=Math.min(DLBIG?40:22,F.iw/n*0.7);let b='';
   const tf=o.tf||(v=>fmt(v)),nm=o.names||[''],ovl=i=>V2&&V2[i]!=null?'\n'+o.ov.name+': '+o.ov.tf(V2[i]):'',lab=(i,j,u)=>t('dlDive')+' #'+(i+1)+(o.tipX?' · '+o.tipX(i):'')+'\n'+(nm[j]?nm[j]+': ':(o.yn?o.yn+': ':''))+tf(u)+ovl(i),base=F.sy(o.min||0);
   const rc=(x,w,u,cls,tip)=>{const y=F.sy(u);return '<rect x="'+x+'" y="'+Math.min(y,base)+'" width="'+w+'" height="'+Math.abs(base-y)+'" class="'+cls+'" rx="1.5" data-t="'+dlA(tip)+'"/>'};
   vals.forEach((v,i)=>{const x=F.sx(i+1);if(Array.isArray(v)){const k=v.length,w=bw/k;v.forEach((u,j)=>{if(u==null)return;b+=rc(x-bw/2+j*w,w-1,u,o.clsF?o.clsF(i,j):(o.cls||['b1','b2'])[j],lab(i,j,u)+(o.tipMore?'\n'+o.tipMore(i):''))})}
-    else if(v!=null){b+=rc(x-bw/2,bw,v,o.hi&&o.hi(i)?'b2':'b1',lab(i,0,v)+(o.tipMore?'\n'+o.tipMore(i):''));if(DLBIG){const y=F.sy(v);b+='<text x="'+x+'" y="'+(o.inv?y+11:y-4)+'" class="dx dv">'+tf(v)+'</text>'}}});
+    else if(v!=null){b+=rc(x-bw/2,bw,v,o.hi&&o.hi(i)?'b2':'b1',lab(i,0,v)+(o.tipMore?'\n'+o.tipMore(i):''));if(DLBIG)b+=vlab(x,F.sy(v),tf(v),o.inv)}});
   if(o.req)vals.forEach((v,i)=>{const r=o.req(i);if(r==null)return;const x=F.sx(i+1),w=bw/2,y=F.sy(r);b+='<line x1="'+(x-1)+'" x2="'+(x+w+1)+'" y1="'+y+'" y2="'+y+'" class="dreq"/>'});
-  if(o.pairLab&&DLBIG)vals.forEach((v,i)=>{const l=o.pairLab(i);if(!l)return;const top=Math.max(...v.filter(x=>x!=null),o.req&&o.req(i)!=null?o.req(i):0);b+='<text x="'+F.sx(i+1)+'" y="'+(F.sy(top)-5)+'" class="dx dv">'+l+'</text>'});
+  if(o.pairLab&&DLBIG)vals.forEach((v,i)=>{const l=o.pairLab(i);if(!l)return;const top=Math.max(...v.filter(x=>x!=null),o.req&&o.req(i)!=null?o.req(i):0);b+=vlab(F.sx(i+1),F.sy(top)-1,l,false)});
   if(V2){let d='';V2.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+F.sx(i+1).toFixed(1)+' '+F.sy2(v).toFixed(1)});b+='<path d="'+d+'" class="l3" style="stroke:var(--accent)"/>';
     V2.forEach((v,i)=>{if(v==null)return;b+='<circle cx="'+F.sx(i+1)+'" cy="'+F.sy2(v)+'" r="'+(DLBIG?5:3.5)+'" class="dov" data-t="'+dlA(t('dlDive')+' #'+(i+1)+(o.tipX?' · '+o.tipX(i):'')+'\n'+o.ov.name+': '+o.ov.tf(v)+(vals[i]!=null&&!Array.isArray(vals[i])?'\n'+(o.yn||'')+': '+tf(vals[i]):''))+'"/>'})}
   if(o.ref!=null){const y=F.sy(o.ref);b+='<line x1="'+F.P.l+'" x2="'+(F.W-F.P.r)+'" y1="'+y+'" y2="'+y+'" class="dref"/><text x="'+(F.W-F.P.r)+'" y="'+(y+11)+'" class="dy" style="fill:var(--accent)">'+esc(o.refL||'')+'</text>'}
@@ -5029,7 +5035,7 @@ const DLZ='<svg class="dlz" viewBox="0 0 24 24" width="16" height="16" fill="non
 function dlogHtml(L){DLREG=[];DLW=340;DLH=190;DLBIG=false;const B=dlBuild(L);
   let h='<div class="dlst">'+B.st.map((s,i)=>'<div><b>'+esc(String(s[0]))+'</b><span>'+esc(t('dlS')[i])+(s[1]?' · '+s[1]:'')+'</span></div>').join('')+'</div><div class="dlg">';let n=0;
   h+=dlOrd().map(i=>{const body=dlBody(B,i);return body?'<figure class="dlc'+(i===17?' dlwide':'')+'" data-k="'+i+'" tabindex="0" role="button"><figcaption><span class="dln">'+(++n)+'</span>'+esc(dlTitle(B,i))+DLZ+'</figcaption>'+body+'</figure>':''}).join('')+'</div>';return h}
-function dlOne(L,k){DLREG=[];const big=innerWidth>=700;DLW=big?680:340;DLH=big?360:250;DLBIG=true;const B=dlBuild(L),c=B.C[k],oj=dlOvGet(B,k),ins=(c.i()||[]).concat(oj!=null?B.C[oj].i()||[]:[]).filter(Boolean);
+function dlOne(L,k){DLREG=[];const big=innerWidth>=700;DLW=big?680:340;DLH=DLHF||(big?360:250);DLBIG=true;const B=dlBuild(L),c=B.C[k],oj=dlOvGet(B,k),ins=(c.i()||[]).concat(oj!=null?B.C[oj].i()||[]:[]).filter(Boolean);
   const avail=dlOrd().filter(i=>{DLREG=[];return i===k||!!B.C[i].f()});DLREG=[];
   const body=dlBody(B,k),j=avail.indexOf(k),pv=avail[j-1],nx=avail[j+1];
   const comp=c.ov?avail.filter(i=>i!==k&&B.C[i].ov&&B.C[i].ov.x===c.ov.x):[];
@@ -5038,7 +5044,11 @@ function dlOne(L,k){DLREG=[];const big=innerWidth>=700;DLW=big?680:340;DLH=big?3
   return '<div class="dl1h"><button type="button" class="dlback" data-back="1"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>'+esc(t('dlBack'))+'</button><span class="dl1n">'+arr(pv,-1)+'<b>'+(j+1)+' / '+avail.length+'</b>'+arr(nx,1)+'</span></div>'+
     '<h3 class="dl1t"><span class="dln">'+(j+1)+'</span>'+esc(dlTitle(B,k))+'</h3>'+sel+'<div class="dl1c">'+body+'</div>'+
     '<div class="dl1x">'+(t('dlX')[k]?'<p>'+esc(t('dlX')[k])+'</p>':'')+(oj!=null&&t('dlX')[oj]?'<p>'+esc(t('dlX')[oj])+'</p>':'')+(ins.length?'<ul>'+ins.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul>':'')+((c.dep||(oj!=null&&B.C[oj].dep))?'<p class="dlnote">'+esc(t('dlNote'))+'</p>':'')+'</div>'}
-function dlShow(k){const b=$('dlogBody');b.innerHTML=k==null?dlogHtml(DLCUR):dlOne(DLCUR,k);b.dataset.k=k==null?'':k;$('dlogD').querySelector('.sheet-in').scrollTop=0;try{$('dlogD').scrollTop=0}catch(_){}}
+function dlShow(k){const b=$('dlogBody');DLHF=0;b.innerHTML=k==null?dlogHtml(DLCUR):dlOne(DLCUR,k);b.dataset.k=k==null?'':k;$('dlogD').querySelector('.sheet-in').scrollTop=0;try{$('dlogD').scrollTop=0}catch(_){}
+  /* phone turned sideways: squeeze the chart's height so it fits on screen without scrolling */
+  if(k!=null&&innerWidth>innerHeight&&innerHeight<600){const sv=b.querySelector('.dl1c svg'),c=b.querySelector('.dl1c');if(sv&&c){const r=sv.getBoundingClientRect(),extra=c.getBoundingClientRect().bottom-r.bottom,avail=innerHeight-r.top-extra-16;
+    if(r.height>avail&&avail>60){DLHF=Math.max(110,Math.floor(DLH*avail/r.height));b.innerHTML=dlOne(DLCUR,k);DLHF=0}}}}
+let dlRz=0;addEventListener('resize',()=>{clearTimeout(dlRz);dlRz=setTimeout(()=>{const d=$('dlogD');if(!d||!d.open||!DLCUR)return;const k=$('dlogBody').dataset.k;dlShow(k===''?null:+k)},180)});
 function dlogOpen(e){if(!e||!e.dlog)return;DLCUR=e.dlog;$('dlogTitle').textContent=[e.spot,e.date?fmtDate(e.date):''].filter(Boolean).join(' · ');try{dlShow(null)}catch(err){$('dlogBody').textContent=String(err)}$('dlogD').showModal()}
 $('dlogClose').addEventListener('click',()=>$('dlogD').close());
 /* hover / touch read-out */
