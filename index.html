@@ -4107,7 +4107,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794653164';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794654718';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -5056,9 +5056,11 @@ function dlogOpen(e){if(!e||!e.dlog)return;DLCUR=e.dlog;$('dlogTitle').textConte
 $('dlogClose').addEventListener('click',()=>$('dlogD').close());
 /* hover / touch read-out */
 (function(){const tip=document.createElement('div');tip.className='dltip';tip.hidden=true;$('dlogD').appendChild(tip);const body=$('dlogBody');let lastSvg=null;
-  const place=(x,y,txt)=>{tip.innerHTML=txt.split('\n').map((l,i)=>i?'<span>'+esc(l)+'</span>':'<b>'+esc(l)+'</b>').join('');tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+14,T=y+14;if(L+r.width>innerWidth-8)L=x-r.width-14;if(T+r.height>innerHeight-8)T=y-r.height-14;tip.style.left=Math.max(8,L)+'px';tip.style.top=Math.max(8,T)+'px'};
+  let ptType='mouse';const place=(x,y,txt)=>{tip.innerHTML=txt.split('\n').map((l,i)=>i?'<span>'+esc(l)+'</span>':'<b>'+esc(l)+'</b>').join('');tip.hidden=false;const r=tip.getBoundingClientRect();let L=x+14,T=y+14;if(L+r.width>innerWidth-8)L=x-r.width-14;if(T+r.height>innerHeight-8)T=y-r.height-14;
+    /* finger: show it well above the touch point (or below if there is no room) so the hand doesn't hide it */
+    if(ptType!=='mouse'){L=Math.min(innerWidth-r.width-8,Math.max(8,x-r.width/2));T=y-r.height-56;if(T<8)T=y+56}tip.style.left=Math.max(8,L)+'px';tip.style.top=Math.max(8,T)+'px'};
   const clear=()=>{tip.hidden=true;if(lastSvg){const l=lastSvg.querySelector('.dch');if(l)l.setAttribute('visibility','hidden');const g=lastSvg.querySelector('.dcd');if(g)g.innerHTML='';lastSvg=null}};
-  const move=ev=>{if(dr&&dr.on)return;const el=ev.target.closest&&ev.target.closest('[data-t]');if(el&&body.contains(el)){if(lastSvg&&lastSvg!==el.closest('svg'))clear();place(ev.clientX,ev.clientY,el.dataset.t);return}
+  const move=ev=>{if(dr&&dr.on)return;ptType=ev.pointerType||'mouse';const el=ev.target.closest&&ev.target.closest('[data-t]');if(el&&body.contains(el)){if(lastSvg&&lastSvg!==el.closest('svg'))clear();place(ev.clientX,ev.clientY,el.dataset.t);return}
     const svg=ev.target.closest&&ev.target.closest('svg.dlL');if(!svg){clear();return}const R=DLREG[+svg.dataset.r];if(!R){clear();return}
     const m=svg.getScreenCTM();if(!m)return;const p=new DOMPoint(ev.clientX,ev.clientY).matrixTransform(m.inverse()),F=R.F;
     let xv=F.x0+(Math.min(Math.max(p.x,F.P.l),F.P.l+F.iw)-F.P.l)/F.iw*(F.x1-F.x0);const sx=v=>F.P.l+(v-F.x0)/(F.x1-F.x0)*F.iw,sy1=v=>F.inv?F.P.t+(v-F.y0)/(F.y1-F.y0||1)*F.ih:F.P.t+F.ih-(v-F.y0)/(F.y1-F.y0||1)*F.ih,Y2=F.y2,sy2=v=>Y2.inv?F.P.t+(v-Y2.y0)/(Y2.y1-Y2.y0||1)*F.ih:F.P.t+F.ih-(v-Y2.y0)/(Y2.y1-Y2.y0||1)*F.ih;
