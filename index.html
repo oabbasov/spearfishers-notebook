@@ -4102,7 +4102,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794648353';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794651412';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -4744,17 +4744,51 @@ function fitParse(buf){const v=new DataView(buf),hs=v.getUint8(0),ds=v.getUint32
 function xmlNum(t){const m=String(t||'').replace(',','.').match(/-?\d+(\.\d+)?/);return m?+m[0]:null}
 function mmss(t){t=String(t||'').trim();const m=t.match(/^(\d+):(\d{1,2})/);if(m)return +m[1]*60+ +m[2];const n=xmlNum(t);return n==null?null:/min/.test(t)?n*60:n}
 function localMs(dateStr){const m=String(dateStr||'').match(/(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})(?::(\d{2}))?/);return m?{d:m[1]+'-'+m[2]+'-'+m[3],ms:Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5],+(m[6]||0))}:null}
-function xmlParse(text){const doc=new DOMParser().parseFromString(text,'application/xml');if(doc.querySelector('parsererror'))throw new Error('xml');const dives=[],temps=[];let gps=null;const q=(el,s)=>el.getElementsByTagName(s);
-  const uddf=q(doc,'uddf').length||q(doc,'informationbeforedive').length;
-  [...q(doc,'dive')].forEach(dv=>{let st=null,dur=null,max=null;
-    if(uddf){const dt=q(dv,'datetime')[0];st=dt&&localMs(dt.textContent);const dd=q(dv,'diveduration')[0];dur=dd?xmlNum(dd.textContent):null;const gd=q(dv,'greatestdepth')[0];max=gd?xmlNum(gd.textContent):null;
-      const wps=[...q(dv,'waypoint')];let lastT=0;wps.forEach(w=>{const d=q(w,'depth')[0],tm=q(w,'divetime')[0],tp=q(w,'temperature')[0];if(d){const x=xmlNum(d.textContent);if(x!=null)max=Math.max(max||0,x)}if(tm){const x=xmlNum(tm.textContent);if(x!=null)lastT=Math.max(lastT,x)}if(tp){const k=xmlNum(tp.textContent);if(k!=null)temps.push(k>200?k-273.15:k)}});
-      if(dur==null&&lastT)dur=lastT;const lt=q(dv,'lowesttemperature')[0];if(lt){const k=xmlNum(lt.textContent);if(k!=null)temps.push(k>200?k-273.15:k)}}
-    else{const d=dv.getAttribute('date'),tm=dv.getAttribute('time');st=d?localMs(d+' '+(tm||'00:00')):null;dur=mmss(dv.getAttribute('duration'));const de=q(dv,'depth')[0];max=de?xmlNum(de.getAttribute('max')):null;
-      [...q(dv,'sample')].forEach(sm=>{const x=xmlNum(sm.getAttribute('depth'));if(x!=null)max=Math.max(max||0,x);const tp=sm.getAttribute('temp');if(tp)temps.push(xmlNum(tp))});
-      const te=q(dv,'temperature')[0];if(te&&te.getAttribute('water'))temps.push(xmlNum(te.getAttribute('water')));const g=dv.getAttribute('gps')||(q(dv,'location')[0]&&q(dv,'location')[0].getAttribute('gps'));if(!gps&&g){const a=g.trim().split(/\s+/).map(Number);if(a.length===2&&!a.some(isNaN))gps=a}}
-    if(max==null&&dur==null)return;dives.push({s:st?st.ms:null,e:st&&dur!=null?st.ms+dur*1000:null,max:max||0,dur,day:st&&st.d,local:true})});
-  return {dives,temps:temps.filter(x=>x!=null&&isFinite(x)),gps}}
+/* dive profile from any file that has samples: same compact log as from .fit, so the same charts work */
+function dlFromDives(list){const L=list.filter(x=>x.s!=null&&x.smp&&x.smp.filter(p=>p.d!=null).length>1).sort((a,b)=>a.s-b.s);if(!L.length)return null;
+  const prof=L.map(x=>{const S=x.smp.filter(p=>p.t!=null&&p.d!=null).sort((a,b)=>a.t-b.t),H=x.smp.filter(p=>p.t!=null&&p.hr!=null).sort((a,b)=>a.t-b.t),TP=x.smp.filter(p=>p.t!=null&&p.tp!=null).sort((a,b)=>a.t-b.t);
+    const T=Math.min(7200,Math.round(S[S.length-1].t)),p=[],h=[],tp=[];let j=0,jh=-1,jt=-1;
+    for(let s=0;s<=T;s++){while(j<S.length-2&&S[j+1].t<=s)j++;const a=S[j],b=S[Math.min(j+1,S.length-1)],f=b.t>a.t?Math.min(1,Math.max(0,(s-a.t)/(b.t-a.t))):0;p.push(Math.max(0,Math.round((a.d+(b.d-a.d)*f)*10)));
+      while(jh<H.length-1&&H[jh+1].t<=s)jh++;h.push(jh>=0&&H[jh].hr>=30&&H[jh].hr<=200?Math.round(H[jh].hr):null);
+      while(jt<TP.length-1&&TP[jt+1].t<=s)jt++;tp.push(jt>=0?Math.round(TP[jt].tp):null)}
+    /* keep the part under water (≥ 1 m) like the .fit import does */
+    let i1=p.findIndex(v=>v>=10),i2=p.length-1;while(i2>0&&p[i2]<10)i2--;if(i1<0){i1=0;i2=p.length-1}
+    return {s:x.s+i1*1000,p:p.slice(i1,i2+2),h:h.slice(i1,i2+2),tp:tp.slice(i1,i2+2),lat:x.lat,lng:x.lng}}).filter(x=>Math.max(...x.p)>=15);if(!prof.length)return null;
+  const t0=prof[0].s,dt=5,end=Math.max(...prof.map(x=>x.s+x.p.length*1000)),n=Math.ceil((end-t0)/1000/dt)+1,d=new Array(n).fill(0),h=new Array(n).fill(null),tp=new Array(n).fill(null);
+  prof.forEach(x=>x.p.forEach((v,k)=>{const i=Math.floor((x.s-t0)/1000/dt+k/dt);if(i<0||i>=n)return;d[i]=Math.max(d[i],v);if(x.h[k]!=null)h[i]=x.h[k];if(x.tp[k]!=null)tp[i]=x.tp[k]}));
+  const dv=prof.map((x,k)=>{const p=x.p,mx=Math.max(...p),thr=mx*0.85,i1=p.findIndex(v=>v>=thr),i2=p.length-1-[...p].reverse().findIndex(v=>v>=thr),hv=x.h.filter(v=>v!=null),tv=x.tp.filter(v=>v!=null),nx=prof[k+1],dur=p.length;
+    return {s:Math.round((x.s-t0)/1000),dur,max:mx/10,hang:p.filter(v=>v>=thr).length,dr:i1>0?+(mx/10/i1).toFixed(2):null,ar:i2>=0&&i2<p.length-1?+(mx/10/(p.length-1-i2)).toFixed(2):null,
+      hn:hv.length?Math.min(...hv):null,hx:hv.length?Math.max(...hv):null,tb:tv.length?Math.min(...tv):null,surf:nx?Math.max(0,Math.round((nx.s-x.s)/1000-dur)):null,
+      lat:x.lat!=null?+(+x.lat).toFixed(6):null,lng:x.lng!=null?+(+x.lng).toFixed(6):null,p,h:x.h,tp:x.tp}});
+  return {v:1,src:'xml',t0,dt,d,h,tp,dist:null,dv}}
+/* UDDF, Subsurface (.xml/.ssrf), Suunto DM5 (.sml/.xml), MacDive (.xml) */
+function xmlParse(text){const doc=new DOMParser().parseFromString(text,'application/xml');if(doc.querySelector('parsererror'))throw new Error('xml');const dives=[],temps=[],list=[];let gps=null;
+  const q=(el,s)=>el.getElementsByTagName(s),one=(el,s)=>q(el,s)[0],txt=(el,s)=>{const e=one(el,s);return e?e.textContent:null},K=v=>v==null?null:v>200?v-273.15:v,root=(doc.documentElement.nodeName||'').toLowerCase();
+  const add=(st,dur,max,smp,lat,lng)=>{if(max==null&&dur==null&&!(smp&&smp.length))return;if(smp&&smp.length){smp.forEach(p=>{if(p.d!=null)max=Math.max(max||0,p.d);if(p.tp!=null)temps.push(p.tp)});if(dur==null)dur=Math.max(...smp.map(p=>p.t||0))}
+    if(lat!=null&&lng!=null&&!gps)gps=[+lat,+lng];dives.push({s:st?st.ms:null,e:st&&dur!=null?st.ms+dur*1000:null,max:max||0,dur,day:st&&st.d,local:true});list.push({s:st?st.ms:null,smp:smp||[],lat,lng})};
+  if(q(doc,'uddf').length||q(doc,'informationbeforedive').length){
+    const sites={};[...q(doc,'site')].forEach(s=>{const id=s.getAttribute('id'),g=one(s,'geography');if(id&&g){const la=xmlNum(txt(g,'latitude')),lo=xmlNum(txt(g,'longitude'));if(la!=null&&lo!=null)sites[id]=[la,lo]}});
+    [...q(doc,'dive')].forEach(dv=>{const st=localMs(txt(dv,'datetime'));let dur=xmlNum(txt(dv,'diveduration')),max=xmlNum(txt(dv,'greatestdepth'));let site=null;[...q(dv,'link')].forEach(l=>{const r=l.getAttribute('ref');if(r&&sites[r])site=sites[r]});
+      const smp=[...q(dv,'waypoint')].map(w=>({t:xmlNum(txt(w,'divetime')),d:xmlNum(txt(w,'depth')),tp:K(xmlNum(txt(w,'temperature'))),hr:xmlNum(txt(w,'heartrate'))}));
+      const lt=K(xmlNum(txt(dv,'lowesttemperature')));if(lt!=null)temps.push(lt);add(st,dur,max,smp,site&&site[0],site&&site[1])})}
+  else if(q(doc,'DeviceLog').length||root==='sml'){
+    [...q(doc,'DeviceLog')].forEach(lg=>{const hd=one(lg,'Header')||lg,st=localMs(txt(hd,'DateTime'));const dur=xmlNum(txt(hd,'Duration'));const dp=one(hd,'Depth'),max=dp?xmlNum(txt(dp,'Max')):null;
+      const smp=[...q(lg,'Sample')].map(s=>{const hr=xmlNum(txt(s,'HR'));return {t:xmlNum(txt(s,'Time')),d:xmlNum(txt(s,'Depth')),tp:K(xmlNum(txt(s,'Temperature'))),hr:hr!=null?(hr<5?hr*60:hr):null}}).filter(p=>p.t!=null);
+      let la=null,lo=null;const s1=[...q(lg,'Sample')].find(s=>one(s,'Latitude'));if(s1){la=xmlNum(txt(s1,'Latitude'));lo=xmlNum(txt(s1,'Longitude'));if(la!=null&&Math.abs(la)<=Math.PI/2+1e-9&&Math.abs(lo)<=Math.PI+1e-9){la=la*180/Math.PI;lo=lo*180/Math.PI}}
+      add(st,dur,max,smp,la,lo)})}
+  else if(root==='dives'&&q(doc,'units').length){
+    const imp=/imperial/i.test(txt(doc,'units')||''),m=v=>v==null?null:imp?v*0.3048:v,c=v=>v==null?null:imp?(v-32)*5/9:v;
+    [...doc.documentElement.children].filter(e=>e.nodeName==='dive').forEach(dv=>{const st=localMs(txt(dv,'date'));const dur=xmlNum(txt(dv,'duration')),max=m(xmlNum(txt(dv,'maxDepth')));const si=one(dv,'site');
+      const smp=[...q(dv,'sample')].map(s=>({t:xmlNum(txt(s,'time')),d:m(xmlNum(txt(s,'depth'))),tp:c(xmlNum(txt(s,'temperature')))}));add(st,dur,max,smp,si?xmlNum(txt(si,'lat')):null,si?xmlNum(txt(si,'lon')):null)})}
+  else{
+    const sites={};[...q(doc,'site')].forEach(s=>{const id=s.getAttribute('uuid'),g=s.getAttribute('gps');if(id&&g){const a=g.trim().split(/\s+/).map(Number);if(a.length===2&&!a.some(isNaN))sites[id.trim()]=a}});
+    [...q(doc,'dive')].forEach(dv=>{const d=dv.getAttribute('date'),tm=dv.getAttribute('time'),st=d?localMs(d+' '+(tm||'00:00')):null,dur=mmss(dv.getAttribute('duration'));const de=one(dv,'depth');const max=de?xmlNum(de.getAttribute('max')):null;
+      const smp=[...q(dv,'sample')].map(sm=>({t:mmss(sm.getAttribute('time')),d:xmlNum(sm.getAttribute('depth')),tp:sm.getAttribute('temp')?xmlNum(sm.getAttribute('temp')):null,hr:sm.getAttribute('heartbeat')?xmlNum(sm.getAttribute('heartbeat')):null}));
+      const te=one(dv,'temperature');if(te&&te.getAttribute('water'))temps.push(xmlNum(te.getAttribute('water')));
+      let g=dv.getAttribute('gps')||(one(dv,'location')&&one(dv,'location').getAttribute('gps'));let ll=null;if(g){const a=g.trim().split(/\s+/).map(Number);if(a.length===2&&!a.some(isNaN))ll=a}const sid=(dv.getAttribute('divesiteid')||'').trim();if(!ll&&sid&&sites[sid])ll=sites[sid];
+      add(st,dur,max,smp,ll&&ll[0],ll&&ll[1])})}
+  let log=null;try{log=dlFromDives(list)}catch(_){}
+  return {dives,temps:temps.filter(x=>x!=null&&isFinite(x)),gps,log}}
 function impSummary(r,wantDay){const p2=n=>String(n).padStart(2,'0');
   const dayOf=x=>x.local?x.day:(x.s!=null?(o=>o.year+'-'+p2(o.month)+'-'+p2(o.day))(lisbonParts(x.s)):null);
   const hm=(ms,loc)=>{if(ms==null)return'';if(loc){const d=new Date(ms);return p2(d.getUTCHours())+':'+p2(d.getUTCMinutes())}const o=lisbonParts(ms);return p2(o.hour)+':'+p2(o.minute)};
