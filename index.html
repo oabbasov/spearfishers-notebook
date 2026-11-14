@@ -699,6 +699,15 @@ header h1{position:relative;padding-top:1.07em}
 .dls .b5{fill:var(--good)}.dls .dreq{stroke:var(--ink);stroke-width:1.6;stroke-dasharray:3 2}
 .dlk .k5{background:var(--good)}.dlk .kr{width:14px;height:0;border-top:2px dashed var(--ink);border-radius:0}
 .dlog-d{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.dlog-d select{-webkit-user-select:auto;user-select:auto}.dls{-webkit-tap-highlight-color:transparent}
+/* watch charts: use the width */
+.dlog-d.sheet-wide{width:min(1280px,calc(100vw - 16px))!important}
+.dlog-d .sheet-in{padding:12px 10px}
+.dlog-d .dlg{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.dlog-d .dlc{padding:8px 4px 6px}.dlog-d .dlc figcaption{padding:0 4px}
+.dlog-d .dl1c{padding:6px 2px}
+.dlog-d .dlst{gap:6px}
+.dlog-d.sheet-wide{max-width:calc(100vw - 8px)}
+@media (max-width:600px){.dlog-d.sheet-wide{width:calc(100vw - 8px)!important;margin-left:auto!important;margin-right:auto!important}.dlog-d .sheet-in{padding:10px 6px}.dlog-d .dl1h,.dlog-d .dl1t,.dlog-d .dlov,.dlog-d .dl1x{padding:0 6px}}
 .dlnote{font-size:.8rem;color:var(--muted);margin-top:10px!important}
 
 .dlc{cursor:pointer;transition:border-color .15s}.dlc:hover{border-color:var(--sea)}.dlc:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
@@ -4093,7 +4102,7 @@ Object.assign(T.pt,{delAcc:'Apagar a conta',delAccWarn:'Isto apaga para sempre t
 Object.assign(T.en,{delAcc:'Delete account',delAccWarn:'This permanently deletes all your entries, photos, previous versions and the account itself. It cannot be undone. To keep a copy, use “Download backup” under Your data first.',delAccType:'To confirm, type DELETE',delAccWord:'DELETE',delAccGo:'Delete everything for good',delAccWorking:'Deleting…',delAccNoFn:'Account deletion is not installed in the database yet.',delAccDone:'The account has been deleted.'});
 
 /* GitHub Pages lets browsers cache the page for 10 minutes: look for a newer build and reload when it is safe */
-(function(){const B='1794614179';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
+(function(){const B='1794648353';if(B.indexOf('BUILD')>0||DEMO)return;let last=0;
   const busy=()=>{const q=document.getElementById('quick');if(q&&q.value.trim())return true;return !!document.querySelector('dialog[open]')||(document.activeElement&&document.activeElement.matches('input,textarea,select'))};
   async function check(){if(Date.now()-last<60000)return;last=Date.now();
     try{const r=await fetch(location.pathname,{cache:'reload'});const s=await r.text();const m=s.match(/const B='(\d+)'/);
@@ -4845,7 +4854,7 @@ function fitLog(rec,dives,dpos,ses,off){
 let DLW=340,DLH=190,DLREG=[],DLCUR=null,DLBIG=false;const DLP={l:34,r:12,t:10,b:24};
 const dlA=s=>esc(String(s)).replace(/"/g,'&quot;');
 function dlNice(a,b,n){if(!(b>a)){b=a+1}const st=(b-a)/(n||4),p=Math.pow(10,Math.floor(Math.log10(st))),m=st/p,s=(m<1.5?1:m<3?2:m<7?5:10)*p,o=[];for(let v=Math.ceil(a/s-1e-9)*s;v<=b+1e-9;v+=s)o.push(+v.toFixed(6));return o}
-function dlFrame(x0,x1,y0,y1,o){o=o||{};const W=DLW,H=o.h||DLH,P={l:38,r:o.y2?40:12,t:(o.yu||o.y2)?22:10,b:o.noX?8:(o.xu?38:24)},iw=W-P.l-P.r,ih=H-P.t-P.b,k=DLBIG?2:1,dep=o.depth&&DLBIG;
+function dlFrame(x0,x1,y0,y1,o){o=o||{};const W=DLW,H=o.h||DLH,P={l:30,r:o.y2?34:6,t:(o.yu||o.y2)?22:10,b:o.noX?8:(o.xu?38:24)},iw=W-P.l-P.r,ih=H-P.t-P.b,k=DLBIG?2:1,dep=o.depth&&DLBIG;
   const sx=v=>P.l+(x1===x0?iw/2:(v-x0)/(x1-x0)*iw),sy=v=>o.inv?P.t+(v-y0)/(y1-y0||1)*ih:P.t+ih-(v-y0)/(y1-y0||1)*ih;
   let g='',yt=o.yt||dlNice(y0,y1,4*k),sch=null;const ppm=ih/((y1-y0)||1);
   if(o.depth)sch=DLBIG?{st:y1-y0>45?2:1,M:5}:{st:5,M:5};if(o.grid)sch={st:o.grid[0],M:o.grid[1]};
